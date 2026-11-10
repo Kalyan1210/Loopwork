@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `count_by_status(tickets)` that takes a list of dicts, each with a 'status' key, and returns a dict mapping each status to the number of tickets with that status. Example: count_by_status([{'id': 1, 'status': 'open'}, {'id': 2, 'status': 'done'}, {'id': 3, 'status': 'open'}]) returns {'open': 2, 'done': 1}. An empty list returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_by_status([{'id': 1, 'status': 'open'}, {'id': 2, 'status': 'done'}, {'id': 3, 'status': 'open'}]) == {'open': 2, 'done': 1}\nassert count_by_status([]) == {}\nassert count_by_status([{'status': 'held'}]) == {'held': 1}\nassert count_by_status([{'status': 'a'}, {'status': 'a'}, {'status': 'a'}, {'status': 'b'}]) == {'a': 3, 'b': 1}\nassert count_by_status([{'id': 9, 'status': 'x', 'owner': 'kim'}, {'id': 4, 'status': 'y'}, {'id': 5, 'status': 'z'}, {'id': 6, 'status': 'y'}]) == {'x': 1, 'y': 2, 'z': 1}"
+   }
+  ],
+  "reference": "```python\ndef count_by_status(tickets):\n    out = {}\n    for t in tickets:\n        out[t['status']] = out.get(t['status'], 0) + 1\n    return out\n```",
+  "negative": "```python\ndef count_by_status(tickets):\n    out = {}\n    for t in tickets:\n        out[t['status']] = len(out) + 1\n    return out\n```"
+ },
+ {
+  "local_id": "g4-02",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `transpose(m)` that takes a matrix given as a list of rows (lists of equal length; the matrix does not have to be square) and returns the transposed matrix as a list of lists, so rows become columns. Examples: transpose([[1, 2, 3], [4, 5, 6]]) returns [[1, 4], [2, 5], [3, 6]] and transpose([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [list(r) for r in transpose([[1, 2, 3], [4, 5, 6]])] == [[1, 4], [2, 5], [3, 6]]\nassert [list(r) for r in transpose([])] == []\nassert [list(r) for r in transpose([[7]])] == [[7]]\nassert [list(r) for r in transpose([[1, 2], [3, 4]])] == [[1, 3], [2, 4]]\nassert [list(r) for r in transpose([[1], [2], [3]])] == [[1, 2, 3]]\nassert [list(r) for r in transpose([['a', 'b', 'c', 'd']])] == [['a'], ['b'], ['c'], ['d']]"
+   }
+  ],
+  "reference": "```python\ndef transpose(m):\n    return [list(col) for col in zip(*m)]\n```",
+  "negative": "```python\ndef transpose(m):\n    n = len(m)\n    return [[m[j][i] for j in range(n)] for i in range(n)]\n```"
+ },
+ {
+  "local_id": "g4-03",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `flatten_once(items)` that takes a list and returns a new list in which every element that is itself a list is replaced by its own elements, in order. Only ONE level is flattened: lists nested deeper stay as lists. Elements that are not lists are kept as they are. Examples: flatten_once([1, [2, 3], [4, [5, 6]]]) returns [1, 2, 3, 4, [5, 6]] and flatten_once([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert flatten_once([1, [2, 3], [4, [5, 6]]]) == [1, 2, 3, 4, [5, 6]]\nassert flatten_once([]) == []\nassert flatten_once([1, 2, 3]) == [1, 2, 3]\nassert flatten_once([[], [1], []]) == [1]\nassert flatten_once([[[1, 2]], 'ab', [3]]) == [[1, 2], 'ab', 3]\nassert flatten_once([[['x']]]) == [['x']]"
+   }
+  ],
+  "reference": "```python\ndef flatten_once(items):\n    out = []\n    for x in items:\n        if isinstance(x, list):\n            out.extend(x)\n        else:\n            out.append(x)\n    return out\n```",
+  "negative": "```python\ndef flatten_once(items):\n    out = []\n    for x in items:\n        if isinstance(x, list):\n            out.extend(flatten_once(x))\n        else:\n            out.append(x)\n    return out\n```"
+ },
+ {
+  "local_id": "g4-04",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `unique_in_order(xs)` that takes a list of integers or strings and returns a new list with duplicates removed, keeping only the first occurrence of each value and keeping the original order. Examples: unique_in_order([3, 1, 3, 2, 1]) returns [3, 1, 2] and unique_in_order([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert unique_in_order([3, 1, 3, 2, 1]) == [3, 1, 2]\nassert unique_in_order([]) == []\nassert unique_in_order([5]) == [5]\nassert unique_in_order([4, 4, 4]) == [4]\nassert unique_in_order(['b', 'a', 'b', 'c', 'a']) == ['b', 'a', 'c']\nassert unique_in_order([9, 8, 7, 8, 9, 6]) == [9, 8, 7, 6]"
+   }
+  ],
+  "reference": "```python\ndef unique_in_order(xs):\n    seen = set()\n    out = []\n    for x in xs:\n        if x not in seen:\n            seen.add(x)\n            out.append(x)\n    return out\n```",
+  "negative": "```python\ndef unique_in_order(xs):\n    return sorted(set(xs))\n```"
+ },
+ {
+  "local_id": "g4-05",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `index_by(records, key)` that takes a list of dicts and a key name and returns a dict mapping each record's value for that key to the record itself. Records that do not have the key are skipped. If two records share the same value, the later one wins. Example: index_by([{'id': 'a', 'n': 1}, {'n': 2}, {'id': 'b', 'n': 3}], 'id') returns {'a': {'id': 'a', 'n': 1}, 'b': {'id': 'b', 'n': 3}}. An empty list returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert index_by([{'id': 'a', 'n': 1}, {'n': 2}, {'id': 'b', 'n': 3}], 'id') == {'a': {'id': 'a', 'n': 1}, 'b': {'id': 'b', 'n': 3}}\nassert index_by([], 'id') == {}\nassert index_by([{'id': 'a', 'n': 1}, {'id': 'a', 'n': 2}], 'id') == {'a': {'id': 'a', 'n': 2}}\nassert index_by([{'x': 1}, {'y': 2}], 'id') == {}\nassert index_by([{'code': 7, 'tag': 'p'}, {'code': 8, 'tag': 'q'}, {'code': 7, 'tag': 'r'}], 'code') == {7: {'code': 7, 'tag': 'r'}, 8: {'code': 8, 'tag': 'q'}}\nassert index_by([{'code': 7, 'tag': 'p'}, {'code': 8, 'tag': 'q'}], 'tag') == {'p': {'code': 7, 'tag': 'p'}, 'q': {'code': 8, 'tag': 'q'}}"
+   }
+  ],
+  "reference": "```python\ndef index_by(records, key):\n    out = {}\n    for r in records:\n        if key in r:\n            out[r[key]] = r\n    return out\n```",
+  "negative": "```python\ndef index_by(records, key):\n    out = {}\n    for r in records:\n        if key in r:\n            out.setdefault(r[key], r)\n    return out\n```"
+ },
+ {
+  "local_id": "g4-06",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `merge_stock(a, b)` that takes two dicts mapping item names to integer quantities (quantities may be negative) and returns a new dict with every item from either dict mapped to the sum of its quantities. Items whose total is exactly 0 are left out of the result. Examples: merge_stock({'nut': 4, 'bolt': 2}, {'bolt': -2, 'cog': 5}) returns {'nut': 4, 'cog': 5} and merge_stock({}, {}) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert merge_stock({'nut': 4, 'bolt': 2}, {'bolt': -2, 'cog': 5}) == {'nut': 4, 'cog': 5}\nassert merge_stock({}, {}) == {}\nassert merge_stock({'a': 1}, {}) == {'a': 1}\nassert merge_stock({'a': 0, 'b': 3}, {'c': 0}) == {'b': 3}\nassert merge_stock({'a': 2, 'b': 3}, {'a': 5, 'b': -1}) == {'a': 7, 'b': 2}\nassert merge_stock({'a': -4}, {'a': 4}) == {}"
+   }
+  ],
+  "reference": "```python\ndef merge_stock(a, b):\n    out = dict(a)\n    for k, v in b.items():\n        out[k] = out.get(k, 0) + v\n    return {k: v for k, v in out.items() if v != 0}\n```",
+  "negative": "```python\ndef merge_stock(a, b):\n    out = dict(a)\n    for k, v in b.items():\n        out[k] = out.get(k, 0) + v\n    return out\n```"
+ },
+ {
+  "local_id": "g4-07",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `sort_words(words)` that takes a list of lower-case strings and returns a list of the DISTINCT words sorted by length, shortest first; words of the same length are ordered alphabetically. Examples: sort_words(['pear', 'fig', 'apple', 'kiwi', 'fig']) returns ['fig', 'kiwi', 'pear', 'apple'] and sort_words([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert sort_words(['pear', 'fig', 'apple', 'kiwi', 'fig']) == ['fig', 'kiwi', 'pear', 'apple']\nassert sort_words([]) == []\nassert sort_words(['b', 'a', 'b', 'a']) == ['a', 'b']\nassert sort_words(['zz', 'a', 'yy', 'ccc', 'b']) == ['a', 'b', 'yy', 'zz', 'ccc']\nassert sort_words(['same']) == ['same']\nassert sort_words(['dog', 'cat', 'ant', 'bee', 'cat', 'ox']) == ['ox', 'ant', 'bee', 'cat', 'dog']"
+   }
+  ],
+  "reference": "```python\ndef sort_words(words):\n    return sorted(set(words), key=lambda w: (len(w), w))\n```",
+  "negative": "```python\ndef sort_words(words):\n    return sorted(words, key=lambda w: (len(w), w))\n```"
+ },
+ {
+  "local_id": "g4-08",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `rotate_cw(m)` that takes a matrix given as a list of rows (lists of equal length; it does not have to be square) and returns a new matrix, as a list of lists, rotated 90 degrees clockwise. The first row of the result is the first column of the input read from bottom to top. Examples: rotate_cw([[1, 2, 3], [4, 5, 6]]) returns [[4, 1], [5, 2], [6, 3]] and rotate_cw([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [list(r) for r in rotate_cw([[1, 2, 3], [4, 5, 6]])] == [[4, 1], [5, 2], [6, 3]]\nassert [list(r) for r in rotate_cw([])] == []\nassert [list(r) for r in rotate_cw([[1, 2], [3, 4]])] == [[3, 1], [4, 2]]\nassert [list(r) for r in rotate_cw([[5]])] == [[5]]\nassert [list(r) for r in rotate_cw([[1, 2, 3]])] == [[1], [2], [3]]\nassert [list(r) for r in rotate_cw([[1], [2], [3]])] == [[3, 2, 1]]\nassert [list(r) for r in rotate_cw([[1, 2, 3], [4, 5, 6], [7, 8, 9]])] == [[7, 4, 1], [8, 5, 2], [9, 6, 3]]"
+   }
+  ],
+  "reference": "```python\ndef rotate_cw(m):\n    return [list(col) for col in zip(*m[::-1])]\n```",
+  "negative": "```python\ndef rotate_cw(m):\n    return [list(col) for col in zip(*m)][::-1]\n```"
+ },
+ {
+  "local_id": "g4-09",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `dict_diff(old, new)` that compares two dicts and returns a dict with exactly three keys: 'added' (keys only in new), 'removed' (keys only in old) and 'changed' (keys in both whose values differ). Each value is an alphabetically sorted list of key names. Example: dict_diff({'a': 1, 'b': 2, 'c': 3}, {'b': 2, 'c': 9, 'd': 4}) returns {'added': ['d'], 'removed': ['a'], 'changed': ['c']}. dict_diff({}, {}) returns {'added': [], 'removed': [], 'changed': []}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert dict_diff({'a': 1, 'b': 2, 'c': 3}, {'b': 2, 'c': 9, 'd': 4}) == {'added': ['d'], 'removed': ['a'], 'changed': ['c']}\nassert dict_diff({}, {}) == {'added': [], 'removed': [], 'changed': []}\nassert dict_diff({'x': 1}, {'x': 1}) == {'added': [], 'removed': [], 'changed': []}\nassert dict_diff({}, {'q': 1, 'p': 2}) == {'added': ['p', 'q'], 'removed': [], 'changed': []}\nassert dict_diff({'z': 0, 'm': 5, 'k': 1}, {}) == {'added': [], 'removed': ['k', 'm', 'z'], 'changed': []}\nassert dict_diff({'t': 1, 's': 2, 'r': 3}, {'t': 2, 's': 3, 'r': 3, 'b': 0, 'a': 0}) == {'added': ['a', 'b'], 'removed': [], 'changed': ['s', 't']}"
+   }
+  ],
+  "reference": "```python\ndef dict_diff(old, new):\n    return {\n        'added': sorted(k for k in new if k not in old),\n        'removed': sorted(k for k in old if k not in new),\n        'changed': sorted(k for k in old if k in new and old[k] != new[k]),\n    }\n```",
+  "negative": "```python\ndef dict_diff(old, new):\n    return {\n        'added': sorted(k for k in new if k not in old),\n        'removed': sorted(k for k in old if k not in new),\n        'changed': sorted(k for k in old if k in new),\n    }\n```"
+ },
+ {
+  "local_id": "g4-10",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `join_city(people, cities)` that joins two tables. `people` is a list of dicts with keys 'name' and 'city_id'; `cities` is a list of dicts with keys 'id' and 'city' (ids are unique). Return a list of [name, city] lists, one for each person whose city_id matches a city id, in the same order as `people`. People with no matching city are left out. Example: join_city([{'name': 'Ana', 'city_id': 2}, {'name': 'Bo', 'city_id': 9}, {'name': 'Cy', 'city_id': 1}], [{'id': 1, 'city': 'Oslo'}, {'id': 2, 'city': 'Lima'}]) returns [['Ana', 'Lima'], ['Cy', 'Oslo']]. If either list is empty the result is [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [list(r) for r in join_city([{'name': 'Ana', 'city_id': 2}, {'name': 'Bo', 'city_id': 9}, {'name': 'Cy', 'city_id': 1}], [{'id': 1, 'city': 'Oslo'}, {'id': 2, 'city': 'Lima'}])] == [['Ana', 'Lima'], ['Cy', 'Oslo']]\nassert [list(r) for r in join_city([], [{'id': 1, 'city': 'Oslo'}])] == []\nassert [list(r) for r in join_city([{'name': 'Ana', 'city_id': 2}], [])] == []\nassert [list(r) for r in join_city([{'name': 'Di', 'city_id': 3}, {'name': 'Ed', 'city_id': 3}], [{'id': 3, 'city': 'Riga'}])] == [['Di', 'Riga'], ['Ed', 'Riga']]\nassert [list(r) for r in join_city([{'name': 'Flo', 'city_id': 5}], [{'id': 4, 'city': 'Bern'}])] == []\nassert [list(r) for r in join_city([{'name': 'Gus', 'city_id': 'k'}, {'name': 'Hal', 'city_id': 'j'}], [{'id': 'j', 'city': 'Kobe'}, {'id': 'k', 'city': 'Pisa'}, {'id': 'm', 'city': 'Graz'}])] == [['Gus', 'Pisa'], ['Hal', 'Kobe']]"
+   }
+  ],
+  "reference": "```python\ndef join_city(people, cities):\n    names = {c['id']: c['city'] for c in cities}\n    return [[p['name'], names[p['city_id']]] for p in people if p['city_id'] in names]\n```",
+  "negative": "```python\ndef join_city(people, cities):\n    names = {c['id']: c['city'] for c in cities}\n    return [[p['name'], names.get(p['city_id'])] for p in people]\n```"
+ },
+ {
+  "local_id": "g4-11",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `region_totals(sales)` that takes a list of (region, amount) tuples with integer amounts and returns a list of [region, total] lists, where total is the sum of all amounts for that region. Order the result by total, largest first; regions with the same total are ordered alphabetically by region name. Example: region_totals([('north', 5), ('east', 7), ('north', 4), ('west', 7)]) returns [['north', 9], ['east', 7], ['west', 7]]. An empty list returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [list(r) for r in region_totals([('north', 5), ('east', 7), ('north', 4), ('west', 7)])] == [['north', 9], ['east', 7], ['west', 7]]\nassert [list(r) for r in region_totals([])] == []\nassert [list(r) for r in region_totals([('solo', 3)])] == [['solo', 3]]\nassert [list(r) for r in region_totals([('b', 1), ('a', 1), ('c', 1)])] == [['a', 1], ['b', 1], ['c', 1]]\nassert [list(r) for r in region_totals([('x', 2), ('y', 10), ('x', 3), ('z', 5)])] == [['y', 10], ['x', 5], ['z', 5]]\nassert [list(r) for r in region_totals([('p', 4), ('q', -4), ('p', -4), ('q', 4), ('r', -1)])] == [['p', 0], ['q', 0], ['r', -1]]"
+   }
+  ],
+  "reference": "```python\ndef region_totals(sales):\n    totals = {}\n    for region, amount in sales:\n        totals[region] = totals.get(region, 0) + amount\n    return [[r, t] for r, t in sorted(totals.items(), key=lambda p: (-p[1], p[0]))]\n```",
+  "negative": "```python\ndef region_totals(sales):\n    totals = {}\n    for region, amount in sales:\n        totals[region] = totals.get(region, 0) + amount\n    return [[r, t] for r, t in sorted(totals.items(), key=lambda p: (p[1], p[0]), reverse=True)]\n```"
+ },
+ {
+  "local_id": "g4-12",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `run_stack(ops)` that simulates a stack that starts empty. `ops` is a list of operations, each a list: ['push', x] pushes x; ['pop'] removes the top item and records it; ['swap'] exchanges the top two items. A ['pop'] on an empty stack records None instead. A ['swap'] with fewer than two items on the stack does nothing. Return the list of recorded values in order. Examples: run_stack([['push', 1], ['push', 2], ['swap'], ['pop'], ['pop'], ['pop']]) returns [1, 2, None] and run_stack([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert run_stack([['push', 1], ['push', 2], ['swap'], ['pop'], ['pop'], ['pop']]) == [1, 2, None]\nassert run_stack([]) == []\nassert run_stack([['pop']]) == [None]\nassert run_stack([['push', 'a'], ['swap'], ['pop']]) == ['a']\nassert run_stack([['push', 3], ['push', 4], ['pop'], ['push', 5], ['pop'], ['pop']]) == [4, 5, 3]\nassert run_stack([['push', 1], ['push', 2], ['push', 3], ['swap'], ['pop'], ['swap'], ['pop'], ['pop']]) == [2, 1, 3]\nassert run_stack([['push', 7], ['push', 8]]) == []"
+   }
+  ],
+  "reference": "```python\ndef run_stack(ops):\n    stack, out = [], []\n    for op in ops:\n        if op[0] == 'push':\n            stack.append(op[1])\n        elif op[0] == 'pop':\n            out.append(stack.pop() if stack else None)\n        elif op[0] == 'swap' and len(stack) >= 2:\n            stack[-1], stack[-2] = stack[-2], stack[-1]\n    return out\n```",
+  "negative": "```python\ndef run_stack(ops):\n    stack, out = [], []\n    for op in ops:\n        if op[0] == 'push':\n            stack.append(op[1])\n        elif op[0] == 'pop':\n            if stack:\n                out.append(stack.pop())\n        elif op[0] == 'swap' and len(stack) >= 2:\n            stack[-1], stack[-2] = stack[-2], stack[-1]\n    return out\n```"
+ },
+ {
+  "local_id": "g4-13",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `nest(flat)` that takes a dict whose keys are (outer, inner) tuples and returns a nested dict of the form {outer: {inner: value}}. Entries that share the same outer key go into the same inner dict. Example: nest({('fr', 'cap'): 'Paris', ('fr', 'pop'): 68, ('jp', 'cap'): 'Tokyo'}) returns {'fr': {'cap': 'Paris', 'pop': 68}, 'jp': {'cap': 'Tokyo'}}. nest({}) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert nest({('fr', 'cap'): 'Paris', ('fr', 'pop'): 68, ('jp', 'cap'): 'Tokyo'}) == {'fr': {'cap': 'Paris', 'pop': 68}, 'jp': {'cap': 'Tokyo'}}\nassert nest({}) == {}\nassert nest({('a', 'b'): 1}) == {'a': {'b': 1}}\nassert nest({(1, 'x'): 0, (2, 'x'): 0, (1, 'y'): 5, (2, 'y'): 6, (1, 'z'): 7}) == {1: {'x': 0, 'y': 5, 'z': 7}, 2: {'x': 0, 'y': 6}}\nassert nest({('k', 'k'): None, ('k', 'j'): [1, 2]}) == {'k': {'k': None, 'j': [1, 2]}}"
+   }
+  ],
+  "reference": "```python\ndef nest(flat):\n    out = {}\n    for (outer, inner), value in flat.items():\n        out.setdefault(outer, {})[inner] = value\n    return out\n```",
+  "negative": "```python\ndef nest(flat):\n    out = {}\n    for (outer, inner), value in flat.items():\n        out[outer] = {inner: value}\n    return out\n```"
+ },
+ {
+  "local_id": "g4-14",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `ring_buffer(ops, capacity)` that simulates a queue that starts empty and holds at most `capacity` items (capacity >= 1). `ops` is a list of operations, each a list: ['add', x] puts x at the back; if the queue is already full, the OLDEST item is discarded first to make room. ['take'] removes the oldest item and records it; a ['take'] on an empty queue is ignored. Return a list of two lists: [taken, remaining], where taken holds the recorded items in order and remaining holds the items still in the queue, oldest first. Example: ring_buffer([['add', 1], ['add', 2], ['add', 3], ['take'], ['add', 4]], 2) returns [[2], [3, 4]]. ring_buffer([], 3) returns [[], []].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [list(p) for p in ring_buffer([['add', 1], ['add', 2], ['add', 3], ['take'], ['add', 4]], 2)] == [[2], [3, 4]]\nassert [list(p) for p in ring_buffer([], 3)] == [[], []]\nassert [list(p) for p in ring_buffer([['take'], ['take']], 2)] == [[], []]\nassert [list(p) for p in ring_buffer([['add', 'a'], ['add', 'b'], ['add', 'c']], 1)] == [[], ['c']]\nassert [list(p) for p in ring_buffer([['add', 1], ['take'], ['take'], ['add', 2]], 5)] == [[1], [2]]\nassert [list(p) for p in ring_buffer([['add', 1], ['add', 2], ['add', 3], ['add', 4], ['add', 5], ['take'], ['take'], ['add', 6]], 3)] == [[3, 4], [5, 6]]\nassert [list(p) for p in ring_buffer([['add', 9], ['add', 8], ['take'], ['take']], 2)] == [[9, 8], []]"
+   }
+  ],
+  "reference": "```python\ndef ring_buffer(ops, capacity):\n    q, taken = [], []\n    for op in ops:\n        if op[0] == 'add':\n            if len(q) == capacity:\n                q.pop(0)\n            q.append(op[1])\n        elif q:\n            taken.append(q.pop(0))\n    return [taken, q]\n```",
+  "negative": "```python\ndef ring_buffer(ops, capacity):\n    q, taken = [], []\n    for op in ops:\n        if op[0] == 'add':\n            if len(q) < capacity:\n                q.append(op[1])\n        elif q:\n            taken.append(q.pop(0))\n    return [taken, q]\n```"
+ },
+ {
+  "local_id": "g4-15",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `left_join(left, right, key)` that joins two lists of dicts on the field named `key` (every dict has that field). For each record in `left`, in order: for every record in `right` with the same key value (in `right` order) output one merged dict containing all fields of both records; if both records have a field with the same name, the value from the left record is kept. If no right record matches, output a copy of the left record alone. Return the list of output dicts. Example: left_join([{'id': 1, 'n': 'a'}, {'id': 2, 'n': 'b'}], [{'id': 1, 'c': 'x'}, {'id': 1, 'c': 'y'}], 'id') returns [{'id': 1, 'n': 'a', 'c': 'x'}, {'id': 1, 'n': 'a', 'c': 'y'}, {'id': 2, 'n': 'b'}]. An empty `left` returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert left_join([{'id': 1, 'n': 'a'}, {'id': 2, 'n': 'b'}], [{'id': 1, 'c': 'x'}, {'id': 1, 'c': 'y'}], 'id') == [{'id': 1, 'c': 'x', 'n': 'a'}, {'id': 1, 'c': 'y', 'n': 'a'}, {'id': 2, 'n': 'b'}]\nassert left_join([], [{'id': 1, 'c': 'x'}], 'id') == []\nassert left_join([{'id': 4, 'n': 'd'}], [], 'id') == [{'id': 4, 'n': 'd'}]\nassert left_join([{'k': 'u', 'v': 1}], [{'k': 'u', 'v': 2, 'w': 3}], 'k') == [{'k': 'u', 'v': 1, 'w': 3}]\nassert left_join([{'k': 2}, {'k': 1}, {'k': 2}], [{'k': 1, 'z': 'p'}, {'k': 2, 'z': 'q'}], 'k') == [{'k': 2, 'z': 'q'}, {'k': 1, 'z': 'p'}, {'k': 2, 'z': 'q'}]\nassert left_join([{'sku': 'a', 'qty': 3}, {'sku': 'b', 'qty': 0}], [{'sku': 'c', 'price': 9}, {'sku': 'b', 'price': 4}], 'sku') == [{'sku': 'a', 'qty': 3}, {'sku': 'b', 'price': 4, 'qty': 0}]"
+   }
+  ],
+  "reference": "```python\ndef left_join(left, right, key):\n    out = []\n    for l in left:\n        matches = [r for r in right if r[key] == l[key]]\n        if matches:\n            for r in matches:\n                out.append({**r, **l})\n        else:\n            out.append(dict(l))\n    return out\n```",
+  "negative": "```python\ndef left_join(left, right, key):\n    out = []\n    for l in left:\n        for r in right:\n            if r[key] == l[key]:\n                out.append({**l, **r})\n    return out\n```"
+ },
+ {
+  "local_id": "g4-16",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `league_table(matches)` for a fictional league. `matches` is a list of (home, away, home_goals, away_goals) tuples. A win gives the winner 3 points and the loser 0; a draw gives both teams 1 point. Return a list of (team, points) tuples containing every team that played at least one match, including teams with 0 points, ordered by points, highest first; teams with equal points are ordered alphabetically by name. Example: league_table([('Owls', 'Elks', 2, 0), ('Elks', 'Yaks', 1, 1), ('Yaks', 'Owls', 0, 0)]) returns [('Owls', 4), ('Yaks', 2), ('Elks', 1)]. An empty list returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [tuple(p) for p in league_table([('Owls', 'Elks', 2, 0), ('Elks', 'Yaks', 1, 1), ('Yaks', 'Owls', 0, 0)])] == [('Owls', 4), ('Yaks', 2), ('Elks', 1)]\nassert [tuple(p) for p in league_table([])] == []\nassert [tuple(p) for p in league_table([('Ants', 'Bees', 0, 3)])] == [('Bees', 3), ('Ants', 0)]\nassert [tuple(p) for p in league_table([('Cod', 'Asp', 1, 1), ('Bat', 'Dog', 2, 2)])] == [('Asp', 1), ('Bat', 1), ('Cod', 1), ('Dog', 1)]\nassert [tuple(p) for p in league_table([('Kea', 'Emu', 1, 0), ('Emu', 'Kea', 4, 2), ('Kea', 'Auk', 5, 0)])] == [('Kea', 6), ('Emu', 3), ('Auk', 0)]\nassert [tuple(p) for p in league_table([('Zed', 'Abe', 1, 0), ('Abe', 'Moe', 0, 2), ('Moe', 'Zed', 3, 3), ('Abe', 'Zed', 0, 0)])] == [('Zed', 5), ('Moe', 4), ('Abe', 1)]"
+   }
+  ],
+  "reference": "```python\ndef league_table(matches):\n    pts = {}\n    for home, away, hg, ag in matches:\n        pts.setdefault(home, 0)\n        pts.setdefault(away, 0)\n        if hg > ag:\n            pts[home] += 3\n        elif ag > hg:\n            pts[away] += 3\n        else:\n            pts[home] += 1\n            pts[away] += 1\n    return sorted(pts.items(), key=lambda p: (-p[1], p[0]))\n```",
+  "negative": "```python\ndef league_table(matches):\n    pts = {}\n    for home, away, hg, ag in matches:\n        if hg > ag:\n            pts[home] = pts.get(home, 0) + 3\n        elif ag > hg:\n            pts[away] = pts.get(away, 0) + 3\n        else:\n            pts[home] = pts.get(home, 0) + 1\n            pts[away] = pts.get(away, 0) + 1\n    return sorted(pts.items(), key=lambda p: (-p[1], p[0]))\n```"
+ },
+ {
+  "local_id": "g4-17",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `latest_per_id(records)` that removes outdated records. `records` is a list of dicts, each with an 'id' and an integer 'ts' (timestamp). For each id keep only the record with the highest ts; if several records of the same id share the highest ts, keep the one that comes LAST in the input. The result is a list of the kept records ordered by where each id FIRST appears in the input. Example: latest_per_id([{'id': 'a', 'ts': 5, 'v': 1}, {'id': 'b', 'ts': 2, 'v': 2}, {'id': 'a', 'ts': 9, 'v': 3}, {'id': 'b', 'ts': 1, 'v': 4}]) returns [{'id': 'a', 'ts': 9, 'v': 3}, {'id': 'b', 'ts': 2, 'v': 2}]. An empty list returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert latest_per_id([{'id': 'a', 'ts': 5, 'v': 1}, {'id': 'b', 'ts': 2, 'v': 2}, {'id': 'a', 'ts': 9, 'v': 3}, {'id': 'b', 'ts': 1, 'v': 4}]) == [{'id': 'a', 'ts': 9, 'v': 3}, {'id': 'b', 'ts': 2, 'v': 2}]\nassert latest_per_id([]) == []\nassert latest_per_id([{'id': 1, 'ts': 0}]) == [{'id': 1, 'ts': 0}]\nassert latest_per_id([{'id': 'a', 'ts': 3, 'v': 'old'}, {'id': 'a', 'ts': 3, 'v': 'new'}]) == [{'id': 'a', 'ts': 3, 'v': 'new'}]\nassert latest_per_id([{'id': 'z', 'ts': 1}, {'id': 'y', 'ts': 8}, {'id': 'x', 'ts': 4}, {'id': 'z', 'ts': 7}]) == [{'id': 'z', 'ts': 7}, {'id': 'y', 'ts': 8}, {'id': 'x', 'ts': 4}]\nassert latest_per_id([{'id': 2, 'ts': 9, 'v': 0}, {'id': 1, 'ts': 4, 'v': 1}, {'id': 2, 'ts': 3, 'v': 2}, {'id': 1, 'ts': 4, 'v': 3}, {'id': 1, 'ts': 2, 'v': 4}]) == [{'id': 2, 'ts': 9, 'v': 0}, {'id': 1, 'ts': 4, 'v': 3}]"
+   }
+  ],
+  "reference": "```python\ndef latest_per_id(records):\n    best = {}\n    for r in records:\n        if r['id'] not in best or r['ts'] >= best[r['id']]['ts']:\n            best[r['id']] = r\n    return list(best.values())\n```",
+  "negative": "```python\ndef latest_per_id(records):\n    best = {}\n    for r in records:\n        if r['id'] not in best or r['ts'] > best[r['id']]['ts']:\n            best[r['id']] = r\n    return list(best.values())\n```"
+ },
+ {
+  "local_id": "g4-18",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `pivot(cells)` that reshapes a list of (row, col, value) tuples into a dict of dicts: result[row][col] is the value. Every row's inner dict must contain EVERY column name that appears anywhere in the input; combinations that are missing from the input get the value 0. Each (row, col) pair appears at most once. Example: pivot([('mon', 'tea', 3), ('tue', 'milk', 2), ('mon', 'milk', 1)]) returns {'mon': {'tea': 3, 'milk': 1}, 'tue': {'tea': 0, 'milk': 2}}. pivot([]) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert pivot([('mon', 'tea', 3), ('tue', 'milk', 2), ('mon', 'milk', 1)]) == {'mon': {'milk': 1, 'tea': 3}, 'tue': {'milk': 2, 'tea': 0}}\nassert pivot([]) == {}\nassert pivot([('r', 'c', 5)]) == {'r': {'c': 5}}\nassert pivot([('a', 'x', 1), ('b', 'y', 2), ('c', 'z', 3)]) == {'a': {'y': 0, 'x': 1, 'z': 0}, 'b': {'y': 2, 'x': 0, 'z': 0}, 'c': {'y': 0, 'x': 0, 'z': 3}}\nassert pivot([('a', 'x', 1), ('a', 'y', 2), ('b', 'x', 3), ('b', 'y', 4)]) == {'a': {'y': 2, 'x': 1}, 'b': {'y': 4, 'x': 3}}\nassert pivot([(1, 'p', -2), (2, 'q', 7), (3, 'p', 9), (2, 'r', 4)]) == {1: {'p': -2, 'r': 0, 'q': 0}, 2: {'p': 0, 'r': 4, 'q': 7}, 3: {'p': 9, 'r': 0, 'q': 0}}"
+   }
+  ],
+  "reference": "```python\ndef pivot(cells):\n    cols = {c for _, c, _ in cells}\n    out = {}\n    for row, col, value in cells:\n        if row not in out:\n            out[row] = {c: 0 for c in cols}\n        out[row][col] = value\n    return out\n```",
+  "negative": "```python\ndef pivot(cells):\n    out = {}\n    for row, col, value in cells:\n        if row not in out:\n            out[row] = {}\n        out[row][col] = value\n    return out\n```"
+ },
+ {
+  "local_id": "g4-19",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `deep_merge(a, b)` that returns a NEW dict combining two possibly nested dicts, without modifying `a` or `b`. Every key from either dict is in the result. If a key is in both and both values are dicts, the result value is the deep_merge of those two dicts. In every other case where a key is in both, the value from `b` is used. Example: deep_merge({'db': {'host': 'x', 'port': 1}, 'debug': False}, {'db': {'port': 2}, 'debug': True}) returns {'db': {'host': 'x', 'port': 2}, 'debug': True}. deep_merge({}, {}) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert deep_merge({'db': {'host': 'x', 'port': 1}, 'debug': False}, {'db': {'port': 2}, 'debug': True}) == {'db': {'host': 'x', 'port': 2}, 'debug': True}\nassert deep_merge({}, {}) == {}\nassert deep_merge({'a': 1}, {'b': 2}) == {'a': 1, 'b': 2}\nassert deep_merge({'a': {'b': {'c': 1, 'd': 2}}}, {'a': {'b': {'d': 3, 'e': 4}}}) == {'a': {'b': {'c': 1, 'd': 3, 'e': 4}}}\nassert deep_merge({'a': {'x': 1}}, {'a': 5}) == {'a': 5}\nassert deep_merge({'a': 5}, {'a': {'x': 1}}) == {'a': {'x': 1}}\n_a = {'p': {'q': 1}, 'r': 2}\n_b = {'p': {'s': 3}}\nassert deep_merge(_a, _b) == {'p': {'q': 1, 's': 3}, 'r': 2}\nassert _a == {'p': {'q': 1}, 'r': 2}\nassert _b == {'p': {'s': 3}}"
+   }
+  ],
+  "reference": "```python\ndef deep_merge(a, b):\n    out = dict(a)\n    for k, v in b.items():\n        if k in out and isinstance(out[k], dict) and isinstance(v, dict):\n            out[k] = deep_merge(out[k], v)\n        else:\n            out[k] = v\n    return out\n```",
+  "negative": "```python\ndef deep_merge(a, b):\n    out = dict(a)\n    for k, v in b.items():\n        out[k] = v\n    return out\n```"
+ },
+ {
+  "local_id": "g4-20",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `order_staff(staff)` that takes a list of (name, team, score) tuples (names are unique; team is a string; score is an integer) and returns the list of names in this order: first by team name in REVERSE alphabetical order (so 'zeta' before 'alpha'); within the same team by score, highest first; and for equal team and score by name in normal alphabetical order. Example: order_staff([('ann', 'alpha', 5), ('bob', 'zeta', 3), ('cat', 'zeta', 9), ('dan', 'zeta', 3)]) returns ['cat', 'bob', 'dan', 'ann']. An empty list returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert order_staff([('ann', 'alpha', 5), ('bob', 'zeta', 3), ('cat', 'zeta', 9), ('dan', 'zeta', 3)]) == ['cat', 'bob', 'dan', 'ann']\nassert order_staff([]) == []\nassert order_staff([('solo', 'ops', 1)]) == ['solo']\nassert order_staff([('b', 'm', 2), ('a', 'm', 2), ('c', 'm', 2)]) == ['a', 'b', 'c']\nassert order_staff([('x', 'beta', 1), ('y', 'gamma', 1), ('z', 'alpha', 9)]) == ['y', 'x', 'z']\nassert order_staff([('eve', 'qa', -1), ('fay', 'qa', 0), ('gil', 'dev', 4), ('hal', 'dev', 4), ('ida', 'qa', -1)]) == ['fay', 'eve', 'ida', 'gil', 'hal']"
+   }
+  ],
+  "reference": "```python\ndef order_staff(staff):\n    rows = sorted(staff, key=lambda s: (-s[2], s[0]))\n    rows.sort(key=lambda s: s[1], reverse=True)\n    return [s[0] for s in rows]\n```",
+  "negative": "```python\ndef order_staff(staff):\n    rows = sorted(staff, key=lambda s: (s[1], s[2], s[0]), reverse=True)\n    return [s[0] for s in rows]\n```"
+ },
+ {
+  "local_id": "g4-21",
+  "family": "coding",
+  "subtheme": "data-structures",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `bag_diff(a, b)` that subtracts one list from another as multisets. For each element of `b`, ONE matching occurrence is removed from `a` (the earliest one still present); elements of `b` with no remaining match in `a` are ignored. Return the remaining elements of `a` as a new list in their original order. Examples: bag_diff([1, 2, 1, 3, 1], [1, 3, 1]) returns [2, 1] and bag_diff([4, 4], [5]) returns [4, 4]. bag_diff([], [1]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert bag_diff([1, 2, 1, 3, 1], [1, 3, 1]) == [2, 1]\nassert bag_diff([4, 4], [5]) == [4, 4]\nassert bag_diff([], [1]) == []\nassert bag_diff([7, 8, 9], []) == [7, 8, 9]\nassert bag_diff(['a', 'b', 'a'], ['a']) == ['b', 'a']\nassert bag_diff([2, 2, 2], [2, 2, 2, 2]) == []\nassert bag_diff([5, 6, 5, 6, 5], [6, 5]) == [5, 6, 5]"
+   }
+  ],
+  "reference": "```python\ndef bag_diff(a, b):\n    out = list(a)\n    for x in b:\n        if x in out:\n            out.remove(x)\n    return out\n```",
+  "negative": "```python\ndef bag_diff(a, b):\n    return [x for x in a if x not in b]\n```"
+ }
+]

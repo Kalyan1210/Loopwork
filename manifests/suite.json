@@ -1,0 +1,273 @@
+{
+ "families": {
+  "planning": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "tools": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "constraints": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "synthesis": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "math": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "coding": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "ambiguity": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "calibration": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "safety": {
+   "files": {
+    "gen_1.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_2.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_3.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_4.json": {
+     "valid": 21,
+     "used": 20
+    },
+    "gen_5.json": {
+     "valid": 21,
+     "used": 20
+    }
+   },
+   "eval": 100,
+   "dev": 10
+  },
+  "longhorizon": {
+   "files": {
+    "gen_1.json": {
+     "valid": 0,
+     "used": 0
+    },
+    "gen_2.json": {
+     "valid": 0,
+     "used": 0
+    },
+    "gen_3.json": {
+     "valid": 0,
+     "used": 0
+    },
+    "gen_4.json": {
+     "valid": 0,
+     "used": 0
+    },
+    "gen_5.json": {
+     "valid": 0,
+     "used": 0
+    }
+   },
+   "eval": 0,
+   "dev": 10
+  }
+ },
+ "dropped": [],
+ "suite_eval.jsonl": {
+  "n": 900,
+  "sha256": "fbb74d65864cda103e2c4ac60262197f0fb660758f3fed719839f26b87c7a65e"
+ },
+ "suite_dev.jsonl": {
+  "n": 100,
+  "sha256": "abccb859eb668127815cf3df5cf635555e85744d01e455e39edcc6cffb5afa38"
+ }
+}

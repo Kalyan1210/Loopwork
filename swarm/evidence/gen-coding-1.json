@@ -1,0 +1,41 @@
+{
+ "actor": "gen-coding-1",
+ "family": "coding",
+ "subtheme": "text-format",
+ "output_file": "tasks/coding/gen_1.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 6,
+  "medium": 7,
+  "hard": 8
+ },
+ "functions": [
+  "ticket_code",
+  "squeeze",
+  "mmss",
+  "snake_to_title",
+  "shift_cipher",
+  "is_valid_tag",
+  "format_duration",
+  "parse_settings",
+  "mask_digits",
+  "truncate",
+  "parse_time",
+  "mirror",
+  "ordinal",
+  "wrap_words",
+  "format_table",
+  "price_line",
+  "expand_counts",
+  "justify",
+  "format_bytes",
+  "box",
+  "fmt_amount"
+ ],
+ "what_i_did": "Read lab/TASKS.md, tasks/coding/spec.md and tasks/coding/dev.json; wrote 21 write-from-spec string parsing/formatting tasks with a generator script (kept outside the repo, in the session scratchpad).",
+ "verification": "Every expected value in every assert was produced by executing the reference solution in Python (never typed by hand), and the printed values were read against the prose spec. The script also executed each negative and required it to disagree with the reference on at least one assert. One test was added to g1-14 (wrap_words) because the first negative did not fail any assert.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/coding/gen_1.json --family coding",
+ "validator_result": "21/21 valid",
+ "model_pilot_run": false,
+ "not_verified": "Difficulty labels are estimates; no model was run on these held-out tasks, so actual baseline pass rates are unknown."
+}

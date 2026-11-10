@@ -1,0 +1,45 @@
+{
+ "actor": "gen-planning-4",
+ "role": "task-generation",
+ "family": "planning",
+ "subtheme": "routes and itineraries",
+ "output_file": "tasks/planning/gen_4.json",
+ "n_tasks": 21,
+ "difficulty_split": {"easy": 7, "medium": 7, "hard": 7},
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/planning/spec.md, tasks/planning/dev.json and the text checkers in lab/core.py.",
+  "Designed 21 distinct single-mode route/itinerary tasks (g4-01..g4-21) following the spec's prompt endings and checker conventions.",
+  "Generated the file with one Python build script that computes every expected answer and asserts it before writing the JSON.",
+  "Ran lab/validate_tasks.py on the file."
+ ],
+ "task_types": {
+  "g4-01": "enumerated routes with a wait, minutes",
+  "g4-02": "fixed visiting order with distractor roads, km",
+  "g4-03": "earliest arrival, one timetable leg, clock",
+  "g4-04": "enumerated via-town routes, place name",
+  "g4-05": "visiting order from three clues, strict JSON array",
+  "g4-06": "number of intermediate stops on a line",
+  "g4-07": "latest departure, one leg, clock",
+  "g4-08": "shortest path on a 4-node map, not enumerated, km",
+  "g4-09": "two errands in either order with fixed start and end, km",
+  "g4-10": "earliest arrival over two legs with transfer buffer, clock",
+  "g4-11": "number of changes on the quickest of three ways",
+  "g4-12": "closed road removes the shortest route, place name",
+  "g4-13": "distance and speed per road, minutes",
+  "g4-14": "outbound bus, appointment, first return bus, clock",
+  "g4-15": "shortest path on a 6-node map, km",
+  "g4-16": "latest departure over three legs with buffers, clock",
+  "g4-17": "three calls in any order with fixed end, first place on the best order",
+  "g4-18": "direct service versus connection with buffer, earliest arrival",
+  "g4-19": "shortest route through a required waypoint, km",
+  "g4-20": "walk + bus + walk, latest time to leave home",
+  "g4-21": "two metro lines with two interchange stations, minimum minutes"
+ },
+ "answer_verification": "Python in the build script: brute force over all simple paths for map tasks (g4-08, 15, 19, with a check that the runner-up is strictly longer or gives the same total), permutations for visiting-order tasks (g4-05, 09, 17, unique optimum asserted), exhaustive timetable simulation for clock tasks (g4-03, 07, 10, 14, 16, 18, 20), direct arithmetic asserts for the rest. Each negative is the tempting error (ignoring a wait or buffer, last departure, nearest-first greedy, shortest distance instead of time, ignoring the required waypoint).",
+ "validator": {"command": ".venv/bin/python lab/validate_tasks.py tasks/planning/gen_4.json --family planning", "result": "21/21 valid"},
+ "model_pilot": "not run (held-out tasks)",
+ "limitations": [
+  "Difficulty labels are estimates from the spec's baseline observations; no model run was done on these tasks.",
+  "g4-17 has a place-name answer with three candidates (one in three by chance); g4-11 has three candidate counts."
+ ]
+}

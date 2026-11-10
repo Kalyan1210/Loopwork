@@ -1,0 +1,628 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "constraints",
+  "subtheme": "max-words-one-line",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Plumwick is a fictional bakery famous for its walnut bread.\nWrite ONE sentence about it. Rules: at most 12 words; the sentence must contain the name Plumwick; everything on one line. Reply with ONLY the sentence. No other text.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 4
+   },
+   {
+    "type": "max_words",
+    "value": 12
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bPlumwick\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "Plumwick sells warm walnut bread every morning before sunrise.",
+  "negative": "Plumwick is a small bakery on the corner that sells warm walnut bread every single morning."
+ },
+ {
+  "local_id": "g3-02",
+  "family": "constraints",
+  "subtheme": "exact-line-count",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The Ostrel is a fictional river that runs past three mills.\nWrite exactly 3 lines about the river. Each line is one short sentence of at least 3 words. No numbering, no title, no blank lines. Reply with ONLY the 3 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){2,}$",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\b(Ostrel|river)\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "The Ostrel river runs cold in spring.\nThree old mills stand along its banks.\nChildren fish there on quiet evenings.",
+  "negative": "The Ostrel river runs cold in spring.\nThree old mills stand along its banks.\nChildren fish there on quiet evenings.\nHerons wade near the last mill."
+ },
+ {
+  "local_id": "g3-03",
+  "family": "constraints",
+  "subtheme": "one-word-per-line",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Old Marta keeps a fictional lighthouse on Gull Rock.\nName 4 objects you might find inside her lighthouse. Rules: exactly 4 lines; each line is exactly ONE word; no numbering, no bullets, no punctuation. Reply with ONLY the 4 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^[A-Za-z]+$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 4
+   },
+   {
+    "type": "max_words",
+    "value": 4
+   }
+  ],
+  "reference": "lamp\nladder\ntelescope\nlogbook",
+  "negative": "lamp\nladder\ntelescope\noil can"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "constraints",
+  "subtheme": "exact-three-words",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Fenmoss is a fictional brand of soap.\nWrite a slogan for it that is EXACTLY 3 words long and includes the word Fenmoss. One line only. Reply with ONLY the slogan. No other text.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 3
+   },
+   {
+    "type": "max_words",
+    "value": 3
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bFenmoss\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "Fenmoss cleans gently.",
+  "negative": "Fenmoss cleans everything gently."
+ },
+ {
+  "local_id": "g3-05",
+  "family": "constraints",
+  "subtheme": "word-range-paragraph",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Hesk is a fictional mountain village with a stone bridge and a goat market.\nDescribe Hesk in one paragraph of at least 15 words and at most 30 words. The paragraph must be on a single line and must contain the name Hesk. Reply with ONLY the paragraph.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 15
+   },
+   {
+    "type": "max_words",
+    "value": 30
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bHesk\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "Hesk sits high in the mountains, where a stone bridge crosses the stream and farmers gather weekly at the goat market.",
+  "negative": "Hesk is a mountain village with a goat market."
+ },
+ {
+  "local_id": "g3-06",
+  "family": "constraints",
+  "subtheme": "two-short-lines",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A fictional shop called Windtail sells kites.\nWrite an advert of exactly 2 lines. Each line has at most 6 words. The word kite or kites must appear somewhere in the advert. Reply with ONLY the 2 lines. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 2
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){0,5}$",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bkites?\\b",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 4
+   }
+  ],
+  "reference": "Windtail kites love the wind.\nCome fly one today!",
+  "negative": "Windtail kites love the strong coastal wind.\nCome fly one today!"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "constraints",
+  "subtheme": "todo-max-words-per-line",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Garrick runs a fictional roadside inn called the Tin Goose.\nWrite his to-do list for tomorrow. Rules: exactly 5 lines, one chore per line; each line has at least 2 words and at most 5 words; no numbering and no bullets. Reply with ONLY the 5 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^[A-Za-z]\\S*(\\s+\\S+){1,4}$",
+    "flags": "i"
+   }
+  ],
+  "reference": "Sweep the front hall\nFeed the stable horses\nBake fresh bread\nMend the cellar door\nWash all the mugs",
+  "negative": "Sweep the front hall\nFeed the stable horses\nBake fresh bread\nMend the broken cellar door before the guests arrive\nWash all the mugs"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "constraints",
+  "subtheme": "sentences-own-lines-required-name",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Tobbin is a fictional robot that waters plants in a greenhouse.\nWrite exactly 3 sentences about Tobbin. Rules: each sentence is on its own line (3 lines in total); every sentence contains the name Tobbin; every sentence ends with a period. Reply with ONLY the 3 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^(?=.*\\bTobbin\\b)[^.!?]+\\.$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 9
+   }
+  ],
+  "reference": "Tobbin rolls through the greenhouse at dawn.\nEvery fern gets a drink from Tobbin.\nAt night Tobbin rests beside the tomato vines.",
+  "negative": "Tobbin rolls through the greenhouse at dawn.\nEvery fern gets a careful drink of water.\nAt night Tobbin rests beside the tomato vines."
+ },
+ {
+  "local_id": "g3-09",
+  "family": "constraints",
+  "subtheme": "exact-ten-words",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Varnel is a fictional comet that returns every ninety years.\nWrite one sentence about the comet that contains EXACTLY 10 words. Words are separated by spaces. The sentence must include the name Varnel and must be on one line. Reply with ONLY the sentence.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 10
+   },
+   {
+    "type": "max_words",
+    "value": 10
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bVarnel\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "Villagers climb the hill to watch Varnel cross the sky.",
+  "negative": "Villagers climb the tall hill each night to watch Varnel cross the sky."
+ },
+ {
+  "local_id": "g3-10",
+  "family": "constraints",
+  "subtheme": "fixed-words-per-line",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Dunmere is a fictional town with a busy Saturday market.\nWrite 4 lines describing the market. Rules: exactly 4 lines; every line has EXACTLY 3 words; no numbering. Words are separated by spaces. Reply with ONLY the 4 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+\\s+\\S+\\s+\\S+$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 12
+   },
+   {
+    "type": "max_words",
+    "value": 12
+   }
+  ],
+  "reference": "Stalls open early\nBakers shout prices\nApples shine red\nEveryone goes home",
+  "negative": "Stalls open early\nBakers shout their prices\nApples shine red\nEveryone goes home"
+ },
+ {
+  "local_id": "g3-11",
+  "family": "constraints",
+  "subtheme": "title-plus-sentence",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Invent a fictional board game about trading spices.\nReply with exactly 2 lines. Line 1: the game's title, EXACTLY 2 words. Line 2: one sentence describing the game, at least 8 words and at most 12 words. No labels such as \"Title:\". Reply with ONLY the 2 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 2
+   },
+   {
+    "type": "regex",
+    "pattern": "^\\s*\\S+[ \\t]+\\S+[ \\t]*\\n\\s*\\S+([ \\t]+\\S+){7,11}\\s*$",
+    "flags": "s"
+   }
+  ],
+  "reference": "Saffron Road\nPlayers trade rare spices between desert towns to earn gold.",
+  "negative": "The Saffron Road\nPlayers trade rare spices between desert towns to earn gold."
+ },
+ {
+  "local_id": "g3-12",
+  "family": "constraints",
+  "subtheme": "total-range-two-lines",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The Icehold expedition is a fictional journey across a frozen valley.\nWrite a short diary entry about it. Rules: exactly 2 lines; the whole entry has at least 20 words and at most 25 words in total; the word glacier must appear. Reply with ONLY the 2 lines. No date, no title.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 20
+   },
+   {
+    "type": "max_words",
+    "value": 25
+   },
+   {
+    "type": "line_count",
+    "value": 2
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bglaciers?\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "We reached the edge of the glacier before noon and pitched our tents.\nTonight the wind howls, but the stove keeps us warm.",
+  "negative": "We reached the edge of the glacier before noon and pitched our tents.\nTonight the wind howls."
+ },
+ {
+  "local_id": "g3-13",
+  "family": "constraints",
+  "subtheme": "exact-six-word-question",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The Museum of Lost Buttons is a fictional museum.\nWrite ONE question that a curious visitor might ask at the front desk. Rules: EXACTLY 6 words; the question must contain the word buttons; it must end with a question mark; one line only. Reply with ONLY the question.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "max_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bbuttons\\b",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\S\\?\\s*$",
+    "flags": "i"
+   }
+  ],
+  "reference": "Where do the lost buttons go?",
+  "negative": "Where do all of the lost buttons go?"
+ },
+ {
+  "local_id": "g3-14",
+  "family": "constraints",
+  "subtheme": "per-line-word-range",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The Kestrel Express is a fictional night train that crosses a desert.\nWrite exactly 3 lines about a trip on it. Rules: every line has at least 6 words and at most 9 words; the word train must appear at least once; no numbering. Reply with ONLY the 3 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){5,8}$",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\btrain\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "The night train leaves the station at dusk.\nSand drifts past the windows for many hours.\nPassengers sleep while the engine hums along.",
+  "negative": "The night train leaves the station at dusk.\nSand drifts past.\nPassengers sleep while the engine hums along."
+ },
+ {
+  "local_id": "g3-15",
+  "family": "constraints",
+  "subtheme": "two-lines-six-words-required",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Each autumn the fictional town of Orrin holds a festival of lights.\nWrite a 2-line poem about the festival. Rules: exactly 2 lines; each line has EXACTLY 6 words (12 words in total); the word lantern must appear in the poem. Words are separated by spaces. Reply with ONLY the 2 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 2
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){5}$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 12
+   },
+   {
+    "type": "max_words",
+    "value": 12
+   },
+   {
+    "type": "regex",
+    "pattern": "\\blanterns?\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "Every lantern glows above the square\nOrrin sings until the morning comes",
+  "negative": "Every lantern glows above the old square\nOrrin sings until the morning comes"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "constraints",
+  "subtheme": "growing-line-lengths",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Pim is a fictional owl who lives in a clock tower.\nWrite 4 lines about Pim that grow in length: line 1 has exactly 1 word, line 2 has exactly 2 words, line 3 has exactly 3 words, line 4 has exactly 4 words. Words are separated by spaces. No numbering. Reply with ONLY the 4 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "min_words",
+    "value": 10
+   },
+   {
+    "type": "max_words",
+    "value": 10
+   },
+   {
+    "type": "regex",
+    "pattern": "^\\s*\\S+[ \\t]*\\n\\s*\\S+[ \\t]+\\S+[ \\t]*\\n\\s*\\S+[ \\t]+\\S+[ \\t]+\\S+[ \\t]*\\n\\s*\\S+[ \\t]+\\S+[ \\t]+\\S+[ \\t]+\\S+\\s*$",
+    "flags": "s"
+   }
+  ],
+  "reference": "Pim\nwakes slowly\nbeneath the bell\nthen hunts at midnight",
+  "negative": "Pim\nwakes slowly\nbeneath the old bell\nthen hunts at midnight"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "constraints",
+  "subtheme": "exact-fifteen-two-required",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Wexley is a fictional fishing town.\nWrite one sentence about a morning there. Rules: EXACTLY 15 words; the sentence must contain both the name Wexley and the word harbor; it ends with a period; one line only. Words are separated by spaces. Reply with ONLY the sentence.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 15
+   },
+   {
+    "type": "max_words",
+    "value": 15
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bWexley\\b",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bharbor\\b",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\.\\s*$",
+    "flags": "i"
+   }
+  ],
+  "reference": "At dawn in Wexley the fishing boats leave the quiet harbor one after the other.",
+  "negative": "At dawn in Wexley the fishing boats leave the quiet harbor one by one."
+ },
+ {
+  "local_id": "g3-18",
+  "family": "constraints",
+  "subtheme": "three-five-word-sentences",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Brackwater is a fictional town beside a marsh.\nWrite exactly 3 sentences about it. Rules: each sentence is on its own line; each sentence has EXACTLY 5 words; each sentence ends with a period; the name Brackwater must appear at least once. Words are separated by spaces. Reply with ONLY the 3 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){4}$",
+    "flags": "i"
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "\\w\\.$",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bBrackwater\\b",
+    "flags": "i"
+   }
+  ],
+  "reference": "Brackwater sleeps beside the marsh.\nFrogs sing after every rain.\nFog hides the wooden bridge.",
+  "negative": "Brackwater sleeps beside the marsh.\nFrogs sing loudly after every rain.\nFog hides the wooden bridge."
+ },
+ {
+  "local_id": "g3-19",
+  "family": "constraints",
+  "subtheme": "pairs-with-repeated-word",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional Copperleaf tea shop needs a new menu board.\nWrite exactly 5 menu lines. Rules: every line has EXACTLY 2 words; the word tea must be one of the two words on EVERY line; all 5 lines must be different; no prices, no numbering. Reply with ONLY the 5 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^(?=.*\\btea\\b)\\S+\\s+\\S+$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 10
+   },
+   {
+    "type": "max_words",
+    "value": 10
+   },
+   {
+    "type": "not_regex",
+    "flags": "im",
+    "pattern": "^[ \\t]*(\\S+)[ \\t]+(\\S+)[ \\t]*$[\\s\\S]*^[ \\t]*\\1[ \\t]+\\2[ \\t]*$"
+   }
+  ],
+  "reference": "Mint tea\nSmoked tea\nTea cake\nHoney tea\nIced tea",
+  "negative": "Mint tea\nSmoked tea\nLemon cake\nHoney tea\nIced tea"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "constraints",
+  "subtheme": "total-and-per-line-caps",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Quenby is a fictional village known for its old rope bridge.\nWrite a 4-line notice for travelers. Rules: exactly 4 lines; every line has at most 9 words; the whole notice has at least 30 words and at most 36 words in total; it must contain the name Quenby and the word bridge. Reply with ONLY the 4 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){0,8}$",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bQuenby\\b",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bbridge\\b",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 30
+   },
+   {
+    "type": "max_words",
+    "value": 36
+   }
+  ],
+  "reference": "Welcome to Quenby, travelers from near and far.\nCross the old rope bridge one at a time.\nHold the hand ropes firmly while you walk.\nRest at the inn beyond the river.",
+  "negative": "Welcome to Quenby, travelers.\nCross the old rope bridge one at a time.\nHold the hand ropes firmly.\nRest at the inn."
+ },
+ {
+  "local_id": "g3-21",
+  "family": "constraints",
+  "subtheme": "short-long-short",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Saltmarrow is a fictional beach where the sea pulls far back each evening.\nWrite 3 lines about it. Rules: line 1 has EXACTLY 4 words; line 2 has EXACTLY 8 words; line 3 has EXACTLY 4 words; the word tide must appear somewhere. Words are separated by spaces. No numbering. Reply with ONLY the 3 lines.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "min_words",
+    "value": 16
+   },
+   {
+    "type": "max_words",
+    "value": 16
+   },
+   {
+    "type": "regex",
+    "pattern": "\\btides?\\b",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "^\\s*\\S+([ \\t]+\\S+){3}[ \\t]*\\n\\s*\\S+([ \\t]+\\S+){7}[ \\t]*\\n\\s*\\S+([ \\t]+\\S+){3}\\s*$",
+    "flags": "s"
+   }
+  ],
+  "reference": "The tide slips away\nShells and crabs appear on the wet sand\nGulls follow it out",
+  "negative": "The tide slips away\nShells and crabs appear on the sand\nGulls follow it out"
+ }
+]

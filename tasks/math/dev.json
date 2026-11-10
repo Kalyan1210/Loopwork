@@ -1,0 +1,173 @@
+[
+ {
+  "local_id": "dev-01",
+  "family": "math",
+  "subtheme": "arithmetic-word",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A bakery bakes 14 trays of buns with 18 buns on each tray. It sells 197 buns and packs all the remaining buns into boxes of 5. How many boxes does it fill? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "reference": "14*18=252; 252-197=55; 55/5=11.\nANSWER: 11",
+  "negative": "252-197=55.\nANSWER: 55"
+ },
+ {
+  "local_id": "dev-02",
+  "family": "math",
+  "subtheme": "units-rates",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "An empty tank can be filled by pipe A alone in 6 hours and by pipe B alone in 4 hours. A drain can empty the full tank in 12 hours. Starting empty, with both pipes and the drain all open, how many hours does it take to fill the tank? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Rates: 1/6+1/4-1/12 = 4/12 = 1/3 tank per hour, so 3 hours.\nANSWER: 3",
+  "negative": "1/6+1/4 = 5/12, so 2.4 hours.\nANSWER: 2.4"
+ },
+ {
+  "local_id": "dev-03",
+  "family": "math",
+  "subtheme": "algebra-linear",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Solve for x: 3(x - 4) + 5 = 2x + 9. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 16
+   }
+  ],
+  "reference": "3x-12+5=2x+9, so 3x-7=2x+9, x=16.\nANSWER: 16",
+  "negative": "3x-12+5=2x+9, x=2.\nANSWER: 2"
+ },
+ {
+  "local_id": "dev-04",
+  "family": "math",
+  "subtheme": "percent-algebra",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A shop sets a coat's list price 25% above what the shop paid for it. In a sale the coat is sold at 20% off the list price, for 150 coins. How many coins did the shop pay for the coat? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 150
+   }
+  ],
+  "reference": "List = 1.25c; sale = 0.8*1.25c = c, so c = 150.\nANSWER: 150",
+  "negative": "150/0.8 = 187.5 is the list price.\nANSWER: 187.5"
+ },
+ {
+  "local_id": "dev-05",
+  "family": "math",
+  "subtheme": "number-theory",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "How many integers from 1 to 100 (inclusive) are divisible by none of 2, 3 and 5? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 26
+   }
+  ],
+  "reference": "Divisible by at least one: 50+33+20-16-10-6+3 = 74. 100-74 = 26.\nANSWER: 26",
+  "negative": "Divisible by at least one: 50+33+20-16-10-6+3 = 74.\nANSWER: 74"
+ },
+ {
+  "local_id": "dev-06",
+  "family": "math",
+  "subtheme": "combinatorics",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "How many 4-digit positive integers have digits that strictly increase from left to right (for example 1359)? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 126
+   }
+  ],
+  "reference": "No digit can be 0, so choose 4 distinct digits from 1-9; each choice gives one number. C(9,4)=126.\nANSWER: 126",
+  "negative": "Choose 4 digits from 0-9: C(10,4).\nANSWER: 210"
+ },
+ {
+  "local_id": "dev-07",
+  "family": "math",
+  "subtheme": "probability",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Two fair six-sided dice are rolled. What is the probability that the sum of the two numbers is a prime number? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.42,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Prime sums 2,3,5,7,11 occur in 1+2+4+6+2 = 15 of 36 outcomes; 15/36 = 0.4167.\nANSWER: 0.42",
+  "negative": "Primes 2,3,5,7,11: 5 of the 11 possible sums.\nANSWER: 0.45"
+ },
+ {
+  "local_id": "dev-08",
+  "family": "math",
+  "subtheme": "logic-deduction",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Mira, Tobin and Lena each own exactly one pet: a cat, a dog and a parrot (one each). Mira does not own the dog. Tobin owns the parrot. Who owns the dog? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Lena"
+   }
+  ],
+  "reference": "Tobin has the parrot, Mira not the dog, so Mira has the cat and Lena the dog.\nANSWER: Lena",
+  "negative": "Mira has the dog.\nANSWER: Mira"
+ },
+ {
+  "local_id": "dev-09",
+  "family": "math",
+  "subtheme": "sequences",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A sequence starts with a1 = 2 and a2 = 3. Every later term equals the previous term plus twice the term before that: a_n = a_(n-1) + 2*a_(n-2). What is a7? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 107
+   }
+  ],
+  "reference": "a3=7, a4=13, a5=27, a6=53, a7=53+54=107.\nANSWER: 107",
+  "negative": "a3=7, a4=13, a5=27, a6=53.\nANSWER: 53"
+ },
+ {
+  "local_id": "dev-10",
+  "family": "math",
+  "subtheme": "logic-ordering",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Five runners (Kip, Oro, Vale, Juno, Sam) finished a race with no ties. Vale finished immediately after Oro. Kip finished before Oro, but Kip did not finish first. Juno finished last. Who finished second? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Kip"
+   }
+  ],
+  "reference": "Juno 5th. Kip is not 1st and is before Oro, Vale is right after Oro: Sam 1, Kip 2, Oro 3, Vale 4.\nANSWER: Kip",
+  "negative": "Order Kip, Sam, Oro, Vale, Juno.\nANSWER: Sam"
+ }
+]

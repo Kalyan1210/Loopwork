@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "math",
+  "subtheme": "algebra-linear-fractions",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Solve for x: (2x - 5)/3 = (x + 4)/2. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   }
+  ],
+  "reference": "Cross-multiply: 2(2x-5) = 3(x+4), so 4x-10 = 3x+12.\nx = 22.\nANSWER: 22",
+  "negative": "4x-10 = 3x+12, so x = 2.\nANSWER: 2"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "math",
+  "subtheme": "function-evaluation",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A function is defined by f(x) = x^2 - 3x + 2. What is f(-4)? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "reference": "(-4)^2 = 16; -3*(-4) = +12; 16+12+2 = 30.\nANSWER: 30",
+  "negative": "(-4)^2 = 16; -3*(-4) = -12; 16-12+2 = 6.\nANSWER: 6"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "math",
+  "subtheme": "consecutive-integers",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Three consecutive odd integers add up to 147. What is the largest of the three? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 51
+   }
+  ],
+  "reference": "Let them be n-2, n, n+2: 3n = 147, n = 49.\nLargest = 51.\nANSWER: 51",
+  "negative": "3n = 147, so n = 49.\nANSWER: 49"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "math",
+  "subtheme": "inequality-linear",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "What is the largest integer x that satisfies 7x - 12 < 3x + 19? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "reference": "4x < 31, so x < 7.75.\nLargest integer is 7.\nANSWER: 7",
+  "negative": "4x < 31, x < 7.75, round up.\nANSWER: 8"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "math",
+  "subtheme": "quadratic-roots",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The equation x^2 - 5x - 84 = 0 has two integer solutions. What is the larger solution? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "reference": "Factor: (x-12)(x+7) = 0, so x = 12 or x = -7.\nLarger is 12.\nANSWER: 12",
+  "negative": "Factor: (x-7)(x+12) = 0, so the larger root is 7.\nANSWER: 7"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "math",
+  "subtheme": "system-ticket-sales",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A village fair sold 130 tickets in total. A child ticket cost 4 coins and an adult ticket cost 9 coins. The fair collected 920 coins from tickets. How many adult tickets were sold? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 80
+   }
+  ],
+  "reference": "a + c = 130 and 9a + 4c = 920.\n9a + 4(130-a) = 920, so 5a = 400, a = 80.\nANSWER: 80",
+  "negative": "5a = 400 so a = 80, c = 50.\nANSWER: 50"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "math",
+  "subtheme": "geometry-linear-equation",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The length of a rectangle is 3 more than twice its width. The perimeter of the rectangle is 54. What is the area of the rectangle? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 152
+   }
+  ],
+  "reference": "2(w + 2w + 3) = 54, so 3w + 3 = 27, w = 8.\nLength = 19. Area = 8*19 = 152.\nANSWER: 152",
+  "negative": "2(w + 2w + 3) = 54, w = 8, length = 19.\nANSWER: 19"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "math",
+  "subtheme": "ages-two-times",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Dara is 5 years older than Pim. In 6 years, Dara will be twice as old as Pim was 4 years ago. How old is Pim now? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 19
+   }
+  ],
+  "reference": "D = P + 5. D + 6 = 2(P - 4).\nP + 11 = 2P - 8, so P = 19 (Dara is 24).\nANSWER: 19",
+  "negative": "P + 11 = 2P - 8, so P = 19 and Dara is 24.\nANSWER: 24"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "math",
+  "subtheme": "mixture-concentration",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A cook has 30 litres of a drink that is 20% syrup. How many litres of a drink that is 60% syrup must be added so that the mixture is 36% syrup? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 20
+   }
+  ],
+  "reference": "Syrup: 6 + 0.6x = 0.36(30 + x) = 10.8 + 0.36x.\n0.24x = 4.8, so x = 20.\nANSWER: 20",
+  "negative": "6 + 0.6x = 0.36(30 + x), x = 20, total volume 30 + 20.\nANSWER: 50"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "math",
+  "subtheme": "inequality-sign-flip",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "What is the smallest integer x that satisfies 5 - 3x <= 2(x - 9) + 1? (Here <= means 'less than or equal to'.) Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "reference": "5 - 3x <= 2x - 17, so 22 <= 5x, x >= 4.4.\nSmallest integer is 5.\nANSWER: 5",
+  "negative": "5 - 3x <= 2x - 17, so x <= 4.4.\nANSWER: 4"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "math",
+  "subtheme": "system-negative-solution",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The numbers x and y satisfy both 4x + 3y = 10 and 3x - 5y = 51. What is the value of x + y? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "reference": "Multiply: 20x + 15y = 50 and 9x - 15y = 153. Add: 29x = 203, x = 7.\n28 + 3y = 10, so y = -6. x + y = 1.\nANSWER: 1",
+  "negative": "29x = 203, x = 7, y = 6, so x + y = 13.\nANSWER: 13"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "math",
+  "subtheme": "digit-reversal",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The two digits of a two-digit number add up to 11. If the digits are swapped, the new number is 27 greater than the original number. What is the original number? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 47
+   }
+  ],
+  "reference": "Tens a, units b: a + b = 11 and (10b + a) - (10a + b) = 9(b - a) = 27, so b - a = 3.\na = 4, b = 7. Original = 47.\nANSWER: 47",
+  "negative": "a + b = 11 and the digits differ by 3, so the digits are 7 and 4.\nANSWER: 74"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "math",
+  "subtheme": "inequality-word-problem",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Data plan A costs 40 coins per month plus 3 coins per gigabyte used. Plan B costs 15 coins per month plus 8 coins per gigabyte used. What is the smallest whole number of gigabytes for which plan A is strictly cheaper than plan B? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "reference": "40 + 3g < 15 + 8g, so 25 < 5g, g > 5.\nAt g = 5 both cost 55, so the smallest is 6.\nANSWER: 6",
+  "negative": "40 + 3g = 15 + 8g gives g = 5.\nANSWER: 5"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "math",
+  "subtheme": "linear-model-two-points",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A taxi fare is a fixed starting fee plus a constant charge per kilometre. A 3 km ride costs 19 coins and a 7 km ride costs 35 coins. How many coins does a 12 km ride cost? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "reference": "Per km: (35 - 19)/(7 - 3) = 4. Fee: 19 - 12 = 7.\n12 km: 7 + 48 = 55.\nANSWER: 55",
+  "negative": "Per km: 16/4 = 4. 12 km: 12*4 = 48.\nANSWER: 48"
+ },
+ {
+  "local_id": "g2-15",
+  "family": "math",
+  "subtheme": "working-backward",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A trader visits three stalls. At each stall he spends half of the coins he has at that moment plus 4 more coins. After the third stall he has exactly 3 coins left. How many coins did he have before the first stall? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 80
+   }
+  ],
+  "reference": "Undo each stall: before = (after + 4) * 2.\n(3+4)*2 = 14; (14+4)*2 = 36; (36+4)*2 = 80.\nANSWER: 80",
+  "negative": "Undo each stall: before = after*2 + 4.\n3*2+4 = 10; 10*2+4 = 24; 24*2+4 = 52.\nANSWER: 52"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "math",
+  "subtheme": "quadratic-inequality",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "What is the largest integer n that satisfies n^2 + 3n <= 100? (Here <= means 'less than or equal to'.) Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "reference": "n = 8: 64 + 24 = 88 <= 100. n = 9: 81 + 27 = 108 > 100.\nLargest is 8.\nANSWER: 8",
+  "negative": "n^2 <= 100 gives n = 10, minus one for the 3n term.\nANSWER: 9"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "math",
+  "subtheme": "absolute-value-inequality",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "How many integers x satisfy |3x - 4| < 11? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "reference": "-11 < 3x - 4 < 11, so -7 < 3x < 15, so -7/3 < x < 5.\nIntegers -2, -1, 0, 1, 2, 3, 4: seven of them.\nANSWER: 7",
+  "negative": "3x - 4 < 11 gives x < 5, so x = 0, 1, 2, 3, 4.\nANSWER: 5"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "math",
+  "subtheme": "quadratic-word-problem",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A rectangular garden is 7 metres longer than it is wide, and its area is 198 square metres. What is the perimeter of the garden in metres? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 58
+   }
+  ],
+  "reference": "w(w + 7) = 198, so w^2 + 7w - 198 = 0 = (w - 11)(w + 18); w = 11.\nLength = 18. Perimeter = 2(11 + 18) = 58.\nANSWER: 58",
+  "negative": "w(w + 7) = 198 gives w = 11, length 18, so 11 + 18.\nANSWER: 29"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "math",
+  "subtheme": "vieta-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The equation x^2 - 13x + k = 0 has two solutions, and one solution is exactly 5 greater than the other. What is the value of k? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 36
+   }
+  ],
+  "reference": "Roots r and r + 5 sum to 13, so r = 4 and the roots are 4 and 9.\nk is the product of the roots: 4*9 = 36.\nANSWER: 36",
+  "negative": "Roots sum to 13 and differ by 5, so they are 4 and 9. k = 9.\nANSWER: 9"
+ },
+ {
+  "local_id": "g2-20",
+  "family": "math",
+  "subtheme": "mixture-replacement",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A 40-litre tank is full of a drink that is 25% juice. Some of the drink is drained off and replaced with the same volume of pure juice, so the tank is full again and is now 40% juice. How many litres were drained? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "reference": "Juice after: 0.25(40 - d) + d = 0.40*40 = 16.\n10 + 0.75d = 16, so d = 8.\nANSWER: 8",
+  "negative": "Need 16 litres of juice, have 10, so add 6.\nANSWER: 6"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "math",
+  "subtheme": "symmetric-identity",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Two numbers a and b satisfy a + b = 9 and a*b = 14. What is the value of a^2 + b^2? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 53
+   }
+  ],
+  "reference": "a^2 + b^2 = (a + b)^2 - 2ab = 81 - 28 = 53.\n(Check: a = 2, b = 7 gives 4 + 49.)\nANSWER: 53",
+  "negative": "a^2 + b^2 = (a + b)^2 = 81.\nANSWER: 81"
+ }
+]

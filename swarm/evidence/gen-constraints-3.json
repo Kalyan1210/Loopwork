@@ -1,0 +1,33 @@
+{
+ "actor": "gen-constraints-3",
+ "role": "task-generation",
+ "family": "constraints",
+ "subtheme": "Counts and length limits in free writing",
+ "output_file": "tasks/constraints/gen_3.json",
+ "n_tasks": 21,
+ "difficulty_mix": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/constraints/spec.md, tasks/constraints/dev.json and the text-checker section of lab/core.py",
+  "Wrote 21 single-mode free-writing tasks (g3-01..g3-21), each on a different invented subject with a different rule combination: total word caps/ranges/exact counts, exact line counts, per-line word limits (max, exact, range, growing 1-2-3-4, 4-8-4), sentences on own lines, required words, title+sentence layout, no-duplicate lines",
+  "Generated the file with a Python script as one JSON array"
+ ],
+ "verification": [
+  "Python recount of total words, non-empty lines and per-line words for every reference and negative (whitespace split, same definition as core._words)",
+  "lab/validate_tasks.py: every reference passes, every negative fails",
+  "Extra probes via core.run_check: for all 21 tasks an added intro line fails, and the reference with two trailing spaces per line still passes; g3-19 duplicate-line reply fails"
+ ],
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/constraints/gen_3.json --family constraints",
+ "validator_result": "21/21 valid",
+ "model_run_on_tasks": false,
+ "not_done": [
+  "No pilot on the model (held-out by instruction), so the easy/medium/hard labels are estimates from the spec's baseline notes, not measured"
+ ],
+ "notes": [
+  "Per-line and layout rules that lines_regex cannot express (different word counts per line) use one anchored whole-reply regex with flags 's'",
+  "Prompts state that words are separated by spaces where an exact count is required"
+ ]
+}

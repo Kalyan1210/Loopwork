@@ -1,0 +1,259 @@
+{
+ "actor": "gen-constraints-2",
+ "role": "task-generation",
+ "family": "constraints",
+ "subtheme": "ordered and filtered lists",
+ "output_file": "tasks/constraints/gen_2.json",
+ "n_tasks": 21,
+ "difficulty_mix": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/constraints/spec.md, tasks/constraints/dev.json and the regex/line_count semantics in lab/core.py.",
+  "Wrote a Python generator script (kept in the session scratchpad, outside the project) that holds each task's data, computes the expected lines with Python, builds the reference, a near-miss negative and the checks, then writes the JSON array.",
+  "Every task uses line_count plus one anchored whole-reply regex (flags 's', so case-sensitive) with \\s*\\n\\s* between lines and \\s+ for in-line spaces."
+ ],
+ "verification": {
+  "method": "Expected answers computed in Python (sorted/filter/enumerate/arithmetic), never by hand. The script asserts sort keys are unique (no ties in numbers, lengths, ages, years, scores, line totals) so each task has exactly one correct answer.",
+  "ties_caught_and_fixed": [
+   "g2-15: two 9-letter bird names, one replaced",
+   "g2-19: two line totals of 45, one quantity changed",
+   "g2-18: expected count corrected from 5 to the computed 4"
+  ],
+  "per_task": [
+   {
+    "local_id": "g2-01",
+    "computed_by": "sorted(nums)",
+    "expected": [
+     "9",
+     "20",
+     "47",
+     "58",
+     "132"
+    ]
+   },
+   {
+    "local_id": "g2-02",
+    "computed_by": "reversed(list)",
+    "expected": [
+     "- Harrowgale",
+     "- Sundrift",
+     "- Grey Otter",
+     "- Pellwick"
+    ]
+   },
+   {
+    "local_id": "g2-03",
+    "computed_by": "[w for w in words if w.startswith('b')]",
+    "expected": [
+     "barrel",
+     "bucket",
+     "bellows",
+     "basket"
+    ]
+   },
+   {
+    "local_id": "g2-04",
+    "computed_by": "enumerate(jobs, 1)",
+    "expected": [
+     "1) Mend the nets",
+     "2) Oil the winch",
+     "3) Paint the hull",
+     "4) Stow the ropes"
+    ]
+   },
+   {
+    "local_id": "g2-05",
+    "computed_by": "sorted(words, reverse=True)",
+    "expected": [
+     "willow",
+     "saffron",
+     "plume",
+     "garnet",
+     "cobalt"
+    ]
+   },
+   {
+    "local_id": "g2-06",
+    "computed_by": "[n for n in nums if n % 2 == 0]",
+    "expected": [
+     "44",
+     "60",
+     "12"
+    ]
+   },
+   {
+    "local_id": "g2-07",
+    "computed_by": "sorted by -score, first 3 names",
+    "expected": [
+     "Korvane",
+     "Maelis",
+     "Sella"
+    ]
+   },
+   {
+    "local_id": "g2-08",
+    "computed_by": "sorted(words, key=len); lengths distinct asserted",
+    "expected": [
+     "fig",
+     "oath",
+     "ember",
+     "meadow",
+     "lantern",
+     "quartzite",
+     "ploughshare"
+    ]
+   },
+   {
+    "local_id": "g2-09",
+    "computed_by": "sorted by age ascending",
+    "expected": [
+     "Dunnic (19)",
+     "Ottoline (27)",
+     "Hesper (34)",
+     "Brannoc (45)",
+     "Ravella (62)"
+    ]
+   },
+   {
+    "local_id": "g2-10",
+    "computed_by": "names with qty==0, sorted()",
+    "expected": [
+     "* felt",
+     "* lace",
+     "* ribbon"
+    ]
+   },
+   {
+    "local_id": "g2-11",
+    "computed_by": "list minus cancelled, enumerate from 1",
+    "expected": [
+     "1. Corbel",
+     "2. Isaude",
+     "3. Thessaly",
+     "4. Oswin"
+    ]
+   },
+   {
+    "local_id": "g2-12",
+    "computed_by": "sorted by year ascending",
+    "expected": [
+     "1688: Charter signed",
+     "1791: Mill founded",
+     "1856: Great flood",
+     "1874: Bridge rebuilt",
+     "1902: Clock tower raised"
+    ]
+   },
+   {
+    "local_id": "g2-13",
+    "computed_by": "stops[1::2] lettered a-d",
+    "expected": [
+     "a) Millrace",
+     "b) Tanners Row",
+     "c) Saltmarket",
+     "d) Fennick End"
+    ]
+   },
+   {
+    "local_id": "g2-14",
+    "computed_by": "sorted by surname, formatted 'Surname, First'",
+    "expected": [
+     "Hallow, Edric",
+     "Marsh, Tobin",
+     "Orrick, Sabine",
+     "Quill, Ada",
+     "Vance, Lorna"
+    ]
+   },
+   {
+    "local_id": "g2-15",
+    "computed_by": "filter len>6, sort by -len, lengths distinct asserted",
+    "expected": [
+     "kingfisher (10)",
+     "goldcrest (9)",
+     "nuthatch (8)",
+     "dunnock (7)"
+    ]
+   },
+   {
+    "local_id": "g2-16",
+    "computed_by": "sorted(key=(team, -points))",
+    "expected": [
+     "Blue - Edda - 27",
+     "Blue - Joss - 22",
+     "Gold - Ruan - 18",
+     "Gold - Tavi - 9",
+     "Red - Marn - 31",
+     "Red - Pell - 25",
+     "Red - Ilka - 14"
+    ]
+   },
+   {
+    "local_id": "g2-17",
+    "computed_by": "sorted(set(a)|set(b), reverse=True), enumerate",
+    "expected": [
+     "1. 88",
+     "2. 61",
+     "3. 45",
+     "4. 30",
+     "5. 19",
+     "6. 12",
+     "7. 7",
+     "8. 5"
+    ]
+   },
+   {
+    "local_id": "g2-18",
+    "computed_by": "filter 10<=seats<=30, sort by name",
+    "expected": [
+     "Clover: 18 seats",
+     "Juniper: 24 seats",
+     "Marram: 12 seats",
+     "Sorrel: 30 seats"
+    ]
+   },
+   {
+    "local_id": "g2-19",
+    "computed_by": "qty*price, top 3 by total; totals distinct asserted: [('canvas', 52), ('lamp oil', 45), ('rope', 42), ('nails', 40), ('tar', 35), ('chalk', 33)]",
+    "expected": [
+     "canvas=52",
+     "lamp oil=45",
+     "rope=42"
+    ]
+   },
+   {
+    "local_id": "g2-20",
+    "computed_by": "filter prefix bay-, sort by int(suffix)",
+    "expected": [
+     "bay-3",
+     "bay-7",
+     "bay-12",
+     "bay-20",
+     "bay-101"
+    ]
+   },
+   {
+    "local_id": "g2-21",
+    "computed_by": "sort by time, gap = time - min(time)",
+    "expected": [
+     "#1 Corwin +0",
+     "#2 Hadrik +3",
+     "#3 Fenna +7",
+     "#4 Mossa +11",
+     "#5 Ysolde +16"
+    ]
+   }
+  ]
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/constraints/gen_2.json --family constraints",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "No model pilot was run on these tasks (held-out), so difficulty labels are estimates from the spec's baseline guidance, not measurements.",
+  "Did not read other generators' files, so cross-generator overlap is unchecked."
+ ]
+}

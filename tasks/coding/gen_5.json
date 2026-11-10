@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `gcd_all(nums)` that takes a list of non-negative integers and returns the greatest common divisor of all of them as an int. An empty list returns 0, and zeros do not change the result (the gcd of 0 and 9 is 9). Examples: gcd_all([12, 18, 30]) returns 6, gcd_all([7]) returns 7, gcd_all([]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert gcd_all([12, 18, 30]) == 6\nassert gcd_all([7]) == 7\nassert gcd_all([]) == 0\nassert gcd_all([0, 9]) == 9\nassert gcd_all([0, 0]) == 0\nassert gcd_all([14, 25]) == 1\nassert gcd_all([40, 0, 100, 60]) == 20"
+   }
+  ],
+  "reference": "```python\ndef gcd_all(nums):\n    g = 0\n    for n in nums:\n        a, b = g, n\n        while b:\n            a, b = b, a % b\n        g = a\n    return g\n```",
+  "negative": "```python\ndef gcd_all(nums):\n    if not nums:\n        return 0\n    g = min(nums)\n    while g > 1:\n        if all(n % g == 0 for n in nums):\n            return g\n        g -= 1\n    return 1\n```"
+ },
+ {
+  "local_id": "g5-02",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `primes_below(n)` that returns how many prime numbers are strictly less than the integer n. For n of 2 or less (including negative n) the answer is 0. Examples: primes_below(10) returns 4 (the primes 2, 3, 5, 7), primes_below(3) returns 1, primes_below(2) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert primes_below(10) == 4\nassert primes_below(3) == 1\nassert primes_below(2) == 0\nassert primes_below(-5) == 0\nassert primes_below(0) == 0\nassert primes_below(11) == 4\nassert primes_below(12) == 5\nassert primes_below(100) == 25"
+   }
+  ],
+  "reference": "```python\ndef primes_below(n):\n    count = 0\n    for k in range(2, n):\n        d = 2\n        prime = True\n        while d * d <= k:\n            if k % d == 0:\n                prime = False\n                break\n            d += 1\n        if prime:\n            count += 1\n    return count\n```",
+  "negative": "```python\ndef primes_below(n):\n    count = 0\n    for k in range(2, n + 1):\n        if all(k % d for d in range(2, k)):\n            count += 1\n    return count\n```"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `lower_bound(nums, target)` that takes a list of integers sorted in ascending order (duplicates allowed) and returns the smallest index i such that nums[i] >= target. If every element is smaller than target, or the list is empty, return len(nums). Examples: lower_bound([1, 3, 3, 7], 3) returns 1, lower_bound([1, 3, 3, 7], 4) returns 3, lower_bound([1, 3, 3, 7], 9) returns 4.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert lower_bound([1, 3, 3, 7], 3) == 1\nassert lower_bound([1, 3, 3, 7], 4) == 3\nassert lower_bound([1, 3, 3, 7], 9) == 4\nassert lower_bound([], 5) == 0\nassert lower_bound([2], 2) == 0\nassert lower_bound([2], -1) == 0\nassert lower_bound([5, 5, 5], 5) == 0\nassert lower_bound([-4, -2, 0], -1) == 2"
+   }
+  ],
+  "reference": "```python\ndef lower_bound(nums, target):\n    lo, hi = 0, len(nums)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n```",
+  "negative": "```python\ndef lower_bound(nums, target):\n    lo, hi = 0, len(nums)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] <= target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n```"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `longest_true_streak(flags)` that takes a list of booleans and returns the length of the longest run of consecutive True values as an int. An empty list, or a list with no True, returns 0. Examples: longest_true_streak([True, True, False, True]) returns 2 and longest_true_streak([False]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert longest_true_streak([True, True, False, True]) == 2\nassert longest_true_streak([False]) == 0\nassert longest_true_streak([]) == 0\nassert longest_true_streak([True]) == 1\nassert longest_true_streak([True, False, True, True, True]) == 3\nassert longest_true_streak([True, True, True, True]) == 4\nassert longest_true_streak([False, True, False, True, False]) == 1"
+   }
+  ],
+  "reference": "```python\ndef longest_true_streak(flags):\n    best = cur = 0\n    for f in flags:\n        cur = cur + 1 if f else 0\n        best = max(best, cur)\n    return best\n```",
+  "negative": "```python\ndef longest_true_streak(flags):\n    best = cur = 0\n    for f in flags:\n        if f:\n            cur += 1\n        else:\n            best = max(best, cur)\n            cur = 0\n    return best\n```"
+ },
+ {
+  "local_id": "g5-05",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `to_digits(n, base)` that converts a non-negative integer n to the given base (an integer from 2 to 36) and returns its digits as a list of ints, most significant digit first. Zero is represented as [0]. Examples: to_digits(10, 2) returns [1, 0, 1, 0], to_digits(255, 16) returns [15, 15], to_digits(0, 7) returns [0].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert to_digits(10, 2) == [1, 0, 1, 0]\nassert to_digits(255, 16) == [15, 15]\nassert to_digits(0, 7) == [0]\nassert to_digits(7, 7) == [1, 0]\nassert to_digits(6, 7) == [6]\nassert to_digits(1000, 36) == [27, 28]\nassert to_digits(81, 3) == [1, 0, 0, 0, 0]"
+   }
+  ],
+  "reference": "```python\ndef to_digits(n, base):\n    if n == 0:\n        return [0]\n    out = []\n    while n > 0:\n        out.append(n % base)\n        n //= base\n    return out[::-1]\n```",
+  "negative": "```python\ndef to_digits(n, base):\n    out = []\n    while n > 0:\n        out.append(n % base)\n        n //= base\n    return out\n```"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `prefix_totals(nums)` that takes a list of integers and returns a list one element longer than the input, where element i is the sum of the first i numbers. So the result always starts with 0 and ends with the total. Examples: prefix_totals([3, 1, 4]) returns [0, 3, 4, 8] and prefix_totals([]) returns [0].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert prefix_totals([3, 1, 4]) == [0, 3, 4, 8]\nassert prefix_totals([]) == [0]\nassert prefix_totals([5]) == [0, 5]\nassert prefix_totals([2, -2, 2, -2]) == [0, 2, 0, 2, 0]\nassert prefix_totals([0, 0]) == [0, 0, 0]\nassert prefix_totals([-1, -2, -3]) == [0, -1, -3, -6]"
+   }
+  ],
+  "reference": "```python\ndef prefix_totals(nums):\n    out = [0]\n    for n in nums:\n        out.append(out[-1] + n)\n    return out\n```",
+  "negative": "```python\ndef prefix_totals(nums):\n    out = []\n    total = 0\n    for n in nums:\n        total += n\n        out.append(total)\n    return out\n```"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `best_window(nums, k)` that returns the largest sum of k consecutive elements of the list of integers nums (values may be negative; k is a positive integer). If k is greater than len(nums), return None. Examples: best_window([1, 5, 2, 8, 3], 2) returns 11, best_window([-4, -1, -7], 1) returns -1, best_window([1, 2], 3) returns None.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert best_window([1, 5, 2, 8, 3], 2) == 11\nassert best_window([-4, -1, -7], 1) == -1\nassert best_window([1, 2], 3) is None\nassert best_window([], 1) is None\nassert best_window([-3, -5, -2, -9], 2) == -7\nassert best_window([4, 4, 4], 3) == 12\nassert best_window([9, 1, 1, 1, 8, 2], 3) == 11"
+   }
+  ],
+  "reference": "```python\ndef best_window(nums, k):\n    if k > len(nums):\n        return None\n    cur = sum(nums[:k])\n    best = cur\n    for i in range(k, len(nums)):\n        cur += nums[i] - nums[i - k]\n        best = max(best, cur)\n    return best\n```",
+  "negative": "```python\ndef best_window(nums, k):\n    if k > len(nums):\n        return None\n    best = 0\n    for i in range(len(nums) - k + 1):\n        best = max(best, sum(nums[i:i + k]))\n    return best\n```"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `has_pair_sum(nums, target)` that returns True if two elements at different positions of the list of integers nums add up to target, and False otherwise. The same position may not be used twice, but two equal values at different positions may be. Lists with fewer than two elements return False. Examples: has_pair_sum([2, 7, 11], 9) returns True, has_pair_sum([3, 5], 6) returns False, has_pair_sum([3, 3], 6) returns True.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert has_pair_sum([2, 7, 11], 9) == True\nassert has_pair_sum([3, 5], 6) == False\nassert has_pair_sum([3, 3], 6) == True\nassert has_pair_sum([], 0) == False\nassert has_pair_sum([4], 8) == False\nassert has_pair_sum([-5, 1, 9, 5], 0) == True\nassert has_pair_sum([0, 1, 2], 0) == False\nassert has_pair_sum([1, 2, 4, 8], 7) == False"
+   }
+  ],
+  "reference": "```python\ndef has_pair_sum(nums, target):\n    seen = set()\n    for n in nums:\n        if target - n in seen:\n            return True\n        seen.add(n)\n    return False\n```",
+  "negative": "```python\ndef has_pair_sum(nums, target):\n    values = set(nums)\n    for n in nums:\n        if target - n in values:\n            return True\n    return False\n```"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `walk(rows, cols, moves)` for a robot on a grid with the given number of rows and columns. The robot starts at row 0, column 0 (the top-left cell). moves is a string of the letters 'U' (row - 1), 'D' (row + 1), 'L' (column - 1) and 'R' (column + 1). A move that would take the robot off the grid is skipped and the robot stays where it is. Return the final position as the list [row, column]. Examples: walk(2, 3, 'RRD') returns [1, 2], walk(2, 2, 'UURRR') returns [0, 1], walk(3, 3, '') returns [0, 0].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert walk(2, 3, 'RRD') == [1, 2]\nassert walk(2, 2, 'UURRR') == [0, 1]\nassert walk(3, 3, '') == [0, 0]\nassert walk(1, 1, 'DRUL') == [0, 0]\nassert walk(3, 2, 'DDDDRL') == [2, 0]\nassert walk(2, 4, 'LRRRRRDDU') == [0, 3]\nassert walk(4, 4, 'DRDRULDD') == [3, 1]"
+   }
+  ],
+  "reference": "```python\ndef walk(rows, cols, moves):\n    r = c = 0\n    step = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}\n    for m in moves:\n        dr, dc = step[m]\n        nr, nc = r + dr, c + dc\n        if 0 <= nr < rows and 0 <= nc < cols:\n            r, c = nr, nc\n    return [r, c]\n```",
+  "negative": "```python\ndef walk(rows, cols, moves):\n    r = c = 0\n    step = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}\n    for m in moves:\n        dr, dc = step[m]\n        nr, nc = r + dr, c + dc\n        if 0 <= nr <= rows and 0 <= nc <= cols:\n            r, c = nr, nc\n    return [r, c]\n```"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `longest_climb(nums)` that returns the length of the longest contiguous stretch of the list nums in which every number is strictly greater than the one before it. Equal neighbours break the stretch. A single element counts as a stretch of length 1 and an empty list returns 0. Examples: longest_climb([1, 2, 2, 3, 4, 1]) returns 3 (the stretch 2, 3, 4), longest_climb([5, 4, 3]) returns 1, longest_climb([]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert longest_climb([1, 2, 2, 3, 4, 1]) == 3\nassert longest_climb([5, 4, 3]) == 1\nassert longest_climb([]) == 0\nassert longest_climb([7]) == 1\nassert longest_climb([2, 2, 2]) == 1\nassert longest_climb([-3, -2, 0, 5]) == 4\nassert longest_climb([1, 2, 3, 0, 1, 2, 3, 4]) == 5\nassert longest_climb([4, 5, 1, 2]) == 2"
+   }
+  ],
+  "reference": "```python\ndef longest_climb(nums):\n    if not nums:\n        return 0\n    best = cur = 1\n    for i in range(1, len(nums)):\n        cur = cur + 1 if nums[i] > nums[i - 1] else 1\n        best = max(best, cur)\n    return best\n```",
+  "negative": "```python\ndef longest_climb(nums):\n    best = cur = 0\n    for i in range(1, len(nums)):\n        if nums[i] >= nums[i - 1]:\n            cur += 1\n        else:\n            cur = 0\n        best = max(best, cur)\n    return best\n```"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `prime_factors(n)` that returns the prime factorization of the integer n as a list of primes in ascending order, with each prime repeated as many times as it divides n. For n less than 2 (including 0 and negative numbers) return an empty list. Examples: prime_factors(60) returns [2, 2, 3, 5], prime_factors(13) returns [13], prime_factors(1) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert prime_factors(60) == [2, 2, 3, 5]\nassert prime_factors(13) == [13]\nassert prime_factors(1) == []\nassert prime_factors(0) == []\nassert prime_factors(-12) == []\nassert prime_factors(64) == [2, 2, 2, 2, 2, 2]\nassert prime_factors(49) == [7, 7]\nassert prime_factors(9991) == [97, 103]"
+   }
+  ],
+  "reference": "```python\ndef prime_factors(n):\n    out = []\n    d = 2\n    while d * d <= n:\n        while n % d == 0:\n            out.append(d)\n            n //= d\n        d += 1\n    if n > 1:\n        out.append(n)\n    return out\n```",
+  "negative": "```python\ndef prime_factors(n):\n    out = []\n    d = 2\n    while d * d <= n:\n        if n % d == 0:\n            out.append(d)\n            n //= d\n        d += 1\n    if n > 1:\n        out.append(n)\n    return out\n```"
+ },
+ {
+  "local_id": "g5-12",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `balance_index(nums)` that returns the smallest index i such that the sum of the elements before index i equals the sum of the elements after index i (the element at i itself is not counted on either side, and the sum of no elements is 0). Return -1 if there is no such index, including for an empty list. Examples: balance_index([1, 7, 3, 6, 5, 6]) returns 3, balance_index([2, 1, -1]) returns 0, balance_index([1, 2, 3]) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert balance_index([1, 7, 3, 6, 5, 6]) == 3\nassert balance_index([2, 1, -1]) == 0\nassert balance_index([1, 2, 3]) == -1\nassert balance_index([]) == -1\nassert balance_index([9]) == 0\nassert balance_index([0, 0, 0]) == 0\nassert balance_index([-1, 1, 4]) == 2\nassert balance_index([4, 5, 4]) == 1"
+   }
+  ],
+  "reference": "```python\ndef balance_index(nums):\n    total = sum(nums)\n    left = 0\n    for i, n in enumerate(nums):\n        if left == total - left - n:\n            return i\n        left += n\n    return -1\n```",
+  "negative": "```python\ndef balance_index(nums):\n    total = sum(nums)\n    left = 0\n    for i, n in enumerate(nums):\n        left += n\n        if left == total - left:\n            return i\n    return -1\n```"
+ },
+ {
+  "local_id": "g5-13",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `int_sqrt(n)` that returns the largest integer r such that r * r <= n, for a non-negative integer n. Use only integer arithmetic (no floats, no math module) so that the result is exact for very large n. If n is negative, return -1. Examples: int_sqrt(17) returns 4, int_sqrt(16) returns 4, int_sqrt(0) returns 0, int_sqrt(-3) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert int_sqrt(17) == 4\nassert int_sqrt(16) == 4\nassert int_sqrt(0) == 0\nassert int_sqrt(-3) == -1\nassert int_sqrt(1) == 1\nassert int_sqrt(15) == 3\nassert int_sqrt(10**30) == 10**15\nassert int_sqrt(10**30 - 1) == 10**15 - 1"
+   }
+  ],
+  "reference": "```python\ndef int_sqrt(n):\n    if n < 0:\n        return -1\n    lo, hi = 0, n\n    while lo < hi:\n        mid = (lo + hi + 1) // 2\n        if mid * mid <= n:\n            lo = mid\n        else:\n            hi = mid - 1\n    return lo\n```",
+  "negative": "```python\ndef int_sqrt(n):\n    if n < 0:\n        return -1\n    lo, hi = 0, n\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if mid * mid < n:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n```"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `peak_load(sessions)` that takes a list of [start, end] lists of integers with start < end. Each session is active from start up to but not including end, so a session ending at time 5 and another starting at time 5 do not overlap. Return the largest number of sessions active at the same moment, as an int. An empty list returns 0. Examples: peak_load([[1, 4], [2, 6], [5, 8]]) returns 2 and peak_load([[1, 5], [5, 9]]) returns 1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert peak_load([[1, 4], [2, 6], [5, 8]]) == 2\nassert peak_load([[1, 5], [5, 9]]) == 1\nassert peak_load([]) == 0\nassert peak_load([[3, 4]]) == 1\nassert peak_load([[0, 10], [2, 3], [2, 3], [4, 9]]) == 3\nassert peak_load([[5, 6], [1, 2], [3, 4]]) == 1\nassert peak_load([[-3, 0], [-1, 2], [-2, 5], [0, 1]]) == 3\nassert peak_load([[1, 2], [2, 3], [3, 4], [1, 4]]) == 2"
+   }
+  ],
+  "reference": "```python\ndef peak_load(sessions):\n    events = []\n    for s, e in sessions:\n        events.append((s, 1))\n        events.append((e, -1))\n    events.sort()\n    best = cur = 0\n    for _, d in events:\n        cur += d\n        best = max(best, cur)\n    return best\n```",
+  "negative": "```python\ndef peak_load(sessions):\n    events = []\n    for s, e in sessions:\n        events.append((s, 0))\n        events.append((e, 1))\n    events.sort()\n    best = cur = 0\n    for _, kind in events:\n        cur += 1 if kind == 0 else -1\n        best = max(best, cur)\n    return best\n```"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "In the fictional land of Quill, coins come in the denominations given by the list coins (distinct positive integers, in any order), and there is an unlimited supply of each. Write a Python function `fewest_coins(amount, coins)` that returns the smallest number of coins that add up to exactly amount (a non-negative integer), or -1 if the amount cannot be made. Always taking the largest coin first does not always give the smallest count. Examples: fewest_coins(10, [1, 5, 8]) returns 2 (5 + 5), fewest_coins(0, [3]) returns 0, fewest_coins(7, [2, 4]) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert fewest_coins(10, [1, 5, 8]) == 2\nassert fewest_coins(0, [3]) == 0\nassert fewest_coins(7, [2, 4]) == -1\nassert fewest_coins(6, [4, 1, 3]) == 2\nassert fewest_coins(12, [5, 3]) == 4\nassert fewest_coins(5, []) == -1\nassert fewest_coins(9, [9]) == 1\nassert fewest_coins(29, [1, 7, 10]) == 5"
+   }
+  ],
+  "reference": "```python\ndef fewest_coins(amount, coins):\n    INF = float('inf')\n    best = [0] + [INF] * amount\n    for a in range(1, amount + 1):\n        for c in coins:\n            if c <= a and best[a - c] + 1 < best[a]:\n                best[a] = best[a - c] + 1\n    return best[amount] if best[amount] != INF else -1\n```",
+  "negative": "```python\ndef fewest_coins(amount, coins):\n    count = 0\n    for c in sorted(coins, reverse=True):\n        count += amount // c\n        amount %= c\n    return count if amount == 0 else -1\n```"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `count_routes(rows, cols, blocked)` that counts the routes from the top-left cell [0, 0] to the bottom-right cell [rows - 1, cols - 1] of a grid, moving only one cell right or one cell down at a time and never entering a blocked cell. blocked is a list of [row, col] lists. If the start cell or the end cell is blocked, return 0. A 1 by 1 grid with nothing blocked has exactly 1 route. Examples: count_routes(2, 3, []) returns 3, count_routes(3, 3, [[1, 1]]) returns 2, count_routes(2, 2, [[0, 0]]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_routes(2, 3, []) == 3\nassert count_routes(3, 3, [[1, 1]]) == 2\nassert count_routes(2, 2, [[0, 0]]) == 0\nassert count_routes(1, 1, []) == 1\nassert count_routes(1, 5, [[0, 2]]) == 0\nassert count_routes(3, 3, [[2, 2]]) == 0\nassert count_routes(4, 4, []) == 20\nassert count_routes(3, 4, [[0, 2], [2, 1]]) == 4"
+   }
+  ],
+  "reference": "```python\ndef count_routes(rows, cols, blocked):\n    bad = {(r, c) for r, c in blocked}\n    ways = [[0] * cols for _ in range(rows)]\n    for r in range(rows):\n        for c in range(cols):\n            if (r, c) in bad:\n                continue\n            if r == 0 and c == 0:\n                ways[r][c] = 1\n            else:\n                up = ways[r - 1][c] if r > 0 else 0\n                left = ways[r][c - 1] if c > 0 else 0\n                ways[r][c] = up + left\n    return ways[rows - 1][cols - 1]\n```",
+  "negative": "```python\ndef count_routes(rows, cols, blocked):\n    bad = {(r, c) for r, c in blocked}\n    ways = [[1] * cols for _ in range(rows)]\n    for r in range(1, rows):\n        for c in range(1, cols):\n            if (r, c) in bad:\n                ways[r][c] = 0\n            else:\n                ways[r][c] = ways[r - 1][c] + ways[r][c - 1]\n    return ways[rows - 1][cols - 1]\n```"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `shortest_reach(nums, target)` that takes a list of positive integers nums and a positive integer target, and returns the length of the shortest contiguous sublist whose sum is at least target. If no contiguous sublist reaches the target (including when nums is empty), return 0. Examples: shortest_reach([2, 3, 1, 2, 4, 3], 7) returns 2 (the sublist 4, 3), shortest_reach([1, 1, 1], 5) returns 0, shortest_reach([9], 4) returns 1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert shortest_reach([2, 3, 1, 2, 4, 3], 7) == 2\nassert shortest_reach([1, 1, 1], 5) == 0\nassert shortest_reach([9], 4) == 1\nassert shortest_reach([], 3) == 0\nassert shortest_reach([1, 2, 3], 6) == 3\nassert shortest_reach([5, 1, 1, 1, 6], 6) == 1\nassert shortest_reach([1, 4, 4], 8) == 2\nassert shortest_reach([3, 1, 1, 1, 1, 3, 2], 5) == 2"
+   }
+  ],
+  "reference": "```python\ndef shortest_reach(nums, target):\n    best = 0\n    left = 0\n    total = 0\n    for right, n in enumerate(nums):\n        total += n\n        while total >= target:\n            size = right - left + 1\n            if best == 0 or size < best:\n                best = size\n            total -= nums[left]\n            left += 1\n    return best\n```",
+  "negative": "```python\ndef shortest_reach(nums, target):\n    best = 0\n    left = 0\n    total = 0\n    for right, n in enumerate(nums):\n        total += n\n        if total >= target:\n            size = right - left + 1\n            if best == 0 or size < best:\n                best = size\n            total -= nums[left]\n            left += 1\n    return best\n```"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `find_span(nums, target)` that takes a list of integers sorted in ascending order (duplicates allowed) and returns the list [first, last], where first is the index of the first occurrence of target and last is the index of its last occurrence. If target does not occur (including when nums is empty), return [-1, -1]. Examples: find_span([1, 2, 2, 2, 5], 2) returns [1, 3], find_span([1, 2, 2, 2, 5], 5) returns [4, 4], find_span([1, 2, 2, 2, 5], 3) returns [-1, -1].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert find_span([1, 2, 2, 2, 5], 2) == [1, 3]\nassert find_span([1, 2, 2, 2, 5], 5) == [4, 4]\nassert find_span([1, 2, 2, 2, 5], 3) == [-1, -1]\nassert find_span([], 1) == [-1, -1]\nassert find_span([4], 4) == [0, 0]\nassert find_span([7, 7, 7, 7], 7) == [0, 3]\nassert find_span([1, 3], 9) == [-1, -1]\nassert find_span([-2, -2, 0, 6], -2) == [0, 1]"
+   }
+  ],
+  "reference": "```python\ndef find_span(nums, target):\n    def bound(strict):\n        lo, hi = 0, len(nums)\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if nums[mid] < target or (strict and nums[mid] == target):\n                lo = mid + 1\n            else:\n                hi = mid\n        return lo\n    first = bound(False)\n    if first == len(nums) or nums[first] != target:\n        return [-1, -1]\n    return [first, bound(True) - 1]\n```",
+  "negative": "```python\ndef find_span(nums, target):\n    def bound(strict):\n        lo, hi = 0, len(nums)\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if nums[mid] < target or (strict and nums[mid] == target):\n                lo = mid + 1\n            else:\n                hi = mid\n        return lo\n    first = bound(False)\n    if first == len(nums) or nums[first] != target:\n        return [-1, -1]\n    return [first, bound(True)]\n```"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `free_gaps(busy, start, end)` for a day planner. busy is a list of [a, b] lists of integers with a < b, in any order, possibly overlapping, all lying inside the window from start to end (start < end). Return the list of [a, b] gaps inside the window that are not covered by any busy interval, sorted by a. Gaps of zero length are not reported, and busy intervals that touch (one ends where the next begins) leave no gap between them. Examples: free_gaps([[3, 5], [8, 9]], 0, 10) returns [[0, 3], [5, 8], [9, 10]], free_gaps([], 2, 6) returns [[2, 6]], free_gaps([[0, 4]], 0, 4) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert free_gaps([[3, 5], [8, 9]], 0, 10) == [[0, 3], [5, 8], [9, 10]]\nassert free_gaps([], 2, 6) == [[2, 6]]\nassert free_gaps([[0, 4]], 0, 4) == []\nassert free_gaps([[6, 8], [1, 3]], 0, 8) == [[0, 1], [3, 6]]\nassert free_gaps([[1, 6], [2, 3]], 0, 9) == [[0, 1], [6, 9]]\nassert free_gaps([[2, 4], [4, 7]], 2, 9) == [[7, 9]]\nassert free_gaps([[1, 5], [3, 8], [10, 12]], 0, 12) == [[0, 1], [8, 10]]"
+   }
+  ],
+  "reference": "```python\ndef free_gaps(busy, start, end):\n    gaps = []\n    cur = start\n    for a, b in sorted(busy):\n        if a > cur:\n            gaps.append([cur, a])\n        cur = max(cur, b)\n    if cur < end:\n        gaps.append([cur, end])\n    return gaps\n```",
+  "negative": "```python\ndef free_gaps(busy, start, end):\n    gaps = []\n    cur = start\n    for a, b in sorted(busy):\n        if a > cur:\n            gaps.append([cur, a])\n        cur = b\n    if cur < end:\n        gaps.append([cur, end])\n    return gaps\n```"
+ },
+ {
+  "local_id": "g5-20",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `longest_ones(bits, k)` that takes a list of 0s and 1s and a non-negative integer k, and returns the length of the longest contiguous stretch of the list that contains at most k zeros (that is, the longest run of 1s obtainable if up to k zeros could be turned into 1s). An empty list returns 0. Examples: longest_ones([1, 0, 1, 1, 0, 1], 1) returns 4, longest_ones([0, 0, 0], 0) returns 0, longest_ones([1, 1], 5) returns 2.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert longest_ones([1, 0, 1, 1, 0, 1], 1) == 4\nassert longest_ones([0, 0, 0], 0) == 0\nassert longest_ones([1, 1], 5) == 2\nassert longest_ones([], 2) == 0\nassert longest_ones([1, 1, 0, 1, 1, 1], 0) == 3\nassert longest_ones([0, 1, 0, 0, 1, 1, 0, 1, 0], 2) == 5\nassert longest_ones([0, 0, 1, 0, 0], 2) == 3\nassert longest_ones([1, 0, 1, 1, 0, 1, 1, 1], 1) == 6"
+   }
+  ],
+  "reference": "```python\ndef longest_ones(bits, k):\n    best = 0\n    left = 0\n    zeros = 0\n    for right, b in enumerate(bits):\n        if b == 0:\n            zeros += 1\n        while zeros > k:\n            if bits[left] == 0:\n                zeros -= 1\n            left += 1\n        best = max(best, right - left + 1)\n    return best\n```",
+  "negative": "```python\ndef longest_ones(bits, k):\n    best = 0\n    cur = 0\n    zeros = 0\n    for b in bits:\n        if b == 0:\n            zeros += 1\n        if zeros > k:\n            cur = 0\n            zeros = 0\n        else:\n            cur += 1\n        best = max(best, cur)\n    return best\n```"
+ },
+ {
+  "local_id": "g5-21",
+  "family": "coding",
+  "subtheme": "algorithms",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `covered_length(intervals)` that takes a list of [start, end] lists of integers with start <= end, in any order and possibly overlapping, and returns the total length of the number line covered by at least one interval, as an int. Overlapping parts are counted only once, an interval with start equal to end adds nothing, and an empty list returns 0. Examples: covered_length([[1, 4], [2, 6]]) returns 5, covered_length([[0, 2], [5, 6]]) returns 3, covered_length([[3, 3]]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert covered_length([[1, 4], [2, 6]]) == 5\nassert covered_length([[0, 2], [5, 6]]) == 3\nassert covered_length([[3, 3]]) == 0\nassert covered_length([]) == 0\nassert covered_length([[5, 9], [1, 10], [2, 3]]) == 9\nassert covered_length([[-4, -1], [-2, 2]]) == 6\nassert covered_length([[1, 2], [2, 3], [3, 4]]) == 3\nassert covered_length([[7, 8], [0, 5], [1, 2], [4, 6]]) == 7"
+   }
+  ],
+  "reference": "```python\ndef covered_length(intervals):\n    total = 0\n    reach = None\n    for s, e in sorted(intervals):\n        if reach is None or s > reach:\n            total += e - s\n            reach = e\n        elif e > reach:\n            total += e - reach\n            reach = e\n    return total\n```",
+  "negative": "```python\ndef covered_length(intervals):\n    total = 0\n    reach = None\n    for s, e in sorted(intervals):\n        if reach is None or s > reach:\n            total += e - s\n        else:\n            total += e - reach\n        reach = e\n    return total\n```"
+ }
+]

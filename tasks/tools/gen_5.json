@@ -1,0 +1,2018 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "How many rowers signed up? Read the file 'roster_final'. If that call returns an error, the final roster was saved as 'roster_v2' instead, so read that file. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "roster_v2": "Regatta roster, final. Rowers signed up: 27",
+    "roster_draft": "Regatta roster, early draft. Rowers signed up: 19"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 27
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "roster_v2"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 4
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "roster_final"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "roster_v2"
+     }
+    }
+   ],
+   "final": "27"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "roster_final"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "roster_draft"
+     }
+    }
+   ],
+   "final": "19"
+  }
+ },
+ {
+  "local_id": "g5-02",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A truck carries 18 crates. The weight of one crate in kilograms is in the key-value store under the key 'crate_weight'. First get that key, then use calc to multiply the weight by 18. Final answer: just the number.",
+  "tools": [
+   "kv_get",
+   "calc",
+   "kv_set",
+   "send_message"
+  ],
+  "env": {
+   "kv": {
+    "crate_weight": 46,
+    "crate_count": 30,
+    "truck_id": "T-9"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 828
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "args_contains": {
+     "key": "crate_weight"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_order",
+    "order": [
+     "kv_get",
+     "calc"
+    ]
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.crate_weight",
+    "value": 46
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 3
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_weight"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "46*18"
+     }
+    }
+   ],
+   "final": "828"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_weight"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_count"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "46*30"
+     }
+    }
+   ],
+   "final": "1380"
+  }
+ },
+ {
+  "local_id": "g5-03",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "How high is the highest tide this week at North Pier, in centimetres? Read the document 'tide-table-north'. If that call returns an error, use search with the query 'North Pier tide' to find the real document id, then read that document in full with read_doc. Final answer: just the number.",
+  "tools": [
+   "read_doc",
+   "search",
+   "send_message"
+  ],
+  "env": {
+   "docs": {
+    "north-pier-tides": "Tide notice for North Pier, issued by the harbour office of the fictional town of Port Velloch. Boat owners should check their ropes before every spring tide and keep the slipway clear of trailers at all times. Highest tide this week: 412 centimetres.",
+    "south-pier-tides": "Tide notice for South Pier, issued by the harbour office of the fictional town of Port Velloch. The south slipway is closed for repairs and the crane is out of service until further notice this month. Highest tide this week: 388 centimetres.",
+    "pier-cafe-menu": "Cafe menu at the pier: tea 3 crowns, soup 7 crowns, bread 2 crowns."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 412
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "args_contains": {
+     "id": "north-pier-tides"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "tide-table-north"
+     }
+    },
+    {
+     "tool": "search",
+     "args": {
+      "query": "North Pier tide"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "north-pier-tides"
+     }
+    }
+   ],
+   "final": "412"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "tide-table-north"
+     }
+    },
+    {
+     "tool": "search",
+     "args": {
+      "query": "tide"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "south-pier-tides"
+     }
+    }
+   ],
+   "final": "388"
+  }
+ },
+ {
+  "local_id": "g5-04",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "Read the file 'reading', which contains one gauge reading. Then store that number in the key-value store under the key 'gauge'. Final answer: just the number you stored.",
+  "tools": [
+   "read_file",
+   "kv_set",
+   "kv_get",
+   "kv_delete"
+  ],
+  "env": {
+   "kv": {
+    "gauge": 41,
+    "gauge_max": 95
+   },
+   "files": {
+    "reading": "Gauge reading taken at dawn by the night shift: 58"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 58
+   },
+   {
+    "type": "tool_order",
+    "order": [
+     "read_file",
+     "kv_set"
+    ]
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.gauge",
+    "value": 58
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.gauge_max",
+    "value": 95
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_delete"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 3
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "reading"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "gauge",
+      "value": 58
+     }
+    }
+   ],
+   "final": "58"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "gauge"
+     }
+    }
+   ],
+   "final": "41"
+  }
+ },
+ {
+  "local_id": "g5-05",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "You do not know the exact file name yet, so do not guess it. First call list_files. Then read the single file whose name starts with 'manifest' and tell me how many crates were loaded. Final answer: just the number.",
+  "tools": [
+   "list_files",
+   "read_file",
+   "write_file"
+  ],
+  "env": {
+   "files": {
+    "manifest_0412": "Manifest for the barge Tolly. Crates loaded: 73",
+    "crew_list": "Crew: Ansel, Bryn, Odalys. Total crew: 3",
+    "weather": "Wind force 4, visibility good"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 73
+   },
+   {
+    "type": "tool_called",
+    "tool": "list_files",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "manifest_0412"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "write_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 3
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "manifest_0412"
+     }
+    }
+   ],
+   "final": "73"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "manifest"
+     }
+    }
+   ],
+   "final": "The file does not exist."
+  }
+ },
+ {
+  "local_id": "g5-06",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "Compute 64 times 37 with the calc tool. Then make a second calc call that takes the result of the first call and subtracts 519 from it. Final answer: just the final number.",
+  "tools": [
+   "calc",
+   "kv_set",
+   "send_message"
+  ],
+  "env": {
+   "kv": {
+    "last_result": 0
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1849
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 3
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "64*37"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "2368-519"
+     }
+    }
+   ],
+   "final": "1849"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "64*37"
+     }
+    }
+   ],
+   "final": "2368"
+  }
+ },
+ {
+  "local_id": "g5-07",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "At what hour does the Fennick museum open? The value is stored under the name 'opening_hour', either as a file or as a key in the key-value store. Call read_file with 'opening_hour' first. If that returns an error, call kv_get with the key 'opening_hour'. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "list_files"
+  ],
+  "env": {
+   "kv": {
+    "opening_hour": 10,
+    "closing_hour": 18
+   },
+   "files": {
+    "visitor_note": "Last entry is one hour before closing. Closing hour: 18"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 10
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "args_contains": {
+     "key": "opening_hour"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 4
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "opening_hour"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "opening_hour"
+     }
+    }
+   ],
+   "final": "10"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "opening_hour"
+     }
+    }
+   ],
+   "final": "The file was not found."
+  }
+ },
+ {
+  "local_id": "g5-08",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The file 'tally' has three lines in the form day=count. Step 1: read the file. Step 2: add the three counts with calc. Step 3: write just the sum into a new file named 'tally_sum'. Leave the file 'tally' unchanged. Final answer: just the sum.",
+  "tools": [
+   "read_file",
+   "calc",
+   "write_file",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "tally": "mon=118\ntue=97\nwed=143",
+    "readme": "Daily parcel counts for the sorting desk."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 358
+   },
+   {
+    "type": "tool_order",
+    "order": [
+     "read_file",
+     "calc",
+     "write_file"
+    ]
+   },
+   {
+    "type": "env_contains",
+    "path": "files.tally_sum",
+    "value": "358"
+   },
+   {
+    "type": "env_equals",
+    "path": "files.tally",
+    "value": "mon=118\ntue=97\nwed=143"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 4
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "tally"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "118+97+143"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "tally_sum",
+      "content": "358"
+     }
+    }
+   ],
+   "final": "358"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "tally"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "118+97+143"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "tally",
+      "content": "358"
+     }
+    }
+   ],
+   "final": "358"
+  }
+ },
+ {
+  "local_id": "g5-09",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Delete the old draft of the speech. Try delete_file on 'draft_speech' first. If that returns an error, call list_files and delete the one file whose name ends with '_draft'. Do not delete anything else. When done, final answer: DONE",
+  "tools": [
+   "delete_file",
+   "list_files",
+   "read_file",
+   "write_file"
+  ],
+  "env": {
+   "files": {
+    "speech_draft": "Dear guests, um, hello and thanks, more to come",
+    "speech_final": "Dear guests, welcome to the Tarn Valley harvest supper.",
+    "notes": "Seating plan is with Ilse."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "env_absent",
+    "path": "files.speech_draft"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.speech_final",
+    "value": "welcome"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.notes",
+    "value": "Ilse"
+   },
+   {
+    "type": "tool_order",
+    "order": [
+     "list_files",
+     "delete_file"
+    ]
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "write_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "draft_speech"
+     }
+    },
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "speech_draft"
+     }
+    }
+   ],
+   "final": "DONE"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "draft_speech"
+     }
+    },
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "speech_final"
+     }
+    }
+   ],
+   "final": "DONE"
+  }
+ },
+ {
+  "local_id": "g5-10",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "How much is set aside for travel in the budget file? Try to read the file 'budget_2031'. If that returns an error, the name was mistyped: call list_files and read the only file whose name starts with 'budget'. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "write_file"
+  ],
+  "env": {
+   "files": {
+    "budget_2013": "travel=730\nprinting=245\nvenue=1900",
+    "minutes_2031": "Minutes: the committee approved the budget and asked for 2 quotes for printing.",
+    "readme": "Club paperwork of the fictional Marrow Lane chess club."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 730
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "budget_2013"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "write_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "budget_2031"
+     }
+    },
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "budget_2013"
+     }
+    }
+   ],
+   "final": "730"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "budget_2031"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "minutes_2031"
+     }
+    }
+   ],
+   "final": "2"
+  }
+ },
+ {
+  "local_id": "g5-11",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "You do not know the file names yet. Step 1: call list_files. Step 2: read each file whose name starts with 'shift_'. Step 3: add the units packed in those files with calc. Final answer: just the total.",
+  "tools": [
+   "list_files",
+   "read_file",
+   "calc",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "shift_a": "Shift A report. Units packed: 212",
+    "shift_b": "Shift B report. Units packed: 189",
+    "notes": "Remember to oil the conveyor. Daily target: 400"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 7,
+  "checks": [
+   {
+    "type": "number",
+    "value": 401
+   },
+   {
+    "type": "tool_called",
+    "tool": "list_files",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "shift_a"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "shift_b"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "shift_a"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "shift_b"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "212+189"
+     }
+    }
+   ],
+   "final": "401"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "shift_a"
+     }
+    }
+   ],
+   "final": "212"
+  }
+ },
+ {
+  "local_id": "g5-12",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Work out the free seats for the concert. Step 1: get the key 'capacity'. Step 2: get the key 'booked'. Step 3: use calc to subtract booked from capacity, using the actual numbers. Step 4: store the result under the key 'seats_free'. Final answer: just the result.",
+  "tools": [
+   "kv_get",
+   "calc",
+   "kv_set",
+   "kv_delete"
+  ],
+  "env": {
+   "kv": {
+    "capacity": 840,
+    "booked": 613,
+    "waitlist": 25
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 7,
+  "checks": [
+   {
+    "type": "number",
+    "value": 227
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.seats_free",
+    "value": 227
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.capacity",
+    "value": 840
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.booked",
+    "value": 613
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_delete"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "capacity"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "booked"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "840-613"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "seats_free",
+      "value": 227
+     }
+    }
+   ],
+   "final": "227"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "capacity"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "booked"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "waitlist"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "840-613-25"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "seats_free",
+      "value": 202
+     }
+    }
+   ],
+   "final": "202"
+  }
+ },
+ {
+  "local_id": "g5-13",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The key 'current_plan' in the key-value store holds the name of a file. Step 1: get that key. Step 2: read the file that has exactly that name. Then report the budget written in that file. Final answer: just the number.",
+  "tools": [
+   "kv_get",
+   "read_file",
+   "list_files",
+   "write_file"
+  ],
+  "env": {
+   "kv": {
+    "current_plan": "plan_c",
+    "plan_owner": "Dagny"
+   },
+   "files": {
+    "plan_a": "Plan A. Budget: 4200 crowns. Crew: 6",
+    "plan_b": "Plan B. Budget: 3900 crowns. Crew: 5",
+    "plan_c": "Plan C. Budget: 5150 crowns. Crew: 9"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "number",
+    "value": 5150
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "args_contains": {
+     "key": "current_plan"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "plan_c"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "write_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 3
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "current_plan"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "plan_c"
+     }
+    }
+   ],
+   "final": "5150"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "plan_a"
+     }
+    }
+   ],
+   "final": "4200"
+  }
+ },
+ {
+  "local_id": "g5-14",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "How many months does the warranty on an Orlin kettle last? Try read_file with 'warranty' first. If that returns an error, the information is in the documents instead: search for 'warranty', then read the matching document in full with read_doc. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "search",
+   "read_doc",
+   "list_files"
+  ],
+  "env": {
+   "files": {
+    "receipt": "Bought: 1 Orlin kettle, paid 45 crowns."
+   },
+   "docs": {
+    "returns-policy": "Returns policy of the fictional Orlin kettle shop. Items can be returned within 14 days if they are unused and still in the original box with the receipt taped to the lid. Warranty: every Orlin kettle carries a warranty of 30 months from the day of purchase.",
+    "shipping-policy": "Shipping policy of the fictional Orlin kettle shop. Parcels leave within 3 days. Shipping costs 6 crowns per parcel."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 30
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "args_contains": {
+     "id": "returns-policy"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "warranty"
+     }
+    },
+    {
+     "tool": "search",
+     "args": {
+      "query": "warranty"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "returns-policy"
+     }
+    }
+   ],
+   "final": "30"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "warranty"
+     }
+    },
+    {
+     "tool": "search",
+     "args": {
+      "query": "warranty"
+     }
+    }
+   ],
+   "final": "14"
+  }
+ },
+ {
+  "local_id": "g5-15",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "36 more visitors came in. Add 36 to the visitor counter in the key-value store and save the new value under the same key the counter already uses. I think the key is called 'visitors', but check if that fails. Do not create any new key. Final answer: just the new counter value.",
+  "tools": [
+   "kv_get",
+   "kv_list",
+   "kv_set",
+   "calc",
+   "kv_delete"
+  ],
+  "env": {
+   "kv": {
+    "visitor_count": 1284,
+    "visitor_limit": 2000,
+    "staff_count": 17
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1320
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.visitor_count",
+    "value": 1320
+   },
+   {
+    "type": "env_absent",
+    "path": "kv.visitors"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.visitor_limit",
+    "value": 2000
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.staff_count",
+    "value": 17
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_delete"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 7
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "visitors"
+     }
+    },
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "visitor_count"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "1284+36"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "visitor_count",
+      "value": 1320
+     }
+    }
+   ],
+   "final": "1320"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "visitors"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "visitors",
+      "value": 36
+     }
+    }
+   ],
+   "final": "36"
+  }
+ },
+ {
+  "local_id": "g5-16",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "Settle the order described in the file 'order'. The balance due is the number of crates times the price per crate, minus the deposit already paid. Use calc. Save just the balance number in a new file named 'balance', then send exactly one message to 'yard' whose text contains the balance. Final answer: just the balance.",
+  "tools": [
+   "read_file",
+   "calc",
+   "write_file",
+   "send_message",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "order": "crates: 17\nprice_per_crate: 64\ndeposit_paid: 150"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 7,
+  "checks": [
+   {
+    "type": "number",
+    "value": 938
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "order"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "env_contains",
+    "path": "files.balance",
+    "value": "938"
+   },
+   {
+    "type": "env_equals",
+    "path": "files.order",
+    "value": "crates: 17\nprice_per_crate: 64\ndeposit_paid: 150"
+   },
+   {
+    "type": "outbox_count",
+    "value": 1
+   },
+   {
+    "type": "tool_called",
+    "tool": "send_message",
+    "min": 1,
+    "max": 1,
+    "args_contains": {
+     "to": "yard",
+     "text": "938"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "order"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "17*64-150"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "balance",
+      "content": "938"
+     }
+    },
+    {
+     "tool": "send_message",
+     "args": {
+      "to": "yard",
+      "text": "Balance due: 938 crowns"
+     }
+    }
+   ],
+   "final": "938"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "order"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "17*64"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "balance",
+      "content": "1088"
+     }
+    },
+    {
+     "tool": "send_message",
+     "args": {
+      "to": "yard",
+      "text": "Balance due: 1088 crowns"
+     }
+    }
+   ],
+   "final": "1088"
+  }
+ },
+ {
+  "local_id": "g5-17",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "What is the total in the final March expense file? I believe the file is called 'expenses_march'. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "write_file",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "expense_mar": "rent=1400\nfuel=615\ntools=300\ntotal=2315",
+    "expense_mar_draft": "DRAFT, not final, do not use\ntotal=1980",
+    "expense_may": "rent=1400\nfuel=950\ntools=400\ntotal=2750"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 2315
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "args_contains": {
+     "path": "expense_mar"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "write_file"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "expenses_march"
+     }
+    },
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "expense_mar"
+     }
+    }
+   ],
+   "final": "2315"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "expenses_march"
+     }
+    },
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "expense_mar_draft"
+     }
+    }
+   ],
+   "final": "1980"
+  }
+ },
+ {
+  "local_id": "g5-18",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "Using the Hostel Brannock documents, what does a stay of 3 nights in a dormitory bed cost, including the linen fee? The rates should be in the document 'rates'. Use calc for the arithmetic. Final answer: just the number of crowns.",
+  "tools": [
+   "read_doc",
+   "search",
+   "calc",
+   "send_message"
+  ],
+  "env": {
+   "docs": {
+    "brannock-rate-sheet": "Hostel Brannock rate sheet for the current season. This sheet replaces the one pinned in the hallway and applies to walkers, cyclists and anyone arriving by the valley bus alike. Dormitory bed: 29 crowns per night. Private room: 74 crowns per night. Linen fee: 11 crowns, charged once per stay.",
+    "brannock-house-rules": "Hostel Brannock house rules. Quiet after 22. Boots stay in the porch. Breakfast is served from 7 and costs 6 crowns.",
+    "brannock-history": "Hostel Brannock was a shepherd's bothy before the valley road was built. It has 24 beds."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 7,
+  "checks": [
+   {
+    "type": "number",
+    "value": 98
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "args_contains": {
+     "id": "brannock-rate-sheet"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 6
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "rates"
+     }
+    },
+    {
+     "tool": "search",
+     "args": {
+      "query": "Brannock dormitory rate"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "brannock-rate-sheet"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "3*29+11"
+     }
+    }
+   ],
+   "final": "98"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "rates"
+     }
+    },
+    {
+     "tool": "search",
+     "args": {
+      "query": "Brannock dormitory rate"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "brannock-rate-sheet"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "3*(29+11)"
+     }
+    }
+   ],
+   "final": "120"
+  }
+ },
+ {
+  "local_id": "g5-19",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "How many kilometres is the depot of the active route from base? In the key-value store, the key 'active_route' holds a route code. The key 'depot_' followed by that code holds a depot name. The key 'km_' followed by that depot name holds the distance. Final answer: just the number.",
+  "tools": [
+   "kv_get",
+   "kv_list",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "active_route": "r7",
+    "depot_r4": "westyard",
+    "depot_r7": "eastgate",
+    "km_westyard": 91,
+    "km_eastgate": 58
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 58
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "args_contains": {
+     "key": "active_route"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "args_contains": {
+     "key": "depot_r7"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "args_contains": {
+     "key": "km_eastgate"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 5
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "active_route"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "depot_r7"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "km_eastgate"
+     }
+    }
+   ],
+   "final": "58"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "active_route"
+     }
+    },
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "km_westyard"
+     }
+    }
+   ],
+   "final": "91"
+  }
+ },
+ {
+  "local_id": "g5-20",
+  "family": "tools",
+  "subtheme": "dependent-pipeline",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "Rename the key 'tmp_quota' in the key-value store to 'quota': the new key must hold the same value the old key holds now, and afterwards the old key must be gone. Leave every other key alone. Final answer: just the value.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "kv_delete",
+   "kv_list"
+  ],
+  "env": {
+   "kv": {
+    "tmp_quota": 450,
+    "tmp_limit": 90,
+    "owner": "mira"
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 6,
+  "checks": [
+   {
+    "type": "number",
+    "value": 450
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.quota",
+    "value": 450
+   },
+   {
+    "type": "env_absent",
+    "path": "kv.tmp_quota"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tmp_limit",
+    "value": 90
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.owner",
+    "value": "mira"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 4
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tmp_quota"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "quota",
+      "value": 450
+     }
+    },
+    {
+     "tool": "kv_delete",
+     "args": {
+      "key": "tmp_quota"
+     }
+    }
+   ],
+   "final": "450"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_delete",
+     "args": {
+      "key": "tmp_quota"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tmp_quota"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "quota",
+      "value": 0
+     }
+    }
+   ],
+   "final": "0"
+  }
+ },
+ {
+  "local_id": "g5-21",
+  "family": "tools",
+  "subtheme": "error-recovery",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "How many anchors are in stock? Stock counts are in the key-value store; try the key 'stock_anchors'. If that fails, check the list of keys. If there is truly no key for anchors, do not guess and do not create one: answer exactly NONE. Final answer: just the number, or the single word NONE.",
+  "tools": [
+   "kv_get",
+   "kv_list",
+   "kv_set",
+   "search"
+  ],
+  "env": {
+   "kv": {
+    "stock_chains": 64,
+    "stock_ropes": 210,
+    "stock_buoys": 35
+   },
+   "docs": {
+    "chandlery-note": "The chandlery sells chains, ropes and buoys."
+   }
+  },
+  "max_tokens": 200,
+  "max_steps": 5,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "NONE"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_list",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "env_absent",
+    "path": "kv.stock_anchors"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 4
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "stock_anchors"
+     }
+    },
+    {
+     "tool": "kv_list",
+     "args": {}
+    }
+   ],
+   "final": "NONE"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "stock_anchors"
+     }
+    },
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "stock_chains"
+     }
+    }
+   ],
+   "final": "64"
+  }
+ }
+]

@@ -1,0 +1,568 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "synthesis",
+  "subtheme": "roster headcount vs claims",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Volunteer roster, Tolland Mill open day: Day crew: Anwen Pryce, Tobin Hale, Marit Oss, Jude Kerrin. Evening crew: Sefa Lund, Corin Abbey, Petra Vane. Tea is served at four.\n[Doc B] Parish newsletter: \"Six volunteers staffed the Tolland Mill open day.\"\n[Doc C] Thank-you card from the mill trust: \"Our thanks to all eight volunteers on the roster.\"\n[Doc D] Insurance form: \"Number of volunteers on the open day roster: seven.\"\n\nQuestion: The roster in Doc A is the official record. Which one of Docs B, C and D gives a number of volunteers that agrees with the roster?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B, C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "D",
+     "Doc D",
+     "[Doc D]"
+    ]
+   }
+  ],
+  "reference": "4 day + 3 evening = 7 volunteers, as the insurance form says.\nANSWER: D",
+  "negative": "The day crew plus two evening helpers makes six.\nANSWER: B"
+ },
+ {
+  "local_id": "g4-02",
+  "family": "synthesis",
+  "subtheme": "ledger total vs treasurer claim",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Cash ledger, Hartsel Rowing Club regatta: programme sales 215 shillings, tea tent 180 shillings, raffle 240 shillings.\n[Doc B] Treasurer's letter to members: \"The regatta takings recorded in the cash ledger came to 645 shillings in all.\"\n[Doc C] Boathouse notice: The slipway will be repainted the week after the regatta.\n\nQuestion: The cash ledger is the official record. Is the treasurer's statement about the total takings SUPPORTED or REFUTED by the ledger?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <SUPPORTED or REFUTED>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "REFUTED"
+    ]
+   }
+  ],
+  "reference": "215 + 180 + 240 = 635, not 645.\nANSWER: REFUTED",
+  "negative": "215 + 180 + 240 = 645, as the letter says.\nANSWER: SUPPORTED"
+ },
+ {
+  "local_id": "g4-03",
+  "family": "synthesis",
+  "subtheme": "custody log carry-forward vs claims",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Key log, Arrowby boat shed: Monday, key issued to Wend. Tuesday, Wend handed the key to Pavlo. Thursday, Pavlo handed the key to Dree. Whoever receives the key holds it until the next handover in the log.\n[Doc B] Statement to the committee: \"On Wednesday the shed key was with Wend.\"\n[Doc C] Email from the harbour office: \"We understand Dree was holding the shed key on Wednesday.\"\n[Doc D] Note from the caretaker: \"Pavlo had the shed key on Wednesday.\"\n\nQuestion: The key log is the official record. Which one of Docs B, C and D names the person who, by the log, held the key on Wednesday?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B, C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "D",
+     "Doc D",
+     "[Doc D]"
+    ]
+   }
+  ],
+  "reference": "No handover on Wednesday, so Tuesday's holder Pavlo still had it.\nANSWER: D",
+  "negative": "The next entry in the log gives the key to Dree.\nANSWER: C"
+ },
+ {
+  "local_id": "g4-04",
+  "family": "synthesis",
+  "subtheme": "threshold rule over a register",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Attendance register, Calder Beekeepers: September meeting 22 members, October meeting 18 members, November meeting 25 members.\n[Doc B] Society rules: A meeting has a quorum only if at least 20 members attend. Subscriptions fall due in January.\n[Doc C] Annual summary by the chairman: \"Every meeting this autumn had a quorum.\"\n\nQuestion: The register and the rules are official. Is the chairman's statement SUPPORTED or REFUTED?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <SUPPORTED or REFUTED>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "REFUTED"
+    ]
+   }
+  ],
+  "reference": "October had 18, below the quorum of 20.\nANSWER: REFUTED",
+  "negative": "22, 18 and 25 are all good turnouts.\nANSWER: SUPPORTED"
+ },
+ {
+  "local_id": "g4-05",
+  "family": "synthesis",
+  "subtheme": "inventory movement vs claims",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Furniture log, Penhallow Village Hall: 1 June, 96 chairs in the store. 9 June, 14 chairs sent away for re-caning. 20 June, 6 of those chairs came back mended; the rest are still away.\n[Doc B] Booking clerk's note of 21 June: \"There are 82 chairs in the store.\"\n[Doc C] Caretaker's report of 21 June: \"There are 88 chairs in the store.\"\n[Doc D] Hire leaflet printed 21 June: \"76 chairs available from our store.\"\n\nQuestion: The furniture log is the official record. Which one of Docs B, C and D gives a chair count for 21 June that agrees with the log?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B, C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "C",
+     "Doc C",
+     "[Doc C]"
+    ]
+   }
+  ],
+  "reference": "96 - 14 + 6 = 88, the caretaker's figure.\nANSWER: C",
+  "negative": "96 - 14 = 82.\nANSWER: B"
+ },
+ {
+  "local_id": "g4-06",
+  "family": "synthesis",
+  "subtheme": "which document refutes a stated claim",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Maintenance log, Kessin lighthouse: The lamp was serviced once this year, on 17 October. The keeper also repainted the gallery rail.\n[Doc B] Harbour notice: The great storm struck the Kessin coast on the night of 12 October. Two moorings were lost.\n[Doc C] Supplier letter: A drum of lamp oil was delivered to the Kessin lighthouse on 9 October.\n\nQuestion: A visitor claims: \"The Kessin lamp had already been serviced before the storm struck.\" The maintenance log is the official record. Which one of Docs B and C, read together with the log, shows that the claim is false?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B or C>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "B",
+     "Doc B",
+     "[Doc B]"
+    ]
+   }
+  ],
+  "reference": "Serviced on 17 October, but the storm was on 12 October, five days earlier.\nANSWER: B",
+  "negative": "The oil arrived on 9 October, before the service.\nANSWER: C"
+ },
+ {
+  "local_id": "g4-07",
+  "family": "synthesis",
+  "subtheme": "filter and count register entries",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Loan register, Withy Lane reading room, week of 3 March: Odalys Brenk borrowed \"Tides\"; Hew Marland borrowed \"Old Roads\"; Odalys Brenk borrowed \"The Salt Year\"; Risa Cole borrowed \"Kiln Craft\"; Odalys Brenk borrowed \"Garden Almanac\"; Hew Marland borrowed \"Small Boats\".\n[Doc B] Reminder card: \"Odalys Brenk, you have two books out from this week's register.\"\n[Doc C] Librarian's memo: \"Odalys Brenk took out three books this week.\"\n[Doc D] Committee minute: \"One reader, Odalys Brenk, borrowed four books in the week.\"\n\nQuestion: The loan register is the official record. Which one of Docs B, C and D states a number of books for Odalys Brenk that agrees with the register?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B, C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "C",
+     "Doc C",
+     "[Doc C]"
+    ]
+   }
+  ],
+  "reference": "Brenk appears three times: Tides, The Salt Year, Garden Almanac.\nANSWER: C",
+  "negative": "Brenk is listed for Tides and The Salt Year.\nANSWER: B"
+ },
+ {
+  "local_id": "g4-08",
+  "family": "synthesis",
+  "subtheme": "winner claim after adjustment",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Score sheet, Dunnock Inn quiz night: Team Larch 41 points, Team Fenn 44 points, Team Sorrel 37 points. Eight rounds were played.\n[Doc B] Adjudicator's slip: Team Fenn loses 5 points from its score sheet total for conferring after the bell. No other team is penalised.\n[Doc C] Poster in the bar: \"Congratulations to Team Larch, who finished with the highest final score!\"\n\nQuestion: The score sheet and the adjudicator's slip are official. Is the poster's statement SUPPORTED or REFUTED?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <SUPPORTED or REFUTED>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "SUPPORTED"
+    ]
+   }
+  ],
+  "reference": "Fenn drops to 44 - 5 = 39, below Larch on 41.\nANSWER: SUPPORTED",
+  "negative": "Fenn scored 44, more than Larch's 41.\nANSWER: REFUTED"
+ },
+ {
+  "local_id": "g4-09",
+  "family": "synthesis",
+  "subtheme": "timesheet times contract rate vs payslips",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Timesheet, Jory Tallack, Wessel Cooperage: Monday 6 hours, Wednesday 7 hours, Friday 5 hours. Signed by the foreman.\n[Doc B] Contract of engagement: Jory Tallack is paid 12 groats for each hour worked. Tools are supplied by the cooperage.\n[Doc C] Payslip draft from the office clerk: \"Week's pay for J. Tallack: 204 groats.\"\n[Doc D] Payslip draft from the bookkeeper: \"Week's pay for J. Tallack: 216 groats.\"\n\nQuestion: The timesheet and the contract are official. Which one of Docs C and D states a week's pay that agrees with them?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "D",
+     "Doc D",
+     "[Doc D]"
+    ]
+   }
+  ],
+  "reference": "6 + 7 + 5 = 18 hours, and 18 x 12 = 216 groats.\nANSWER: D",
+  "negative": "17 hours x 12 = 204 groats.\nANSWER: C"
+ },
+ {
+  "local_id": "g4-10",
+  "family": "synthesis",
+  "subtheme": "row-wise comparison across two records",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Rain gauge book, Orrin farm (millimetres): May 48, June 31, July 52, August 40. The gauge was re-levelled in spring.\n[Doc B] Rain gauge book, Tash farm (millimetres): May 44, June 36, July 47, August 38.\n[Doc C] Letter to the growers' gazette: \"Orrin farm was wetter than Tash farm in every one of the four months.\"\n[Doc D] Seed merchant's circular: \"Orrin farm was wetter than Tash farm in only two of the four months.\"\n[Doc E] Drainage board minute: \"Orrin farm was wetter than Tash farm in three of the four months.\"\n\nQuestion: The two gauge books are the official records. Which one of Docs C, D and E agrees with them?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <C, D or E>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "E",
+     "Doc E",
+     "[Doc E]"
+    ]
+   }
+  ],
+  "reference": "Orrin is higher in May, July and August but lower in June, so three months.\nANSWER: E",
+  "negative": "48, 31, 52 and 40 add up to more than Tash, so Orrin was wetter throughout.\nANSWER: C"
+ },
+ {
+  "local_id": "g4-11",
+  "family": "synthesis",
+  "subtheme": "split record, verdict and deciding document",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Toll book, Hollin bridge, part one: Monday 130 marks, Tuesday 115 marks, Wednesday 140 marks, Thursday 125 marks.\n[Doc B] Toll book, Aske bridge, weekend sheet: Friday 210 marks, Saturday 190 marks, Sunday 230 marks.\n[Doc C] Toll book, Hollin bridge, part two: Friday 150 marks, Saturday 170 marks, Sunday 95 marks.\n[Doc D] Bridge warden's diary: The Hollin bridge gate was oiled on Wednesday and a lamp glass replaced.\n\nQuestion: A councillor claims: \"Hollin bridge took more than 900 marks in tolls over the seven days.\" Doc A alone cannot settle this. Is the claim SUPPORTED or REFUTED, and which one of Docs B, C and D supplies the figures that settle it?\n\nReply with only a JSON object like {\"verdict\": \"<SUPPORTED or REFUTED>\", \"doc\": \"<B, C or D>\"} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "verdict",
+     "doc"
+    ],
+    "equals": {
+     "verdict": "SUPPORTED",
+     "doc": "C"
+    }
+   }
+  ],
+  "reference": "{\"verdict\": \"SUPPORTED\", \"doc\": \"C\"}",
+  "negative": "{\"verdict\": \"REFUTED\", \"doc\": \"D\"}"
+ },
+ {
+  "local_id": "g4-12",
+  "family": "synthesis",
+  "subtheme": "average of a log vs claims",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Kiln log, Brackwell Pottery, firing times in minutes: first firing 38, second 47, third 44, fourth 36, fifth 45. The fourth load was all saucers.\n[Doc B] Apprentice's notebook: \"Across the five firings the average firing time was 44 minutes.\"\n[Doc C] Works manager's report: \"Across the five firings the average firing time was 42 minutes.\"\n[Doc D] Fuel merchant's letter: \"I am told your firings average 47 minutes.\"\n\nQuestion: The kiln log is the official record, and average means the total divided by the number of firings. Which one of Docs B, C and D states an average that agrees with the log?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B, C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "C",
+     "Doc C",
+     "[Doc C]"
+    ]
+   }
+  ],
+  "reference": "38 + 47 + 44 + 36 + 45 = 210, and 210 / 5 = 42.\nANSWER: C",
+  "negative": "The middle value of the five is 44.\nANSWER: B"
+ },
+ {
+  "local_id": "g4-13",
+  "family": "synthesis",
+  "subtheme": "tool lookup, stock log vs claim documents",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The document 'stocklog' is the official record of candle stock at the Marrable chandlery. The documents 'bulletin', 'minutes' and 'flyer' each state how many candles were in stock at the end of the week. Read them, work out the closing stock from the stock log, and find the one document whose figure agrees with it. Give only the id of that document in your final answer.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "stocklog": "Stock log, Marrable chandlery, week of 6 May. Opening stock on Monday: 340 candles. Sold Tuesday: 85. Sold Thursday: 60. Sold Saturday: 45. Received from the dipping shed on Friday: 120 candles.",
+    "bulletin": "Guild bulletin. The Marrable chandlery ended the week of 6 May with 150 candles in stock. The guild dinner is on the 20th.",
+    "minutes": "Minutes of the shop meeting. Closing stock for the week of 6 May was reported as 270 candles. The cracked window is to be mended.",
+    "flyer": "Shop flyer. Over 450 candles on our shelves at the close of the week of 6 May! Beeswax tapers a speciality.",
+    "wicknote": "Supplier note. Braided wick is sold by the spool; the chandlery ordered four spools in April."
+   }
+  },
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bminutes\\b",
+    "flags": "i"
+   },
+   {
+    "type": "contains_none",
+    "values": [
+     "bulletin",
+     "flyer"
+    ]
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 2,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "stocklog"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "340-85-60-45+120"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "bulletin"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "minutes"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "flyer"
+     }
+    }
+   ],
+   "final": "minutes"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "stocklog"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "340-85-60-45"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "bulletin"
+     }
+    }
+   ],
+   "final": "bulletin"
+  }
+ },
+ {
+  "local_id": "g4-14",
+  "family": "synthesis",
+  "subtheme": "derived due date vs lateness claim",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Loan register, Sedgewick Map Library: The chart \"Soundings of the Verrow Estuary\" was lent to Captain Aldous Fenby on 4 May and returned on 27 May.\n[Doc B] Library rules: A chart is due back 21 days after the day it was lent. Charts must be carried flat, never rolled.\n[Doc C] Letter from the librarian to Captain Fenby: \"You returned the estuary chart after its due date.\"\n\nQuestion: The register and the rules are official. Is the librarian's statement SUPPORTED or REFUTED?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <SUPPORTED or REFUTED>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "SUPPORTED"
+    ]
+   }
+  ],
+  "reference": "4 + 21 = 25 May was the due date, and it came back on 27 May.\nANSWER: SUPPORTED",
+  "negative": "It was lent and returned within May, inside the loan period.\nANSWER: REFUTED"
+ },
+ {
+  "local_id": "g4-15",
+  "family": "synthesis",
+  "subtheme": "unit conversion with deduction vs claims",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Egg book, Lowmoor Farm: Monday 84 eggs collected, Tuesday 96 eggs collected, Wednesday 72 eggs collected. The pullets began laying this month.\n[Doc B] Packing shed rule: Eggs go to market in trays, and every tray holds exactly 12 eggs.\n[Doc C] Carter's note: 12 of the eggs collected over the three days were cracked on the cart and thrown away before packing.\n[Doc D] Market docket filled in by the stallholder: \"Received from Lowmoor Farm: 21 full trays.\"\n[Doc E] Market docket filled in by the farmer's daughter: \"Sent from Lowmoor Farm: 20 full trays.\"\n\nQuestion: Docs A, B and C are official. All the uncracked eggs from the three days were packed into trays. Which one of Docs D and E states a number of trays that agrees with the official documents?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <D or E>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "E",
+     "Doc E",
+     "[Doc E]"
+    ]
+   }
+  ],
+  "reference": "84 + 96 + 72 = 252, minus 12 cracked is 240, and 240 / 12 = 20 trays.\nANSWER: E",
+  "negative": "84 + 96 + 72 = 252, and 252 / 12 = 21 trays.\nANSWER: D"
+ },
+ {
+  "local_id": "g4-16",
+  "family": "synthesis",
+  "subtheme": "find the one false claim among three",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Subscription ledger, Orme Valley Brass Band, sums received: first quarter 310 crowns, second quarter 265 crowns, third quarter 240 crowns, fourth quarter 345 crowns.\n[Doc B] Secretary's report: \"Subscriptions for the year came to 1,160 crowns.\"\n[Doc C] Bandmaster's speech: \"Our best quarter for subscriptions was the fourth.\"\n[Doc D] Auditor's note: \"The fourth quarter brought in 45 crowns more than the first quarter.\"\n\nQuestion: The ledger is the official record. Two of Docs B, C and D agree with the ledger and one does not. Which one does NOT agree with the ledger?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <B, C or D>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "D",
+     "Doc D",
+     "[Doc D]"
+    ]
+   }
+  ],
+  "reference": "Total 310 + 265 + 240 + 345 = 1160 is right and Q4 is the largest, but 345 - 310 = 35, not 45.\nANSWER: D",
+  "negative": "The quarters add up to 1,150, not 1,160.\nANSWER: B"
+ },
+ {
+  "local_id": "g4-17",
+  "family": "synthesis",
+  "subtheme": "majority claim with a correcting document",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Voyage roster, the ketch Greyling, this season: voyage 1 Captain Farn, voyage 2 Captain Okel, voyage 3 Captain Farn, voyage 4 Captain Farn, voyage 5 Captain Okel, voyage 6 Captain Okel, voyage 7 Captain Farn.\n[Doc B] Shipping gazette profile: Captain Ysolde Farn has held a master's ticket for twelve seasons and prefers the northern run.\n[Doc C] Harbour master's correction: The roster entry for voyage 4 is a misprint. Captain Okel, not Captain Farn, commanded voyage 4. This correction overrides the roster.\n[Doc D] Chandler's account: The Greyling took on fresh cordage before voyage 5.\n\nQuestion: An owner claims: \"Captain Farn commanded more than half of the Greyling's seven voyages this season.\" Taking every official document into account, is the claim SUPPORTED or REFUTED, and which one of Docs B, C and D changes the count taken from the roster?\n\nReply with only a JSON object like {\"verdict\": \"<SUPPORTED or REFUTED>\", \"doc\": \"<B, C or D>\"} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "verdict",
+     "doc"
+    ],
+    "equals": {
+     "verdict": "REFUTED",
+     "doc": "C"
+    }
+   }
+  ],
+  "reference": "{\"verdict\": \"REFUTED\", \"doc\": \"C\"}",
+  "negative": "{\"verdict\": \"SUPPORTED\", \"doc\": \"C\"}"
+ },
+ {
+  "local_id": "g4-18",
+  "family": "synthesis",
+  "subtheme": "period conversion with a rate change vs claims",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Rent book, the Tanyard workshop, Coldharbour Lane: one month's rent was paid on time for each of the twelve months of 2041, at whatever monthly rate was in force that month.\n[Doc B] Landlord's notice: The monthly rent for the Tanyard workshop is 85 florins for January, February and March 2041, and 95 florins a month from April 2041 onwards.\n[Doc C] Tenant's tax return: \"Rent paid for the workshop in 2041: 1,020 florins.\"\n[Doc D] Agent's statement: \"Rent received for the workshop in 2041: 1,140 florins.\"\n[Doc E] Bank summary: \"Rent payments for the workshop in 2041: 1,110 florins.\"\n\nQuestion: The rent book and the landlord's notice are official. Which one of Docs C, D and E states a total for 2041 that agrees with them?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <C, D or E>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "E",
+     "Doc E",
+     "[Doc E]"
+    ]
+   }
+  ],
+  "reference": "3 x 85 = 255 and 9 x 95 = 855, so 255 + 855 = 1110 florins.\nANSWER: E",
+  "negative": "12 x 95 = 1140 florins.\nANSWER: D"
+ },
+ {
+  "local_id": "g4-19",
+  "family": "synthesis",
+  "subtheme": "tool lookup, claim vs ledger plus rule",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The document 'notice' makes a claim about Tovin Arkle's membership of the Sallow Bank Anglers. Check it against the official documents 'subsledger' and 'rulebook'. In your final answer give one word: SUPPORTED if the claim agrees with the official documents, or REFUTED if it does not.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "max_steps": 6,
+  "env": {
+   "docs": {
+    "notice": "Clubhouse notice. Tovin Arkle is a fully paid-up member for 2042 and may fish the upper beat. The weir pool is closed for repairs.",
+    "subsledger": "Subscriptions ledger, Sallow Bank Anglers, 2042. Tovin Arkle: paid 40 shillings in February, 40 shillings in May, 25 shillings in September. Brenna Coyle: paid 120 shillings in January.",
+    "rulebook": "Rule book, Sallow Bank Anglers. A member is fully paid-up for a year only when their payments for that year add up to at least 120 shillings. Only fully paid-up members may fish the upper beat.",
+    "matchcard": "Match card. The spring match was won with a bag of eleven roach. Tovin Arkle drew peg 14."
+   }
+  },
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\brefuted\\b",
+    "flags": "i"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\bsupported\\b",
+    "flags": "i"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 2,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "notice"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "subsledger"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "rulebook"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "40+40+25"
+     }
+    }
+   ],
+   "final": "REFUTED"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "notice"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "subsledger"
+     }
+    }
+   ],
+   "final": "SUPPORTED"
+  }
+ },
+ {
+  "local_id": "g4-20",
+  "family": "synthesis",
+  "subtheme": "per-item change between two counts vs claims",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Stock count, Fennimore ship stores, 1 March: lamp oil 64 tins, candles 95 boxes, rope 120 coils. Counted by the junior clerk.\n[Doc B] Stock count, Fennimore ship stores, 31 March: rope 88 coils, lamp oil 41 tins, candles 70 boxes.\n[Doc C] Purser's remark: \"Of the three lines, candles fell by the largest number of units during March.\"\n[Doc D] Storekeeper's remark: \"Of the three lines, rope fell by the largest number of units during March.\"\n[Doc E] Owner's remark: \"Of the three lines, lamp oil fell by the largest number of units during March.\"\n\nQuestion: The two stock counts are the official records. Which one of Docs C, D and E agrees with them?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <C, D or E>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "D",
+     "Doc D",
+     "[Doc D]"
+    ]
+   }
+  ],
+  "reference": "Falls: lamp oil 64 - 41 = 23, candles 95 - 70 = 25, rope 120 - 88 = 32, so rope fell most.\nANSWER: D",
+  "negative": "Lamp oil ended lowest at 41 tins, so it fell the most.\nANSWER: E"
+ },
+ {
+  "local_id": "g4-21",
+  "family": "synthesis",
+  "subtheme": "running balance with delivery vs threshold claim",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Fuel log, Asperton pumping station: Monday morning the tank held 500 litres. Drawn off on Monday 120 litres, on Wednesday 95 litres, on Friday 140 litres.\n[Doc B] Station rule: Fuel must be reordered at the end of the week if the tank then holds less than 150 litres.\n[Doc C] Manager's email: \"At the end of the week the tank was above the reorder level, so no reorder was needed.\"\n[Doc D] Delivery note: A top-up of 60 litres was pumped into the Asperton station tank on Thursday. The driver reported a loose hose clip.\n\nQuestion: Docs A, B and D are official, and together they cover every change to the tank during the week. Is the manager's statement SUPPORTED or REFUTED?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <SUPPORTED or REFUTED>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "SUPPORTED"
+    ]
+   }
+  ],
+  "reference": "500 - 120 - 95 - 140 = 145, plus the 60 litre top-up is 205, which is above 150.\nANSWER: SUPPORTED",
+  "negative": "500 - 120 - 95 - 140 = 145, which is below 150.\nANSWER: REFUTED"
+ }
+]

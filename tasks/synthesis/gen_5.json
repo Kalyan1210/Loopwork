@@ -1,0 +1,534 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "synthesis",
+  "subtheme": "contradiction: explicit figure",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Harbour guide, Skerrin Bay: The Skerrin lighthouse stands 31 metres tall and its lamp was first lit in 2034.\n[Doc B] Keeper's logbook, opening page: The lamp of the Skerrin lighthouse was first lit in 2034. The lamp room was repainted last spring.\n[Doc C] Sailing club leaflet: Steer for the Skerrin lighthouse, 36 metres tall and painted in red and white bands.\n[Doc D] Postcard caption: The Skerrin lighthouse in its red and white bands, seen at sunset.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "Doc A gives a height of 31 metres but Doc C gives 36 metres.\nANSWER: A and C",
+  "negative": "The logbook and the guide describe the lamp differently.\nANSWER: A and B"
+ },
+ {
+  "local_id": "g5-02",
+  "family": "synthesis",
+  "subtheme": "contradiction: name the disputed fact",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Shop sign, Tolwyn Bakery: Founded by Edda Marsh. Open six days a week on Canal Street.\n[Doc B] Local history pamphlet: Tolwyn Bakery opened in 2041 and has always stood on Canal Street.\n[Doc C] Newspaper feature: Tolwyn Bakery, which opened in 2041, was founded by Joss Perrin and still sells its rye loaf.\n[Doc D] Customer newsletter: Call in at Tolwyn Bakery on Canal Street for the rye loaf, baked every morning.\n\nQuestion: The documents disagree about exactly one detail of Tolwyn Bakery. Which detail is it: the founder, the street or the opening year?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <founder, street or opening year>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "founder",
+     "the founder",
+     "its founder"
+    ]
+   }
+  ],
+  "reference": "Doc A names Edda Marsh as founder while Doc C names Joss Perrin; street and year agree.\nANSWER: founder",
+  "negative": "The pamphlet and the feature give different dates.\nANSWER: opening year"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "synthesis",
+  "subtheme": "contradiction: explicit qualitative claim",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Visitor leaflet, Pellow Clock Museum: The museum is open from Wednesday to Sunday. Entry is free for every visitor.\n[Doc B] School trip letter: The Pellow Clock Museum is on Tanner Row, a short walk from the bus stop.\n[Doc C] Ticket desk sign: Pellow Clock Museum. Every visitor must buy a ticket costing 4 crowns.\n[Doc D] Street directory: Tanner Row. The Pellow Clock Museum, open Wednesday to Sunday.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "Doc A says entry is free for everyone, but Doc C says every visitor pays 4 crowns.\nANSWER: A and C",
+  "negative": "The sign and the directory disagree about opening.\nANSWER: C and D"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "synthesis",
+  "subtheme": "entity linking: two-hop chain",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Crew list, Harrow Shipping: Nell Orrin serves on the Kittiwake. Bram Solt serves on the Petrel. Tessa Wynd serves on the Gannet.\n[Doc B] Fleet register: The home port of the Gannet is Vessick. The home port of the Kittiwake is Marrowby. The home port of the Petrel is Dunrae.\n[Doc C] Chandlery receipt: Harrow Shipping bought 40 metres of mooring rope and two brass lamps.\n\nQuestion: What is the home port of the vessel that Bram Solt serves on?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <port name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Dunrae",
+     "Dunrae port",
+     "port of Dunrae",
+     "the port of Dunrae"
+    ]
+   }
+  ],
+  "reference": "Bram Solt serves on the Petrel, and the Petrel's home port is Dunrae.\nANSWER: Dunrae",
+  "negative": "The first vessel on the crew list is the Kittiwake, home port Marrowby.\nANSWER: Marrowby"
+ },
+ {
+  "local_id": "g5-05",
+  "family": "synthesis",
+  "subtheme": "contradiction: which entity is disputed",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Boatyard ledger, Fenmouth: The Curlew is 9 metres long. The Dipper is 12 metres long.\n[Doc B] Regatta entry form: The Sandpiper is 7 metres long and the Dipper is 12 metres long.\n[Doc C] Insurance schedule: The Curlew is 11 metres long. The Sandpiper is 7 metres long.\n[Doc D] Mooring plan: The Curlew, the Dipper and the Sandpiper are all berthed on the east pontoon.\n\nQuestion: The documents give two different lengths for exactly one of the three boats. Which boat?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <boat name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Curlew",
+     "the Curlew"
+    ]
+   }
+  ],
+  "reference": "The Curlew is 9 metres in Doc A but 11 metres in Doc C; the other boats match.\nANSWER: Curlew",
+  "negative": "The Dipper appears in two documents.\nANSWER: Dipper"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "synthesis",
+  "subtheme": "entity linking: attribute to person",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Fair results, Corn Hall honey class: First prize went to the jar from the Linden hive. Second prize went to the jar from the Heather hive.\n[Doc B] Apiary roster, Stanmoor Beekeepers: The Clover hive is tended by Wim Tasker. The Heather hive is tended by Sela Brook. The Linden hive is tended by Odo Farrant.\n[Doc C] Club newsletter: Wim Tasker judged the jam class at this year's fair, which drew 300 visitors.\n\nQuestion: Who tends the hive whose honey won first prize?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <person's name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Odo Farrant",
+     "Farrant",
+     "Odo"
+    ]
+   }
+  ],
+  "reference": "First prize went to the Linden hive, which is tended by Odo Farrant.\nANSWER: Odo Farrant",
+  "negative": "The Heather hive won a prize and is tended by Sela Brook.\nANSWER: Sela Brook"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "synthesis",
+  "subtheme": "entity linking: person to role to place",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Officers list, Averne Rowing Club: The chair is Dov Hale. The treasurer is Mara Quill. The secretary is Pim Ostry.\n[Doc B] Clubhouse rules: The secretary keeps the minute book in the Fenner Room. The treasurer keeps the cashbox in the Larch Room. The chair keeps the trophy key in the Boat Bay.\n[Doc C] Door notice: The clubhouse is locked at nine each evening.\n\nQuestion: In which room does Mara Quill keep the item she is responsible for?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <room name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Larch",
+     "Larch Room",
+     "the Larch Room"
+    ]
+   }
+  ],
+  "reference": "Mara Quill is the treasurer, and the treasurer keeps the cashbox in the Larch Room.\nANSWER: Larch",
+  "negative": "The minute book is kept in the Fenner Room.\nANSWER: Fenner"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "synthesis",
+  "subtheme": "contradiction: paraphrase decoy",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Concert programme: The Brindle Choir has 24 singers and rehearses every Tuesday.\n[Doc B] Parish magazine review: All two dozen singers of the Brindle Choir were in fine voice on Saturday.\n[Doc C] Rehearsal rota: The Brindle Choir rehearses every Thursday, and only on that day, in the Tannery Hall.\n[Doc D] Founder's note: The Brindle Choir was founded in 2038 with a gift of sheet music.\n[Doc E] Hall booking sheet: Tannery Hall is booked weekly by the Brindle Choir (founded 2038).\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "Two dozen is 24, so A and B agree; but A says Tuesday and C says only Thursday.\nANSWER: A and C",
+  "negative": "Doc A says 24 singers while Doc B gives a different count.\nANSWER: A and B"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "synthesis",
+  "subtheme": "contradiction: converse relation",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Parish map notes: Corran Bridge on the River Osk has three stone arches. Pell Mill no longer grinds corn.\n[Doc B] Angler's guide: On the River Osk, Pell Mill lies upstream of Corran Bridge. The trout season opens in April.\n[Doc C] Walking leaflet: The three-arched Corran Bridge is a good picnic spot beside the Osk.\n[Doc D] Canoe club route card: Paddling downstream on the River Osk, you pass under Corran Bridge before you reach Pell Mill.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:B\\W+(?:and\\s+)?(?:doc\\s*)?D|D\\W+(?:and\\s+)?(?:doc\\s*)?B)\\W*$"
+   }
+  ],
+  "reference": "If the mill is upstream of the bridge, a paddler going downstream reaches the mill first, which Doc D denies.\nANSWER: B and D",
+  "negative": "The map notes and the guide describe the mill differently.\nANSWER: A and B"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "synthesis",
+  "subtheme": "entity linking: three-hop chain",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Depot list, Calder Surveys: The Thornwick depot supports the Greywell pipeline survey. The Lasham depot supports the Morrow dam survey. The Ebbfleet depot supports the Sallow marsh survey.\n[Doc B] Project board: The Morrow dam survey is carried out by the Kite team. The Sallow marsh survey is carried out by the Heron team. The Greywell pipeline survey is carried out by the Plover team.\n[Doc C] Vehicle log: The Lasham depot van was serviced in March and fitted with new tyres.\n[Doc D] Team sheet: The Plover team is led by Rufus Dace. The Kite team is led by Halle Stroud. The Heron team is led by Anwen Pryce.\n\nQuestion: Who leads the team that carries out the survey supported by the Ebbfleet depot?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <person's name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Anwen Pryce",
+     "Pryce",
+     "Anwen"
+    ]
+   }
+  ],
+  "reference": "Ebbfleet supports the Sallow marsh survey, done by the Heron team, led by Anwen Pryce.\nANSWER: Anwen Pryce",
+  "negative": "The Lasham depot supports the Morrow dam survey, done by the Kite team.\nANSWER: Halle Stroud"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "synthesis",
+  "subtheme": "entity linking: tool retrieval chain",
+  "difficulty": "medium",
+  "mode": "tool",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "roster": "Volunteer roster, Tamsel Wildlife Trust. Ines Corrow volunteers with the Otter group. Jarek Lunn volunteers with the Bat group. Mabli Stowe volunteers with the Newt group.",
+    "groups": "Survey plan, Tamsel Wildlife Trust. The Newt group surveys Quarry Pond. The Otter group surveys the Wend river. The Bat group surveys Hollin Wood.",
+    "wardens": "Warden contacts. The warden of the Wend river is Odile Marr. The warden of Hollin Wood is Perrin Ashlock. The warden of Quarry Pond is Stig Vallance.",
+    "minibus": "Minibus booking sheet. The trust minibus seats 14 and must be returned with a full tank by six in the evening."
+   }
+  },
+  "max_steps": 8,
+  "prompt": "Which warden is responsible for the place surveyed by the group that Jarek Lunn volunteers with? Look it up in the documents, then give the warden's full name in your final answer.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bAshlock\\b",
+    "flags": "i"
+   },
+   {
+    "type": "contains_none",
+    "values": [
+     "Marr",
+     "Vallance"
+    ]
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "Jarek Lunn group"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "roster"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "groups"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "wardens"
+     }
+    }
+   ],
+   "final": "Perrin Ashlock"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "wardens"
+     }
+    }
+   ],
+   "final": "Odile Marr"
+  }
+ },
+ {
+  "local_id": "g5-12",
+  "family": "synthesis",
+  "subtheme": "contradiction via entity linking",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Company register, Sorrel Line: The flagship of the Sorrel Line is the steamer Wren. Its only other steamer is the Dunlin.\n[Doc B] Deck plan sheet: The Wren has 80 passenger seats. The Dunlin has 60 passenger seats.\n[Doc C] Travel column: The flagship of the Sorrel Line sails from Port Avan each morning.\n[Doc D] Safety certificate: The flagship of the Sorrel Line has 95 passenger seats.\n[Doc E] Harbour notice: The Wren sails from Port Avan each morning, weather permitting.\n\nQuestion: Doc A is correct. Exactly two of the other documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:B\\W+(?:and\\s+)?(?:doc\\s*)?D|D\\W+(?:and\\s+)?(?:doc\\s*)?B)\\W*$"
+   }
+  ],
+  "reference": "The flagship is the Wren, so Doc B gives it 80 seats while Doc D gives it 95.\nANSWER: B and D",
+  "negative": "The travel column and the harbour notice name different ships.\nANSWER: C and E"
+ },
+ {
+  "local_id": "g5-13",
+  "family": "synthesis",
+  "subtheme": "contradiction: unit conversion",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Engineering summary: The Vennor rail tunnel is 2 kilometres long and carries a single track.\n[Doc B] Rail society newsletter: The single-track Vennor tunnel was opened in 2046.\n[Doc C] Tunnel entrance sign: Vennor tunnel. Total length 1,400 metres. Emergency telephones are fitted along the wall.\n[Doc D] Opening day programme: The Vennor tunnel was opened in 2046 by the district engineer.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "2 kilometres is 2000 metres, but the sign in Doc C says 1,400 metres.\nANSWER: A and C",
+  "negative": "The newsletter and the programme describe the opening differently.\nANSWER: B and D"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "synthesis",
+  "subtheme": "contradiction: ordinal versus count",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Race results sheet, Lorne Cup: The yacht Kestrel finished in third place.\n[Doc B] Club bulletin: The Kestrel, skippered by Una Grieve, sailed the Lorne Cup in light winds.\n[Doc C] Skipper's diary: Exactly one yacht crossed the finish line ahead of the Kestrel in the Lorne Cup.\n[Doc D] Sponsor's note: Twelve yachts started the Lorne Cup, and Una Grieve skippered the Kestrel.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "Third place means two yachts finished ahead, but Doc C says exactly one did.\nANSWER: A and C",
+  "negative": "Third place does not fit with twelve starters.\nANSWER: A and D"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "synthesis",
+  "subtheme": "contradiction: derived year (length of service)",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Estate newsletter: Hesper Vane became head gardener of Wyndle Court in 2040. The walled garden covers two acres.\n[Doc B] Garden guide: The walled garden at Wyndle Court covers two acres and holds 60 apple trees.\n[Doc C] Orchard survey: Wyndle Court has 60 apple trees, the oldest planted in 2019.\n[Doc D] Visitor map: The glasshouse at Wyndle Court was rebuilt in 2051.\n[Doc E] Retirement card: In 2058 Hesper Vane retired after exactly 15 years as head gardener of Wyndle Court, the only post she ever held there.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?E|E\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "Retiring in 2058 after exactly 15 years means she started in 2043, not 2040 as Doc A says.\nANSWER: A and E",
+  "negative": "The newsletter says 2040 but the map says 2051.\nANSWER: A and D"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "synthesis",
+  "subtheme": "contradiction: derived duration",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Timetable card: The morning Hale Sound ferry leaves Brenwick at 07:40 and arrives at Ostley at 08:15.\n[Doc B] Harbour notice: The Hale Sound ferry has room for 12 cars on its deck.\n[Doc C] Cafe menu card: Coffee is served on the Hale Sound ferry, which sails between Brenwick and Ostley.\n[Doc D] Tourist leaflet: Every Hale Sound ferry crossing between Brenwick and Ostley takes exactly 45 minutes.\n[Doc E] Operator's fact sheet: The car deck of the Hale Sound ferry holds 12 cars.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?D|D\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "07:40 to 08:15 is 35 minutes, but Doc D says every crossing takes exactly 45 minutes.\nANSWER: A and D",
+  "negative": "The timetable and the menu card describe the route differently.\nANSWER: A and C"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "synthesis",
+  "subtheme": "contradiction: parts versus stated whole",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Trail leaflet: The Corrie Way is walked in three stages with nothing in between: 6 km from Aldburn to Feth, 9 km from Feth to Scaur and 5 km from Scaur to Lowick.\n[Doc B] Hostel flyer: Walkers finish the Corrie Way at Lowick, where the hostel has 20 beds.\n[Doc C] Ranger's report: The full Corrie Way from Aldburn to Lowick is 23 km long.\n[Doc D] Bus timetable: A bus returns walkers from Lowick to Aldburn twice a day.\n[Doc E] Guidebook entry: The Corrie Way starts at Aldburn and ends at Lowick.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+   }
+  ],
+  "reference": "The three stages add up to 6 + 9 + 5 = 20 km, but Doc C says the full trail is 23 km.\nANSWER: A and C",
+  "negative": "The flyer says 20 and the report says 23.\nANSWER: B and C"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "synthesis",
+  "subtheme": "entity linking: chain with exception rule",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Staff list, Pellam Archive: Corin Ashby, Lotte Verran and Sim Drake work in the Maps section. Ada Thorne and Wyn Callis work in the Deeds section.\n[Doc B] Building guide: Staff of the Maps section work in the Garnet Wing and staff of the Deeds section work in the Slate Wing. The only exception is section heads, who all work in the Tower Room instead.\n[Doc C] Canteen notice: The Garnet Wing canteen opens at noon and closes at two.\n[Doc D] Appointments memo: Wyn Callis is head of the Deeds section. Lotte Verran is head of the Maps section.\n\nQuestion: In which part of the building does Lotte Verran work?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <wing or room name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Tower Room",
+     "the Tower Room",
+     "Tower"
+    ]
+   }
+  ],
+  "reference": "Lotte Verran is head of the Maps section, and section heads work in the Tower Room.\nANSWER: Tower Room",
+  "negative": "Lotte Verran is in the Maps section, which works in the Garnet Wing.\nANSWER: Garnet Wing"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "synthesis",
+  "subtheme": "entity linking: chain with elimination",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Crew sheet, Dunmere Lifeboats: Dunmere has three boats and three coxswains: Ilse Brandt, Garo Finch and Penn Okoro. Each coxswain commands exactly one boat and no boat is shared.\n[Doc B] Boat register: The Marram is kept at Tolsay Point station. The Storm Petrel is kept at Anvil Cove station. The Sea Holly is kept at Reddick Quay station. Dunmere has no other boats.\n[Doc C] Duty notice: Ilse Brandt commands the Storm Petrel. Garo Finch commands the Sea Holly.\n[Doc D] Fundraising note: The spring raffle raised 900 crowns for new life jackets.\n\nQuestion: At which station is the boat commanded by Penn Okoro kept?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <station name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Tolsay Point",
+     "Tolsay Point station",
+     "the Tolsay Point station"
+    ]
+   }
+  ],
+  "reference": "The Storm Petrel and Sea Holly are taken, so Penn Okoro commands the Marram, kept at Tolsay Point.\nANSWER: Tolsay Point",
+  "negative": "The first boat in the duty notice is the Storm Petrel, kept at Anvil Cove.\nANSWER: Anvil Cove"
+ },
+ {
+  "local_id": "g5-20",
+  "family": "synthesis",
+  "subtheme": "entity linking: tool retrieval chain with reassignment",
+  "difficulty": "hard",
+  "mode": "tool",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "orders": "Order book, Orrin Glassworks. The Lantern order is for the Veyra Hotel. The Goblet order is for the Dapple Inn. The Mirror order is for the Corwen Theatre.",
+    "crews": "Crew plan, January. The Lantern order is being made by the Kiln crew. The Goblet order is being made by the Cutting crew. The Mirror order is being made by the Polishing crew.",
+    "staff": "Staff directory, Orrin Glassworks. Suri Halden is the only member of the Polishing crew. Tilda Marsh is the only member of the Kiln crew. Bevan Roche is the only member of the Cutting crew.",
+    "memo": "Workshop memo, March. The Goblet order has been taken away from the Cutting crew and is now being made by the Kiln crew. This memo replaces the January crew plan for the Goblet order. Nothing else has changed.",
+    "sand": "Delivery note. Twelve sacks of white sand were delivered to the Orrin Glassworks yard on a Friday."
+   }
+  },
+  "max_steps": 8,
+  "prompt": "After the March workshop memo, which staff member belongs to the crew that is making the order for the Dapple Inn? Look it up in the documents, then give the staff member's full name in your final answer.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bTilda\\b|\\bMarsh\\b",
+    "flags": "i"
+   },
+   {
+    "type": "contains_none",
+    "values": [
+     "Roche",
+     "Bevan",
+     "Halden",
+     "Suri"
+    ]
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "Dapple Inn order"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "orders"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "crews"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "memo"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "staff"
+     }
+    }
+   ],
+   "final": "Tilda Marsh"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "orders"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "crews"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "staff"
+     }
+    }
+   ],
+   "final": "Bevan Roche"
+  }
+ },
+ {
+  "local_id": "g5-21",
+  "family": "synthesis",
+  "subtheme": "contradiction: derived calendar day",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Parish notice: The Marlinspike Fair is held on Quay Green and has 40 stalls.\n[Doc B] Fair poster: The Marlinspike Fair opens on Tuesday 4 June 2041 and runs on consecutive days with no break.\n[Doc C] Bus notice: Extra buses run to Quay Green on every day of the Marlinspike Fair.\n[Doc D] Souvenir programme: Welcome to the Marlinspike Fair and its 40 stalls. Dogs must be kept on a lead.\n[Doc E] Stallholder letter: On the second day of the Marlinspike Fair, Thursday 6 June 2041, all stalls must be ready by eight.\n\nQuestion: Exactly two of these documents cannot both be true. Which two?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <letter> and <letter>",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "im",
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:B\\W+(?:and\\s+)?(?:doc\\s*)?E|E\\W+(?:and\\s+)?(?:doc\\s*)?B)\\W*$"
+   }
+  ],
+  "reference": "If the fair opens on Tuesday 4 June, its second day is Wednesday 5 June, not Thursday 6 June.\nANSWER: B and E",
+  "negative": "The notice and the programme disagree about the stalls.\nANSWER: A and D"
+ }
+]

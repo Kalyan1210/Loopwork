@@ -1,0 +1,565 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A gardener does four steps on one flower bed, one at a time: water, dig, plant, mulch.\nRules:\n- plant comes before water\n- dig comes before plant\n- water comes before mulch\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "dig",
+     "plant",
+     "water",
+     "mulch"
+    ]
+   }
+  ],
+  "reference": "[\"dig\", \"plant\", \"water\", \"mulch\"]",
+  "negative": "[\"dig\", \"plant\", \"mulch\", \"water\"]"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A clerk prepares a parcel in four steps, one at a time: post, pack, label, seal.\n- label needs seal to be finished first.\n- post needs label to be finished first.\n- seal needs pack to be finished first.\n- pack needs nothing.\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "pack",
+     "seal",
+     "label",
+     "post"
+    ]
+   }
+  ],
+  "reference": "[\"pack\", \"seal\", \"label\", \"post\"]",
+  "negative": "[\"pack\", \"label\", \"seal\", \"post\"]"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A warehouse robot runs four routines, one at a time: scan, charge, sort, report.\nRules:\n- report happens after sort\n- scan happens after charge\n- sort happens after scan\nGive the only valid order of the four routines. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "charge",
+     "scan",
+     "sort",
+     "report"
+    ]
+   }
+  ],
+  "reference": "[\"charge\", \"scan\", \"sort\", \"report\"]",
+  "negative": "[\"scan\", \"charge\", \"sort\", \"report\"]"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A signaller raises four flags, one at a time: red, blue, green, white.\nRules:\n- blue is raised before red\n- white is raised before blue\n- red is raised before green\nWhich flag is raised last? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the flag colour.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "green",
+       "<green>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*green\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: white, blue, red, green.\nANSWER: green",
+  "negative": "The rules end with red.\nANSWER: red"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A game has five quests, played one at a time: Bridge, Cave, Forge, Gate, Tower.\n- Cave unlocks only after Forge is completed.\n- Bridge unlocks only after Tower is completed.\n- Gate unlocks only after Cave is completed.\n- Forge unlocks only after Bridge is completed.\nExactly one quest is unlocked from the start. Which quest must be played first? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the quest name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Tower",
+       "<Tower>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*tower\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: Tower, Bridge, Forge, Cave, Gate.\nANSWER: Tower",
+  "negative": "Bridge is listed first.\nANSWER: Bridge"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A film club makes a short film in four steps, one at a time: script, cast, shoot, edit.\nRules:\n- script comes before cast\n- shoot comes before edit\n- cast comes before shoot\nWhich step comes immediately before shoot? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the step name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "cast",
+       "<cast>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*cast\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: script, cast, shoot, edit.\nANSWER: cast",
+  "negative": "Script is the start of everything.\nANSWER: script"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Four floats enter a parade one at a time: drum, kite, lamp, sail.\nRules:\n- the lamp float goes first\n- the drum float goes last\n- the sail float goes before the kite float\nGive the only valid order of the four floats. Reply with only a JSON array of the four float names, for example [\"a\",\"b\"]. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "lamp",
+     "sail",
+     "kite",
+     "drum"
+    ]
+   }
+  ],
+  "reference": "[\"lamp\", \"sail\", \"kite\", \"drum\"]",
+  "negative": "[\"lamp\", \"kite\", \"sail\", \"drum\"]"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A courier loads five crates one at a time: amber, coral, ivory, jade, onyx.\nRules:\n- jade is loaded before amber\n- onyx is loaded after amber\n- coral is loaded before jade\n- ivory is loaded after onyx\nWhich crate is loaded second? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the crate name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "jade",
+       "<jade>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*jade\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: coral, jade, amber, onyx, ivory.\nANSWER: jade",
+  "negative": "Order: amber, coral, ivory, jade, onyx.\nANSWER: coral"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A shed is built in five steps, one at a time: base, frame, roof, door, paint.\n- frame needs base\n- roof needs frame\n- door needs frame and roof\n- paint needs roof and door\nA step can start only when everything it needs is finished. Which step comes immediately before door? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the step name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "roof",
+       "<roof>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*roof\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: base, frame, roof, door, paint.\nANSWER: roof",
+  "negative": "Door needs frame, so frame is right before it.\nANSWER: frame"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A museum hangs five paintings one at a time: Dawn, Ember, Frost, Glade, Haze.\nRules:\n- Frost is hung before Dawn\n- Haze is hung before Frost\n- Dawn is hung before Glade\n- Ember is hung after Glade\nHow many paintings are hung before Glade? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Order: Haze, Frost, Dawn, Glade, Ember.\nANSWER: 3",
+  "negative": "Glade is the fourth painting.\nANSWER: 4"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A band plays five songs, one after another: Anchor, Breeze, Comet, Dune, Echo.\nRules:\n- Dune is played immediately after Anchor\n- Echo is played some time before Anchor\n- Breeze is played last\n- Comet is played immediately before Echo\nWhich song is played third? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the song name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Anchor",
+       "<Anchor>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*anchor\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: Comet, Echo, Anchor, Dune, Breeze.\nANSWER: Anchor",
+  "negative": "Order: Anchor, Dune, Echo... Echo is third.\nANSWER: Echo"
+ },
+ {
+  "local_id": "g1-12",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A toy robot is finished in five steps, one at a time. Each line gives a step and what must be finished before it:\n- wire: frame\n- frame: nothing\n- test: wire and paint\n- paint: wire\n- pack: test\nWhich step comes immediately after wire? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the step name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "paint",
+       "<paint>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*paint\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: frame, wire, paint, test, pack.\nANSWER: paint",
+  "negative": "Test is the first step listed that needs wire.\nANSWER: test"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A farm harvests five fields one at a time: Oat, Rye, Corn, Flax, Hemp.\n- Corn can be harvested only after Oat.\n- Rye can be harvested only after both Corn and Oat.\n- Flax can be harvested only after Rye.\n- Hemp can be harvested only after both Flax and Corn.\nCounting the first field harvested as position 1, in which position is Flax harvested? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "Order: Oat, Corn, Rye, Flax, Hemp.\nANSWER: 4",
+  "negative": "Flax needs Rye, and Rye is second.\nANSWER: 3"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A vault opens when five keys are turned one at a time: brass, copper, iron, silver, tin.\nRules:\n- iron before tin\n- tin before brass\n- iron before brass\n- silver before iron\n- brass before copper\n- silver before copper\nWhich key is turned immediately before the last key? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the key name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "brass",
+       "<brass>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*brass\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: silver, iron, tin, brass, copper.\nANSWER: brass",
+  "negative": "Copper comes after everything.\nANSWER: copper"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "planning",
+  "subtheme": "dependency-ordering-tiebreak",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Five chores are done one at a time: dust, iron, mop, rake, sweep.\n- mop can start only after sweep is finished.\n- dust can start only after iron is finished.\n- iron, rake and sweep need nothing.\nTie-break: whenever more than one chore is ready to start, do the one whose name comes first alphabetically.\nWhich chore is done third? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the chore name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "rake",
+       "<rake>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*rake\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: iron, dust, rake, sweep, mop.\nANSWER: rake",
+  "negative": "Alphabetical order: dust, iron, mop.\nANSWER: mop"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "planning",
+  "subtheme": "dependency-ordering-tiebreak",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A bathroom is fitted in six jobs, one at a time: tap, sink, tiles, mirror, cabinet, lighting.\n- tap needs sink finished.\n- sink needs cabinet finished.\n- mirror needs tiles finished.\n- tiles, cabinet and lighting need nothing.\nTie-break: whenever more than one job is ready to start, do the one whose name has the fewest letters.\nWhich job is done fourth? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the job name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "sink",
+       "<sink>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*sink\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: tiles, mirror, cabinet, sink, tap, lighting.\nANSWER: sink",
+  "negative": "Shortest names first: tap, sink, tiles, mirror.\nANSWER: mirror"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A crew films seven scenes one at a time: Arrival, Betrayal, Chase, Duel, Escape, Feast, Goodbye.\nRules:\n- Duel is filmed before Betrayal\n- Chase is filmed before Escape\n- Feast is filmed before Arrival\n- Goodbye is filmed before Chase\n- Arrival is filmed before Duel\n- Betrayal is filmed before Goodbye\n- Feast is filmed before Duel\nWhich scene is filmed fifth? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the scene name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Goodbye",
+       "<Goodbye>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*goodbye\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: Feast, Arrival, Duel, Betrayal, Goodbye, Chase, Escape.\nANSWER: Goodbye",
+  "negative": "Order: Arrival, Betrayal, Chase, Duel, Escape, Feast, Goodbye.\nANSWER: Escape"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "planning",
+  "subtheme": "dependency-ordering-tiebreak",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Six ships leave a harbour one at a time: Heron, Ibis, Jay, Kite, Lark, Wren.\n- Lark cannot leave until Heron has left.\n- Kite cannot leave until Ibis has left.\n- Wren cannot leave until Jay has left.\n- Heron, Ibis and Jay are free to leave at any time.\nTie-break: whenever more than one ship is free to leave, the one whose name comes LAST alphabetically leaves next.\nWhich ship leaves third? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the ship name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Ibis",
+       "<Ibis>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*ibis\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: Jay, Wren, Ibis, Kite, Heron, Lark.\nANSWER: Ibis",
+  "negative": "Last alphabetically first: Wren, Lark, Kite.\nANSWER: Kite"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "planning",
+  "subtheme": "dependency-ordering-counterintuitive",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "In a board game, a pawn must perform six actions in one round, one at a time: wake, eat, dress, wash, walk, sleep. The game's rules are unusual and must be followed exactly:\n- walk comes before dress\n- sleep comes before eat\n- wash comes before wake\n- eat comes before wash\n- wake comes before walk\nWhich action is performed last in the round? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the action name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "dress",
+       "<dress>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*dress\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: sleep, eat, wash, wake, walk, dress.\nANSWER: dress",
+  "negative": "A day ends with sleep.\nANSWER: sleep"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "planning",
+  "subtheme": "dependency-ordering-tiebreak",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A stage crew sets up seven items one at a time: amps, banner, cables, drums, lights, mics, stage.\n- amps needs cables\n- banner needs stage\n- drums needs stage\n- lights needs cables and banner\n- mics needs amps and drums\n- cables and stage need nothing\nAn item can be set up only when everything it needs is done. Tie-break: whenever more than one item is ready, set up the one whose name comes first alphabetically.\nWhich item is set up immediately before drums? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the item name.",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "banner",
+       "<banner>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*banner\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order: cables, amps, stage, banner, drums, lights, mics.\nANSWER: banner",
+  "negative": "Drums needs stage, so stage is right before it.\nANSWER: stage"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A clerk presses six ink stamps onto a form, one at a time: Blue, Gold, Grey, Pink, Red, Teal.\nRules:\n- Red is pressed before Blue\n- Pink is pressed before Gold\n- Teal is pressed before Grey\n- Blue is pressed before Pink\n- Grey is pressed before Red\nHow many stamps are pressed after Grey and before Pink (not counting Grey or Pink)? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "max_tokens": 300,
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "reference": "Order: Teal, Grey, Red, Blue, Pink, Gold.\nANSWER: 2",
+  "negative": "Grey is 2nd and Pink is 5th, 5 - 2 = 3.\nANSWER: 3"
+ }
+]

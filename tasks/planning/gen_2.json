@@ -1,0 +1,627 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "planning",
+  "subtheme": "fixed-sequence",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A baker starts at 07:20 and does three steps one after another with no gaps:\n1. Knead the dough: 25 minutes.\n2. Let the dough rise: 50 minutes.\n3. Bake the loaf: 35 minutes.\nAt what time is the loaf finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:10",
+       "09:10 am",
+       "09:10am",
+       "09:10 pm",
+       "09:10pm",
+       "<09:10>",
+       "9:10",
+       "9:10 am",
+       "9:10am",
+       "9:10 pm",
+       "9:10pm",
+       "<9:10>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:10\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Knead 07:20-07:45, rise 07:45-08:35, bake 08:35-09:10.\nANSWER: 09:10",
+  "negative": "Knead until 07:45, rise until 08:35.\nANSWER: 08:35"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "planning",
+  "subtheme": "latest-start",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A report must be handed in at 17:30. Before that, Noor has to write the summary (40 minutes) and then print and bind the report (25 minutes), one after the other with no gap.\nWhat is the latest time Noor can start writing the summary and still hand the report in at 17:30?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "16:25",
+       "16:25 am",
+       "16:25am",
+       "16:25 pm",
+       "16:25pm",
+       "<16:25>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?16:25\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "40 + 25 = 65 minutes. 17:30 minus 65 minutes is 16:25.\nANSWER: 16:25",
+  "negative": "The summary takes 40 minutes, so start 40 minutes before 17:30.\nANSWER: 16:50"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "planning",
+  "subtheme": "forced-wait",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A painter starts the first coat of paint on a door at 08:00. The first coat takes 30 minutes to apply. The paint must then dry for 90 minutes before the second coat can begin. The second coat also takes 30 minutes to apply and is started as soon as the drying time is over.\nAt what time is the second coat finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:30",
+       "10:30 am",
+       "10:30am",
+       "10:30 pm",
+       "10:30pm",
+       "<10:30>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?10:30\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "First coat 08:00-08:30, drying until 10:00, second coat 10:00-10:30.\nANSWER: 10:30",
+  "negative": "Two coats of 30 minutes each, 60 minutes after 08:00.\nANSWER: 09:00"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "planning",
+  "subtheme": "staggered-parallel",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A lab runs three samples on three separate machines, so they can overlap:\n- Sample Red starts at 08:00 and takes 30 minutes.\n- Sample Blue starts at 08:10 and takes 15 minutes.\n- Sample Green starts at 08:25 and takes 10 minutes.\nAt what time has the last of the three samples finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "08:35",
+       "08:35 am",
+       "08:35am",
+       "08:35 pm",
+       "08:35pm",
+       "<08:35>",
+       "8:35",
+       "8:35 am",
+       "8:35am",
+       "8:35 pm",
+       "8:35pm",
+       "<8:35>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?8:35\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Red ends 08:30, Blue ends 08:25, Green ends 08:35. The latest is 08:35.\nANSWER: 08:35",
+  "negative": "Red takes the longest, 30 minutes from 08:00.\nANSWER: 08:30"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "planning",
+  "subtheme": "idle-time",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Dara arrives at a clinic at 13:40. Filling in the registration form takes 10 minutes and Dara starts it on arrival. The nurse cannot see anyone before 14:15, and sees Dara exactly at 14:15.\nHow many minutes does Dara spend waiting with nothing to do, between finishing the form and seeing the nurse?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 25
+   }
+  ],
+  "reference": "The form is finished at 13:50. From 13:50 to 14:15 is 25 minutes.\nANSWER: 25",
+  "negative": "From 13:40 to 14:15 is 35 minutes.\nANSWER: 35"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "planning",
+  "subtheme": "slack",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A shop opens at 08:30. Lin arrives at 07:15 and starts at once: first cleaning the counters (25 minutes), then restocking the shelves (30 minutes), with no gap between them.\nHow many spare minutes does Lin have between finishing the restocking and the shop opening?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 20
+   }
+  ],
+  "reference": "Cleaning ends 07:40, restocking ends 08:10. From 08:10 to 08:30 is 20 minutes.\nANSWER: 20",
+  "negative": "Cleaning ends at 07:40, then count up to 08:30.\nANSWER: 50"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "planning",
+  "subtheme": "non-binding-window",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A film crew starts at 06:30 and works in this fixed order with no breaks unless forced to wait:\n1. Set up the cameras: 45 minutes.\n2. Film the scene: 90 minutes. Filming cannot start before sunrise at 07:00.\n3. Pack up: 30 minutes.\nAt what time does the crew finish packing up?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:15",
+       "09:15 am",
+       "09:15am",
+       "09:15 pm",
+       "09:15pm",
+       "<09:15>",
+       "9:15",
+       "9:15 am",
+       "9:15am",
+       "9:15 pm",
+       "9:15pm",
+       "<9:15>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:15\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Setup ends 07:15, which is after sunrise, so filming runs 07:15-08:45 and packing 08:45-09:15.\nANSWER: 09:15",
+  "negative": "Filming starts at sunrise 07:00, ends 08:30, packing ends 09:00.\nANSWER: 09:00"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "planning",
+  "subtheme": "fixed-break",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A tiler starts a job at 11:30. The job needs 120 minutes of work in total. The whole site stops for lunch from 12:00 to 12:45, and no work is done during lunch. The tiler works at all other times until the job is finished.\nAt what time is the job finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "14:15",
+       "14:15 am",
+       "14:15am",
+       "14:15 pm",
+       "14:15pm",
+       "<14:15>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?14:15\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "30 minutes of work before lunch. 90 minutes remain after 12:45, ending at 14:15.\nANSWER: 14:15",
+  "negative": "120 minutes after 11:30.\nANSWER: 13:30"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "planning",
+  "subtheme": "window-forced-order",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "One technician starts at 09:00 and must do three jobs, one at a time, each started as early as the rules allow:\n- Job A takes 40 minutes and must be finished by 10:00.\n- Job B takes 60 minutes and cannot start before 10:30.\n- Job C takes 30 minutes and must be finished by 10:30.\nOnly one order of the three jobs meets every rule. In that order, at what time does job C start?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:40",
+       "09:40 am",
+       "09:40am",
+       "09:40 pm",
+       "09:40pm",
+       "<09:40>",
+       "9:40",
+       "9:40 am",
+       "9:40am",
+       "9:40 pm",
+       "9:40pm",
+       "<9:40>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:40\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "B cannot go first. C then A would end A at 10:10, too late. So A 09:00-09:40, C 09:40-10:10, B 10:30-11:30.\nANSWER: 09:40",
+  "negative": "C is the shortest job, so do it first at 09:00.\nANSWER: 09:00"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "planning",
+  "subtheme": "latest-start-with-gap",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A cake must be ready to serve at 18:00. The steps happen in this order:\n1. Bake the cake: 50 minutes.\n2. Let it cool: at least 40 minutes.\n3. Decorate it: 25 minutes.\nWhat is the latest time the baking can start so that the decorated cake is ready at 18:00?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "16:05",
+       "16:05 am",
+       "16:05am",
+       "16:05 pm",
+       "16:05pm",
+       "<16:05>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?16:05\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "50 + 40 + 25 = 115 minutes. 18:00 minus 115 minutes is 16:05.\nANSWER: 16:05",
+  "negative": "Baking 50 and decorating 25 make 75 minutes before 18:00.\nANSWER: 16:45"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "planning",
+  "subtheme": "two-parallel-chains",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Ana and Ben start cleaning a hall at the same moment and work at the same time.\n- Ana sweeps the floor (20 minutes) and then mops it (25 minutes).\n- Ben dusts the shelves (15 minutes) and then vacuums the stage (40 minutes).\nWhen both have finished their own two jobs, they move the chairs back together, which takes 10 minutes.\nHow many minutes after the start is the hall completely done?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 65
+   }
+  ],
+  "reference": "Ana needs 45 minutes, Ben needs 55. Chairs start at 55 and end at 65.\nANSWER: 65",
+  "negative": "20+25+15+40+10\nANSWER: 110"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "planning",
+  "subtheme": "slots-with-gaps",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A vet sees patients one after another starting at 09:00. Every appointment lasts 25 minutes, and there is a 5-minute gap for cleaning between one appointment and the next.\nAt what time does the fourth appointment end?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:55",
+       "10:55 am",
+       "10:55am",
+       "10:55 pm",
+       "10:55pm",
+       "<10:55>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?10:55\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Four appointments are 100 minutes and there are three gaps of 5 minutes, 115 minutes in all. 09:00 plus 115 minutes is 10:55.\nANSWER: 10:55",
+  "negative": "Each appointment plus gap is 30 minutes, 4 x 30 = 120 minutes.\nANSWER: 11:00"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "planning",
+  "subtheme": "deadline-overrun",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A caterer starts at 13:00 and works in this fixed order, with no breaks unless forced to wait:\n1. Prepare the salads: 35 minutes.\n2. Bake the pies: 50 minutes.\n3. Plate the desserts: 40 minutes. The desserts are delivered at 14:45, so plating cannot start before 14:45.\nEverything was supposed to be finished by 15:15, but the plan finishes late. By how many minutes does it miss 15:15?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 10
+   }
+  ],
+  "reference": "Salads end 13:35, pies end 14:25, wait until 14:45, plating ends 15:25. That is 10 minutes late.\nANSWER: 10",
+  "negative": "Pies end at 14:25 and the delivery is at 14:45, a 20 minute delay.\nANSWER: 20"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "planning",
+  "subtheme": "common-window",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Three people need to meet, and all three must be present for the whole meeting.\n- Ivo is free from 09:00 to 11:30.\n- Jun is free from 10:15 to 12:00.\n- Kai is free from 08:30 to 11:00.\nWhat is the longest meeting they can hold, in minutes?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   }
+  ],
+  "reference": "The latest start is 10:15 and the earliest end is 11:00, so 45 minutes.\nANSWER: 45",
+  "negative": "From 10:15 to 11:30.\nANSWER: 75"
+ },
+ {
+  "local_id": "g2-15",
+  "family": "planning",
+  "subtheme": "critical-path",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A crew builds a shed. There are plenty of workers, so any number of tasks can run at the same time, but a task can start only when the tasks it needs are finished.\nTasks (minutes):\n- dig the footing: 30\n- pour the base: 45, needs the footing dug\n- cut the timber: 80\n- build the frame: 50, needs the base poured and the timber cut\n- fit the roof: 40, needs the frame built\n- paint the door: 25\nWhat is the minimum number of minutes from the start until every task is finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 170
+   }
+  ],
+  "reference": "Dig and pour end at 75, timber ends at 80, so the frame runs 80-130 and the roof 130-170. The door is done at 25.\nANSWER: 170",
+  "negative": "30+45+80+50+40+25\nANSWER: 270"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "planning",
+  "subtheme": "two-stage-pipeline",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A laundry room has one washer and one dryer. Each machine holds one load at a time. Every load needs 45 minutes in the washer and then 60 minutes in the dryer. There are two loads. The first load goes into the washer at 10:00, and each machine is reloaded the moment it is free and a load is ready for it.\nAt what time does the second load come out of the dryer?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "12:45",
+       "12:45 am",
+       "12:45am",
+       "12:45 pm",
+       "12:45pm",
+       "<12:45>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?12:45\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Load 1: wash 10:00-10:45, dry 10:45-11:45. Load 2: wash 10:45-11:30, waits for the dryer, dry 11:45-12:45.\nANSWER: 12:45",
+  "negative": "Each load takes 105 minutes, two loads take 210 minutes after 10:00.\nANSWER: 13:30"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "planning",
+  "subtheme": "critical-path-clock",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A workshop restores a chair, starting at 08:00. There are enough workers to run tasks at the same time, but a task can start only when the tasks it needs are finished.\n- sand the frame: 40 minutes\n- cut the fabric: 75 minutes\n- varnish the frame: 30 minutes, needs the sanding done\n- assemble the chair: 20 minutes, needs the varnish and the fabric done\n- final inspection: 15 minutes, needs the chair assembled; the inspector arrives at 09:15\nAt what time is the inspection finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:50",
+       "09:50 am",
+       "09:50am",
+       "09:50 pm",
+       "09:50pm",
+       "<09:50>",
+       "9:50",
+       "9:50 am",
+       "9:50am",
+       "9:50 pm",
+       "9:50pm",
+       "<9:50>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:50\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Sanding and varnish end 09:10, fabric ends 09:15, assembly 09:15-09:35. The inspector is already there, so inspection runs 09:35-09:50.\nANSWER: 09:50",
+  "negative": "The inspector arrives at 09:15 and needs 15 minutes.\nANSWER: 09:30"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "planning",
+  "subtheme": "latest-start-parallel",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Dinner must be completely ready at 19:00. Several helpers work at the same time, but a task can start only when the tasks it needs are finished.\n- roast the meat: 100 minutes\n- rest the meat: 15 minutes, needs the roast finished\n- carve the meat: 10 minutes, needs the resting finished\n- make the gravy: 10 minutes, needs the roast finished\n- cook the potatoes: 55 minutes\n- lay the table: 20 minutes\nWhat is the latest time the roast can go into the oven so that every task is finished by 19:00?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "16:55",
+       "16:55 am",
+       "16:55am",
+       "16:55 pm",
+       "16:55pm",
+       "<16:55>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?16:55\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "The longest chain is roast, rest, carve: 100 + 15 + 10 = 125 minutes. 19:00 minus 125 minutes is 16:55.\nANSWER: 16:55",
+  "negative": "All tasks add up to 210 minutes, so start 210 minutes before 19:00.\nANSWER: 15:30"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "planning",
+  "subtheme": "deadline-forced-order",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A printer starts at 08:00 and must run four jobs back to back, one at a time, with no gaps:\n- Job P: 30 minutes, must be finished by 11:00.\n- Job Q: 45 minutes, must be finished by 09:00.\n- Job R: 20 minutes, must be finished by 09:30.\n- Job S: 60 minutes, must be finished by 10:30.\nOnly one order of the four jobs meets every deadline. In that order, at what time does job P start?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:05",
+       "10:05 am",
+       "10:05am",
+       "10:05 pm",
+       "10:05pm",
+       "<10:05>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?10:05\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Q must go first (08:00-08:45), then R (08:45-09:05), then S (09:05-10:05), then P (10:05-10:35).\nANSWER: 10:05",
+  "negative": "P is listed first, so it starts when the printer starts.\nANSWER: 08:00"
+ },
+ {
+  "local_id": "g2-20",
+  "family": "planning",
+  "subtheme": "hands-on-vs-waiting",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "One cook makes bread and soup. The cook can do only one hands-on step at a time, but waiting steps need no attention and can overlap with anything.\nBread, in order: mix the dough (15 minutes, hands-on), let it rise (60 minutes, waiting), shape it (10 minutes, hands-on), bake it (35 minutes, waiting).\nSoup, in order: chop the vegetables (20 minutes, hands-on), simmer (40 minutes, waiting).\nWhat is the minimum number of minutes from the start until both the bread and the soup are finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 120
+   }
+  ],
+  "reference": "Mix 0-15, chop 15-35 while the dough rises, soup done at 75. Shape 75-85, bake until 120.\nANSWER: 120",
+  "negative": "15+60+10+35+20+40\nANSWER: 180"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "planning",
+  "subtheme": "work-rest-cycle",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A welder starts at 08:00 on a job that needs 200 minutes of welding in total. Safety rules say that after every 90 minutes of welding the welder must take a 15-minute break before welding again. No break is needed once the job is finished.\nAt what time is the job finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "11:50",
+       "11:50 am",
+       "11:50am",
+       "11:50 pm",
+       "11:50pm",
+       "<11:50>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?11:50\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Weld 08:00-09:30, break to 09:45, weld 09:45-11:15, break to 11:30, weld the last 20 minutes until 11:50.\nANSWER: 11:50",
+  "negative": "200 minutes after 08:00.\nANSWER: 11:20"
+ }
+]

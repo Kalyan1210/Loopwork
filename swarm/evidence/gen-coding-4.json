@@ -1,0 +1,49 @@
+{
+ "actor": "gen-coding-4",
+ "role": "task-generation",
+ "family": "coding",
+ "subtheme": "data-structures",
+ "output_file": "tasks/coding/gen_4.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 5,
+  "medium": 8,
+  "hard": 8
+ },
+ "functions": [
+  "count_by_status(tickets)",
+  "transpose(m)",
+  "flatten_once(items)",
+  "unique_in_order(xs)",
+  "index_by(records, key)",
+  "merge_stock(a, b)",
+  "sort_words(words)",
+  "rotate_cw(m)",
+  "dict_diff(old, new)",
+  "join_city(people, cities)",
+  "region_totals(sales)",
+  "run_stack(ops)",
+  "nest(flat)",
+  "ring_buffer(ops, capacity)",
+  "left_join(left, right, key)",
+  "league_table(matches)",
+  "latest_per_id(records)",
+  "pivot(cells)",
+  "deep_merge(a, b)",
+  "order_staff(staff)",
+  "bag_diff(a, b)"
+ ],
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/coding/spec.md, tasks/coding/dev.json and the code_tests checker in lab/core.py.",
+  "Authored 21 write-from-spec tasks over dicts, nested lists, tuples and record lists (count, transpose, one-level flatten, ordered dedupe, index by key, merge with zero-drop, distinct multi-key sort, rotate, dict diff, inner join, grouped totals with tie-break, stack and bounded-queue simulations, nest tuple keys, left join, league table, latest-per-id dedupe, pivot with fill, deep merge without mutation, mixed-direction 3-level sort, multiset difference).",
+  "Built the file with a script (kept outside the repo, in the session scratchpad) that executes each reference solution and writes every assert's expected value from the reference's actual output; no expected value was hand-computed.",
+  "The first assert of every task is the example call stated in the prompt (asserted by the build script).",
+  "Tests only cover behaviour stated in the prompt; where the prompt asks for lists of lists or tuples the asserts normalise the inner container type so list/tuple surface form does not matter."
+ ],
+ "verification": "lab/validate_tasks.py ran each reference (must pass) and each negative (must fail) in the sandbox.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/coding/gen_4.json --family coding",
+ "validator_result": "21/21 valid",
+ "model_run_on_tasks": false,
+ "other_generator_files_read": false,
+ "notes": "Difficulty split 5 easy / 8 medium / 8 hard, skewed harder per spec.md difficulty guidance (baseline was above target). Difficulty labels are estimates; no pilot was run because the tasks are held-out."
+}

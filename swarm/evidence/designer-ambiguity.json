@@ -1,0 +1,28 @@
+{
+ "actor": "designer-ambiguity",
+ "family": "ambiguity",
+ "role": "task-suite-design",
+ "did": [
+  "Read lab/TASKS.md and lab/core.py (checker semantics) and lab/pilot.py",
+  "Wrote 10 dev tasks: 4 ASK-expected (one of them the first turn of a multi task), 5 ANSWER-expected, 1 FLAG-expected; all pass lab/validate_tasks.py",
+  "Piloted 3 rounds on the baseline with lab/pilot.py --show and read every reply",
+  "Task content and expected answers were identical in all rounds; only the wording/order of the reply-format block changed (plus one check loosened after round 1: dev-04 now accepts 10:45 anywhere in an ACTION: ANSWER reply)",
+  "After round 3 changed only the difficulty labels of 6 tasks to match observed baseline behaviour (no prompt or check change, so not re-piloted); revalidated 10/10",
+  "Wrote tasks/ambiguity/spec.md with the format blocks, checker patterns, pitfalls, example and 5 sub-themes"
+ ],
+ "pilot_rounds": [
+  {"round": 1, "passed": 3, "total": 10, "pass_rate": 0.3, "note": "prose-style format block; model chose ASK on 7 of 9 single tasks. One ANSWER reply (dev-04) had the right value but no ANSWER: prefix."},
+  {"round": 2, "passed": 4, "total": 10, "pass_rate": 0.4, "note": "template block with ANSWER first, ASK last, 'or unclear', 'Never guess'; model chose ASK on all 8 two-way single tasks."},
+  {"round": 3, "passed": 6, "total": 10, "pass_rate": 0.6, "note": "template block with ASK first, ANSWER last, no 'never guess'; model chose ANSWER on all 8 two-way single tasks and on turn 1 of the multi task. Final."}
+ ],
+ "final_baseline_dev_pass_rate": 0.6,
+ "final_per_task": {"dev-01": 0, "dev-02": 1, "dev-03": 0, "dev-04": 1, "dev-05": 1, "dev-06": 1, "dev-07": 0, "dev-08": 1, "dev-09": 1, "dev-10": 0},
+ "dev_tasks_valid": 10,
+ "caveat": "The 0.6 reflects a format-driven bias, not discrimination: in round 3 the baseline answered every two-way task, so it passed all 5 ANSWER-expected tasks and failed all 4 ASK-expected ones; in round 2 the reverse. The only content-sensitive pass was the FLAG task (passed in rounds 2 and 3). The pass rate is therefore set by the ASK/ANSWER mix of the file. The spec tells generators to keep a strict half/half balance and to use the round-3 block verbatim. No checker rejected a correct reply or accepted a wrong one in round 3.",
+ "not_tested": "The three-way FLAG block was piloted on a single task only. The round-3 two-way block was piloted once (round budget of 3 exhausted), so its stability across other content is unverified.",
+ "files_written": [
+  "tasks/ambiguity/dev.json",
+  "tasks/ambiguity/spec.md",
+  "swarm/evidence/designer-ambiguity.json"
+ ]
+}

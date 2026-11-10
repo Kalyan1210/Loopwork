@@ -1,0 +1,715 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "ambiguity",
+  "subtheme": "clarify-session-by-time",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Thursday classes at the fictional Wickerby Craft Hall:\n- pottery at 10:00 in the Ash room\n- weaving at 10:00 in the Oak room\n- pottery at 18:00 in the Elm room\n- weaving at 14:00 in the Birch room\nMember message: \"Which room is Thursday's pottery class in?\"\nTask: give the name of the room.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the room name only>",
+   "Member message: \"The evening one.\"\nUse the same two-line reply format."
+  ],
+  "checks": [
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "tag",
+     "name": "ACTION",
+     "allowed": [
+      "ASK"
+     ]
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "not_regex",
+     "pattern": "^\\W*answer\\s*[:=]",
+     "flags": "im"
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "regex",
+     "pattern": "QUESTION:.*(which|10[:.]00|18[:.]00|morning|evening|what time|\\b10\\b|\\b18\\b|\\bash\\b|\\belm\\b)",
+     "flags": "i"
+    }
+   },
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Elm",
+     "Elm room",
+     "the Elm room"
+    ]
+   }
+  ],
+  "reference": [
+   "ACTION: ASK\nQUESTION: Which pottery class do you mean, the one at 10:00 or the one at 18:00?",
+   "ACTION: ANSWER\nANSWER: Elm"
+  ],
+  "negative": [
+   "ACTION: ANSWER\nANSWER: Ash",
+   "ACTION: ANSWER\nANSWER: Elm"
+  ]
+ },
+ {
+  "local_id": "g5-02",
+  "family": "ambiguity",
+  "subtheme": "unique-superlative",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Crates on the dock of the fictional Port Avel:\n- C1: 14 kg\n- C2: 22 kg\n- C3: 9 kg\n- C4: 19 kg\nForeman's note: \"Load the heaviest crate first.\"\nTask: give the id of the crate to load first.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the crate id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "C2",
+     "crate C2"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: C2",
+  "negative": "ACTION: ANSWER\nANSWER: C4"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "ambiguity",
+  "subtheme": "ordinal-two-rows",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Jars in the fictional Tansy Apothecary, listed from left to right:\n- Top shelf: J3, J8, J1\n- Bottom shelf: J6, J2, J5\nRequest: \"Bring me the second one from the left.\"\nTask: give the id of the jar to bring.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the jar id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|shelf|top|bottom|\\bJ8\\b|\\bJ2\\b)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which shelf do you mean, the top shelf or the bottom shelf?",
+  "negative": "ACTION: ANSWER\nANSWER: J8"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "ambiguity",
+  "subtheme": "clarify-item-by-second-attribute",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Ledgers in the archive of the fictional Vannet Guild:\n- G1: green cover, year 2021\n- G2: green cover, year 2023\n- G3: brown cover, year 2023\n- G4: brown cover, year 2021\nRequest: \"Fetch the green ledger for the auditor.\"\nTask: give the id of the ledger to fetch.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the ledger id only>",
+   "Reply to your question: \"The one for 2023.\"\nUse the same two-line reply format."
+  ],
+  "checks": [
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "tag",
+     "name": "ACTION",
+     "allowed": [
+      "ASK"
+     ]
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "not_regex",
+     "pattern": "^\\W*answer\\s*[:=]",
+     "flags": "im"
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "regex",
+     "pattern": "QUESTION:.*(which|\\bG1\\b|\\bG2\\b|year|2021|2023)",
+     "flags": "i"
+    }
+   },
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "G2",
+     "ledger G2"
+    ]
+   }
+  ],
+  "reference": [
+   "ACTION: ASK\nQUESTION: Which green ledger do you mean, G1 (2021) or G2 (2023)?",
+   "ACTION: ANSWER\nANSWER: G2"
+  ],
+  "negative": [
+   "ACTION: ANSWER\nANSWER: G1",
+   "ACTION: ANSWER\nANSWER: G2"
+  ]
+ },
+ {
+  "local_id": "g5-05",
+  "family": "ambiguity",
+  "subtheme": "two-attribute-two-matches",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Chairs in the fictional Lowmoor workshop:\n- C1: oak, with arms, dark stain\n- C2: oak, no arms, light stain\n- C3: pine, with arms, dark stain\n- C4: oak, with arms, light stain\nCustomer message: \"I will take the oak chair with arms.\"\nTask: give the id of the chair to set aside for the customer.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the chair id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|\\bC1\\b|\\bC4\\b|dark|light|stain)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which oak chair with arms do you want, C1 with the dark stain or C4 with the light stain?",
+  "negative": "ACTION: ANSWER\nANSWER: C1"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "ambiguity",
+  "subtheme": "three-attribute-with-negation",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Blankets at the fictional Pell Street stall:\n- B1: green, wool, reserved\n- B2: green, cotton, not reserved\n- B3: green, wool, not reserved\n- B4: grey, wool, not reserved\n- B5: green, wool, reserved\nCustomer message: \"I would like the green wool blanket that nobody has reserved yet.\"\nTask: give the id of the blanket to sell to this customer.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the blanket id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "B3",
+     "blanket B3"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: B3",
+  "negative": "ACTION: ASK\nQUESTION: Which green wool blanket do you mean, B1, B3 or B5?"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "ambiguity",
+  "subtheme": "complement-reference",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Corran lighthouse has exactly two signal lamps: L1 and L2.\nKeeper's note: \"L1 is already lit. Light the other one before dusk.\"\nTask: give the id of the lamp to light.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the lamp id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "L2",
+     "lamp L2"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: L2",
+  "negative": "ACTION: ANSWER\nANSWER: L1"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "ambiguity",
+  "subtheme": "two-attribute-person",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Staff of the fictional Hollin Inn:\n- Ilse Brandt, kitchen\n- Tomas Brandt, kitchen\n- Ilse Morn, garden\n- Keir Aldous, garden\nRequest: \"Leave the delivery note with Ilse from the kitchen.\"\nTask: give the full name of the person who must get the delivery note.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Ilse Brandt"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: Ilse Brandt",
+  "negative": "ACTION: ASK\nQUESTION: Which Ilse do you mean, Ilse Brandt or Ilse Morn?"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "ambiguity",
+  "subtheme": "role-reference",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Members of the fictional Tessin Valley survey team:\n- Jonas Feld, geologist\n- Mirela Quist, botanist\n- Anders Holt, geologist\n- Sabine Roe, cook\nRequest: \"Give the pressed-flower samples to our botanist.\"\nTask: give the full name of the person who must get the samples.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Mirela Quist"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: Mirela Quist",
+  "negative": "ACTION: ASK\nQUESTION: What is the name of the botanist?"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "ambiguity",
+  "subtheme": "unique-attribute",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Umbrellas in the lost-property box of the fictional Harrow Baths:\n- U1: green, wooden handle\n- U2: red, wooden handle\n- U3: green, steel handle\n- U4: black, steel handle\nVisitor message: \"I left my red umbrella here yesterday. Can you put it aside for me?\"\nTask: give the id of the umbrella to put aside.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the umbrella id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "U2",
+     "umbrella U2"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: U2",
+  "negative": "ACTION: ASK\nQUESTION: Which umbrella is yours, the one with the wooden handle or the steel handle?"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "ambiguity",
+  "subtheme": "ordinal-reference",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Repair tickets at the fictional Dunmere Cycle Shop, listed in the order they will be worked on (first to last):\n1. ticket K41\n2. ticket K17\n3. ticket K30\n4. ticket K08\nOwner's note: \"Cancel the second one in the list; that customer has collected the bike.\"\nTask: give the id of the ticket to cancel.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the ticket id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "K17",
+     "ticket K17"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: K17",
+  "negative": "ACTION: ANSWER\nANSWER: K08"
+ },
+ {
+  "local_id": "g5-12",
+  "family": "ambiguity",
+  "subtheme": "clarify-name-by-department",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Staff of the fictional Quillby Press:\n- Rafi Dume, print room\n- Hana Dume, print room\n- Rafi Solen, dispatch\n- Odo Brill, dispatch\nRequest: \"Give the spare van key to Rafi.\"\nTask: give the full name of the person who must get the key.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+   "Reply to your question: \"I mean the Rafi who works in dispatch.\"\nUse the same two-line reply format."
+  ],
+  "checks": [
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "tag",
+     "name": "ACTION",
+     "allowed": [
+      "ASK"
+     ]
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "not_regex",
+     "pattern": "^\\W*answer\\s*[:=]",
+     "flags": "im"
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "regex",
+     "pattern": "QUESTION:.*(which|dume|solen|surname|last name|print room|dispatch)",
+     "flags": "i"
+    }
+   },
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Rafi Solen"
+    ]
+   }
+  ],
+  "reference": [
+   "ACTION: ASK\nQUESTION: Which Rafi do you mean, Rafi Dume or Rafi Solen?",
+   "ACTION: ANSWER\nANSWER: Rafi Solen"
+  ],
+  "negative": [
+   "ACTION: ANSWER\nANSWER: Rafi Dume",
+   "ACTION: ANSWER\nANSWER: Rafi Solen"
+  ]
+ },
+ {
+  "local_id": "g5-13",
+  "family": "ambiguity",
+  "subtheme": "shared-surname",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Dentists at the fictional Greywater Clinic:\n- Dr Lena Okoro\n- Dr Piet Varga\n- Dr Samuel Okoro\nPatient message: \"Please book my check-up with Dr Okoro.\"\nTask: give the full name of the dentist for the booking.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|lena|samuel|first name|given name)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which Dr Okoro do you mean, Lena Okoro or Samuel Okoro?",
+  "negative": "ACTION: ANSWER\nANSWER: Lena Okoro"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "ambiguity",
+  "subtheme": "pronoun-single-antecedent",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Ashby Pottery has three kilns: K1, K2 and K3.\nPotter's message: \"Kiln K2 cracked during this morning's firing. Please take it off next week's schedule.\"\nTask: give the id of the kiln to remove from the schedule.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the kiln id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "K2",
+     "kiln K2"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: K2",
+  "negative": "ACTION: ASK\nQUESTION: Which kiln should be taken off the schedule?"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "ambiguity",
+  "subtheme": "demonstrative-no-antecedent",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Account of Ms Teale at the fictional courier Fernway Post. Parcels still on their way to her:\n- R2: a lamp, sent Monday\n- R6: a kettle, sent Tuesday\n- R9: a rug, sent Tuesday\nThis is her first message today: \"Please send that parcel to my office instead of my home.\"\nTask: give the id of the parcel to redirect.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the parcel id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|\\bR2\\b|\\bR6\\b|\\bR9\\b|lamp|kettle|rug)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which parcel do you want redirected: R2, R6 or R9?",
+  "negative": "ACTION: ANSWER\nANSWER: R9"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "ambiguity",
+  "subtheme": "pronoun-two-antecedents",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Maintenance log of the fictional Brackwater pumping station:\n- Monday: pump P1 and valve V4 were both serviced.\nTechnician's note, Wednesday: \"It is leaking again. Tag it for repair.\"\nTask: give the id of the part to tag for repair.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the part id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|\\bP1\\b|\\bV4\\b|pump or|valve or|pump\\b.*\\bvalve|valve\\b.*\\bpump)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which part is leaking, pump P1 or valve V4?",
+  "negative": "ACTION: ANSWER\nANSWER: P1"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "ambiguity",
+  "subtheme": "unique-first-name",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Crew of the fictional ferry Saltwing:\n- Petra Kestrel, deck\n- Bruno Kestrel, engine room\n- Odile Marsh, galley\n- Petra Lunn, bridge\nRequest: \"Hand the new tide table to Bruno.\"\nTask: give the full name of the person who must get the tide table.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Bruno Kestrel"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: Bruno Kestrel",
+  "negative": "ACTION: ASK\nQUESTION: Which Kestrel do you mean, Petra Kestrel or Bruno Kestrel?"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "ambiguity",
+  "subtheme": "tied-superlative",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Rooms free on Saturday at the fictional Stonecrop Guesthouse, with the price per night:\n- Lark room: 40 coins\n- Wren room: 55 coins\n- Finch room: 40 coins\n- Dove room: 70 coins\nGuest message: \"Book me the cheapest room for Saturday night.\"\nTask: give the name of the room to book.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the room name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|lark|finch|\\btwo\\b|\\bboth\\b|\\btie)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Two rooms cost 40 coins, Lark and Finch. Which one would you like?",
+  "negative": "ACTION: ANSWER\nANSWER: Lark"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "ambiguity",
+  "subtheme": "shared-colour",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Files on the desk of the fictional Sorrel Harbour office:\n- F1: blue cover, labelled \"harbour fees\"\n- F2: yellow cover, labelled \"harbour fees\"\n- F3: blue cover, labelled \"crew rota\"\nRequest: \"Take the blue file up to the harbour master.\"\nTask: give the id of the file to take.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the file id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|\\bF1\\b|\\bF3\\b|harbour fees|crew rota|fees|rota)",
+    "flags": "i"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which blue file do you mean, F1 (harbour fees) or F3 (crew rota)?",
+  "negative": "ACTION: ANSWER\nANSWER: F1"
+ },
+ {
+  "local_id": "g5-20",
+  "family": "ambiguity",
+  "subtheme": "reference-resolved-by-log",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Parcels held at the fictional Marrow Lane depot for Mr Ossian: Q3, Q5 and Q8.\nCall log:\n- yesterday 16:40: Mr Ossian asked about parcel Q5\n- today 09:10: Mr Ossian asked about parcel Q3\nMessage from Mr Ossian, today 11:30: \"That parcel I rang about this morning, please keep it at the depot until Friday.\"\nTask: give the id of the parcel to keep at the depot.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the parcel id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Q3",
+     "parcel Q3"
+    ]
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: Q3",
+  "negative": "ACTION: ASK\nQUESTION: Which parcel do you mean, Q3, Q5 or Q8?"
+ },
+ {
+  "local_id": "g5-21",
+  "family": "ambiguity",
+  "subtheme": "clarify-item-then-compute",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Hire prices at the fictional Elder Pool boathouse, in coins per hour:\n- rowboat: 6\n- punt: 9\n- canoe: 5\nVisitor message: \"I would like to hire one of your boats for 3 hours. What will it cost?\"\nTask: give the total hire cost in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+   "Visitor message: \"The punt, please.\"\nUse the same two-line reply format."
+  ],
+  "checks": [
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "tag",
+     "name": "ACTION",
+     "allowed": [
+      "ASK"
+     ]
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "not_regex",
+     "pattern": "^\\W*answer\\s*[:=]",
+     "flags": "im"
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "regex",
+     "pattern": "QUESTION:.*(which|what (kind|type|sort)|type of|kind of|rowboat|punt|canoe)",
+     "flags": "i"
+    }
+   },
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 27
+   }
+  ],
+  "reference": [
+   "ACTION: ASK\nQUESTION: Which boat would you like to hire: the rowboat, the punt or the canoe?",
+   "ACTION: ANSWER\nANSWER: 27"
+  ],
+  "negative": [
+   "ACTION: ANSWER\nANSWER: 18",
+   "ACTION: ANSWER\nANSWER: 27"
+  ]
+ }
+]

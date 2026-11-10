@@ -1,0 +1,598 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "You sell tickets for the fictional Tidewell Ferries. A ticket booking needs three things: the sailing day, the number of passengers and the vehicle type.\nCustomer message: \"Please book the crossing to Skerry Isle for two passengers with one van.\"\nTask: confirm the booking details.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the sailing day, number of passengers and vehicle type>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bdays?\\b|\\bdates?\\b|\\bwhen\\b)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: On which day do you want to sail?",
+  "negative": "ACTION: ANSWER\nANSWER: Saturday, 2 passengers, one van"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional coach line Brackenway runs coaches to the town of Ulmere. The ride to Ulmere always takes 2 hours and 30 minutes.\nPassenger message: \"I am taking the afternoon coach to Ulmere on Friday. At what time will I get there?\"\nTask: give the arrival time in Ulmere.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the arrival time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(depart|leav|set(s|ting)? off|\\bstart)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: At what time does the afternoon coach depart?",
+  "negative": "ACTION: ANSWER\nANSWER: 16:30"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional laundry Suds & Sons hands every bag of washing back exactly 2 days after it is dropped off.\nCustomer message: \"I dropped off one bag of washing on Tuesday. On which day can I pick it up?\"\nTask: give the pick-up day.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Thursday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Thursday",
+  "negative": "ACTION: ASK\nQUESTION: On which day did you drop off the bag?"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Reedmere Boat Hire rents rowing boats for 7 coins per hour.\nCustomer message: \"I would like one rowing boat for 4 hours on Sunday. What will it cost?\"\nTask: give the total hire price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 28
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 28",
+  "negative": "ACTION: ASK\nQUESTION: For how many hours do you want the boat?"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Bramblecote Nursery packs seedlings in trays. One tray holds exactly 12 seedlings.\nCustomer message: \"Please pack my order of 84 lettuce seedlings. How many trays will that be?\"\nTask: give the number of trays.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 7",
+  "negative": "ACTION: ASK\nQUESTION: How many seedlings does one tray hold?"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional chimney sweep Sootwell sweeps chimneys only on Monday, Tuesday, Wednesday and Thursday. Every job is done on the first sweeping day after the day its request arrives.\nCustomer message, which arrived on a Thursday: \"Please sweep the chimney at Fennel Cottage.\"\nTask: give the day on which the chimney is swept.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Monday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Monday",
+  "negative": "ACTION: ASK\nQUESTION: On which day should the chimney be swept?"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "At the fictional craft school Loomhaven, the weaving class on Saturday starts at 14:15 and lasts 90 minutes.\nStudent message: \"I have joined the Saturday weaving class. When does it finish?\"\nTask: give the time the class ends.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the end time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b15[:.]45\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 15:45",
+  "negative": "ACTION: ASK\nQUESTION: How long does the weaving class last?"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "You take firing orders for the fictional pottery studio Emberwick Kiln. A firing quote needs two things: the firing type and the number of kiln shelves. A bisque firing costs 6 coins per shelf and a glaze firing costs 9 coins per shelf.\nCustomer message: \"I would like a glaze firing for my bowls next week. What will it cost?\"\nTask: give the total firing price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(how many|shelf|shelves)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many kiln shelves do you need?",
+  "negative": "ACTION: ANSWER\nANSWER: 9"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional firm Mossgrove Floors lays carpet for 6 coins per square metre of floor. All rooms it works in are rectangles.\nCustomer message: \"My hallway is 4 metres long and I want carpet over the whole floor. What will it cost?\"\nTask: give the carpet price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(width|wide|breadth|across|\\barea|square met|other side|second side)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How wide is the hallway?",
+  "negative": "ACTION: ANSWER\nANSWER: 24"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The fictional kite shop Skyhollow sells every kite for 6 coins.\nCustomer message: \"I want to buy one kite for each of my five nieces. How much is that altogether?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 30",
+  "negative": "ACTION: ASK\nQUESTION: How many kites do you want to buy?"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "At the fictional Hotel Varn, a Saturday shift is paid at double the normal hourly wage.\nNight porter message: \"I worked 6 hours last Saturday. How much pay will I get for that shift?\"\nTask: give the Saturday pay in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(wage|\\brate|hourly|(per|an|each|one) hour|(normal|base|usual|regular) pay)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What is the normal hourly wage?",
+  "negative": "ACTION: ANSWER\nANSWER: 12"
+ },
+ {
+  "local_id": "g1-12",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "At the fictional Odalie Fairground, one brass token buys exactly 4 ride tickets.\nVisitor message: \"I have 15 brass tokens and I want to spend all of them on ride tickets. How many tickets will I get?\"\nTask: give the number of ride tickets.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 60
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 60",
+  "negative": "ACTION: ASK\nQUESTION: How many ride tickets does one brass token buy?"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "You take orders at the fictional print shop Inkfold. A poster order needs two things: the quantity and the poster size. A small poster costs 3 coins and a large poster costs 7 coins.\nCustomer message: \"I need 20 posters for the village fair.\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bsizes?\\b|small|large|\\bbig\\b|dimension)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Which poster size do you want, small or large?",
+  "negative": "ACTION: ANSWER\nANSWER: 60"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "You take bookings for the fictional bike shop Spokehaven. A hire booking needs three things: the bike type, the pick-up day and the number of days. A city bike costs 8 coins per day.\nCustomer message: \"I would like to hire a city bike, picking it up on Tuesday.\"\nTask: give the total hire price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(how many days|how long|number of days|duration|\\blength\\b|return|bring .*back|until)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: For how many days do you want the bike?",
+  "negative": "ACTION: ANSWER\nANSWER: 8"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional courier Larkpost charges 3 coins for every kilogram a crate weighs. There are no other fees.\nCustomer message: \"I am sending one crate of books to the town of Vell on Monday. What will the postage be?\"\nTask: give the postage in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(weigh|heavy|kilograms?|\\bkgs?\\b|kilos?\\b|mass)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How much does the crate weigh?",
+  "negative": "ACTION: ANSWER\nANSWER: 3"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional chandlery Knotgate sells hemp rope in two ways: by the metre at 3 coins per metre, or by the fathom at 5 coins per fathom.\nCustomer message: \"I need 30 of the hemp rope for my boat. What does that come to?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(met(re|er)s?|fathoms?|\\bunits?\\b|measure)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Do you mean 30 metres or 30 fathoms?",
+  "negative": "ACTION: ANSWER\nANSWER: 90"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The fictional framing shop Gildcorner sells a small frame for 9 coins and a large frame for 14 coins.\nCustomer message: \"I will take three large frames. I have not decided yet on which day I will collect them. What do I owe?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 42
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 42",
+  "negative": "ACTION: ASK\nQUESTION: On which day will you collect the frames?"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Hollin Mobile Library stops in the village of Pellow every Wednesday and in the village of Sarn every Friday.\nReader message: \"I live in Sarn. On which day can I return my book to the mobile library in my own village?\"\nTask: give the day.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Friday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Friday",
+  "negative": "ACTION: ASK\nQUESTION: In which village do you live?"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The fictional piano tuner Ansel Quirke always needs three quarters of an hour to tune one piano.\nCustomer message: \"You are booked to start tuning my piano at 11:40 on Monday. When will you be finished?\"\nTask: give the time the tuning ends.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the end time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b12[:.]25\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 12:25",
+  "negative": "ACTION: ASK\nQUESTION: How long does the tuning take?"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "You take orders for the fictional curtain maker Thimble & Thread. A curtain order needs three things: the fabric, the width in centimetres and the drop (the length from top to bottom) in centimetres.\nCustomer message: \"Please make one curtain in green linen, 120 centimetres wide.\"\nTask: confirm the order details.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the fabric, the width and the drop>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bdrop|\\blength|\\blong\\b|height|\\btall\\b|top to bottom)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What drop in centimetres should the curtain have?",
+  "negative": "ACTION: ANSWER\nANSWER: green linen, 120 cm wide, 120 cm drop"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Greywick Hall can be hired for an evening for 40 coins. Using the kitchen costs 15 coins extra.\nCustomer message: \"I want to hire the hall for one evening and I will use the kitchen. What is the total?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 55",
+  "negative": "ACTION: ASK\nQUESTION: Do you want to use the kitchen?"
+ }
+]

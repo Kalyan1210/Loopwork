@@ -1,0 +1,31 @@
+{
+ "actor": "gen-calibration-2",
+ "role": "task-generation",
+ "family": "calibration",
+ "subtheme": "Neighbouring entities (races, contests, expeditions, class rosters, teams)",
+ "output_file": "tasks/calibration/gen_2.json",
+ "n_tasks": 21,
+ "local_ids": "g2-01..g2-21",
+ "balance": {
+  "answerable": 10,
+  "unanswerable": 11,
+  "note": "21 is odd, so an exact half split is impossible; the extra task is unanswerable",
+  "difficulty": {"easy": 7, "medium": 7, "hard": 7},
+  "by_label": {"easy": "3 answerable / 4 unanswerable", "medium": "4 / 3", "hard": "3 / 4"},
+  "answerable_with_INSUFFICIENT_negative": 4
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/calibration/spec.md and tasks/calibration/dev.json; checked answer/number checker names in lab/core.py",
+  "Wrote the 21 tasks through a Python builder script (session scratchpad) using the spec's verbatim prompt convention, max_tokens 80, no system field, and the spec's checker patterns",
+  "Builder asserts each evidence passage is 25-60 words and prints the difficulty/label balance"
+ ],
+ "answer_verification": "Every computed answer is evaluated and asserted in Python in the builder: 58-7=51 (g2-04), 30+6+4=40 (g2-07), 6*2=12 (g2-13), 4-1=3 (g2-18), 24-9-8=7 (g2-21); tempting negatives are also computed (58+7=65, 30+4=34, 85+20=105). Lookup answers (31, 48, Brok Unnel, Glimmerwake, Rusk Hallen) are stated in or follow in one hop from the passage. Each unanswerable passage was reread for airtightness: the asked entity has no value and no relation that fixes one (g2-03 gives only 'some time before', g2-19 anchors an offset on an unrecorded score, g2-14 lacks one round's card).",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/calibration/gen_2.json --family calibration",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "No model run or pilot on these tasks (held-out), so baseline pass rate and difficulty labels are estimates from the spec's guidance, not measurements",
+  "Did not read other generators' files, so overlap with them is unchecked"
+ ]
+}

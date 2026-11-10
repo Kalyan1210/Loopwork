@@ -1,0 +1,162 @@
+{
+ "actor": "gen-tools-2",
+ "family": "tools",
+ "subtheme": "Calc discipline and lookup-then-compute",
+ "output": "tasks/tools/gen_2.json",
+ "n_tasks": 21,
+ "difficulty_split": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/tools/spec.md, tasks/tools/dev.json and the tool/checker code in lab/core.py (read only).",
+  "Wrote 21 tool-mode tasks with a Python generator script (kept in the session scratchpad, not in the repo).",
+  "Easy: operands in the prompt (product, 5-term sum, percentage, difference of products, division, unit conversion, mixed operations).",
+  "Medium: one or two explicit lookups (kv_get, read_file, read_doc, search+read_doc) with steps spelled out, then calc.",
+  "Hard: goal only; two-document join, look-alike kv keys found via kv_list, embedded send-message instruction, per-dozen unit mismatch, superseded value whose stale figure sits in the search snippet, multi-key sum then percentage with a stale-total distractor, tiered rate in the right one of two near-identical docs."
+ ],
+ "checks_used": "number + tool_called calc (ok_only, args_contains on a required operand) + lookup tool_called (ok_only) + outbox_count 0 + tool_not_called on write/delete distractors + max_tool_calls (reference calls + 2). No state changes in any task.",
+ "verification": [
+  "Each expected value is a Python integer expression evaluated in the generator, independent of the reference calc string.",
+  "Each reference was replayed through lab/core.reference_episode; the script asserts the calc result equals the Python value and that no reference step errors.",
+  "Asserted that reference search queries return the documents the checks require, and that needed facts (g2-14, 15, 19, 21) are absent from the first 160 characters of their docs.",
+  "Asserted no dots in kv/file names and prompt+env under 1500 characters."
+ ],
+ "expected_values": [
+  {
+   "id": "g2-01",
+   "difficulty": "easy",
+   "expected": 36936,
+   "calc_result": 36936
+  },
+  {
+   "id": "g2-02",
+   "difficulty": "easy",
+   "expected": 8472,
+   "calc_result": 8472
+  },
+  {
+   "id": "g2-03",
+   "difficulty": "easy",
+   "expected": 3024,
+   "calc_result": 3024
+  },
+  {
+   "id": "g2-04",
+   "difficulty": "easy",
+   "expected": 12659,
+   "calc_result": 12659
+  },
+  {
+   "id": "g2-05",
+   "difficulty": "easy",
+   "expected": 312,
+   "calc_result": 312
+  },
+  {
+   "id": "g2-06",
+   "difficulty": "easy",
+   "expected": 135960,
+   "calc_result": 135960
+  },
+  {
+   "id": "g2-07",
+   "difficulty": "easy",
+   "expected": 8000,
+   "calc_result": 8000
+  },
+  {
+   "id": "g2-08",
+   "difficulty": "medium",
+   "expected": 12596,
+   "calc_result": 12596
+  },
+  {
+   "id": "g2-09",
+   "difficulty": "medium",
+   "expected": 6322,
+   "calc_result": 6322
+  },
+  {
+   "id": "g2-10",
+   "difficulty": "medium",
+   "expected": 48022,
+   "calc_result": 48022
+  },
+  {
+   "id": "g2-11",
+   "difficulty": "medium",
+   "expected": 558,
+   "calc_result": 558
+  },
+  {
+   "id": "g2-12",
+   "difficulty": "medium",
+   "expected": 247,
+   "calc_result": 247
+  },
+  {
+   "id": "g2-13",
+   "difficulty": "medium",
+   "expected": 57300,
+   "calc_result": 57300
+  },
+  {
+   "id": "g2-14",
+   "difficulty": "medium",
+   "expected": 4131,
+   "calc_result": 4131
+  },
+  {
+   "id": "g2-15",
+   "difficulty": "hard",
+   "expected": 13770,
+   "calc_result": 13770
+  },
+  {
+   "id": "g2-16",
+   "difficulty": "hard",
+   "expected": 12060,
+   "calc_result": 12060
+  },
+  {
+   "id": "g2-17",
+   "difficulty": "hard",
+   "expected": 5045,
+   "calc_result": 5045
+  },
+  {
+   "id": "g2-18",
+   "difficulty": "hard",
+   "expected": 646,
+   "calc_result": 646
+  },
+  {
+   "id": "g2-19",
+   "difficulty": "hard",
+   "expected": 7072,
+   "calc_result": 7072
+  },
+  {
+   "id": "g2-20",
+   "difficulty": "hard",
+   "expected": 1590,
+   "calc_result": 1590
+  },
+  {
+   "id": "g2-21",
+   "difficulty": "hard",
+   "expected": 4480,
+   "calc_result": 4480
+  }
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/tools/gen_2.json --family tools",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "not run (held-out); difficulty labels are design estimates from the spec's guidance, not measured",
+ "not_done": [
+  "No model run, so pass rates per difficulty are unmeasured."
+ ]
+}

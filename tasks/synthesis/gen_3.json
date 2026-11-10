@@ -1,0 +1,525 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "synthesis",
+  "subtheme": "single relative delay",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Parish hall calendar, October: The Wrenfold choir rehearsal is booked for 8 October. The hall piano was tuned last week.\n[Doc B] Choir secretary's notice: The conductor is away, so the choir rehearsal is pushed back 6 days from the date in the hall calendar.\n[Doc C] Caretaker's note: The bell-ringers' practice, also held in October, is pushed back 3 days. The choir is not affected by this note.\n\nQuestion: After the secretary's notice, on which day of October is the choir rehearsal?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "reference": "8 + 6 = 14.\nANSWER: 14",
+  "negative": "The hall calendar says 8 October.\nANSWER: 8"
+ },
+ {
+  "local_id": "g3-02",
+  "family": "synthesis",
+  "subtheme": "elapsed days between two records",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Harbour log, Port Sennick: The barge Ilverine left the dock on 4 May carrying a load of roof tiles.\n[Doc B] Warehouse receipt, Dunholt depot: The Ilverine's tiles were received here on 21 May. Two crates were chipped.\n[Doc C] Lock-keeper's diary: Water was low on 12 May and three barges had to wait at the lock.\n\nQuestion: How many days passed between the Ilverine leaving the dock and its tiles being received at the depot?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 17
+   }
+  ],
+  "reference": "21 - 4 = 17.\nANSWER: 17",
+  "negative": "12 - 4 = 8.\nANSWER: 8"
+ },
+ {
+  "local_id": "g3-03",
+  "family": "synthesis",
+  "subtheme": "room change, date kept",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer. Later notices override the timetable.\n\n[Doc A] Timetable, Hollin Arts Centre, November: Life drawing is on 11 November in Juniper Hall. Weaving is on 18 November in Larch Hall.\n[Doc B] Notice of 2 November: Life drawing moves out of Juniper Hall into Rowan Hall. Its date is unchanged.\n[Doc C] Notice of 5 November: Weaving is moved to 25 November. The centre cafe closes early that day.\n\nQuestion: On which day of November, and in which hall, will life drawing take place?\n\nReply with only a JSON object like {\"day\": <number>, \"hall\": \"<hall name>\"} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "day",
+     "hall"
+    ],
+    "equals": {
+     "day": 11
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"hall\"\\s*:\\s*\"(the )?rowan( hall)?\""
+   }
+  ],
+  "reference": "{\"day\": 11, \"hall\": \"Rowan Hall\"}",
+  "negative": "{\"day\": 11, \"hall\": \"Juniper Hall\"}"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "synthesis",
+  "subtheme": "extended duration",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Roadworks notice, Pellmoor Council: Fenner Lane will be closed for 10 days while a drain is relaid. Work starts in June.\n[Doc B] Contractor update (issued after the roadworks notice): A cracked pipe was found. The Fenner Lane closure will last 4 days longer than the roadworks notice states.\n[Doc C] Bus leaflet: Route K is diverted along Mott Street on every day that Fenner Lane is closed, and on no other day.\n\nQuestion: According to the contractor update, for how many days in total will Route K be diverted?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "reference": "10 + 4 = 14.\nANSWER: 14",
+  "negative": "The closure lasts 10 days.\nANSWER: 10"
+ },
+ {
+  "local_id": "g3-05",
+  "family": "synthesis",
+  "subtheme": "event order after an update",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Festival programme, Corrowby: The Lantern Parade is on 18 August and the Boat Race is on 22 August. Programmes cost 2 crowns.\n[Doc B] Harbour notice (issued after the programme was printed): Because of the tides, the Boat Race is brought forward by 6 days.\n[Doc C] Stewards' rota: Stewards are needed at both events. The Lantern Parade date in the programme has not changed.\n\nQuestion: Following the harbour notice, which of the two events takes place first?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <event name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Boat Race",
+     "the Boat Race",
+     "Boat Race event",
+     "The Boat Race."
+    ]
+   }
+  ],
+  "reference": "22 - 6 = 16, which is before 18.\nANSWER: Boat Race",
+  "negative": "18 August comes before 22 August.\nANSWER: Lantern Parade"
+ },
+ {
+  "local_id": "g3-06",
+  "family": "synthesis",
+  "subtheme": "elapsed days to a revised end date",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Loan slip, Tarnwick Tool Library: A long ladder was issued to member Edda Kroll on 3 September.\n[Doc B] Due-date sticker: The ladder issued to Edda Kroll is due back on 17 September. Late returns cost 1 mark a day.\n[Doc C] Renewal notice (replaces the due-date sticker): The due date for Edda Kroll's ladder is extended to 24 September.\n\nQuestion: How many days are there between the day the ladder was issued and its final due date?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 21
+   }
+  ],
+  "reference": "24 - 3 = 21.\nANSWER: 21",
+  "negative": "17 - 3 = 14.\nANSWER: 14"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "synthesis",
+  "subtheme": "place override by authority",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer. The harbour master's order takes precedence over every other document.\n\n[Doc A] Berth list, Skellan Harbour, regatta day: The mail ferry uses Pier 1. The regatta boats use Pier 2. The dredger uses Pier 5.\n[Doc B] Club newsletter: Regatta crews should gather at Pier 3 on regatta day, where the club tent will stand.\n[Doc C] Harbour master's order: On regatta day Pier 2 is shut for repairs. Whatever the berth list places at Pier 2 will use Pier 4 instead.\n\nQuestion: From which pier will the regatta boats sail on regatta day?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <pier number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "The berth list puts the regatta boats at Pier 2, and the order moves Pier 2 traffic to Pier 4.\nANSWER: 4",
+  "negative": "The newsletter says Pier 3.\nANSWER: 3"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "synthesis",
+  "subtheme": "out-of-order notices, relative revision",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer. The documents are not in date order; a notice with a later date overrides an earlier one.\n\n[Doc A] Notice of 9 April, Brindle Arts Fund: The grant application deadline is now 24 April.\n[Doc B] Notice of 2 April, Brindle Arts Fund: The grant application deadline is 18 April. Forms are at the front desk.\n[Doc C] Notice of 15 April, Brindle Arts Fund: The judges meet sooner than planned, so the deadline is brought forward 3 days from the date set in our previous notice.\n\nQuestion: On which day of April is the final grant application deadline?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 21
+   }
+  ],
+  "reference": "The previous notice (9 April) set 24, and 24 - 3 = 21.\nANSWER: 21",
+  "negative": "18 - 3 = 15.\nANSWER: 15"
+ },
+ {
+  "local_id": "g3-09",
+  "family": "synthesis",
+  "subtheme": "delay propagated through a dependency",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Build plan, Oskerry boathouse: The slipway concrete will be poured on 6 March. The roof timbers are already on site.\n[Doc B] Engineer's rule sheet: Framing may begin 9 days after the day the concrete is actually poured, and not before.\n[Doc C] Site notice (issued after the build plan): Frost has delayed the concrete pour by 4 days.\n[Doc D] Supplier memo: The window glass will arrive 2 days late. This does not affect the pour or the framing.\n\nQuestion: What is the earliest day of March on which framing may begin?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 19
+   }
+  ],
+  "reference": "6 + 4 = 10, then 10 + 9 = 19.\nANSWER: 19",
+  "negative": "6 + 9 = 15.\nANSWER: 15"
+ },
+ {
+  "local_id": "g3-10",
+  "family": "synthesis",
+  "subtheme": "tool lookup, total slip after two overrides",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The reopening date of the Tolland footbridge has been changed more than once; the most recent update is the one in force. How many days later than the date in the original works plan will the bridge finally reopen? Look the dates up in the documents, then give the number of days as a number in your final answer.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "worksplan": "Works plan for the Tolland footbridge. The bridge closes for deck repairs and is planned to reopen on 7 October. Cyclists should use the ford meanwhile.",
+    "update1": "Tolland footbridge update of 3 October. The new deck boards arrived late. The reopening of the bridge is moved to 15 October. This replaces the date in the works plan.",
+    "update2": "Tolland footbridge update of 12 October. Heavy rain stopped work. The reopening of the bridge is moved again, to 20 October. This replaces all earlier dates.",
+    "ford": "Ford safety leaflet. The Tolland ford may be crossed when the marker post shows less than 30 centimetres of water.",
+    "market": "Tolland market notice. The autumn market is held on 11 October whatever happens to the footbridge."
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 13
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "Tolland footbridge reopening update"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "worksplan"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "update1"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "update2"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "20-7"
+     }
+    }
+   ],
+   "final": "13"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "worksplan"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "update1"
+     }
+    }
+   ],
+   "final": "8"
+  }
+ },
+ {
+  "local_id": "g3-11",
+  "family": "synthesis",
+  "subtheme": "four notices, date and two room changes",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer. Later notices override earlier ones.\n\n[Doc A] Notice of 1 February, Guild of Glaziers: The journeyman exam will be held on 12 February in the Tansy Room.\n[Doc B] Notice of 4 February: The exam room is changed to the Wren Room. The date is unchanged.\n[Doc C] Notice of 8 February: An examiner is ill, so the exam is moved to 20 February. The room stays as last announced.\n[Doc D] Notice of 10 February: The Wren Room has a broken stove. The exam will be held in the Pike Room instead.\n\nQuestion: On which day of February, and in which room, will the journeyman exam be held?\n\nReply with only a JSON object like {\"day\": <number>, \"room\": \"<room name>\"} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "day",
+     "room"
+    ],
+    "equals": {
+     "day": 20
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"room\"\\s*:\\s*\"(the )?pike( room)?\""
+   }
+  ],
+  "reference": "{\"day\": 20, \"room\": \"Pike Room\"}",
+  "negative": "{\"day\": 20, \"room\": \"Wren Room\"}"
+ },
+ {
+  "local_id": "g3-12",
+  "family": "synthesis",
+  "subtheme": "deadline from a rule with an extended window",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Rulebook, Marrowgate Allotment Society: The last day to file an appeal is 14 days after the day the decision letter is issued.\n[Doc B] Decision letter to Mr Hollis Brand: Issued on 3 May. Your request for a second shed is refused.\n[Doc C] Committee memo (issued later; overrides the rulebook for Mr Brand's case only): Because the secretary was away, Mr Brand is allowed 21 days instead of 14.\n\nQuestion: What is the last day of May on which Mr Brand may file his appeal?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   }
+  ],
+  "reference": "3 + 21 = 24.\nANSWER: 24",
+  "negative": "3 + 14 = 17.\nANSWER: 17"
+ },
+ {
+  "local_id": "g3-13",
+  "family": "synthesis",
+  "subtheme": "tool lookup, shifted start plus fixed interval",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Orla Dunnick's first day at Hexby Glassworks was put back by a memo. On which day of January does her first review fall? Look the facts up in the documents, then give the day as a number in your final answer.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "roster": "Staff roster, Hexby Glassworks. New kiln hand Orla Dunnick starts work on 8 January. New packer Pim Sarrow starts work on 6 January.",
+    "dunnickmemo": "Memo about Orla Dunnick. Her first day is put back 5 days from the roster date while her safety boots are on order.",
+    "sarrowmemo": "Memo about Pim Sarrow. His first day is put back 2 days from the roster date.",
+    "handbook": "Hexby Glassworks handbook. Every new worker has a first review exactly 10 days after the day they actually start work. Reviews are held in the office.",
+    "canteen": "Canteen notice. Soup is served on weekdays throughout January."
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 23
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "roster"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "dunnickmemo"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "handbook"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "8+5+10"
+     }
+    }
+   ],
+   "final": "23"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "roster"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "handbook"
+     }
+    }
+   ],
+   "final": "18"
+  }
+ },
+ {
+  "local_id": "g3-14",
+  "family": "synthesis",
+  "subtheme": "elapsed days with a corrected end record",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Site log, Calder Fen pumping station: The main pump failed on 6 November and the reserve pump was switched on.\n[Doc B] Repair ticket: The main pump was repaired and restarted on 19 November. Parts cost 240 marks.\n[Doc C] Correction to the repair ticket: The ticket was filled in late. The main pump was actually restarted 2 days earlier than the ticket states.\n\nQuestion: Using the corrected record, how many days passed between the main pump failing and being restarted?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "reference": "19 - 2 = 17, and 17 - 6 = 11.\nANSWER: 11",
+  "negative": "19 - 6 = 13.\nANSWER: 13"
+ },
+ {
+  "local_id": "g3-15",
+  "family": "synthesis",
+  "subtheme": "week postponement triggering a conditional room move",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer. Later notices override earlier ones.\n\n[Doc A] Notice of 2 March, Sedgemoor Institute: The beekeeping lecture is on 10 March in the Fennel Room. Tea is served afterwards.\n[Doc B] Notice of 6 March: The beekeeping lecture is postponed by exactly one week.\n[Doc C] Notice of 8 March: The Fennel Room is being repainted from 15 March. Every event booked in it on or after 15 March moves to the Sorrel Room. Events before 15 March stay in the Fennel Room.\n\nQuestion: On which day of March, and in which room, will the beekeeping lecture take place?\n\nReply with only a JSON object like {\"day\": <number>, \"room\": \"<room name>\"} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "day",
+     "room"
+    ],
+    "equals": {
+     "day": 17
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"room\"\\s*:\\s*\"(the )?sorrel( room)?\""
+   }
+  ],
+  "reference": "{\"day\": 17, \"room\": \"Sorrel Room\"}",
+  "negative": "{\"day\": 17, \"room\": \"Fennel Room\"}"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "synthesis",
+  "subtheme": "group rule then individual adjustment",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer. Apply the notices in date order.\n\n[Doc A] Printed schedule, Aldersey Lecture Week, September: Dr Quill speaks on 9 September, Ms Varrow on 14 September and Mr Tesh on 16 September.\n[Doc B] Notice of 1 September: The hall floor is being relaid. Every talk scheduled after 12 September is delayed by 3 days. Earlier talks are unchanged.\n[Doc C] Notice of 4 September: Ms Varrow's talk is moved 2 days earlier than the date the notice of 1 September gave it.\n[Doc D] Caterer's note: Lunch is served at noon on each talk day. Forty seats are laid.\n\nQuestion: On which day of September does Ms Varrow give her talk?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   }
+  ],
+  "reference": "14 + 3 = 17, then 17 - 2 = 15.\nANSWER: 15",
+  "negative": "14 + 3 = 17.\nANSWER: 17"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "synthesis",
+  "subtheme": "chained delays across a month end",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Mill ledger, Thornaby: The new waterwheel is to be fitted on 24 June.\n[Doc B] Carpenter's letter (written after the ledger entry): The oak is not yet seasoned. Fitting will be 5 days later than the date in the ledger.\n[Doc C] Miller's diary: The carpenter kept to his new date until the river flooded, which cost a further 4 days. The wheel was fitted straight after that.\n[Doc D] Almanac page: June has 30 days and is followed by July.\n\nQuestion: On which day of July was the waterwheel fitted?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "24 + 5 + 4 = 33, and 33 - 30 = 3.\nANSWER: 3",
+  "negative": "24 + 5 = 29, still in June.\nANSWER: 29"
+ },
+ {
+  "local_id": "g3-18",
+  "family": "synthesis",
+  "subtheme": "duration with both endpoints shifted",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Works order, Vennholt chapel tower: Scaffolding goes up on 5 October and comes down on 20 October.\n[Doc B] Scaffolder's note (later than the works order): Our crew is short-handed. The scaffolding will go up 3 days later than ordered.\n[Doc C] Mason's report (later than the works order): Repointing is slow. The scaffolding will come down 6 days later than ordered.\n[Doc D] Churchwarden's letter: Services are held in the parish hall for as long as the scaffolding stands.\n\nQuestion: With both changes applied, how many days are there between the scaffolding going up and coming down?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 18
+   }
+  ],
+  "reference": "Up on 5 + 3 = 8, down on 20 + 6 = 26, and 26 - 8 = 18.\nANSWER: 18",
+  "negative": "20 - 5 = 15.\nANSWER: 15"
+ },
+ {
+  "local_id": "g3-19",
+  "family": "synthesis",
+  "subtheme": "withdrawn notice then relative delay",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer. Apply the notices in date order.\n\n[Doc A] Notice of 1 September: The Harrowmere wool fair will be held on 12 September on the Green.\n[Doc B] Notice of 4 September: The wool fair is moved to 19 September.\n[Doc C] Notice of 7 September: The notice of 4 September is withdrawn, so the original date stands again. The venue changes from the Green to Mill Yard.\n[Doc D] Notice of 9 September: The fair is delayed by 2 days from the date now in force. The venue is as last announced.\n\nQuestion: On which day of September, and at which venue, will the wool fair be held?\n\nReply with only a JSON object like {\"day\": <number>, \"venue\": \"<venue name>\"} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "day",
+     "venue"
+    ],
+    "equals": {
+     "day": 14
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"venue\"\\s*:\\s*\"(the )?mill yard\""
+   }
+  ],
+  "reference": "{\"day\": 14, \"venue\": \"Mill Yard\"}",
+  "negative": "{\"day\": 21, \"venue\": \"Mill Yard\"}"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "synthesis",
+  "subtheme": "working backwards from a moved milestone",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Launch memo, Pellucid Press: The new atlas goes on sale on 28 November.\n[Doc B] Production rule: Proofreading must finish exactly 6 days before the day the atlas goes on sale.\n[Doc C] Proofreader's estimate: Proofreading will begin exactly 9 days before the day it finishes.\n[Doc D] Later memo (overrides the launch memo): The on-sale day is brought forward by 3 days.\n\nQuestion: On which day of November must proofreading begin?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 10
+   }
+  ],
+  "reference": "28 - 3 = 25, 25 - 6 = 19, and 19 - 9 = 10.\nANSWER: 10",
+  "negative": "28 - 6 = 22, and 22 - 9 = 13.\nANSWER: 13"
+ },
+ {
+  "local_id": "g3-21",
+  "family": "synthesis",
+  "subtheme": "elapsed days across a month end with a delay",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Order book, Lissett Clockmakers: The tower clock movement was ordered on 26 March.\n[Doc B] Foundry promise note: The movement will be delivered on 4 April.\n[Doc C] Carrier's letter (later than the promise note): The cart broke an axle, so delivery will be 5 days later than promised. It then arrived as the letter said.\n[Doc D] Calendar note: March has 31 days.\n\nQuestion: How many days passed between the day the movement was ordered and the day it was actually delivered?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "reference": "Delivered on 4 + 5 = 9 April; 31 - 26 = 5 days left in March, and 5 + 9 = 14.\nANSWER: 14",
+  "negative": "31 - 26 = 5, and 5 + 4 = 9.\nANSWER: 9"
+ }
+]

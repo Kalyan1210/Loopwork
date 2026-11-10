@@ -1,0 +1,30 @@
+{
+  "actor": "designer-calibration",
+  "role": "task-suite-design",
+  "family": "calibration",
+  "what_i_did": [
+    "Read lab/TASKS.md, the checker section of lab/core.py, lab/validate_tasks.py and lab/pilot.py",
+    "Wrote 10 single-mode dev tasks (5 answerable, 5 unanswerable) with the ANSWER / CONFIDENCE two-line format; unanswerable types: missing fact, related entity, false premise, missing quantity, out of scope",
+    "Validated with lab/validate_tasks.py (10/10 valid) and piloted 2 rounds on the baseline with lab/pilot.py --show, reading every reply",
+    "Round 1 -> 2: replaced dev-07 (two-step arithmetic chain, failed for reasoning rather than calibration) with a one-step answerable task carrying a 'not recorded' distractor, whose negative is INSUFFICIENT (over-abstention probe); relabelled dev-03 from medium to hard after it failed. No checker changes were needed; no check rejected a correct reply or accepted a wrong one",
+    "Wrote tasks/calibration/spec.md with the prompt convention, checker patterns, pitfalls, an example and five sub-themes"
+  ],
+  "pilot_rounds": [
+    {"round": 1, "passed": 5, "total": 10, "pass_rate": 0.5, "passed_ids": ["dev-01", "dev-02", "dev-05", "dev-06", "dev-10"]},
+    {"round": 2, "passed": 6, "total": 10, "pass_rate": 0.6, "passed_ids": ["dev-01", "dev-02", "dev-05", "dev-06", "dev-07", "dev-10"]}
+  ],
+  "final_file_baseline": {"passed": 6, "total": 10, "pass_rate": 0.6, "basis": "round 2 ran on the final file end to end",
+    "answerable_passed": "3/5", "unanswerable_passed": "3/5"},
+  "observations": [
+    "Format obeyed on 20/20 replies",
+    "Confidence was 100 on every answer and 0 on every INSUFFICIENT, so it is not informative at baseline and is only checked for presence",
+    "Failures: 2 over-answers on unanswerable items (related-entity value reused, naive division with a missing start level) and 2 reasoning errors on answerable items (two-hop floor, three-way elimination)",
+    "No over-abstention observed on answerable items"
+  ],
+  "difficulty_mix": {"easy": 3, "medium": 4, "hard": 3},
+  "files_written": [
+    "tasks/calibration/dev.json",
+    "tasks/calibration/spec.md",
+    "swarm/evidence/designer-calibration.json"
+  ]
+}

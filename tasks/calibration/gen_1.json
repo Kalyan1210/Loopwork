@@ -1,0 +1,747 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "calibration",
+  "subtheme": "owner-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild register entry. The Saffron Thimble is a tailor's shop on Wren Lane in the town of Halvick. It is owned by Dessa Morrow and employs four cutters.\n\nQUESTION: Who owns the Saffron Thimble? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Dessa Morrow",
+       "Morrow",
+       "Dessa",
+       "<Dessa Morrow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(dessa\\s+)?morrow\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Dessa Morrow\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "calibration",
+  "subtheme": "absent-author",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCatalogue entry. The Book of Nine Ferries is held in the Lorrimer Library on shelf 44. It has a blue cloth cover and 212 pages, and it may be borrowed for two weeks at a time.\n\nQUESTION: Who wrote the Book of Nine Ferries? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Lorrimer\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "calibration",
+  "subtheme": "stated-beside-unrecorded",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nBell register. The Marrowgate bell hangs in the north tower of Pellham chapel. The register does not record who cast it or in which year. It weighs 410 kilograms and is rung at dusk.\n\nQUESTION: How much does the Marrowgate bell weigh, in kilograms?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 410
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 410\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "calibration",
+  "subtheme": "origin-suggested-by-name",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShip register. The cutter Brenna of Holmwick is registered at the port of Dask. She is owned by Petra Lunn, has a red hull, and carries salt along the Orrin coast.\n\nQUESTION: In which town was the cutter Brenna of Holmwick built? Give the place name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Holmwick\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "calibration",
+  "subtheme": "count-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShip register. The cargo ship Pale Heron is registered at the port of Ulmscar. She has 3 masts and a crew of 28. Her hull is painted grey.\n\nQUESTION: How many masts does the Pale Heron have?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 3\nCONFIDENCE: 90",
+  "negative": "ANSWER: 28\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "calibration",
+  "subtheme": "stated-as-lost",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild roll. The Chandlers' Guild of Marrenfold meets in Tallow Hall and has 31 members. Its founding charter was lost in a flood, and no surviving paper gives the year in which the guild was founded.\n\nQUESTION: In which year was the Chandlers' Guild of Marrenfold founded?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 1342\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "calibration",
+  "subtheme": "two-hop-place",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShip register. The brig Corvid Rose is owned by the Halloway Salt Company. The company's only office is in the town of Brenmouth. This register lists every ship's home port as the town of its owner's office.\n\nQUESTION: What is the home port of the Corvid Rose? Give the place name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Brenmouth",
+       "town of Brenmouth",
+       "the town of Brenmouth",
+       "<Brenmouth>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(the\\s+)?(town\\s+of\\s+)?brenmouth\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Brenmouth\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "calibration",
+  "subtheme": "absent-price",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShop card. Tolliver's Lamp Shop stands on Gannet Row in the town of Eskby. It sells brass lanterns and glass oil lamps, and it is open every day except market day.\n\nQUESTION: How much does a brass lantern cost at Tolliver's Lamp Shop, in crowns?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 12\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "calibration",
+  "subtheme": "count-one-step",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLibrary register. The Quenby Reading Room has 48 desks. Today 13 of them are roped off for repair, and all the other desks are open to readers. The room closes at dusk.\n\nQUESTION: How many desks in the Quenby Reading Room are open to readers today?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 35
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 35\nCONFIDENCE: 90",
+  "negative": "ANSWER: 48\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "calibration",
+  "subtheme": "stale-period-value",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShip register. The barge Molly Sedge was launched from the Tarrow yard eleven years ago. In her first year she carried a crew of 6. The register has no crew entry for any later year.\n\nQUESTION: How many crew does the Molly Sedge carry now?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 6\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "calibration",
+  "subtheme": "colour-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCatalogue entry. The Atlas of Drowned Roads is shelved in bay 12 of the Cindral Library. Its cover is bound in green leather, and it has 340 pages of hand-drawn maps.\n\nQUESTION: What colour is the cover of the Atlas of Drowned Roads?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "green",
+       "green leather",
+       "<green>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*green(\\s+leather)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: green\nCONFIDENCE: 90",
+  "negative": "ANSWER: brown\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-12",
+  "family": "calibration",
+  "subtheme": "false-premise-sale",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShop register. Hesper Vane owns the Copper Kettle tea room on Mill Street in Arlow. She bought it from her uncle nine years ago and has run it alone ever since.\n\nQUESTION: To whom did Hesper Vane sell the Copper Kettle? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: her uncle\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "calibration",
+  "subtheme": "count-two-facts",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild roll. The members of the Weavers' Guild of Sorrel Cross are its 40 masters and their apprentices, and nobody else. Each master has exactly 2 apprentices. The guild meets in Shuttle Hall.\n\nQUESTION: How many members does the Weavers' Guild of Sorrel Cross have in all?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 120
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 120\nCONFIDENCE: 90",
+  "negative": "ANSWER: 80\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "calibration",
+  "subtheme": "attribute-updated",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShop record. The door of Fennick's Candle Shop in Lowmere was painted red until last winter, when it was repainted yellow. It has not been painted since. The shutters are white.\n\nQUESTION: What colour is the door of Fennick's Candle Shop now?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "yellow",
+       "<yellow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*yellow\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: yellow\nCONFIDENCE: 90",
+  "negative": "ANSWER: red\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "calibration",
+  "subtheme": "absent-capacity",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHarbour register. The ferry Dun Kestrel is moored at the east pier of Sallowmere. Her hull is painted green, her master is Bryn Tolland, and she crosses to Ivel Island each morning.\n\nQUESTION: How many passengers can the Dun Kestrel carry?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 40\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "calibration",
+  "subtheme": "missing-per-unit-count",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nStock register. Marl and Daughter, a button shop in Pennow, keeps its buttons in 14 drawers. The drawers are of different sizes, and the register does not say how many buttons any drawer holds. A card of buttons sells for 3 pence.\n\nQUESTION: How many buttons does Marl and Daughter hold in all?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 42\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "calibration",
+  "subtheme": "place-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild roll. The Brassfounders' Guild of Tolmerry has 57 members. It meets in Kettle Hall, and its banner shows a blue bell on a white field.\n\nQUESTION: In which hall does the Brassfounders' Guild meet? Give the name of the hall.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Kettle Hall",
+       "the Kettle Hall",
+       "Kettle",
+       "<Kettle Hall>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(the\\s+)?kettle(\\s+hall)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Kettle Hall\nCONFIDENCE: 90",
+  "negative": "ANSWER: Tolmerry\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "calibration",
+  "subtheme": "false-premise-part",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLibrary register. The Calder Stair Library has a single reading room with 60 seats and no other rooms for readers. It lends books to anyone who holds a town pass.\n\nQUESTION: How many seats are in the second reading room of the Calder Stair Library?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 60\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "calibration",
+  "subtheme": "owner-one-relation",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHarbour register. The sloop Tansy Wren is moored at berth 9 of Corrow Quay. Her master is Ilka Braden. Her owner is the master's brother, Joss Braden, who lives ashore.\n\nQUESTION: Who owns the Tansy Wren? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Joss Braden",
+       "Joss",
+       "<Joss Braden>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*joss(\\s+braden)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Joss Braden\nCONFIDENCE: 90",
+  "negative": "ANSWER: Ilka Braden\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "calibration",
+  "subtheme": "role-not-recorded",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild roll. The Masons' Guild of Varrowby was founded by Edda Kell. Its hall on Chisel Street was built by the mason Tobin Arkwright. The roll lists 44 members and gives no names of officers.\n\nQUESTION: Who is the current master of the Masons' Guild of Varrowby? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Edda Kell\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "calibration",
+  "subtheme": "count-elimination",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nStall register. Pell's Stall at Dunnow Market sells only three kinds of cloth: wool, linen and felt. It holds 50 bolts in all, of which 18 are wool and 20 are linen.\n\nQUESTION: How many bolts of felt does Pell's Stall hold?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 12\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ }
+]

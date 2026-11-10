@@ -1,0 +1,36 @@
+{
+ "actor": "gen-ambiguity-2",
+ "family": "ambiguity",
+ "subtheme": "Looks incomplete but is fully specified (shorthand defined vs undefined)",
+ "output": "tasks/ambiguity/gen_2.json",
+ "n_tasks": 21,
+ "balance": {
+  "ANSWER": 11,
+  "ASK": 10
+ },
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/ambiguity/spec.md, tasks/ambiguity/dev.json and the checker code in lab/core.py",
+  "Wrote 21 single-mode tasks using the round-3 two-way format block verbatim, built by a Python script",
+  "Shuffled task order with a fixed seed so ASK and ANSWER cases do not alternate"
+ ],
+ "verification": [
+  "Every expected ANSWER value (products, sums, table lookups, rule branches, HH:MM end times) is computed by Python expressions in the generator script, not typed by hand",
+  "Reference and negative of every task scored with lab/core.score_episode: reference passes, negative fails",
+  "Each ASK task additionally tested with 2 alternative well-formed questions naming the gap (must pass), 2 questions about a stated fact or restating the task (must fail), and an ask-plus-answer reply (must fail)",
+  "Each ANSWER task tested that a generic ASK reply fails"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/ambiguity/gen_2.json --family ambiguity",
+  "result": "21/21 valid"
+ },
+ "model_runs": "none (held-out; no pilot run)",
+ "notes": [
+  "tags.expected (ANSWER or ASK) is free metadata added to each task",
+  "Difficulty labels follow the spec's guidance and are not measured: easy = 7 ANSWER with a plainly stated definition; medium = 2 indirect ANSWER + 5 ASK where required fields are listed or the note visibly covers another item; hard = 2 ANSWER with two-step or two-clause definitions + 5 ASK with a tempting distractor value"
+ ]
+}

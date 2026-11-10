@@ -1,0 +1,41 @@
+{
+ "actor": "gen-ambiguity-4",
+ "role": "task-generation",
+ "family": "ambiguity",
+ "subtheme": "contradictory or inconsistent data (three-way ANSWER/ASK/FLAG block)",
+ "output": "tasks/ambiguity/gen_4.json",
+ "n_tasks": 21,
+ "expected_action_counts": {
+  "ANSWER": 10,
+  "FLAG": 7,
+  "ASK": 4
+ },
+ "difficulty_counts": {
+  "easy": 6,
+  "medium": 8,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/ambiguity/spec.md, tasks/ambiguity/dev.json and the checker code in lab/core.py",
+  "Wrote 21 single-mode tasks with a Python generator script, each using the designer's three-way format block verbatim",
+  "FLAG cases cover: two sources naming different people, two labels with different months, product of two fields vs a stated total, clock times vs recorded hours, PAID status vs outstanding balance, one person in two places at one time, stated head count vs number of names listed",
+  "ANSWER cases cover: plain consistent records, redundant fields that agree, inconsistent fields that are irrelevant to the question (colour, phone extension), and records that only look contradictory (partial deliveries that add up, the same length in m and cm)",
+  "ASK cases cover: blank weight field, absent end time, absent paint coverage, absent roster day"
+ ],
+ "verification": [
+  "Every numeric expected answer is computed in the generator script (products, differences, sums) and the conflicting derived values are asserted there (5*12=60 != 72, 16-8=8 != 6, 3 names != 4, 3 m == 300 cm)",
+  "lab/validate_tasks.py: reference passes and negative fails for all 21",
+  "Extra probe through core.score_episode: 20 alternative correct phrasings all passed and 25 plausible wrong replies (wrong action, guessed value, flag citing the wrong pair, question restating the task or asking for a printed fact) all failed"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/ambiguity/gen_4.json --family ambiguity",
+  "result": "21/21 valid"
+ },
+ "model_runs": "none (held-out; no pilot run)",
+ "notes": [
+  "Split is 10 ANSWER / 11 non-ANSWER to keep the spec's half-and-half balance, so FLAG is 33% rather than 40%",
+  "Difficulty is 6 easy / 8 medium / 7 hard; easy is ANSWER-only per the spec's difficulty guidance",
+  "Each task carries tags.expected (ANSWER/FLAG/ASK) as free metadata",
+  "Did not read other generators' files; did not edit lab/, artifacts/ or model files; no git, no servers"
+ ]
+}

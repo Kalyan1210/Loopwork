@@ -1,0 +1,27 @@
+{
+ "actor": "gen-constraints-1",
+ "family": "constraints",
+ "role": "task-generation",
+ "subtheme": "Strict JSON output",
+ "did": [
+  "Read lab/TASKS.md, tasks/constraints/spec.md, tasks/constraints/dev.json and the json/regex checker code plus norm() in lab/core.py",
+  "Wrote 21 single-mode strict-JSON tasks g1-01..g1-21 (7 easy, 7 medium, 7 hard) with a Python build script",
+  "Validated with lab/validate_tasks.py: 21/21 valid (every reference passes, every negative fails)"
+ ],
+ "task_coverage": {
+  "easy": ["flat extraction with mixed types", "array of strings in order", "JSON booleans", "one-level nested object", "extraction with a distractor number", "array of numbers", "uppercase string value"],
+  "medium": ["string-vs-number with leading zero and decimal", "null and empty array", "array of objects dropping a field", "alphabetically sorted list inside an object", "two-level nesting", "date split with month name to number", "apply a correction to get the final state"],
+  "hard": ["filter + count + sum", "group by team", "min/max/difference with lowercase and uppercase rules", "array of objects sorted by price", "data-derived keys plus total", "sum + boolean budget comparison + most expensive item", "hours-and-minutes converted to total minutes"]
+ },
+ "answer_verification": "Every derived value (sums, counts, sorts, filters, min/max, gap, month number, minute conversions, grouping, boolean comparison) is computed by Python in the build script from the same data structures that generate the prompt text, so the prompt and the expected answer cannot drift apart. Copied values were read back from the printed references.",
+ "checker_notes": [
+  "All tasks use the json checker with strict true plus keys/equals for objects or list_len/value for arrays",
+  "json.equals on strings is case-insensitive, so case rules (g1-07, g1-17) have an extra case-sensitive regex",
+  "Python treats true == 1, so boolean and null fields (g1-03, g1-09, g1-20) have an extra regex for the literal true/false/null",
+  "Each negative is a near miss breaking one rule: number as string, extra key, wrong case, unsorted, pre-correction value, filtered instead of full sum, missing group member, wrong boolean, unconverted duration"
+ ],
+ "validator": {"command": ".venv/bin/python lab/validate_tasks.py tasks/constraints/gen_1.json --family constraints", "result": "21/21 valid"},
+ "not_done": "No model pilot was run on these tasks (held-out by instruction), so the easy/medium/hard labels are estimates from the spec's baseline guidance, not measured.",
+ "build_script": "/private/tmp/claude-501/-Users-saikalyan--claude-spares-spare-vrp9aR/75b34680-04dd-45a3-8c3a-a7b7eb5558c5/scratchpad/genc1/build_constraints_g1.py (own subdirectory; the scratchpad is shared between agents)",
+ "files_written": ["tasks/constraints/gen_1.json", "swarm/evidence/gen-constraints-1.json"]
+}

@@ -1,0 +1,18 @@
+{
+ "id": "baseline",
+ "type": "baseline",
+ "label": "unchanged model",
+ "built_from": "artifacts/baseline.gguf",
+ "baseline_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+ "method": "unchanged",
+ "spec": null,
+ "tensors": [],
+ "steps": [
+  "the read-only baseline reference itself (copy-on-write clone of the Ollama blob); no bytes written"
+ ],
+ "artifact": "artifacts/baseline.gguf",
+ "artifact_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+ "artifact_bytes": 1359279776,
+ "identical_to_baseline": true,
+ "built_at": "2026-11-10T00:07:10-0500"
+}

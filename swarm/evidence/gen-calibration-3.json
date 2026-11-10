@@ -1,0 +1,237 @@
+{
+ "actor": "gen-calibration-3",
+ "family": "calibration",
+ "subtheme": "Quantities and rates",
+ "output": "tasks/calibration/gen_3.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "answerable_counts": {
+  "answerable": 10,
+  "unanswerable": 11,
+  "note": "21 is odd, so an exact half split is impossible; the extra task is unanswerable (easy 3A/4U, medium 4A/3U, hard 3A/4U)."
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/calibration/spec.md, dev.json and the checker code in lab/core.py; wrote 21 distinct single-mode tasks in farm/workshop/kitchen/store/travel settings using the spec's verbatim prompt convention and checker patterns. Answerable tasks need one arithmetic step (two for hard) with one irrelevant number; unanswerable tasks lack a unit price, load, container size, duration, per-row count, group size or existing stock.",
+ "verification": "Expected values and numeric negatives are evaluated from Python expressions in a generator script (not typed by hand); the script asserts integer answers, negative != answer, evidence length 25-60 words, and that the word INSUFFICIENT is absent from evidence and question. 4 of 10 answerable tasks use the INSUFFICIENT negative. Each task was reread for airtightness of its label.",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/calibration/gen_3.json --family calibration",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "none (held-out; the model was not run on these tasks)",
+ "not_done": "No baseline pass rate is known for this file, so the easy/medium/hard labels are judgments from the spec's pilot notes, not measurements.",
+ "tasks": [
+  {
+   "id": "g3-01",
+   "difficulty": "easy",
+   "answerable": true,
+   "expr": "24 + 13",
+   "value": 37,
+   "negative": "ANSWER: 42",
+   "evidence_words": 27,
+   "note": "addition; geese count is the distractor"
+  },
+  {
+   "id": "g3-02",
+   "difficulty": "easy",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 140",
+   "evidence_words": 28,
+   "note": "no price per jar anywhere"
+  },
+  {
+   "id": "g3-03",
+   "difficulty": "easy",
+   "answerable": true,
+   "expr": "4 * 6",
+   "value": 24,
+   "negative": "ANSWER: INSUFFICIENT",
+   "evidence_words": 26,
+   "note": "multiplication; opening hour is the distractor"
+  },
+  {
+   "id": "g3-04",
+   "difficulty": "easy",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 20",
+   "evidence_words": 28,
+   "note": "load never given"
+  },
+  {
+   "id": "g3-05",
+   "difficulty": "easy",
+   "answerable": true,
+   "expr": "30 - 12",
+   "value": 18,
+   "negative": "ANSWER: 22",
+   "evidence_words": 35,
+   "note": "subtraction; years of service is the distractor"
+  },
+  {
+   "id": "g3-06",
+   "difficulty": "easy",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 1500",
+   "evidence_words": 27,
+   "note": "no flour amount of any kind"
+  },
+  {
+   "id": "g3-07",
+   "difficulty": "easy",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 30",
+   "evidence_words": 25,
+   "note": "can size / fill never given"
+  },
+  {
+   "id": "g3-08",
+   "difficulty": "medium",
+   "answerable": true,
+   "expr": "40 * 3",
+   "value": 120,
+   "negative": "ANSWER: INSUFFICIENT",
+   "evidence_words": 27,
+   "note": "rate x time; passenger count is the distractor"
+  },
+  {
+   "id": "g3-09",
+   "difficulty": "medium",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 10",
+   "evidence_words": 32,
+   "note": "passage says outright it was not timed"
+  },
+  {
+   "id": "g3-10",
+   "difficulty": "medium",
+   "answerable": true,
+   "expr": "240 // 6",
+   "value": 40,
+   "negative": "ANSWER: 16",
+   "evidence_words": 31,
+   "note": "division; price is the distractor (precedes the facts)"
+  },
+  {
+   "id": "g3-11",
+   "difficulty": "medium",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 12",
+   "evidence_words": 32,
+   "note": "rise amount explicitly undecided"
+  },
+  {
+   "id": "g3-12",
+   "difficulty": "medium",
+   "answerable": true,
+   "expr": "85 - 30",
+   "value": 55,
+   "negative": "ANSWER: INSUFFICIENT",
+   "evidence_words": 38,
+   "note": "subtraction next to a not-recorded neighbour; runs is the distractor"
+  },
+  {
+   "id": "g3-13",
+   "difficulty": "medium",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 63",
+   "evidence_words": 37,
+   "note": "speed given, travel time not noted"
+  },
+  {
+   "id": "g3-14",
+   "difficulty": "medium",
+   "answerable": true,
+   "expr": "11 - 6",
+   "value": 5,
+   "negative": "ANSWER: INSUFFICIENT",
+   "evidence_words": 29,
+   "note": "clock difference; loaf count is the distractor"
+  },
+  {
+   "id": "g3-15",
+   "difficulty": "hard",
+   "answerable": true,
+   "expr": "12 * (3 + 2)",
+   "value": 60,
+   "negative": "ANSWER: 36",
+   "evidence_words": 33,
+   "note": "sum trips then multiply; weight is the distractor"
+  },
+  {
+   "id": "g3-16",
+   "difficulty": "hard",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 27",
+   "evidence_words": 25,
+   "note": "trees per row missing; 9*3 or 54/9 tempting"
+  },
+  {
+   "id": "g3-17",
+   "difficulty": "hard",
+   "answerable": true,
+   "expr": "7 * 9 - 50",
+   "value": 13,
+   "negative": "ANSWER: INSUFFICIENT",
+   "evidence_words": 35,
+   "note": "multiply then subtract; oven temperature is the distractor"
+  },
+  {
+   "id": "g3-18",
+   "difficulty": "hard",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 6",
+   "evidence_words": 26,
+   "note": "linen price per metre missing"
+  },
+  {
+   "id": "g3-19",
+   "difficulty": "hard",
+   "answerable": true,
+   "expr": "(600 - 150) // 30",
+   "value": 15,
+   "negative": "ANSWER: 20",
+   "evidence_words": 36,
+   "note": "remaining volume / rate; naive capacity/rate is the negative"
+  },
+  {
+   "id": "g3-20",
+   "difficulty": "hard",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 60",
+   "evidence_words": 32,
+   "note": "guest count unknown; seats*3 tempting"
+  },
+  {
+   "id": "g3-21",
+   "difficulty": "hard",
+   "answerable": false,
+   "expr": null,
+   "value": null,
+   "negative": "ANSWER: 3",
+   "evidence_words": 30,
+   "note": "existing stock unknown; 18/6 tempting"
+  }
+ ]
+}

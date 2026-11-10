@@ -1,0 +1,32 @@
+{
+  "actor": "designer-planning",
+  "role": "task-suite-design",
+  "family": "planning",
+  "what_i_did": [
+    "Read lab/TASKS.md, lab/core.py, lab/validate_tasks.py, lab/pilot.py",
+    "Wrote 10 single-mode dev tasks with answers computed or brute-force verified in python (unique topological orders, permutations for assignments and time windows, exhaustive packing, Dijkstra, timetable enumeration, pair enumeration)",
+    "Validated with lab/validate_tasks.py (10/10 valid) and piloted 3 rounds on the baseline with lab/pilot.py --show, reading every reply",
+    "Round 1 -> 2: suite was at floor, replaced 7 tasks with simpler instances and raised max_tokens to 300 where working is allowed",
+    "Round 2 -> 3: let dev-05 and dev-09 show working before the answer, reworded the working instruction of dev-10",
+    "After round 3: widened the dev-05 check to accept a correct 'ANSWER: Pell' written at the end of a prose line (the exact check compared the whole line). Prompt unchanged; not re-piloted (3-round limit); the recorded round-3 reply was rescored offline with core.score_episode and passes",
+    "Wrote tasks/planning/spec.md with conventions, pitfalls, an example and five sub-themes"
+  ],
+  "pilot_rounds": [
+    {"round": 1, "passed": 0, "total": 10, "pass_rate": 0.0},
+    {"round": 2, "passed": 3, "total": 10, "pass_rate": 0.3},
+    {"round": 3, "passed": 4, "total": 10, "pass_rate": 0.4, "passed_ids": ["dev-01", "dev-03", "dev-07", "dev-10"]}
+  ],
+  "final_file_baseline": {
+    "passed": 5, "total": 10, "pass_rate": 0.5,
+    "basis": "round-3 measured replies (4/10) plus dev-05, whose recorded round-3 reply passes the corrected checker when rescored offline; inference is deterministic and the prompt is unchanged, but the final file was not run end to end a fourth time",
+    "passed_ids": ["dev-01", "dev-03", "dev-05", "dev-07", "dev-10"]
+  },
+  "difficulty_mix": {"easy": 4, "medium": 3, "hard": 3},
+  "incident": "Between pilot round 3 and the final checker fix, another agent (designer-constraints, self-reported in swarm/events.jsonl) ran my generator script from the shared scratchpad, which reset tasks/planning/dev.json to its round-1 content. Round 3 itself ran on the correct file (its replies match the round-3 prompts). I rebuilt the file by re-running my deterministic scripts in order (generator, round-2 patch, round-3 patch, checker fix), re-validated 10/10, and moved the scripts into a private subfolder.",
+  "files_written": [
+    "tasks/planning/dev.json",
+    "tasks/planning/spec.md",
+    "swarm/evidence/designer-planning.json"
+  ],
+  "dev_json_sha1": "5f62558041117e6a1475339297e6dc5fc9511af6"
+}

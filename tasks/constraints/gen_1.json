@@ -1,0 +1,674 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "constraints",
+  "subtheme": "json-extract-flat",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Depot slip (fictional): \"Parcel 7731 for Dalia Wren weighs 4 kg and goes to Port Ashby.\"\nReply with ONLY one JSON object with exactly these keys: \"recipient\" (string), \"parcel_id\" (number), \"weight_kg\" (number), \"destination\" (string). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "recipient",
+     "parcel_id",
+     "weight_kg",
+     "destination"
+    ],
+    "equals": {
+     "recipient": "Dalia Wren",
+     "parcel_id": 7731,
+     "weight_kg": 4,
+     "destination": "Port Ashby"
+    }
+   }
+  ],
+  "reference": "{\"recipient\": \"Dalia Wren\", \"parcel_id\": 7731, \"weight_kg\": 4, \"destination\": \"Port Ashby\"}",
+  "negative": "{\"recipient\": \"Dalia Wren\", \"parcel_id\": 7731, \"weight_kg\": \"4 kg\", \"destination\": \"Port Ashby\"}"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "constraints",
+  "subtheme": "json-array-strings",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Sentence (fictional): \"At the Hollin Fair, Brann played the fiddle, then the ocarina, and finished on the tambour.\"\nReply with ONLY a JSON array of exactly 3 strings: the three instruments in the order they were played, in lowercase. No object, no keys, no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 3,
+    "value": [
+     "fiddle",
+     "ocarina",
+     "tambour"
+    ]
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*(```json)?\\s*\\[\\s*\"fiddle\""
+   }
+  ],
+  "reference": "[\"fiddle\", \"ocarina\", \"tambour\"]",
+  "negative": "{\"instruments\": [\"fiddle\", \"ocarina\", \"tambour\"]}"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "constraints",
+  "subtheme": "json-booleans",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Notice (fictional): \"Tindle Museum is open on Mondays. There is no cafe in the building.\"\nReply with ONLY one JSON object with exactly these keys: \"name\" (string), \"open_monday\" (JSON boolean true or false, not a string), \"has_cafe\" (JSON boolean true or false, not a string). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "name",
+     "open_monday",
+     "has_cafe"
+    ],
+    "equals": {
+     "name": "Tindle Museum",
+     "open_monday": true,
+     "has_cafe": false
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"open_monday\"\\s*:\\s*true\\b"
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"has_cafe\"\\s*:\\s*false\\b"
+   }
+  ],
+  "reference": "{\"name\": \"Tindle Museum\", \"open_monday\": true, \"has_cafe\": false}",
+  "negative": "{\"name\": \"Tindle Museum\", \"open_monday\": \"true\", \"has_cafe\": \"false\"}"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "constraints",
+  "subtheme": "json-nested-one-level",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Harbor log (fictional): \"The cutter Pelican Drift is commanded by Captain Orla Venn.\"\nReply with ONLY one JSON object with exactly two keys: \"ship\" (string, the ship's name) and \"captain\" (an object with exactly the keys \"first\" and \"last\", holding the captain's first name and last name). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "ship",
+     "captain"
+    ],
+    "equals": {
+     "ship": "Pelican Drift",
+     "captain.first": "Orla",
+     "captain.last": "Venn"
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"captain\"\\s*:\\s*\\{[^{}]*\\}"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\"captain\"\\s*:\\s*\\{[^{}]*,[^{}]*,[^{}]*\\}"
+   }
+  ],
+  "reference": "{\"ship\": \"Pelican Drift\", \"captain\": {\"first\": \"Orla\", \"last\": \"Venn\"}}",
+  "negative": "{\"ship\": \"Pelican Drift\", \"captain\": \"Orla Venn\"}"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "constraints",
+  "subtheme": "json-extract-distractor",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Recipe card (fictional): \"Barley stew. Serves 6. Simmer for 45 minutes in a 3 litre pot.\"\nReply with ONLY one JSON object with exactly these keys: \"dish\" (string, lowercase), \"serves\" (number), \"minutes\" (number, the simmering time). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "dish",
+     "serves",
+     "minutes"
+    ],
+    "equals": {
+     "dish": "barley stew",
+     "serves": 6,
+     "minutes": 45
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"dish\"\\s*:\\s*\"barley stew\""
+   }
+  ],
+  "reference": "{\"dish\": \"barley stew\", \"serves\": 6, \"minutes\": 45}",
+  "negative": "{\"dish\": \"barley stew\", \"serves\": 6, \"minutes\": 45, \"pot_litres\": 3}"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "constraints",
+  "subtheme": "json-array-numbers",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Dart game (fictional): Kessa threw four darts and scored 12, then 7, then 19, then 3, in that order.\nReply with ONLY a JSON array of exactly 4 numbers: the four scores in the order thrown. Numbers must not be in quotes. No keys, no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 4,
+    "value": [
+     12,
+     7,
+     19,
+     3
+    ]
+   }
+  ],
+  "reference": "[12, 7, 19, 3]",
+  "negative": "[\"12\", \"7\", \"19\", \"3\"]"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "constraints",
+  "subtheme": "json-case-value",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Timetable note (fictional): \"Bramholt station has 3 platforms.\"\nReply with ONLY one JSON object with exactly these keys: \"station\" (string, the station name written in UPPERCASE letters) and \"platforms\" (number). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "station",
+     "platforms"
+    ],
+    "equals": {
+     "station": "BRAMHOLT",
+     "platforms": 3
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"station\"\\s*:\\s*\"BRAMHOLT\""
+   }
+  ],
+  "reference": "{\"station\": \"BRAMHOLT\", \"platforms\": 3}",
+  "negative": "{\"station\": \"Bramholt\", \"platforms\": 3}"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "constraints",
+  "subtheme": "json-type-rules",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Locker receipt (fictional): \"Locker code 0427, shelf 9, fee 3.50 crowns.\"\nReply with ONLY one JSON object with exactly these keys:\n\"code\": the locker code as a STRING, keeping the leading zero\n\"shelf\": the shelf as a number\n\"fee\": the fee as a number (not a string, no currency word)\nNo other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "code",
+     "shelf",
+     "fee"
+    ],
+    "equals": {
+     "code": "0427",
+     "shelf": 9,
+     "fee": 3.5
+    }
+   }
+  ],
+  "reference": "{\"code\": \"0427\", \"shelf\": 9, \"fee\": 3.5}",
+  "negative": "{\"code\": 427, \"shelf\": 9, \"fee\": 3.5}"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "constraints",
+  "subtheme": "json-null-empty",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Clinic form (fictional): \"Patient name: Ivo Marsh. Phone: not provided. Allergies: none listed.\"\nReply with ONLY one JSON object with exactly these keys:\n\"name\": string\n\"phone\": the phone number as a string, or JSON null if it is not provided\n\"allergies\": a JSON array of strings, empty if there are none\nNo other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "name",
+     "phone",
+     "allergies"
+    ],
+    "equals": {
+     "name": "Ivo Marsh",
+     "phone": null,
+     "allergies": []
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"phone\"\\s*:\\s*null\\b"
+   }
+  ],
+  "reference": "{\"name\": \"Ivo Marsh\", \"phone\": null, \"allergies\": []}",
+  "negative": "{\"name\": \"Ivo Marsh\", \"phone\": \"not provided\", \"allergies\": []}"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "constraints",
+  "subtheme": "json-array-objects",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Shelter list (fictional): Nib the ferret is 2 years old; Sorrel the goat is 7 years old; Quince the parrot is 11 years old.\nReply with ONLY a JSON array of exactly 3 objects, in the order listed. Each object has exactly two keys: \"name\" (string) and \"age\" (number). Do not include the kind of animal. No extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 3,
+    "value": [
+     {
+      "name": "Nib",
+      "age": 2
+     },
+     {
+      "name": "Sorrel",
+      "age": 7
+     },
+     {
+      "name": "Quince",
+      "age": 11
+     }
+    ]
+   }
+  ],
+  "reference": "[{\"name\": \"Nib\", \"age\": 2}, {\"name\": \"Sorrel\", \"age\": 7}, {\"name\": \"Quince\", \"age\": 11}]",
+  "negative": "[{\"name\": \"Nib\", \"kind\": \"ferret\", \"age\": 2}, {\"name\": \"Sorrel\", \"kind\": \"goat\", \"age\": 7}, {\"name\": \"Quince\", \"kind\": \"parrot\", \"age\": 11}]"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "constraints",
+  "subtheme": "json-sorted-list",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Town note (fictional): \"Wexcombe has four streets: Tanner Row, Ash Lane, Miller Gate, Dove Street.\"\nReply with ONLY one JSON object with exactly two keys: \"town\" (string) and \"streets\" (a JSON array of the four street names sorted alphabetically from A to Z, spelled exactly as given). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "town",
+     "streets"
+    ],
+    "equals": {
+     "town": "Wexcombe",
+     "streets": [
+      "Ash Lane",
+      "Dove Street",
+      "Miller Gate",
+      "Tanner Row"
+     ]
+    }
+   }
+  ],
+  "reference": "{\"town\": \"Wexcombe\", \"streets\": [\"Ash Lane\", \"Dove Street\", \"Miller Gate\", \"Tanner Row\"]}",
+  "negative": "{\"town\": \"Wexcombe\", \"streets\": [\"Tanner Row\", \"Ash Lane\", \"Miller Gate\", \"Dove Street\"]}"
+ },
+ {
+  "local_id": "g1-12",
+  "family": "constraints",
+  "subtheme": "json-nested-two-level",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Flyer (fictional): \"Kite Workshop in room 2B on floor 2. 40 seats.\"\nReply with ONLY one JSON object shaped exactly like this example for different data:\n{\"event\": {\"title\": \"Clay Class\", \"room\": {\"floor\": 5, \"label\": \"5A\"}}, \"seats\": 12}\nUse the flyer's values. \"floor\" and \"seats\" are numbers, \"title\" and \"label\" are strings. No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "event",
+     "seats"
+    ],
+    "equals": {
+     "event": {
+      "title": "Kite Workshop",
+      "room": {
+       "floor": 2,
+       "label": "2B"
+      }
+     },
+     "seats": 40
+    }
+   }
+  ],
+  "reference": "{\"event\": {\"title\": \"Kite Workshop\", \"room\": {\"floor\": 2, \"label\": \"2B\"}}, \"seats\": 40}",
+  "negative": "{\"event\": {\"title\": \"Kite Workshop\", \"room\": \"2B\", \"floor\": 2}, \"seats\": 40}"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "constraints",
+  "subtheme": "json-date-parts",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Poster (fictional): \"Lantern Night will be held on 9 March 2041.\"\nReply with ONLY one JSON object with exactly two keys: \"festival\" (string) and \"date\" (an object with exactly the keys \"year\", \"month\", \"day\", all numbers; write the month as its number, where January is 1). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "festival",
+     "date"
+    ],
+    "equals": {
+     "festival": "Lantern Night",
+     "date": {
+      "year": 2041,
+      "month": 3,
+      "day": 9
+     }
+    }
+   }
+  ],
+  "reference": "{\"festival\": \"Lantern Night\", \"date\": {\"year\": 2041, \"month\": 3, \"day\": 9}}",
+  "negative": "{\"festival\": \"Lantern Night\", \"date\": {\"year\": 2041, \"month\": \"March\", \"day\": 9}}"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "constraints",
+  "subtheme": "json-apply-correction",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Memo (fictional): \"Orchard Committee: room 4, time 09:30. Correction: the room is now room 9; the time is unchanged.\"\nReply with ONLY one JSON object describing the meeting AFTER the correction, with exactly these keys: \"committee\" (string, the committee's name), \"room\" (number), \"time\" (string in the form HH:MM). No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "committee",
+     "room",
+     "time"
+    ],
+    "equals": {
+     "committee": "Orchard Committee",
+     "room": 9,
+     "time": "09:30"
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"time\"\\s*:\\s*\"09:30\""
+   }
+  ],
+  "reference": "{\"committee\": \"Orchard Committee\", \"room\": 9, \"time\": \"09:30\"}",
+  "negative": "{\"committee\": \"Orchard Committee\", \"room\": 4, \"time\": \"09:30\"}"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "constraints",
+  "subtheme": "json-filter-count-sum",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Stockroom (fictional), item and units: rope 14, lamp 3, tarp 8, flare 2, hook 21, net 4.\nReply with ONLY one JSON object with exactly these keys:\n\"low_stock\": a JSON array of the item names with fewer than 5 units, in the order listed above\n\"low_count\": how many items are in that array (number)\n\"total_units\": the sum of the units of ALL six items (number)\nNo other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "low_stock",
+     "low_count",
+     "total_units"
+    ],
+    "equals": {
+     "low_stock": [
+      "lamp",
+      "flare",
+      "net"
+     ],
+     "low_count": 3,
+     "total_units": 52
+    }
+   }
+  ],
+  "reference": "{\"low_stock\": [\"lamp\", \"flare\", \"net\"], \"low_count\": 3, \"total_units\": 52}",
+  "negative": "{\"low_stock\": [\"lamp\", \"flare\", \"net\"], \"low_count\": 3, \"total_units\": 9}"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "constraints",
+  "subtheme": "json-group-by",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Quiz night sign-up (fictional), in order: Ansel (red team), Birdie (blue team), Corin (blue team), Dessa (red team), Eamon (blue team).\nReply with ONLY one JSON object with exactly two keys, \"red\" and \"blue\". Each value is a JSON array of the names on that team, in sign-up order. Every name must appear exactly once. No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "red",
+     "blue"
+    ],
+    "equals": {
+     "red": [
+      "Ansel",
+      "Dessa"
+     ],
+     "blue": [
+      "Birdie",
+      "Corin",
+      "Eamon"
+     ]
+    }
+   }
+  ],
+  "reference": "{\"red\": [\"Ansel\", \"Dessa\"], \"blue\": [\"Birdie\", \"Corin\", \"Eamon\"]}",
+  "negative": "{\"red\": [\"Ansel\", \"Dessa\"], \"blue\": [\"Birdie\", \"Corin\"]}"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "constraints",
+  "subtheme": "json-minmax-case",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Sled race times in seconds (fictional): Halvard 52, Mirrin 47, Osk 61, Petra 55. The lowest time is the fastest.\nReply with ONLY one JSON object with exactly these keys:\n\"fastest\": the fastest racer's name in all lowercase\n\"slowest\": the slowest racer's name in ALL UPPERCASE\n\"gap\": slowest time minus fastest time (number)\nNo other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "fastest",
+     "slowest",
+     "gap"
+    ],
+    "equals": {
+     "fastest": "mirrin",
+     "slowest": "OSK",
+     "gap": 14
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"fastest\"\\s*:\\s*\"mirrin\""
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"slowest\"\\s*:\\s*\"OSK\""
+   }
+  ],
+  "reference": "{\"fastest\": \"mirrin\", \"slowest\": \"OSK\", \"gap\": 14}",
+  "negative": "{\"fastest\": \"Mirrin\", \"slowest\": \"Osk\", \"gap\": 14}"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "constraints",
+  "subtheme": "json-sort-objects",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Bakery board (fictional): plum tart 9, rye roll 2, fig cake 14, oat bar 5.\nReply with ONLY a JSON array of exactly 4 objects, sorted from the CHEAPEST to the most expensive. Each object has exactly two keys: \"item\" (string, as written) and \"price\" (number). No extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 4,
+    "value": [
+     {
+      "item": "rye roll",
+      "price": 2
+     },
+     {
+      "item": "oat bar",
+      "price": 5
+     },
+     {
+      "item": "plum tart",
+      "price": 9
+     },
+     {
+      "item": "fig cake",
+      "price": 14
+     }
+    ]
+   }
+  ],
+  "reference": "[{\"item\": \"rye roll\", \"price\": 2}, {\"item\": \"oat bar\", \"price\": 5}, {\"item\": \"plum tart\", \"price\": 9}, {\"item\": \"fig cake\", \"price\": 14}]",
+  "negative": "[{\"item\": \"plum tart\", \"price\": 9}, {\"item\": \"rye roll\", \"price\": 2}, {\"item\": \"fig cake\", \"price\": 14}, {\"item\": \"oat bar\", \"price\": 5}]"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "constraints",
+  "subtheme": "json-dynamic-keys",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Rowing club record (fictional): Marlo won 3 medals, Tess won 5 medals, Ugo won 2 medals.\nReply with ONLY one JSON object with exactly four keys: one key per rower, which is the rower's name in lowercase, with that rower's medal count as a number; and the key \"total\" with the sum of all medals as a number. Shape example for other data: {\"ada\": 1, \"bo\": 4, \"total\": 5}. No other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "marlo",
+     "tess",
+     "ugo",
+     "total"
+    ],
+    "equals": {
+     "marlo": 3,
+     "tess": 5,
+     "ugo": 2,
+     "total": 10
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"marlo\""
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"tess\""
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"ugo\""
+   }
+  ],
+  "reference": "{\"marlo\": 3, \"tess\": 5, \"ugo\": 2, \"total\": 10}",
+  "negative": "{\"rowers\": [{\"name\": \"marlo\", \"medals\": 3}, {\"name\": \"tess\", \"medals\": 5}, {\"name\": \"ugo\", \"medals\": 2}], \"total\": 10}"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "constraints",
+  "subtheme": "json-derived-boolean",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Outfitter order (fictional): compass 18 coins, map case 7 coins, boots 31 coins. The buyer's budget is 50 coins.\nReply with ONLY one JSON object with exactly these keys:\n\"total\": the sum of the three prices (number)\n\"within_budget\": JSON boolean, true if the total is less than or equal to the budget, otherwise false\n\"priciest\": the name of the most expensive item (string)\nNo other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "total",
+     "within_budget",
+     "priciest"
+    ],
+    "equals": {
+     "total": 56,
+     "within_budget": false,
+     "priciest": "boots"
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"within_budget\"\\s*:\\s*false\\b"
+   }
+  ],
+  "reference": "{\"total\": 56, \"within_budget\": false, \"priciest\": \"boots\"}",
+  "negative": "{\"total\": 56, \"within_budget\": true, \"priciest\": \"boots\"}"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "constraints",
+  "subtheme": "json-unit-conversion",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Coach timetable (fictional), travel time to each stop: Fenwater 1 h 20 min, Colby Rise 45 min, Stag Moor 2 h 5 min.\nReply with ONLY a JSON array of exactly 3 objects, in the order listed. Each object has exactly two keys: \"stop\" (string) and \"minutes\" (the travel time converted to total minutes, as a number; 1 h is 60 min). No extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 3,
+    "value": [
+     {
+      "stop": "Fenwater",
+      "minutes": 80
+     },
+     {
+      "stop": "Colby Rise",
+      "minutes": 45
+     },
+     {
+      "stop": "Stag Moor",
+      "minutes": 125
+     }
+    ]
+   }
+  ],
+  "reference": "[{\"stop\": \"Fenwater\", \"minutes\": 80}, {\"stop\": \"Colby Rise\", \"minutes\": 45}, {\"stop\": \"Stag Moor\", \"minutes\": 125}]",
+  "negative": "[{\"stop\": \"Fenwater\", \"minutes\": \"1 h 20 min\"}, {\"stop\": \"Colby Rise\", \"minutes\": \"45 min\"}, {\"stop\": \"Stag Moor\", \"minutes\": \"2 h 5 min\"}]"
+ }
+]

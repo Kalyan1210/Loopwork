@@ -1,0 +1,220 @@
+{
+ "actor": "gen-ambiguity-5",
+ "family": "ambiguity",
+ "subtheme": "underspecified references and multi-turn clarification",
+ "output": "tasks/ambiguity/gen_5.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "hard": 7,
+  "easy": 7,
+  "medium": 7
+ },
+ "modes": {
+  "multi": 4,
+  "single": 17
+ },
+ "expected_moves": {
+  "ASK then ANSWER": 4,
+  "ANSWER": 10,
+  "ASK": 7
+ },
+ "balance_note": "10 single ANSWER-expected, 7 single ASK-expected, 4 multi (ASK on turn 1, ANSWER on turn 2): 11 ask-first vs 10 answer-first. Order shuffled with a fixed seed.",
+ "how_verified": [
+  "Each task's item list is structured data in the generator script; the set of items matching the request was computed in Python and asserted to have exactly 1 member (ANSWER tasks) or 2+ members (ASK tasks). Prompts, references and checks are built from that same data.",
+  "Multi tasks: the turn-1 candidate set (2+) and the turn-2 resolved item (exactly 1) were both computed; the boat-hire total 9*3=27 was computed in Python.",
+  "Probe with lab/core.py score_episode: four vague questions that only restate the task were scored against every ASK-expected task and all scored 0 (one regex was tightened after this probe: 'full name' removed from the Rafi task); answer surface variants (trailing period, bold, lower case) scored 1 on every ANSWER task; a generic ASK scored 0 on every ANSWER task.",
+  "Format block from spec.md round 3 used verbatim in every prompt; all first prompts under 1100 characters."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/ambiguity/gen_5.json --family ambiguity",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "none (held-out; the model was not run on these tasks)",
+ "per_task": [
+  {
+   "expect": "ASK then ANSWER",
+   "candidates": [
+    "Ash",
+    "Elm"
+   ],
+   "final": "Elm",
+   "note": "two pottery classes; 'evening' selects 18:00",
+   "local_id": "g5-01"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "C2"
+   ],
+   "note": "max weight 22 is unique",
+   "local_id": "g5-02"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "J8",
+    "J2"
+   ],
+   "note": "second from left exists on both shelves",
+   "local_id": "g5-03"
+  },
+  {
+   "expect": "ASK then ANSWER",
+   "candidates": [
+    "G1",
+    "G2"
+   ],
+   "final": "G2",
+   "note": "two green ledgers; the 2023 clue alone also fits brown G3, so both turns are needed",
+   "local_id": "g5-04"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "C1",
+    "C4"
+   ],
+   "note": "two oak chairs with arms, differing only in stain",
+   "local_id": "g5-05"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "B3"
+   ],
+   "note": "three green wool blankets, only one unreserved",
+   "local_id": "g5-06"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "L2"
+   ],
+   "note": "two lamps, one excluded by name",
+   "local_id": "g5-07"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "Ilse Brandt"
+   ],
+   "note": "two Ilses, only one works in the kitchen",
+   "local_id": "g5-08"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "Mirela Quist"
+   ],
+   "note": "exactly one botanist; two geologists are distractors",
+   "local_id": "g5-09"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "U2"
+   ],
+   "note": "exactly one red umbrella",
+   "local_id": "g5-10"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "K17"
+   ],
+   "note": "second position of a single ordered list; negative picks the lowest-numbered id instead",
+   "local_id": "g5-11"
+  },
+  {
+   "expect": "ASK then ANSWER",
+   "candidates": [
+    "Rafi Dume",
+    "Rafi Solen"
+   ],
+   "final": "Rafi Solen",
+   "note": "two Rafis; turn 2 gives the department",
+   "local_id": "g5-12"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "Lena Okoro",
+    "Samuel Okoro"
+   ],
+   "note": "two dentists share the surname",
+   "local_id": "g5-13"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "K2"
+   ],
+   "note": "'it' has exactly one antecedent in the message",
+   "local_id": "g5-14"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "R2",
+    "R6",
+    "R9"
+   ],
+   "note": "three open parcels, nothing in the message selects one",
+   "local_id": "g5-15"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "P1",
+    "V4"
+   ],
+   "note": "'it' can refer to either serviced part",
+   "local_id": "g5-16"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "Bruno Kestrel"
+   ],
+   "note": "first name Bruno occurs once; Petra occurs twice but is not requested",
+   "local_id": "g5-17"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "Lark",
+    "Finch"
+   ],
+   "note": "minimum price 40 is shared by two rooms",
+   "local_id": "g5-18"
+  },
+  {
+   "expect": "ASK",
+   "candidates": [
+    "F1",
+    "F3"
+   ],
+   "note": "two blue files",
+   "local_id": "g5-19"
+  },
+  {
+   "expect": "ANSWER",
+   "candidates": [
+    "Q3"
+   ],
+   "note": "only one call this morning (today, before 12:00)",
+   "local_id": "g5-20"
+  },
+  {
+   "expect": "ASK then ANSWER",
+   "candidates": [
+    "rowboat",
+    "punt",
+    "canoe"
+   ],
+   "final": "27",
+   "note": "boat type missing; punt 9 x 3 = 27",
+   "local_id": "g5-21"
+  }
+ ]
+}

@@ -1,0 +1,315 @@
+{
+ "actor": "gen-planning-1",
+ "family": "planning",
+ "subtheme": "dependency ordering",
+ "output": "tasks/planning/gen_1.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/planning/spec.md and dev.json. Wrote 21 single-mode dependency-ordering tasks (4-7 named steps; strict JSON array answers on 4 easy tasks, k-th/first/last/immediately-before/after word answers, and count/position number answers). Tasks were built by a Python script that derives each expected answer from the prerequisite graph.",
+ "verification": "For tasks without a tie-break, brute force over all permutations of the steps asserted exactly one order satisfies every rule (including positional/adjacency rules in g1-07 and g1-11). For the four tie-break tasks (g1-15, g1-16, g1-18, g1-20) a greedy ready-set simulation produced the order, with assertions that more than one topological order exists without the tie-break and that tie-break keys are all distinct. Answers and references were taken from the computed order, not typed by hand. Negatives are the tempting wrong answer (listed/alphabetical order, direct prerequisite instead of immediate predecessor, position instead of count, tie-break applied ignoring prerequisites, real-world prior).",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/planning/gen_1.json --family planning",
+  "result": "21/21 valid"
+ },
+ "model_run_on_tasks": false,
+ "computed_orders": [
+  {
+   "id": "g1-01",
+   "order": [
+    "dig",
+    "plant",
+    "water",
+    "mulch"
+   ],
+   "answer": [
+    "dig",
+    "plant",
+    "water",
+    "mulch"
+   ],
+   "negative": [
+    "dig",
+    "plant",
+    "mulch",
+    "water"
+   ]
+  },
+  {
+   "id": "g1-02",
+   "order": [
+    "pack",
+    "seal",
+    "label",
+    "post"
+   ],
+   "answer": [
+    "pack",
+    "seal",
+    "label",
+    "post"
+   ],
+   "negative": [
+    "pack",
+    "label",
+    "seal",
+    "post"
+   ]
+  },
+  {
+   "id": "g1-03",
+   "order": [
+    "charge",
+    "scan",
+    "sort",
+    "report"
+   ],
+   "answer": [
+    "charge",
+    "scan",
+    "sort",
+    "report"
+   ],
+   "negative": [
+    "scan",
+    "charge",
+    "sort",
+    "report"
+   ]
+  },
+  {
+   "id": "g1-04",
+   "order": [
+    "white",
+    "blue",
+    "red",
+    "green"
+   ],
+   "answer": "green",
+   "negative": "red"
+  },
+  {
+   "id": "g1-05",
+   "order": [
+    "Tower",
+    "Bridge",
+    "Forge",
+    "Cave",
+    "Gate"
+   ],
+   "answer": "Tower",
+   "negative": "Bridge"
+  },
+  {
+   "id": "g1-06",
+   "order": [
+    "script",
+    "cast",
+    "shoot",
+    "edit"
+   ],
+   "answer": "cast",
+   "negative": "script"
+  },
+  {
+   "id": "g1-07",
+   "order": [
+    "lamp",
+    "sail",
+    "kite",
+    "drum"
+   ],
+   "answer": [
+    "lamp",
+    "sail",
+    "kite",
+    "drum"
+   ],
+   "negative": [
+    "lamp",
+    "kite",
+    "sail",
+    "drum"
+   ]
+  },
+  {
+   "id": "g1-08",
+   "order": [
+    "coral",
+    "jade",
+    "amber",
+    "onyx",
+    "ivory"
+   ],
+   "answer": "jade",
+   "negative": "coral"
+  },
+  {
+   "id": "g1-09",
+   "order": [
+    "base",
+    "frame",
+    "roof",
+    "door",
+    "paint"
+   ],
+   "answer": "roof",
+   "negative": "frame"
+  },
+  {
+   "id": "g1-10",
+   "order": [
+    "Haze",
+    "Frost",
+    "Dawn",
+    "Glade",
+    "Ember"
+   ],
+   "answer": 3,
+   "negative": 4
+  },
+  {
+   "id": "g1-11",
+   "order": [
+    "Comet",
+    "Echo",
+    "Anchor",
+    "Dune",
+    "Breeze"
+   ],
+   "answer": "Anchor",
+   "negative": "Echo"
+  },
+  {
+   "id": "g1-12",
+   "order": [
+    "frame",
+    "wire",
+    "paint",
+    "test",
+    "pack"
+   ],
+   "answer": "paint",
+   "negative": "test"
+  },
+  {
+   "id": "g1-13",
+   "order": [
+    "Oat",
+    "Corn",
+    "Rye",
+    "Flax",
+    "Hemp"
+   ],
+   "answer": 4,
+   "negative": 3
+  },
+  {
+   "id": "g1-14",
+   "order": [
+    "silver",
+    "iron",
+    "tin",
+    "brass",
+    "copper"
+   ],
+   "answer": "brass",
+   "negative": "copper"
+  },
+  {
+   "id": "g1-15",
+   "order": [
+    "iron",
+    "dust",
+    "rake",
+    "sweep",
+    "mop"
+   ],
+   "answer": "rake",
+   "negative": "mop"
+  },
+  {
+   "id": "g1-16",
+   "order": [
+    "tiles",
+    "mirror",
+    "cabinet",
+    "sink",
+    "tap",
+    "lighting"
+   ],
+   "answer": "sink",
+   "negative": "mirror"
+  },
+  {
+   "id": "g1-17",
+   "order": [
+    "Feast",
+    "Arrival",
+    "Duel",
+    "Betrayal",
+    "Goodbye",
+    "Chase",
+    "Escape"
+   ],
+   "answer": "Goodbye",
+   "negative": "Escape"
+  },
+  {
+   "id": "g1-18",
+   "order": [
+    "Jay",
+    "Wren",
+    "Ibis",
+    "Kite",
+    "Heron",
+    "Lark"
+   ],
+   "answer": "Ibis",
+   "negative": "Kite"
+  },
+  {
+   "id": "g1-19",
+   "order": [
+    "sleep",
+    "eat",
+    "wash",
+    "wake",
+    "walk",
+    "dress"
+   ],
+   "answer": "dress",
+   "negative": "sleep"
+  },
+  {
+   "id": "g1-20",
+   "order": [
+    "cables",
+    "amps",
+    "stage",
+    "banner",
+    "drums",
+    "lights",
+    "mics"
+   ],
+   "answer": "banner",
+   "negative": "stage"
+  },
+  {
+   "id": "g1-21",
+   "order": [
+    "Teal",
+    "Grey",
+    "Red",
+    "Blue",
+    "Pink",
+    "Gold"
+   ],
+   "answer": 2,
+   "negative": 3
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{"_note":"Candidate magnitudes, evaluated ONLY on the 100 dev tasks to choose 'low' and 'medium' strengths. Layers and modules were fixed in advance (mid-depth blocks 10-17), not searched.",
+ "conditions":[
+ {"id":"baseline","type":"baseline","label":"unchanged model","method":"unchanged"},
+ {"id":"tune_ffn_m15","type":"intervention","label":"ffn_norm gain x0.85, blocks 10-17","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.15}},
+ {"id":"tune_ffn_m30","type":"intervention","label":"ffn_norm gain x0.70, blocks 10-17","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.30}},
+ {"id":"tune_ffn_m50","type":"intervention","label":"ffn_norm gain x0.50, blocks 10-17","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.50}},
+ {"id":"tune_ffn_p30","type":"intervention","label":"ffn_norm gain x1.30, blocks 10-17","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":0.30}},
+ {"id":"tune_attn_m15","type":"intervention","label":"attn_norm gain x0.85, blocks 10-17","method":"edit","spec":{"module":"attn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.15}},
+ {"id":"tune_attn_m30","type":"intervention","label":"attn_norm gain x0.70, blocks 10-17","method":"edit","spec":{"module":"attn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.30}},
+ {"id":"tune_attn_m50","type":"intervention","label":"attn_norm gain x0.50, blocks 10-17","method":"edit","spec":{"module":"attn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.50}}
+]}

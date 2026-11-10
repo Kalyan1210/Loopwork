@@ -1,0 +1,675 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "constraints",
+  "subtheme": "all-uppercase",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Plumrow is a fictional bakery. Write one short sentence about Plumrow in which EVERY letter is an UPPERCASE letter, including the name (PLUMROW). Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "[a-z]",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bPLUMROW\\b",
+    "flags": ""
+   },
+   {
+    "type": "min_words",
+    "value": 4
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "PLUMROW SELLS WARM BUNS EVERY MORNING.",
+  "negative": "Plumrow sells warm buns every morning."
+ },
+ {
+  "local_id": "g4-02",
+  "family": "constraints",
+  "subtheme": "all-lowercase",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Marta runs a fictional inn. Write a friendly greeting to Marta of at least five words using ONLY lowercase letters: no capital letter anywhere, not even at the start or in her name (write it as marta). Reply with ONLY the greeting on one line.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "[A-Z]",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bmarta\\b",
+    "flags": ""
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "good evening marta, your inn looks lovely tonight!",
+  "negative": "Good evening Marta, your inn looks lovely tonight!"
+ },
+ {
+  "local_id": "g4-03",
+  "family": "constraints",
+  "subtheme": "required-first-word",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The Oskel is a fictional river. Write one sentence about the Oskel whose very first word is exactly \"Yesterday\" (capital Y). Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*Yesterday\\b",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bOskel\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Yesterday the Oskel rose above its banks after the storm.",
+  "negative": "The Oskel rose above its banks yesterday after the storm."
+ },
+ {
+  "local_id": "g4-04",
+  "family": "constraints",
+  "subtheme": "required-last-word",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Write one sentence about a red kite. The final word of the sentence must be \"home\", followed directly by a period. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bhome\\.\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bkite\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "The red kite drifted over the hills and finally came home.",
+  "negative": "The red kite came home after drifting over the hills."
+ },
+ {
+  "local_id": "g4-05",
+  "family": "constraints",
+  "subtheme": "no-digits",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Fact: the fictional Dunmere Library has 3 floors and 7 reading rooms.\nRestate this fact in one sentence that contains NO digits: write both numbers as words (three, seven) and keep the name Dunmere. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "\\d"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bthree\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bseven\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bDunmere\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "The Dunmere Library has three floors and seven reading rooms.",
+  "negative": "The Dunmere Library has 3 floors and seven reading rooms."
+ },
+ {
+  "local_id": "g4-06",
+  "family": "constraints",
+  "subtheme": "forbidden-word",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Pepper is a fictional dog who loves chasing sticks. Describe Pepper in one sentence WITHOUT using the word \"dog\" in any form (not dog, dogs or doggy). You MUST use the name Pepper and the word \"sticks\". Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "\\bdog\\w*\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bPepper\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bsticks\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "max_words",
+    "value": 30
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Pepper is a loyal puppy who loves chasing sticks in the park.",
+  "negative": "Pepper is a loyal dog who loves chasing sticks in the park."
+ },
+ {
+  "local_id": "g4-07",
+  "family": "constraints",
+  "subtheme": "required-words",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Write one sentence about a night at sea that uses BOTH of these exact words: \"anchor\" and \"lantern\" (singular, lowercase). Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\banchor\\b",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\blantern\\b",
+    "flags": ""
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "max_words",
+    "value": 35
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "The crew dropped the anchor and lit a lantern as night fell over the sea.",
+  "negative": "The crew dropped the anchor and lit a lamp as night fell over the sea."
+ },
+ {
+  "local_id": "g4-08",
+  "family": "constraints",
+  "subtheme": "capitalize-each-word",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Invent a name for a fictional bakery.\nRules: exactly three words on one line; every word starts with one capital letter and the rest of the word is lowercase; one of the three words must be \"Oven\"; letters and spaces only (no punctuation). Example of the shape for a flower shop: Quiet Petal Corner\nReply with ONLY the name.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[A-Z][a-z]+ +[A-Z][a-z]+ +[A-Z][a-z]+\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bOven\\b",
+    "flags": ""
+   }
+  ],
+  "reference": "Golden Oven Bakery",
+  "negative": "Golden oven Bakery"
+ },
+ {
+  "local_id": "g4-09",
+  "family": "constraints",
+  "subtheme": "prefix-uppercase-lines",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Write exactly 3 warning signs for a fictional mine called Garnet Hollow.\nRules: exactly 3 lines; every line starts with \"WARNING: \"; every letter on every line is UPPERCASE; at least two words after the prefix; no digits; no numbering and no other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^WARNING: [^a-z]*[A-Z]{2,}[^a-z]*$",
+    "flags": ""
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\d"
+   },
+   {
+    "type": "min_words",
+    "value": 9
+   }
+  ],
+  "reference": "WARNING: LOOSE ROCK AHEAD\nWARNING: WEAR YOUR HELMET\nWARNING: KEEP LAMPS LIT",
+  "negative": "WARNING: LOOSE ROCK AHEAD\nWARNING: Wear your helmet\nWARNING: KEEP LAMPS LIT"
+ },
+ {
+  "local_id": "g4-10",
+  "family": "constraints",
+  "subtheme": "forbidden-plus-required-opening",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Explain what a bakery is in ONE sentence of at most 25 words.\nRules: the sentence must begin with the two words \"A place\"; you must NOT use any of these words in any form: bake, baker, bakery, baking, bread, oven; you MUST use the word \"flour\". Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*A place\\b",
+    "flags": ""
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(bak\\w*|bread\\w*|ovens?)\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bflour\\b"
+   },
+   {
+    "type": "max_words",
+    "value": 25
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "A place where people buy fresh loaves, cakes and pastries made from flour.",
+  "negative": "A place where a baker sells fresh loaves and cakes made from flour."
+ },
+ {
+  "local_id": "g4-11",
+  "family": "constraints",
+  "subtheme": "first-and-last-word",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Vessmark is a fictional harbor. Write one sentence about Vessmark.\nRules: the first word must be \"Tonight\" (capital T); the last word must be \"tide\", followed directly by a period; the name Vessmark must appear. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*Tonight\\b.*\\btide\\.\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bVessmark\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Tonight the boats of Vessmark will leave with the tide.",
+  "negative": "Tonight the boats of Vessmark will leave with the tide at dawn."
+ },
+ {
+  "local_id": "g4-12",
+  "family": "constraints",
+  "subtheme": "lowercase-no-punctuation",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Harrowick is a fictional market town. Write one sentence of at least six words about the Harrowick market.\nRules: use ONLY lowercase letters and spaces: no capital letters (write the name as harrowick), no digits and no punctuation marks at all, not even a final period. Reply with ONLY that line.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[a-z]+( +[a-z]+)*\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bharrowick\\b",
+    "flags": ""
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "the harrowick market sells apples and cheese every morning",
+  "negative": "the harrowick market sells apples and cheese every morning."
+ },
+ {
+  "local_id": "g4-13",
+  "family": "constraints",
+  "subtheme": "no-commas",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Finchgate is a fictional shop that sells three things: rope, candles, maps.\nWrite one sentence that says Finchgate sells all three things. The sentence must not contain any comma. Keep the words rope, candles and maps exactly as written. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": ","
+   },
+   {
+    "type": "regex",
+    "pattern": "\\brope\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bcandles\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bmaps\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bFinchgate\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Finchgate sells rope and candles and maps.",
+  "negative": "Finchgate sells rope, candles and maps."
+ },
+ {
+  "local_id": "g4-14",
+  "family": "constraints",
+  "subtheme": "forbidden-word-rewrite",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Original sentence: \"The big ferry Tarn Maid passed the small pier at Ullow.\"\nRewrite it as one sentence with the same meaning that does NOT use the words \"big\" or \"small\" (in any form, such as bigger or smallest). Keep these words exactly: ferry, Tarn Maid, pier, Ullow. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "\\b(big\\w*|small\\w*)\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bTarn Maid\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bUllow\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bferry\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bpier\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 8
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "The large ferry Tarn Maid passed the tiny pier at Ullow.",
+  "negative": "The big ferry Tarn Maid passed the tiny pier at Ullow."
+ },
+ {
+  "local_id": "g4-15",
+  "family": "constraints",
+  "subtheme": "lipogram-no-e",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Dorval is a fictional town. Write one sentence of at least six words about Dorval that does NOT contain the letter \"e\" anywhere (neither e nor E). Check every word. The name Dorval must appear. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "e"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bDorval\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Dorval is a small town with good food and kind folk.",
+  "negative": "Dorval is a quiet town near the river."
+ },
+ {
+  "local_id": "g4-16",
+  "family": "constraints",
+  "subtheme": "alternating-case-lines",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Write a 4-line announcement for the fictional Lume Festival.\nRules: exactly 4 lines; lines 1 and 3 are written entirely in UPPERCASE letters; lines 2 and 4 are written entirely in lowercase letters (no capital at all); every line has at least three words; the word lume appears somewhere. No numbering and no other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "pattern": "^\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*\\n\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*$",
+    "flags": ""
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+\\s+\\S+\\s+\\S+",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\blume\\b"
+   }
+  ],
+  "reference": "THE LUME FESTIVAL BEGINS\nlanterns float over the square\nDRUMS ECHO THROUGH TOWN\neveryone dances until dawn",
+  "negative": "THE LUME FESTIVAL BEGINS\nLANTERNS FLOAT OVER THE SQUARE\nDRUMS ECHO THROUGH TOWN\nEVERYONE DANCES UNTIL DAWN"
+ },
+ {
+  "local_id": "g4-17",
+  "family": "constraints",
+  "subtheme": "same-initial-letter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Write one line about snakes in which EVERY word begins with the letter s.\nRules: at least five words; all lowercase letters; the word \"snakes\" must be one of the words; words separated by single spaces; no punctuation except an optional final period. Reply with ONLY that line.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*s[a-z]*( +s[a-z]*){4,}\\.?\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bsnakes\\b",
+    "flags": ""
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "seven silly snakes slid south slowly.",
+  "negative": "seven silly snakes slid to the south."
+ },
+ {
+  "local_id": "g4-18",
+  "family": "constraints",
+  "subtheme": "positive-phrasing-rules",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Write exactly 3 rules for members of the fictional Ashenway Guild.\nRules for your reply: exactly 3 lines; every line starts with \"RULE: \"; every line contains the word \"must\"; every line ends with a period; the words not, no, never and cannot are forbidden, and so is any contraction ending in n't (state every rule positively); no digits. No numbering and no other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^RULE: .*\\bmust\\b.*\\.$",
+    "flags": ""
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(not|no|never|cannot)\\b|n['’]t\\b"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\d"
+   },
+   {
+    "type": "min_words",
+    "value": 12
+   }
+  ],
+  "reference": "RULE: Members must pay their dues each spring.\nRULE: Apprentices must sweep the hall at dawn.\nRULE: Visitors must sign the ledger on arrival.",
+  "negative": "RULE: Members must pay their dues each spring.\nRULE: Members must not carry blades indoors.\nRULE: Visitors must sign the ledger on arrival."
+ },
+ {
+  "local_id": "g4-19",
+  "family": "constraints",
+  "subtheme": "title-case-headline-forbidden",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Write a newspaper headline about a flood in the fictional town of Kessel.\nRules: 5 to 8 words on one line; every word starts with one capital letter and all its other letters are lowercase; the name Kessel must appear; do NOT use the words flood, water or river in any form; letters and spaces only (no punctuation, no digits). Reply with ONLY the headline.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[A-Z][a-z]*( +[A-Z][a-z]*){4,7}\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bKessel\\b",
+    "flags": ""
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(flood\\w*|water\\w*|river\\w*)\\b"
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Kessel Homes Soaked After Heavy Storm",
+  "negative": "Kessel Homes Soaked After River Floods"
+ },
+ {
+  "local_id": "g4-20",
+  "family": "constraints",
+  "subtheme": "caps-on-first-and-last-word",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Write one line about fresh bread at a morning market.\nRules: at least six words; the FIRST word and the LAST word are written in ALL CAPITAL letters; every word in between is entirely lowercase; the word \"bread\" appears among the lowercase words; words separated by single spaces; no punctuation except an optional final period. Example of the shape on another topic: COLD rain fell on the quiet HARBOR\nReply with ONLY that line.",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[A-Z]{2,}( [a-z]+){4,} [A-Z]{2,}\\.?\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bbread\\b",
+    "flags": ""
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "FRESH warm bread sells fast at DAWN.",
+  "negative": "Fresh warm bread sells fast at DAWN."
+ },
+ {
+  "local_id": "g4-21",
+  "family": "constraints",
+  "subtheme": "no-digits-no-commas-caps-word",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Notice data: the fictional Pellin Fair opens on 14 May at 9 in the morning.\nWrite this notice as one sentence.\nRules: no digits (write the numbers as the words fourteen and nine); no commas; the word OPENS must be written in capital letters; the name Pellin and the month May must appear. Reply with ONLY the sentence on one line. No other text.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "\\d"
+   },
+   {
+    "type": "not_regex",
+    "pattern": ","
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bfourteen(th)?\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bnine\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bOPENS\\b",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bPellin\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bMay\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 8
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "The Pellin Fair OPENS on fourteen May at nine in the morning.",
+  "negative": "The Pellin Fair OPENS on May fourteen, at nine in the morning."
+ }
+]

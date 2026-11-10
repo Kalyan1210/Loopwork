@@ -1,0 +1,349 @@
+[
+ {
+  "local_id": "dev-01",
+  "family": "calibration",
+  "subtheme": "direct-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHarbor log, Tessit Pier. The ferry Marlowe Gull left at 07:40 carrying 62 passengers and 9 crew. Its captain was Ines Varga. The crossing to Dorn Island took 35 minutes.\n\nQUESTION: How many passengers were on the Marlowe Gull?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 62
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 62\nCONFIDENCE: 95",
+  "negative": "ANSWER: 71\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "dev-02",
+  "family": "calibration",
+  "subtheme": "missing-fact",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShop notice. Brindle Clockworks is a shop in the town of Ostrel. It sells wall clocks and repairs pocket watches. Its owner is Hale Dorrin, who learned the trade from an aunt.\n\nQUESTION: In which year did Brindle Clockworks open?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 1987\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "dev-03",
+  "family": "calibration",
+  "subtheme": "two-hop",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLibrary memo. The Quillon archive is kept in the room directly above the map room. The map room is on floor 3 of the east wing. The reading hall is on floor 1.\n\nQUESTION: On which floor is the Quillon archive? Give the floor number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 4\nCONFIDENCE: 90",
+  "negative": "ANSWER: 3\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "dev-04",
+  "family": "calibration",
+  "subtheme": "related-entity",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nRace report, Dunmoor 10k. Kessa Arlund finished in 41 minutes. Toban Reece finished three minutes after Kessa. Yul Mabry also took part and wore bib number 17.\n\nQUESTION: What was Yul Mabry's finishing time in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 5",
+  "negative": "ANSWER: 44\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "dev-05",
+  "family": "calibration",
+  "subtheme": "name-lookup-distractor",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nField note. The night orchid Vellisia nocturna grows in the Sable Valley. It was first catalogued by the botanist Tarn Okello. Years later the painter Mirelle Soto made the best known drawing of it.\n\nQUESTION: Who first catalogued Vellisia nocturna? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Tarn Okello",
+       "Okello",
+       "<Tarn Okello>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(tarn\\s+)?okello\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Tarn Okello\nCONFIDENCE: 95",
+  "negative": "ANSWER: Mirelle Soto\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "dev-06",
+  "family": "calibration",
+  "subtheme": "false-premise",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild minutes. In spring the Lantern Guild elected Mira Voss as treasurer. Before that she had served as guild clerk for six years. The guild meets in the old customs house.\n\nQUESTION: In which month did Mira Voss resign as treasurer?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: spring\nCONFIDENCE: 70"
+ },
+ {
+  "local_id": "dev-07",
+  "family": "calibration",
+  "subtheme": "answerable-despite-unknown-distractor",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nPottery notes. Kiln A fires at 900 degrees. Kiln B fires 150 degrees hotter than kiln A. Nobody has recorded the firing temperature of kiln C, and kiln D is out of service.\n\nQUESTION: At how many degrees does kiln B fire?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1050
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 1050\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "dev-08",
+  "family": "calibration",
+  "subtheme": "missing-quantity",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nFarm sheet. The Corvin rain tank holds 300 litres when full. This morning the tank was partly filled, but nobody recorded the level. At noon a pump began adding 20 litres per minute.\n\nQUESTION: How many minutes after noon will the tank be full?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 15\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "dev-09",
+  "family": "calibration",
+  "subtheme": "elimination",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCamp list. Three cabins named Red, Blue and Green are each given to exactly one of three campers: Oda, Pim and Ruk. Pim is in the Green cabin. Oda is not in the Red cabin.\n\nQUESTION: Which camper is in the Red cabin? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Ruk",
+       "<Ruk>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*ruk\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Ruk\nCONFIDENCE: 90",
+  "negative": "ANSWER: Oda\nCONFIDENCE: 80"
+ },
+ {
+  "local_id": "dev-10",
+  "family": "calibration",
+  "subtheme": "out-of-scope",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSurvey summary. The second Harrow survey measured Lake Ismere only in its northern basin, where the greatest depth was 84 metres. The southern basin has never been surveyed.\n\nQUESTION: What is the greatest depth of the southern basin of Lake Ismere, in metres?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 5",
+  "negative": "ANSWER: 84\nCONFIDENCE: 80"
+ }
+]

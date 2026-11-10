@@ -1,0 +1,611 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "ambiguity",
+  "subtheme": "role-chain",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Bridge notes on the fictional cargo ship Marrow Tide.\nPriority rule: the captain's order overrides the first mate's order, and the first mate's order overrides the deckhand's order.\nDeckhand: \"We unload at Port Sella.\"\nCaptain: \"We unload at Port Ibris.\"\nFirst mate: \"We unload at Port Quen.\"\nTask: at which port does the ship unload?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the port name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Ibris",
+     "Port Ibris"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Port Ibris",
+  "negative": "ACTION: ANSWER\nANSWER: Port Quen"
+ },
+ {
+  "local_id": "g3-02",
+  "family": "ambiguity",
+  "subtheme": "seniority-value-missing",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Loom settings at the fictional Aldwick Mill.\nPriority rule: when two weavers disagree, the instruction of the weaver with more years of service at the mill wins.\nYears of service on file: Hale, 9 years. There is no entry for Brenna.\nHale: \"Run loom 3 at speed 4.\"\nBrenna: \"Run loom 3 at speed 6.\"\nTask: at which speed is loom 3 run?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(years|service|senior|how long|longer|brenna|experience|tenure|which (weaver|instruction|of the)|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many years of service does Brenna have at the mill?",
+  "negative": "ACTION: ANSWER\nANSWER: 4"
+ },
+ {
+  "local_id": "g3-03",
+  "family": "ambiguity",
+  "subtheme": "unranked-role",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Kitchen notes at the fictional restaurant Cinder & Sage.\nPriority rule: the head chef's instruction overrides the sous chef's instruction. The rule ranks no one else.\nHead chef, Malo: \"Close the kitchen at 22:00 on Sunday.\"\nRestaurant owner, Edda: \"Close the kitchen at 23:00 on Sunday.\"\nTask: at what time does the kitchen close on Sunday?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(owner|edda|\\brank|authority|which (instruction|note|of the|one|person)|whose|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Does the owner's instruction override the head chef's instruction?",
+  "negative": "ACTION: ANSWER\nANSWER: 23:00"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "ambiguity",
+  "subtheme": "role-override",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Oven log of the fictional bakery Dunmore Loaves.\nPriority rule: if two instructions disagree, the head baker's instruction overrides the apprentice's instruction.\nHead baker's instruction: \"Bake the rye loaves at 210 degrees.\"\nApprentice's instruction: \"Bake the rye loaves at 180 degrees.\"\nTask: at how many degrees are the rye loaves baked?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 210
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 210",
+  "negative": "ACTION: ANSWER\nANSWER: 180"
+ },
+ {
+  "local_id": "g3-05",
+  "family": "ambiguity",
+  "subtheme": "safety-then-role-then-date",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Firing sheet of the fictional pottery Ember Yard.\nPriority rules: (1) Safety limit: the kiln must never be set above 1200 degrees. Any instruction above the limit is ignored completely. (2) Among the instructions that remain, the owner's beats the technician's, and the technician's beats the apprentice's. (3) Between two remaining instructions from the same person, the later date wins.\n2 May, owner: \"Fire the vases at 1300 degrees.\"\n3 May, technician: \"Fire the vases at 1150 degrees.\"\n5 May, technician: \"Fire the vases at 1180 degrees.\"\n6 May, apprentice: \"Fire the vases at 1100 degrees.\"\nTask: at how many degrees are the vases fired?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 1180
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 1180",
+  "negative": "ACTION: ANSWER\nANSWER: 1200"
+ },
+ {
+  "local_id": "g3-06",
+  "family": "ambiguity",
+  "subtheme": "undated-note",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Planting notes of the fictional Ivel Nursery. Both notes were written by the head gardener.\nPriority rule: when two notes from the head gardener disagree, the note with the later date wins.\nNote dated 2 April: \"Plant the tulip bed with red bulbs.\"\nNote with no date on it: \"Plant the tulip bed with white bulbs.\"\nTask: which colour of bulbs goes into the tulip bed?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the colour only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bdated?\\b|undated|\\bwhen\\b|later|earlier|newer|older|recent|before|after|which (note|instruction|of the)|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What is the date of the note that has no date on it?",
+  "negative": "ACTION: ANSWER\nANSWER: white"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "ambiguity",
+  "subtheme": "specific-beats-general",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Painting plan for the fictional Harrowgate School.\nPriority rule: an instruction that names one room overrides an instruction given for the whole building.\nInstruction for the whole building: \"Paint all walls grey.\"\nInstruction for room 4: \"Paint the walls of room 4 yellow.\"\nTask: what colour are the walls of room 4 painted?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the colour only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "yellow"
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: yellow",
+  "negative": "ACTION: ANSWER\nANSWER: grey"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "ambiguity",
+  "subtheme": "top-role-undated",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Timetable notes at the fictional Wexcombe School.\nPriority rules: (1) The principal's instruction beats a teacher's instruction. (2) Between two instructions from the same person, the later date wins.\nPrincipal (no date recorded): \"The science fair is in the gym.\"\nPrincipal (no date recorded): \"The science fair is in the library.\"\n14 May, teacher: \"The science fair is in the canteen.\"\n20 May, teacher: \"The science fair is in the yard.\"\nTask: where is the science fair held?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the place only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bdated?s?\\b|undated|\\bwhen\\b|later|earlier|newer|recent|which (instruction|note|of the|one)|gym.*library|library.*gym|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What are the dates of the principal's two instructions?",
+  "negative": "ACTION: ANSWER\nANSWER: yard"
+ },
+ {
+  "local_id": "g3-09",
+  "family": "ambiguity",
+  "subtheme": "rule-needs-unstated-fact",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Maintenance board at the fictional Renwick Textile Works.\nPriority rule: when two departments disagree about a machine, the department that owns the machine decides.\nWeaving department: \"Service the steam press on Monday.\"\nDyeing department: \"Service the steam press on Friday.\"\nTask: on which day is the steam press serviced?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bown|belong|which (department|dept|instruction|of the)|whose|weaving.*dyeing|dyeing.*weaving|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Which department owns the steam press?",
+  "negative": "ACTION: ANSWER\nANSWER: Monday"
+ },
+ {
+  "local_id": "g3-10",
+  "family": "ambiguity",
+  "subtheme": "topic-scoped-priority",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Kennel notes at the fictional Thistle Vet Clinic for a dog called Biscuit.\nPriority rules: on feeding, the vet's note overrides the front desk's note. On collection times, the front desk's note overrides the vet's note.\nFront desk's note: \"The owner collects Biscuit at 17:00. Give him 3 scoops of food tonight.\"\nVet's note: \"The owner collects Biscuit at 15:00. Give him 2 scoops of food tonight.\"\nTask: how many scoops of food does Biscuit get tonight?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 2",
+  "negative": "ACTION: ANSWER\nANSWER: 3"
+ },
+ {
+  "local_id": "g3-11",
+  "family": "ambiguity",
+  "subtheme": "later-date-wins",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Notice board of the fictional Calder Ferry.\nPriority rule: when two notices from the harbour master disagree, the notice with the later date replaces the earlier one.\nNotice of 18 August, harbour master: \"The evening ferry leaves from the East pier.\"\nNotice of 11 August, harbour master: \"The evening ferry leaves from the North pier.\"\nTask: from which pier does the evening ferry leave?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the pier name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "East",
+     "East pier",
+     "the East pier"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: East",
+  "negative": "ACTION: ANSWER\nANSWER: North"
+ },
+ {
+  "local_id": "g3-12",
+  "family": "ambiguity",
+  "subtheme": "rule-scope-mismatch",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Minutes of the fictional Larkhill Rowing Club.\nPriority rule: on questions of money, the treasurer's instruction overrides the secretary's instruction.\nTreasurer, Nuala: \"Hold the annual meeting on 12 October.\"\nSecretary, Corin: \"Hold the annual meeting on 19 October.\"\nTask: on which date is the annual meeting held?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the date only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(nuala.*corin|corin.*nuala|treasurer|secretary|which (instruction|note|of the|one|person)|whose|\\brule\\b|money|decides|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: The rule only covers money, so whose instruction takes priority for the meeting date, the treasurer's or the secretary's?",
+  "negative": "ACTION: ANSWER\nANSWER: 12 October"
+ },
+ {
+  "local_id": "g3-13",
+  "family": "ambiguity",
+  "subtheme": "ordered-rules-urgent-mark",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Gate notes at the fictional Vosk freight yard for truck 7.\nPriority rules, applied in this order: (1) A note marked URGENT beats every note that is not marked URGENT. (2) Between notes that are equal under rule 1, the dispatcher's note beats the driver's note. (3) Between notes that are still equal, the later time wins.\n08:10, dispatcher: \"Truck 7 goes to gate A.\"\n08:20, driver, URGENT: \"Truck 7 goes to gate D.\"\n08:40, driver, URGENT: \"Truck 7 goes to gate C.\"\n09:05, dispatcher: \"Truck 7 goes to gate B.\"\nTask: to which gate does truck 7 go?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the gate letter only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "C",
+     "gate C"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: C",
+  "negative": "ACTION: ANSWER\nANSWER: B"
+ },
+ {
+  "local_id": "g3-14",
+  "family": "ambiguity",
+  "subtheme": "same-date-no-time",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Shift notes of the fictional Corran Dairy. Both notes come from the shift leader.\nPriority rule: when two notes from the shift leader disagree, the note that was written later wins.\nNote of 7 July: \"Send the milk truck out at 05:00.\"\nNote of 7 July: \"Send the milk truck out at 06:30.\"\nThe notes show the date but not the time of writing.\nTask: at what time does the milk truck go out?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(written|wrote|writing|later|earlier|\\bfirst\\b|\\blast\\b|newer|recent|which (note|instruction|of the|one)|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Which of the two 7 July notes was written later?",
+  "negative": "ACTION: ANSWER\nANSWER: 06:30"
+ },
+ {
+  "local_id": "g3-15",
+  "family": "ambiguity",
+  "subtheme": "channel-priority",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Order desk of the fictional workshop Tolland Chairs. Each chair costs 7 coins.\nPriority rule: if a customer's signed order form and a phone message disagree, the signed order form counts and the phone message is ignored.\nSigned order form from Mrs Aveling: \"6 chairs.\"\nPhone message from Mrs Aveling: \"Make it 8 chairs.\"\nTask: how many coins is Mrs Aveling charged?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 42
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 42",
+  "negative": "ACTION: ANSWER\nANSWER: 56"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "ambiguity",
+  "subtheme": "tied-vote",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Planning notes of the fictional Odell Street fair committee, which has 6 members.\nPriority rule: when two proposals disagree, the proposal with more member votes is carried out.\nProposal from Jory: \"Put the stage at the north end.\" Votes: 3.\nProposal from Wilhelmina: \"Put the stage at the south end.\" Votes: 3.\nTask: at which end is the stage put?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <north or south>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\btie|tied|equal|\\beven\\b|same number|\\b3\\b.*\\b3\\b|break|deciding|casting|jory.*wilhelmina|wilhelmina.*jory|which (proposal|of the|one)|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: The vote is tied 3 to 3, so how is the tie broken?",
+  "negative": "ACTION: ANSWER\nANSWER: north"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "ambiguity",
+  "subtheme": "role-then-date-with-distractor",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Layout notes for the fictional magazine Lantern Quarterly.\nPriority rules: (1) The director's instruction beats the editor's, and the editor's beats the intern's. (2) Between two instructions from the same person, the later date wins.\n4 April, editor: \"Set the body text in size 11.\"\n12 April, intern: \"Set the body text in size 14.\"\n10 April, director: \"Print the cover in blue.\"\n9 April, editor: \"Set the body text in size 12.\"\nTask: in which size is the body text set?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 12",
+  "negative": "ACTION: ANSWER\nANSWER: 14"
+ },
+ {
+  "local_id": "g3-18",
+  "family": "ambiguity",
+  "subtheme": "safety-rule-wins",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Rules of the fictional climbing hall Greywall.\nSafety rule: a rope must be retired after 40 climbs. The safety rule beats every other instruction, whoever gives it.\nOwner's instruction: \"Ropes are expensive. Retire each rope after 60 climbs.\"\nTask: after how many climbs is a rope retired?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 40
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 40",
+  "negative": "ACTION: ANSWER\nANSWER: 60"
+ },
+ {
+  "local_id": "g3-19",
+  "family": "ambiguity",
+  "subtheme": "rule-criterion-ties",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Menu board at the fictional Saltmarsh Inn.\nPriority rule: a written instruction overrides a spoken instruction. There is no other priority rule.\nWritten note from the cook, Orla: \"Tonight's soup is leek.\"\nWritten note from the innkeeper, Tavin: \"Tonight's soup is barley.\"\nTask: which soup goes on the menu board tonight?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the soup name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(orla.*tavin|tavin.*orla|cook.*innkeeper|innkeeper.*cook|which (note|instruction|of the|person|one)|whose|both written|\\brule\\b|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Both notes are written, so which one takes priority, Orla's or Tavin's?",
+  "negative": "ACTION: ANSWER\nANSWER: barley"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "ambiguity",
+  "subtheme": "safety-rule-not-decisive",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Loading notes at the fictional Brackwater quay.\nPriority rule: the safety rule beats every instruction. Safety rule: the crane must never lift more than 500 kg at once.\nForeman Idris: \"Lift the crates in loads of 300 kg.\"\nForeman Petra: \"Lift the crates in loads of 450 kg.\"\nThe two foremen have the same rank.\nTask: how many kg does the crane lift per load?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(idris.*petra|petra.*idris|forem[ae]n|which (instruction|note|of the|one|load)|whose|\\b300\\b.*\\b450\\b|\\b450\\b.*\\b300\\b|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Which foreman's instruction takes priority, Idris's or Petra's?",
+  "negative": "ACTION: ANSWER\nANSWER: 300"
+ },
+ {
+  "local_id": "g3-21",
+  "family": "ambiguity",
+  "subtheme": "earlier-date-wins",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Hall bookings in the fictional village of Pennow.\nPriority rule: when two groups ask for the same slot, the request with the earlier date keeps the slot and the later request is refused.\nRequest dated 5 March, chess club: \"We want the hall on Saturday morning.\"\nRequest dated 3 March, choir: \"We want the hall on Saturday morning.\"\nTask: which group gets the hall on Saturday morning?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the group name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "choir",
+     "the choir"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: choir",
+  "negative": "ACTION: ANSWER\nANSWER: chess club"
+ }
+]

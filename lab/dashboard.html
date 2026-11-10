@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Qwen Behavior Lab: swarm dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--line:#262d38;--txt:#e6edf3;--mut:#8b96a5;--ai:#a78bfa;--co:#f5b849;--sw:#4cc2ff;--ok:#3fb950;--bad:#f85149;--warn:#e3b341;--base:#8b96a5;--int:#ff8f5a;--ctl:#4cc2ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+header{display:flex;gap:14px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5;flex-wrap:wrap}
+h1{font-size:16px;margin:0;font-weight:650}h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:0 0 8px}
+.badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:600;border:1px solid currentColor;white-space:nowrap}
+.live{color:var(--ok)}.replay{color:var(--warn)}.ai{color:var(--ai)}.co{color:var(--co)}.sw{color:var(--sw)}
+.b-baseline{color:var(--base)}.b-intervention{color:var(--int)}.b-control{color:var(--ctl)}
+main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;padding:12px 18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+.full{grid-column:1/-1}.kpis{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-width:118px}
+.kpi b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.kpi span{color:var(--mut);font-size:11px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th{text-align:left;color:var(--mut);font-weight:500;font-size:11px;padding:3px 6px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+td{padding:3px 6px;border-bottom:1px solid #1d232c;vertical-align:top}.scroll{max-height:330px;overflow:auto}
+.st{font-weight:600}.st-started,.st-progress{color:var(--sw)}.st-done{color:var(--ok)}.st-failed{color:var(--bad)}.st-blocked{color:var(--warn)}.st-handoff{color:var(--ai)}.st-queued{color:var(--mut)}.st-retried{color:var(--warn)}
+.bar{height:10px;background:#222a35;border-radius:5px;overflow:hidden;display:flex}.bar i{display:block;height:100%}
+.mut{color:var(--mut)}.cell{cursor:pointer;text-align:center;border-radius:4px;font-size:12px}.cell:hover{outline:1px solid var(--txt)}
+.feed div{padding:2px 0;border-bottom:1px solid #1d232c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 1px;cursor:pointer}
+pre{white-space:pre-wrap;word-break:break-word;background:#0b0e13;border:1px solid var(--line);border-radius:6px;padding:8px;font:12px/1.4 ui-monospace,Menlo,monospace;max-height:260px;overflow:auto;margin:4px 0}
+#replaybar{display:none;align-items:center;gap:8px;flex:1;min-width:260px}#replaybar input{flex:1}
+button{background:#222a35;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:3px 10px;cursor:pointer;font:inherit}
+.note{color:var(--mut);font-size:11.5px}
+</style></head><body>
+<header>
+  <h1>Qwen Behavior Lab · swarm dashboard</h1>
+  <span id="mode" class="badge live">LIVE</span>
+  <span class="badge ai">AI subagent (self-reported)</span><span class="badge co">coordinator</span><span class="badge sw">script worker (not an AI agent)</span>
+  <div id="replaybar"><button id="play">Play</button><input id="scrub" type="range" min="0" max="1000" value="1000"><span id="clock" class="mut"></span></div>
+  <span class="note" id="src"></span>
+</header>
+<div style="padding:12px 18px 0"><div class="kpis" id="kpis"></div>
+<div class="note" style="margin-top:6px">Every row below is derived from the durable event log (<code>swarm/events.jsonl</code>). Events are written only by the actor that did the work; nothing is simulated. “Script worker” rows are ordinary processes running the model, not AI agents.</div></div>
+<main>
+  <section class="panel"><h2>Agents and workers</h2><div class="scroll" style="max-height:380px"><table id="agents"></table></div></section>
+  <section class="panel"><h2>Recent events <label class="note"><input type="checkbox" id="onlyflag"> blockers / handoffs / failures only</label></h2><div class="scroll feed" id="feed" style="max-height:380px"></div></section>
+  <section class="panel full"><h2>Model runs by condition</h2><table id="conds"></table></section>
+  <section class="panel full"><h2>Task families × conditions <span class="note">(pass rate; click a cell for its tasks)</span></h2><div style="overflow:auto"><table id="grid"></table></div></section>
+  <section class="panel full" id="detailp" style="display:none"><h2 id="dtitle"></h2><div id="dots"></div><div id="episode"></div></section>
+</main>
+<script>
+const REPLAY = window.SWARM_REPLAY || null;   // embedded event log => replay mode
+let ALL = REPLAY ? REPLAY.events : [], T = Infinity, sel = null;
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kindCls = {ai_subagent:'ai', coordinator:'co', script_worker:'sw'};
+const fmtT = ts => new Date(ts*1000).toLocaleTimeString();
+function derive(evs){
+  const agents = new Map(), conds = new Map(), fam = {}, tasks = {}; let plan = null;
+  const items = {queued:0, started:0, done:0, failed:0, retried:0, blocked:0};
+  let active = 0, peak = 0; const actSet = new Set();
+  for (const e of evs){
+    if (e.role === 'model-run'){            // one event per model episode (script worker)
+      const d = e.data || {}; const c = d.c; if (!c) continue;
+      const cs = conds.get(c) || conds.set(c, {done:0, failed:0, retried:0, pass:0, lat:0, tok:0, active:null}).get(c);
+      if (e.status === 'retried'){ cs.retried++; continue; }
+      if (e.status === 'started'){ cs.active = e.item; continue; }
+      cs.active = null;
+      if (e.status === 'failed') cs.failed++; else cs.done++;
+      cs.pass += d.s || 0; cs.lat += d.l || 0; cs.tok += d.k || 0;
+      const f = e.family || '?'; fam[f] = fam[f] || {}; const fc = fam[f][c] = fam[f][c] || {n:0, pass:0};
+      fc.n++; fc.pass += d.s || 0;
+      (tasks[f] = tasks[f] || {}); (tasks[f][e.item] = tasks[f][e.item] || {})[c] = e.status === 'failed' ? -1 : (d.s || 0);
+      const a = agents.get(e.actor) || agents.set(e.actor, {actor:e.actor, kind:e.actor_kind, role:e.role, n:0}).get(e.actor);
+      a.status = 'progress'; a.msg = `${c} · ${e.item}`; a.ts = e.ts; a.n++;
+      continue;
+    }
+    if (e.role === 'run-plan'){ plan = e.data; continue; }
+    const a = agents.get(e.actor) || agents.set(e.actor, {actor:e.actor, kind:e.actor_kind, role:e.role, n:0}).get(e.actor);
+    a.role = e.role || a.role; a.status = e.status; a.msg = e.msg || a.msg; a.item = e.item || a.item; a.ts = e.ts; a.family = e.family || a.family;
+    if (e.actor_kind === 'ai_subagent'){
+      if (e.status in items) items[e.status]++;
+      if (e.status === 'started') actSet.add(e.actor); else if (e.status === 'done' || e.status === 'failed') actSet.delete(e.actor);
+      peak = Math.max(peak, actSet.size);
+    }
+    if (e.actor_kind === 'script_worker' && (e.status === 'done' || e.status === 'failed')) a.status = e.status;
+  }
+  return {agents, conds, fam, tasks, plan, items, active: actSet.size, peak};
+}
+function render(){
+  const evs = T === Infinity ? ALL : ALL.filter(e => e.ts <= T);
+  const S = derive(evs);
+  const ai = [...S.agents.values()].filter(a => a.kind === 'ai_subagent');
+  const done = ai.filter(a => a.status === 'done').length, failed = ai.filter(a => a.status === 'failed').length;
+  let rd = 0, rf = 0, rr = 0; S.conds.forEach(c => { rd += c.done; rf += c.failed; rr += c.retried; });
+  const total = S.plan ? S.plan.conditions.length * S.plan.n_tasks : 0;
+  document.getElementById('kpis').innerHTML = [
+    [ai.length, 'AI subagents seen'], [S.active, 'AI subagents active now'], [S.peak, 'peak concurrent AI subagents'],
+    [done, 'agent work items done'], [failed, 'agent work items failed'],
+    [rd + rf, 'model runs finished' + (total ? ' / ' + total : '')], [rf, 'model runs failed'], [rr, 'model runs retried'], [evs.length, 'events in log']
+  ].map(([v, l]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join('');
+  const order = {started:0, progress:0, blocked:1, handoff:2, failed:3, queued:4, done:5};
+  const rows = [...S.agents.values()].sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9) || b.ts - a.ts);
+  document.getElementById('agents').innerHTML = '<tr><th>name</th><th>kind</th><th>role</th><th>status</th><th>current assignment / last report</th><th>seen</th></tr>' +
+    rows.map(a => `<tr><td>${esc(a.actor)}</td><td><span class="badge ${kindCls[a.kind] || ''}">${a.kind === 'ai_subagent' ? 'AI' : a.kind === 'coordinator' ? 'coord' : 'script'}</span></td><td>${esc(a.role)}</td><td class="st st-${a.status}">${a.status === 'started' || a.status === 'progress' ? 'active' : a.status}</td><td>${esc((a.item ? a.item + ' · ' : '') + (a.msg || ''))}</td><td class="mut">${fmtT(a.ts)}</td></tr>`).join('');
+  const flag = document.getElementById('onlyflag').checked;
+  const fe = evs.filter(e => e.role !== 'model-run' && (!flag || ['blocked', 'handoff', 'failed', 'retried'].includes(e.status))).slice(-150).reverse();
+  document.getElementById('feed').innerHTML = fe.map(e => `<div title="${esc(e.msg)}"><span class="mut">${fmtT(e.ts)}</span> <span class="badge ${kindCls[e.actor_kind] || ''}">${esc(e.actor)}</span> <span class="st st-${e.status}">${e.status}</span> ${esc(e.item || '')} <span class="mut">${esc(e.msg || '')}</span></div>`).join('') || '<div class="mut">no events yet</div>';
+  const clist = S.plan ? S.plan.conditions : [...S.conds.keys()].map(id => ({id, type: 'intervention', label: ''}));
+  document.getElementById('conds').innerHTML = '<tr><th>condition</th><th>type</th><th>what changed</th><th>queued</th><th>active</th><th>completed</th><th>failed</th><th>retried</th><th style="width:22%">progress</th><th>pass rate</th><th>mean latency</th></tr>' +
+    clist.map(c => { const s = S.conds.get(c.id) || {done:0, failed:0, retried:0, pass:0, lat:0}; const n = S.plan ? S.plan.n_tasks : s.done + s.failed; const fin = s.done + s.failed;
+      return `<tr><td><b>${esc(c.id)}</b></td><td><span class="badge b-${c.type}">${c.type}</span></td><td class="mut">${esc(c.label || '')}</td><td>${Math.max(0, n - fin - (s.active ? 1 : 0))}</td><td>${s.active ? esc(s.active) : '0'}</td><td>${s.done}</td><td>${s.failed}</td><td>${s.retried}</td><td><div class="bar"><i style="width:${n ? 100 * s.done / n : 0}%;background:var(--ok)"></i><i style="width:${n ? 100 * s.failed / n : 0}%;background:var(--bad)"></i></div></td><td>${s.done ? (100 * s.pass / s.done).toFixed(1) + '%' : '–'}</td><td>${fin ? (s.lat / fin).toFixed(2) + 's' : '–'}</td></tr>`; }).join('');
+  const fams = Object.keys(S.fam).sort();
+  const heat = p => `background:hsl(${Math.round(120 * p)} 45% ${18 + 14 * p}%)`;
+  document.getElementById('grid').innerHTML = '<tr><th>family</th>' + clist.map(c => `<th><span class="b-${c.type}">●</span> ${esc(c.id)}</th>`).join('') + '</tr>' +
+    (fams.map(f => `<tr><td>${esc(f)}</td>` + clist.map(c => { const x = (S.fam[f] || {})[c.id]; return x ? `<td class="cell" style="${heat(x.pass / x.n)}" onclick="pick('${f}','${c.id}')">${(100 * x.pass / x.n).toFixed(0)}% <span class="mut">(${x.n})</span></td>` : '<td class="mut" style="text-align:center">·</td>'; }).join('') + '</tr>').join('') || '<tr><td class="mut">no model runs yet</td></tr>');
+  if (sel) { const tk = S.tasks[sel.f] || {}; document.getElementById('detailp').style.display = '';
+    document.getElementById('dtitle').textContent = `${sel.f} · ${sel.c} · tasks (green pass, red fail, grey error or not yet run). Click one for its output.`;
+    document.getElementById('dots').innerHTML = Object.keys(tk).sort().map(t => { const v = tk[t][sel.c]; return `<span class="dot" title="${t}" style="background:${v === 1 ? 'var(--ok)' : v === 0 ? 'var(--bad)' : '#444'}" onclick="openEp('${sel.c}','${t}')"></span>`; }).join(''); }
+}
+function pick(f, c){ sel = {f, c}; document.getElementById('episode').innerHTML = ''; render(); }
+async function openEp(c, t){
+  const box = document.getElementById('episode'); let ep = null;
+  if (window.openTrace) return window.openTrace(c, t);
+  try { const r = await fetch(`/api/episode?cond=${encodeURIComponent(c)}&task=${encodeURIComponent(t)}`); if (r.ok) ep = await r.json(); } catch (e) {}
+  if (!ep) { box.innerHTML = `<p class="mut">${esc(t)} under ${esc(c)}: stored episode not available in this view.</p>`; return; }
+  box.innerHTML = `<p><b>${esc(t)}</b> · condition <b>${esc(c)}</b> · score <b>${ep.score}</b> · ${ep.latency_s}s · ${ep.completion_tokens} tokens</p>
+   <div class="mut">task</div><pre>${esc(ep.prompt_shown)}</pre><div class="mut">model replies</div>${(ep.replies || []).map(r => `<pre>${esc(r)}</pre>`).join('')}
+   ${ep.trace && ep.trace.length ? `<div class="mut">tool trace</div><pre>${esc(ep.trace.map(s => JSON.stringify(s)).join('\n'))}</pre>` : ''}<div class="mut">checks</div><pre>${esc(JSON.stringify(ep.checks, null, 1))}</pre>`;
+}
+document.getElementById('onlyflag').onchange = render;
+if (REPLAY){
+  const m = document.getElementById('mode'); m.textContent = 'REPLAY of recorded event log'; m.className = 'badge replay';
+  document.getElementById('replaybar').style.display = 'flex';
+  const t0 = ALL.length ? ALL[0].ts : 0, t1 = ALL.length ? ALL[ALL.length - 1].ts : 1, sc = document.getElementById('scrub'); let timer = null;
+  const setT = v => { T = v >= 1000 ? Infinity : t0 + (t1 - t0) * v / 1000; document.getElementById('clock').textContent = new Date((T === Infinity ? t1 : T) * 1000).toLocaleString(); render(); };
+  sc.oninput = () => setT(+sc.value);
+  document.getElementById('play').onclick = function(){ if (timer){ clearInterval(timer); timer = null; this.textContent = 'Play'; return; }
+    if (+sc.value >= 1000) sc.value = 0; this.textContent = 'Pause';
+    timer = setInterval(() => { sc.value = Math.min(1000, +sc.value + 4); setT(+sc.value); if (+sc.value >= 1000){ clearInterval(timer); timer = null; document.getElementById('play').textContent = 'Play'; } }, 60); };
+  document.getElementById('src').textContent = `${ALL.length} recorded events`;
+  setT(1000);
+} else {
+  async function poll(){ try { const r = await (await fetch('/api/events?since=' + ALL.length)).json(); if (r.events.length){ ALL = ALL.concat(r.events); render(); } document.getElementById('src').textContent = 'polling every 2 s · ' + new Date().toLocaleTimeString(); } catch (e) { document.getElementById('src').textContent = 'server unreachable'; } }
+  render(); poll(); setInterval(poll, 2000);
+}
+</script></body></html>

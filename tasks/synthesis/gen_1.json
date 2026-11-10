@@ -1,0 +1,586 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "synthesis",
+  "subtheme": "highest with distractor figures",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Annual return, Harrowby Reading Room: The room has 318 registered members and lent 2140 books during the year.\n[Doc B] Annual return, Pellisande Reading Room: Books lent this year came to 3015. Registered members stand at 276.\n[Doc C] Annual return, Quenby Reading Room: We have 342 registered members. Loans for the year were 1890 books, and the porch was repainted.\n[Doc D] Annual return, Torvale Reading Room: 2760 books were lent and the register lists 301 members.\n\nQuestion: Which reading room has the most registered members?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <reading room name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Quenby",
+     "Quenby Reading Room",
+     "Quenby Room",
+     "the Quenby Reading Room",
+     "the Quenby Room"
+    ]
+   }
+  ],
+  "reference": "Members: 318, 276, 342, 301; the largest is 342.\nANSWER: Quenby",
+  "negative": "Pellisande has 3015, the largest figure.\nANSWER: Pellisande"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "synthesis",
+  "subtheme": "lowest is best (fastest time)",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Timekeeper's slip, Lake Ennor regatta, heat 1: The Dunlin Crew rowed the course in 412 seconds. The water was calm.\n[Doc B] Timekeeper's slip, Lake Ennor regatta, heat 2: The Skerry Crew rowed the course in 398 seconds, in a borrowed boat.\n[Doc C] Timekeeper's slip, Lake Ennor regatta, heat 3: The Marrow Crew rowed the course in 437 seconds after a late start to the heat.\n\nQuestion: All three heats used the same course. Which crew rowed it fastest?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <crew name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Skerry",
+     "Skerry Crew",
+     "the Skerry Crew"
+    ]
+   }
+  ],
+  "reference": "The fastest crew has the smallest time, and 398 is smaller than 412 and 437.\nANSWER: Skerry Crew",
+  "negative": "437 is the biggest time.\nANSWER: Marrow Crew"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "synthesis",
+  "subtheme": "named pairwise difference",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Shearing record, Brackenfold Farm: 264 fleeces were baled this season. Two hired hands helped for nine days.\n[Doc B] Shearing record, Ostrel Farm: This season we baled 197 fleeces. The old barn roof leaked twice.\n[Doc C] Shearing record, Wynmoor Farm: 312 fleeces were baled this season, the most in the valley.\n\nQuestion: How many more fleeces did Brackenfold Farm bale than Ostrel Farm?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 67
+   }
+  ],
+  "reference": "264 - 197 = 67.\nANSWER: 67",
+  "negative": "312 - 197 = 115.\nANSWER: 115"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "synthesis",
+  "subtheme": "second highest of three",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Stall count, Kessel Road market: 58 stalls traded on the first Saturday of May. A brass band played at noon.\n[Doc B] Stall count, Abbot's Lane market: On the first Saturday of May there were 73 stalls trading.\n[Doc C] Stall count, Fennimore Street market: 64 stalls traded on the first Saturday of May, and three were new.\n\nQuestion: Which market had the second-highest number of stalls trading on the first Saturday of May?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <market name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Fennimore Street",
+     "Fennimore Street market",
+     "the Fennimore Street market",
+     "Fennimore",
+     "Fennimore market"
+    ]
+   }
+  ],
+  "reference": "73 is highest, then 64, then 58, so the second is Fennimore Street.\nANSWER: Fennimore Street",
+  "negative": "73 is the highest.\nANSWER: Abbot's Lane"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "synthesis",
+  "subtheme": "spread between highest and lowest",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Gauge card, Low Tarn station: Rainfall for October was 146 mm. The gauge was emptied daily.\n[Doc B] Gauge card, Greave Hollow station: Rainfall for October was 209 mm. One reading was taken late.\n[Doc C] Gauge card, Stennet Rise station: Rainfall for October was 171 mm, recorded by a new volunteer.\n\nQuestion: How many millimetres separate the wettest station from the driest station in October?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 63
+   }
+  ],
+  "reference": "Wettest 209, driest 146, and 209 - 146 = 63.\nANSWER: 63",
+  "negative": "209 - 171 = 38.\nANSWER: 38"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "synthesis",
+  "subtheme": "lowest period for one entity",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Monthly sheet for June, Corriwell Tramway: 1284 tickets were sold. Car 4 was out of service for a week.\n[Doc B] Monthly sheet for July, Corriwell Tramway: 1410 tickets were sold, helped by the harbour fair.\n[Doc C] Monthly sheet for August, Corriwell Tramway: 1195 tickets were sold. The upper station clock was replaced.\n\nQuestion: In which of the three months did the Corriwell Tramway sell the fewest tickets?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <month name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "August",
+     "the month of August"
+    ]
+   }
+  ],
+  "reference": "1195 is smaller than 1284 and 1410.\nANSWER: August",
+  "negative": "1410 stands out.\nANSWER: July"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "synthesis",
+  "subtheme": "lowest entity and its value (JSON)",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Price card, Pibbin dairy: A wheel of smoked cheese costs 34 groats. Closed on the first Monday of the month.\n[Doc B] Price card, Rookhurst dairy: A wheel of smoked cheese costs 29 groats. Bring your own cloth.\n[Doc C] Price card, Tallowmere dairy: A wheel of smoked cheese costs 31 groats, with butter sold by the pat.\n\nQuestion: Which dairy sells a wheel of smoked cheese most cheaply, and what is its price in groats?\n\nReply with only a JSON object like {\"dairy\": \"<dairy name>\", \"price\": <number>} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "dairy",
+     "price"
+    ],
+    "equals": {
+     "price": 29
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"dairy\"\\s*:\\s*\"(the )?rookhurst( dairy)?\""
+   }
+  ],
+  "reference": "{\"dairy\": \"Rookhurst\", \"price\": 29}",
+  "negative": "{\"dairy\": \"Pibbin\", \"price\": 34}"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "synthesis",
+  "subtheme": "second lowest of five",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Roll sheet, Aldrow village school: 47 pupils on the roll this term.\n[Doc B] Roll sheet, Bessamy village school: 62 pupils on the roll; a second teacher starts in spring.\n[Doc C] Roll sheet, Carrick Fen village school: 39 pupils on the roll this term.\n[Doc D] Roll sheet, Dunstal village school: 55 pupils on the roll, with lunches cooked on site.\n[Doc E] Roll sheet, Eppley village school: 43 pupils on the roll this term.\n\nQuestion: Which village school has the second-smallest number of pupils on its roll?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <school name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Eppley",
+     "Eppley village school",
+     "Eppley school",
+     "the Eppley village school",
+     "the Eppley school"
+    ]
+   }
+  ],
+  "reference": "In order from smallest: 39, 43, 47, 55, 62. The second smallest is 43.\nANSWER: Eppley",
+  "negative": "The smallest roll is 39.\nANSWER: Carrick Fen"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "synthesis",
+  "subtheme": "largest gain between two dated reports",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the two documents, then answer.\n\n[Doc A] Beekeepers' guild register, spring 2041: The Morwen apiary keeps 480 hives, the Thackley apiary 215 hives and the Isard apiary 350 hives.\n[Doc B] Beekeepers' guild register, spring 2042: Hive counts are Isard 395, Morwen 505 and Thackley 290. Dues are unchanged.\n\nQuestion: Which apiary added the most hives between spring 2041 and spring 2042?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <apiary name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Thackley",
+     "Thackley apiary",
+     "the Thackley apiary"
+    ]
+   }
+  ],
+  "reference": "Morwen 505 - 480 = 25, Thackley 290 - 215 = 75, Isard 395 - 350 = 45; the largest is 75.\nANSWER: Thackley",
+  "negative": "Morwen has the most hives, 505.\nANSWER: Morwen"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "synthesis",
+  "subtheme": "margin of first over second",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Count sheet, Vellory ward: The candidate Ilse Marrant received 836 votes here. Polling closed on time.\n[Doc B] Count sheet, Oakhanger ward: Ilse Marrant received 912 votes in this ward.\n[Doc C] Count sheet, Stroud Mere ward: Votes for Ilse Marrant came to 874. One box arrived late.\n[Doc D] Count sheet, Pennick ward: Ilse Marrant received 790 votes; the hall was shared with a flower show.\n\nQuestion: By how many votes does Ilse Marrant's best ward beat her second-best ward?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 38
+   }
+  ],
+  "reference": "Best is 912, second best is 874, and 912 - 874 = 38.\nANSWER: 38",
+  "negative": "912 - 790 = 122.\nANSWER: 122"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "synthesis",
+  "subtheme": "tool retrieval, highest versus lowest",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Four mountain huts are described in the documents: Cragside, Hollin, Mossop and Netherby. How many more bunks does the hut with the most bunks have than the hut with the fewest bunks? Look the figures up in the documents, then give the difference as a number in your final answer.",
+  "checks": [
+   {
+    "type": "number",
+    "value": 36
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 2,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "cragside"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "hollin"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "mossop"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "netherby"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "67-31"
+     }
+    }
+   ],
+   "final": "36"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "mossop"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "netherby"
+     }
+    }
+   ],
+   "final": "25"
+  },
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "cragside": "Cragside hut warden sheet. The hut stands at 1480 metres on the east ridge. It sleeps walkers in 54 bunks and has a wood stove.",
+    "hollin": "Hollin hut warden sheet. A small stone hut beside the tarn with 31 bunks. Water comes from a spring behind the hut.",
+    "mossop": "Mossop hut warden sheet. Rebuilt in 2036 after a storm. The hut has 67 bunks, a drying room and a guardian in summer.",
+    "netherby": "Netherby hut warden sheet. The hut has 42 bunks and a small shop that sells maps and soup.",
+    "passnotes": "Notes on the high pass. The crossing between the east ridge and the tarn takes about five hours. Snow can lie until June."
+   }
+  }
+ },
+ {
+  "local_id": "g1-12",
+  "family": "synthesis",
+  "subtheme": "derive per-document figure then rank",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Marshal's return, Hartsell fell race: 140 runners started and 118 reached the finish.\n[Doc B] Marshal's return, Brimlow fell race: 165 runners started and 149 reached the finish. Mist on the top.\n[Doc C] Marshal's return, Coddington fell race: 128 runners started and 99 reached the finish.\n[Doc D] Marshal's return, Yewdale fell race: 152 runners started and 127 reached the finish, with tea served after.\n\nQuestion: In which fell race did the largest number of starters fail to reach the finish?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <race name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Coddington",
+     "Coddington fell race",
+     "Coddington race",
+     "the Coddington fell race",
+     "the Coddington race"
+    ]
+   }
+  ],
+  "reference": "Non-finishers: Hartsell 22, Brimlow 16, Coddington 29, Yewdale 25; the largest is 29.\nANSWER: Coddington",
+  "negative": "Brimlow had the most starters, 165.\nANSWER: Brimlow"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "synthesis",
+  "subtheme": "rank position of a named entity",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Yield note, Ashgrove allotments: Members lifted 226 kg of potatoes this autumn.\n[Doc B] Yield note, Birkett allotments: 251 kg of potatoes were lifted this autumn. The shed lock was changed.\n[Doc C] Yield note, Colne Bank allotments: Members lifted 198 kg of potatoes this autumn.\n[Doc D] Yield note, Derrow allotments: This autumn's potato crop weighed 243 kg.\n[Doc E] Yield note, Elmstead allotments: 234 kg of potatoes were lifted this autumn, mostly from the lower plots.\n\nQuestion: If the five allotment sites are ranked by potato weight with rank 1 for the heaviest crop, what rank does Ashgrove hold?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <rank number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "Heavier than Ashgrove's 226 are 251, 243 and 234, so three sites are ahead of it.\nANSWER: 4",
+  "negative": "Only Colne Bank is lighter, so Ashgrove is second.\nANSWER: 2"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "synthesis",
+  "subtheme": "rank in one dated report, value from the other (JSON)",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Harbour board survey, 2044: Moorings in use were 71 at Greywell quay, 64 at Sandle quay and 83 at Upton Cray quay.\n[Doc B] Harbour board survey, 2046: Moorings in use were 79 at Upton Cray quay, 69 at Greywell quay and 88 at Sandle quay.\n[Doc C] Harbour board minute: The slipway at Upton Cray quay was resurfaced between the two surveys.\n\nQuestion: Which quay had the fewest moorings in use in the 2044 survey, and how many moorings did that same quay have in use in the 2046 survey?\n\nReply with only a JSON object like {\"quay\": \"<quay name>\", \"moorings\": <number>} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "quay",
+     "moorings"
+    ],
+    "equals": {
+     "moorings": 88
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"quay\"\\s*:\\s*\"(the )?sandle( quay)?\""
+   }
+  ],
+  "reference": "{\"quay\": \"Sandle\", \"moorings\": 88}",
+  "negative": "{\"quay\": \"Sandle\", \"moorings\": 64}"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "synthesis",
+  "subtheme": "largest fall between two dated reports (JSON)",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Diocese attendance return, Easter 2051: Ravensgill chapel 620, Tolbury chapel 455, Marchweir chapel 510, Coombe Ash chapel 380.\n[Doc B] Diocese attendance return, Easter 2052: Coombe Ash chapel 341, Marchweir chapel 448, Ravensgill chapel 585, Tolbury chapel 470.\n[Doc C] Diocese newsletter: The Tolbury chapel organ was retuned in 2052 and the Ravensgill bells were rehung.\n\nQuestion: Which chapel's Easter attendance fell by the largest number between 2051 and 2052, and by how many did it fall?\n\nReply with only a JSON object like {\"chapel\": \"<chapel name>\", \"fall\": <number>} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "chapel",
+     "fall"
+    ],
+    "equals": {
+     "fall": 62
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"chapel\"\\s*:\\s*\"(the )?marchweir( chapel)?\""
+   }
+  ],
+  "reference": "{\"chapel\": \"Marchweir\", \"fall\": 62}",
+  "negative": "{\"chapel\": \"Ravensgill\", \"fall\": 35}"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "synthesis",
+  "subtheme": "mixed units then second highest",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Playbill, Lantern Players: Our winter comedy runs 1 hour 35 minutes with no interval. Doors open early.\n[Doc B] Playbill, Gable Troupe: The winter comedy runs 88 minutes. Programmes cost 3 pence.\n[Doc C] Playbill, Reedham Company: Running time 1 hour 20 minutes, performed in the round.\n[Doc D] Playbill, Old Mill Players: Running time 102 minutes. Cushions may be hired at the door.\n\nQuestion: Which group's show has the second-longest running time?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <group name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Lantern Players",
+     "the Lantern Players",
+     "Lantern"
+    ]
+   }
+  ],
+  "reference": "In minutes: Lantern 95, Gable 88, Reedham 80, Old Mill 102. The longest is 102 and the second is 95.\nANSWER: Lantern Players",
+  "negative": "102 is the longest, then 88.\nANSWER: Gable Troupe"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "synthesis",
+  "subtheme": "period conversion then highest",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Order book, Hobbin's bakery: We bake 95 loaves a day and open all seven days of the week.\n[Doc B] Order book, Crumbwell bakery: Loaves baked come to 640 a week. The ovens are coal fired.\n[Doc C] Order book, Stokeley bakery: We bake 110 loaves a day and open six days a week, closing on Sundays.\n[Doc D] Order book, Farthing Lane bakery: We bake on three days a week only, 205 loaves each baking day.\n\nQuestion: Which bakery bakes the most loaves in a week?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <bakery name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Hobbin's",
+     "Hobbins",
+     "Hobbin's bakery",
+     "Hobbins bakery",
+     "the Hobbin's bakery",
+     "Hobbin"
+    ]
+   }
+  ],
+  "reference": "Weekly: Hobbin's 95 x 7 = 665, Crumbwell 640, Stokeley 110 x 6 = 660, Farthing Lane 205 x 3 = 615.\nANSWER: Hobbin's",
+  "negative": "Stokeley bakes 110 a day, more than any other daily figure that is open most of the week.\nANSWER: Stokeley"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "synthesis",
+  "subtheme": "period with the largest gap between two entities (JSON)",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Ferry log for March: The Wessenby crossing carried 184 carts and the Orlock crossing carried 151 carts.\n[Doc B] Ferry log for April: Carts carried were 158 at the Orlock crossing and 203 at the Wessenby crossing. One rope was replaced.\n[Doc C] Ferry log for May: The Wessenby crossing carried 176 carts and the Orlock crossing carried 139 carts.\n[Doc D] Ferry log for June: The Wessenby crossing carried 211 carts and the Orlock crossing carried 172 carts, the busiest month so far.\n\nQuestion: In which month did the Wessenby crossing carry the most carts MORE than the Orlock crossing, and how many more was it in that month?\n\nReply with only a JSON object like {\"month\": \"<month name>\", \"lead\": <number>} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "month",
+     "lead"
+    ],
+    "equals": {
+     "month": "April",
+     "lead": 45
+    }
+   }
+  ],
+  "reference": "{\"month\": \"April\", \"lead\": 45}",
+  "negative": "{\"month\": \"June\", \"lead\": 39}"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "synthesis",
+  "subtheme": "derive earlier-period figures then highest",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Club report, Tansley cricket club: Season tickets sold this year came to 365, up from 310 last year.\n[Doc B] Club report, Wickmere cricket club: We sold 402 season tickets this year, which is 61 more than last year.\n[Doc C] Club report, Lorrimer cricket club: 388 season tickets were sold this year, 9 fewer than last year.\n[Doc D] Club report, Paxhill cricket club: This year's season ticket sales were 351, down 43 on last year. The pavilion was repainted.\n[Doc E] Club report, Garron cricket club: Season tickets sold this year: 374, a rise of 18 on last year.\n\nQuestion: Which cricket club sold the most season tickets LAST year?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <club name>",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Lorrimer",
+     "Lorrimer cricket club",
+     "Lorrimer club",
+     "the Lorrimer cricket club",
+     "the Lorrimer club"
+    ]
+   }
+  ],
+  "reference": "Last year: Tansley 310, Wickmere 402 - 61 = 341, Lorrimer 388 + 9 = 397, Paxhill 351 + 43 = 394, Garron 374 - 18 = 356.\nANSWER: Lorrimer",
+  "negative": "Wickmere sold 402, the most.\nANSWER: Wickmere"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "synthesis",
+  "subtheme": "leader and margin over runner-up (JSON)",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Weighbridge slip, Ebbfleet quarry: 743 tonnes of slate left the yard in the first week of September.\n[Doc B] Weighbridge slip, Harl quarry: 698 tonnes of slate left the yard in the first week of September. One wagon was turned back.\n[Doc C] Weighbridge slip, Norrow quarry: 761 tonnes of slate left the yard in the first week of September.\n[Doc D] Weighbridge slip, Scard quarry: 719 tonnes of slate left the yard in the first week of September.\n[Doc E] Weighbridge slip, Tibbet quarry: 752 tonnes of slate left the yard in the first week of September, all by rail.\n\nQuestion: Which quarry sent out the most slate that week, and by how many tonnes did it beat the quarry in second place?\n\nReply with only a JSON object like {\"quarry\": \"<quarry name>\", \"margin\": <number>} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "quarry",
+     "margin"
+    ],
+    "equals": {
+     "margin": 9
+    }
+   },
+   {
+    "type": "regex",
+    "pattern": "\"quarry\"\\s*:\\s*\"(the )?norrow( quarry)?\""
+   }
+  ],
+  "reference": "{\"quarry\": \"Norrow\", \"margin\": 9}",
+  "negative": "{\"quarry\": \"Norrow\", \"margin\": 63}"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "synthesis",
+  "subtheme": "tool retrieval, smallest change in either direction",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The guild surveyed three watermills, Alderwick, Brookend and Cinderford, in 2061 and again in 2063, counting sacks of flour ground per week. One mill's weekly figure changed by less than the other two, whether up or down. By how many sacks did that mill's figure change? Look the figures up in the documents, then give the size of the change as a number in your final answer.",
+  "checks": [
+   {
+    "type": "number",
+    "value": 21
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 2,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "guild survey sacks of flour per week"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "survey2061"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "survey2063"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "310-289"
+     }
+    }
+   ],
+   "final": "21"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "survey2061"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "survey2063"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "262-230"
+     }
+    }
+   ],
+   "final": "32"
+  },
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "survey2061": "Millers' guild survey of 2061. Sacks of flour ground per week: Alderwick mill 230, Brookend mill 310, Cinderford mill 275. Surveyed in dry weather.",
+    "survey2063": "Millers' guild survey of 2063. Sacks of flour ground per week: Cinderford mill 318, Alderwick mill 262, Brookend mill 289. Surveyed after the spring floods.",
+    "weirnotes": "Notes on the river weirs. The Brookend weir was lowered in 2062 to ease flooding upstream. Eel traps are lifted each autumn.",
+    "guildrules": "Millers' guild rules. Members pay dues at midsummer. Each mill must keep its stones dressed and its scales checked."
+   }
+  }
+ }
+]

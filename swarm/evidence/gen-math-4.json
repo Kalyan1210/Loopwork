@@ -1,0 +1,161 @@
+{
+ "actor": "gen-math-4",
+ "role": "task-generation",
+ "family": "math",
+ "subtheme": "combinatorics and probability",
+ "output_file": "tasks/math/gen_4.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "answer_types": {
+  "integer": 12,
+  "decimal_2dp_tol_0.0051": 9
+ },
+ "what_was_done": [
+  "Read lab/TASKS.md, tasks/math/spec.md and tasks/math/dev.json",
+  "Designed 21 distinct single-mode tasks (7 easy, 7 medium, 7 hard) using the spec's verbatim format sentences and max_tokens 320",
+  "Wrote the file with a Python script as one JSON array",
+  "Ran the validator"
+ ],
+ "verification": "Every expected answer was computed by exhaustive enumeration in Python (itertools permutations/combinations/product with exact Fractions) before writing the tasks; trap values used as negatives (for example 48, 120, 35, 30, 4/7) were enumerated the same way. g4-10 was changed after the first enumeration pass and its value 8/36 is asserted inside the build script. Decimal answers were checked for their distance to a rounding boundary; none is an exact tie.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/math/gen_4.json --family math",
+ "validator_result": "21/21 valid",
+ "model_pilot_run": false,
+ "notes": [
+  "No model was run on these tasks (held-out).",
+  "Other generators' files were not read.",
+  "Difficulty labels are design estimates, not measured on the baseline.",
+  "Max prompt length 500 characters."
+ ],
+ "tasks": [
+  {
+   "local_id": "g4-01",
+   "subtheme": "prob-without-replacement",
+   "difficulty": "easy",
+   "expected": 0.33
+  },
+  {
+   "local_id": "g4-02",
+   "subtheme": "codes-restricted",
+   "difficulty": "easy",
+   "expected": 24
+  },
+  {
+   "local_id": "g4-03",
+   "subtheme": "pigeonhole",
+   "difficulty": "easy",
+   "expected": 9
+  },
+  {
+   "local_id": "g4-04",
+   "subtheme": "expected-value",
+   "difficulty": "easy",
+   "expected": 0.5
+  },
+  {
+   "local_id": "g4-05",
+   "subtheme": "inclusion-exclusion-two-sets",
+   "difficulty": "easy",
+   "expected": 5
+  },
+  {
+   "local_id": "g4-06",
+   "subtheme": "selection-exact",
+   "difficulty": "easy",
+   "expected": 40
+  },
+  {
+   "local_id": "g4-07",
+   "subtheme": "coins-at-least",
+   "difficulty": "easy",
+   "expected": 0.31
+  },
+  {
+   "local_id": "g4-08",
+   "subtheme": "grid-paths-through-point",
+   "difficulty": "medium",
+   "expected": 18
+  },
+  {
+   "local_id": "g4-09",
+   "subtheme": "total-probability-two-stage",
+   "difficulty": "medium",
+   "expected": 0.54
+  },
+  {
+   "local_id": "g4-10",
+   "subtheme": "dice-condition-removes-cases",
+   "difficulty": "medium",
+   "expected": 0.22
+  },
+  {
+   "local_id": "g4-11",
+   "subtheme": "cards-parity",
+   "difficulty": "medium",
+   "expected": 0.55
+  },
+  {
+   "local_id": "g4-12",
+   "subtheme": "expected-value-reroll",
+   "difficulty": "medium",
+   "expected": 4.67
+  },
+  {
+   "local_id": "g4-13",
+   "subtheme": "arrangements-repeated-letters",
+   "difficulty": "medium",
+   "expected": 12
+  },
+  {
+   "local_id": "g4-14",
+   "subtheme": "codes-exactly-one-condition",
+   "difficulty": "medium",
+   "expected": 180
+  },
+  {
+   "local_id": "g4-15",
+   "subtheme": "digits-case-split",
+   "difficulty": "hard",
+   "expected": 328
+  },
+  {
+   "local_id": "g4-16",
+   "subtheme": "seating-two-restrictions",
+   "difficulty": "hard",
+   "expected": 24
+  },
+  {
+   "local_id": "g4-17",
+   "subtheme": "committee-two-restrictions",
+   "difficulty": "hard",
+   "expected": 99
+  },
+  {
+   "local_id": "g4-18",
+   "subtheme": "marbles-exactly-two-colours",
+   "difficulty": "hard",
+   "expected": 0.65
+  },
+  {
+   "local_id": "g4-19",
+   "subtheme": "expected-maximum",
+   "difficulty": "hard",
+   "expected": 4.47
+  },
+  {
+   "local_id": "g4-20",
+   "subtheme": "pigeonhole-unequal-supply",
+   "difficulty": "hard",
+   "expected": 12
+  },
+  {
+   "local_id": "g4-21",
+   "subtheme": "strings-adjacent-and-at-least-one",
+   "difficulty": "hard",
+   "expected": 22
+  }
+ ]
+}

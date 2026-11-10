@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "math",
+  "subtheme": "lcm-scheduling",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Two harbour lamps are switched on together at time 0 and both flash at that instant. The red lamp then flashes every 12 seconds and the green lamp every 18 seconds. Counting the flash at time 0, how many times do they flash at the same instant during the first 300 seconds (from second 0 to second 300 inclusive)? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "reference": "lcm(12,18)=36. Joint flashes at 0,36,...,288: 300//36 = 8 after the start.\n8+1 = 9.\nANSWER: 9",
+  "negative": "lcm(12,18)=36. 300/36 = 8.33, so 8 times.\nANSWER: 8"
+ },
+ {
+  "local_id": "g3-02",
+  "family": "math",
+  "subtheme": "base-to-decimal",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The numeral 2103 is written in base 4. What is its value in base 10? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 147
+   }
+  ],
+  "reference": "2*64 + 1*16 + 0*4 + 3 = 128+16+3 = 147.\nANSWER: 147",
+  "negative": "2*4 + 1*4 + 0*4 + 3*4 = 24.\nANSWER: 24"
+ },
+ {
+  "local_id": "g3-03",
+  "family": "math",
+  "subtheme": "arithmetic-nth-term",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "In an arithmetic sequence the 7th term is 31 and the 12th term is 51. What is the 20th term? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 83
+   }
+  ],
+  "reference": "5d = 51-31 = 20, so d = 4. a1 = 31 - 6*4 = 7.\na20 = 7 + 19*4 = 83.\nANSWER: 83",
+  "negative": "d = 4. a20 = 31 + 20*4 = 111.\nANSWER: 111"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "math",
+  "subtheme": "odd-divisors",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "How many of the positive divisors of 360 are odd numbers? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "reference": "360 = 2^3 * 3^2 * 5. Odd divisors use only 3^2 * 5 = 45.\n(2+1)*(1+1) = 6.\nANSWER: 6",
+  "negative": "360 = 2^3 * 3^2 * 5, so (3+1)(2+1)(1+1) = 24 divisors.\nANSWER: 24"
+ },
+ {
+  "local_id": "g3-05",
+  "family": "math",
+  "subtheme": "remainder-linear",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A whole number n leaves a remainder of 7 when it is divided by 9. What is the remainder when 5n + 4 is divided by 9? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "n = 7 (mod 9), so 5n + 4 = 35 + 4 = 39 (mod 9).\n39 = 4*9 + 3.\nANSWER: 3",
+  "negative": "5*7 + 4 = 39.\nANSWER: 39"
+ },
+ {
+  "local_id": "g3-06",
+  "family": "math",
+  "subtheme": "gcd-tiling",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A rectangular courtyard measures 84 cm by 126 cm. It is to be covered exactly, with no cutting, using identical square tiles that are as large as possible. How many tiles are needed? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "reference": "gcd(84,126) = 42, so the tile side is 42 cm.\n84/42 = 2 and 126/42 = 3, so 2*3 = 6 tiles.\nANSWER: 6",
+  "negative": "gcd(84,126) = 42 is the tile side.\nANSWER: 42"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "math",
+  "subtheme": "geometric-sum",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A geometric sequence has first term 3 and common ratio 2. What is the sum of its first 8 terms? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 765
+   }
+  ],
+  "reference": "S = 3*(2^8 - 1)/(2 - 1) = 3*255 = 765.\nANSWER: 765",
+  "negative": "The 8th term is 3*2^7 = 384.\nANSWER: 384"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "math",
+  "subtheme": "digit-reversal",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A two-digit number has digits that add up to 11. When its two digits are swapped, the new number is 27 greater than the original number. What is the original number? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 47
+   }
+  ],
+  "reference": "Digits a (tens), b (units): a + b = 11.\n(10b + a) - (10a + b) = 9(b - a) = 27, so b - a = 3.\na = 4, b = 7.\nANSWER: 47",
+  "negative": "a + b = 11 and the digits differ by 3, so the digits are 7 and 4.\nANSWER: 74"
+ },
+ {
+  "local_id": "g3-09",
+  "family": "math",
+  "subtheme": "common-remainder-largest",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "What is the largest three-digit number that leaves a remainder of 3 when divided by 7 and also a remainder of 3 when divided by 8? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 955
+   }
+  ],
+  "reference": "The number minus 3 is a multiple of lcm(7,8) = 56.\n56*17 = 952 and 56*18 = 1008 is too big.\n952 + 3 = 955.\nANSWER: 955",
+  "negative": "lcm(7,8) = 56. The largest three-digit multiple is 56*17 = 952.\nANSWER: 952"
+ },
+ {
+  "local_id": "g3-10",
+  "family": "math",
+  "subtheme": "count-multiples-exclusion",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "How many whole numbers from 100 to 400 inclusive are divisible by 6 but not divisible by 9? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 33
+   }
+  ],
+  "reference": "Multiples of 6: 400//6 - 99//6 = 66 - 16 = 50.\nDivisible by 6 and 9 means multiples of 18: 400//18 - 99//18 = 22 - 5 = 17.\n50 - 17 = 33.\nANSWER: 33",
+  "negative": "Multiples of 6: 66 - 16 = 50. Multiples of 9: 44 - 11 = 33. 50 - 33 = 17.\nANSWER: 17"
+ },
+ {
+  "local_id": "g3-11",
+  "family": "math",
+  "subtheme": "units-digit-powers",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "What is the units digit (the last digit) of 7^83 + 4^50? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "reference": "Units digits of powers of 7 cycle 7, 9, 3, 1; 83 = 4*20 + 3, so 7^83 ends in 3.\nPowers of 4 end in 4 (odd exponent) or 6 (even exponent), so 4^50 ends in 6.\n3 + 6 = 9.\nANSWER: 9",
+  "negative": "7^83 ends in 3 and 4^50 ends in 4, so 3 + 4 = 7.\nANSWER: 7"
+ },
+ {
+  "local_id": "g3-12",
+  "family": "math",
+  "subtheme": "sum-of-multiples",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "What is the sum of all multiples of 7 that are greater than 50 and less than 150? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1421
+   }
+  ],
+  "reference": "First is 56 = 7*8, last is 147 = 7*21, so 21 - 8 + 1 = 14 terms.\nSum = 14*(56 + 147)/2 = 7*203 = 1421.\nANSWER: 1421",
+  "negative": "From 56 to 147 there are 21 - 8 = 13 terms.\nSum = 13*(56 + 147)/2, about 1319.\nANSWER: 1319"
+ },
+ {
+  "local_id": "g3-13",
+  "family": "math",
+  "subtheme": "base-5-addition",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The numerals 243 and 134 are both written in base 5. Add the two numbers and write the result in base 5. (Give the base-5 numeral as your answer.) Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 432
+   }
+  ],
+  "reference": "243 in base 5 = 2*25 + 4*5 + 3 = 73. 134 in base 5 = 25 + 15 + 4 = 44.\n73 + 44 = 117 = 4*25 + 3*5 + 2.\nSo the sum is 432 in base 5.\nANSWER: 432",
+  "negative": "243 + 134 = 377.\nANSWER: 377"
+ },
+ {
+  "local_id": "g3-14",
+  "family": "math",
+  "subtheme": "recurrence-backward",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "In a sequence, each term after the first equals twice the previous term minus 3. The fifth term is 35. What is the first term? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "reference": "Reverse the rule: previous = (term + 3)/2.\na4 = 38/2 = 19, a3 = 22/2 = 11, a2 = 14/2 = 7, a1 = 10/2 = 5.\nANSWER: 5",
+  "negative": "Going back four steps: a4 = 19, a3 = 11, a2 = 7.\nANSWER: 7"
+ },
+ {
+  "local_id": "g3-15",
+  "family": "math",
+  "subtheme": "smallest-with-divisor-count",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "What is the smallest positive whole number that has exactly 10 positive divisors? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 48
+   }
+  ],
+  "reference": "10 = 10 or 5*2, so the number is p^9 or p^4 * q.\n2^9 = 512. 2^4 * 3 = 48. 3^4 * 2 = 162.\nThe smallest is 48.\nANSWER: 48",
+  "negative": "10 divisors needs p^9, and the smallest is 2^9 = 512.\nANSWER: 512"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "math",
+  "subtheme": "factorial-trailing-zeros",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The number 130! is the product 1 * 2 * 3 * ... * 130. How many zeros are at the end of 130! when it is written out in base 10? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 32
+   }
+  ],
+  "reference": "Count factors of 5: 130//5 = 26, 130//25 = 5, 130//125 = 1.\n26 + 5 + 1 = 32 (factors of 2 are plentiful).\nANSWER: 32",
+  "negative": "Each multiple of 5 gives one zero: 130/5 = 26.\nANSWER: 26"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "math",
+  "subtheme": "gcd-lcm-pair",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Two positive whole numbers have greatest common divisor 12 and least common multiple 180. Neither number is a multiple of the other. What is the sum of the two numbers? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 96
+   }
+  ],
+  "reference": "Write the numbers as 12a and 12b with gcd(a,b) = 1 and a*b = 180/12 = 15.\n(a,b) = (1,15) gives 12 and 180, but 180 is a multiple of 12, so it is excluded.\n(a,b) = (3,5) gives 36 and 60.\n36 + 60 = 96.\nANSWER: 96",
+  "negative": "The numbers are the gcd and the lcm: 12 + 180 = 192.\nANSWER: 192"
+ },
+ {
+  "local_id": "g3-18",
+  "family": "math",
+  "subtheme": "digit-divisibility",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "In the four-digit number 6A3B, A and B stand for single digits (they may be equal). The number is divisible by 36. What is the largest possible value of the whole four-digit number? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 6732
+   }
+  ],
+  "reference": "Divisible by 4: the ending 3B must be 32 or 36, so B = 2 or 6.\nDivisible by 9: 6 + A + 3 + B is a multiple of 9.\nB = 2 gives A = 7 (6732); B = 6 gives A = 3 (6336).\nThe largest is 6732.\nANSWER: 6732",
+  "negative": "B = 6 for divisibility by 4, then 6 + A + 3 + 6 = 18 gives A = 3.\nANSWER: 6336"
+ },
+ {
+  "local_id": "g3-19",
+  "family": "math",
+  "subtheme": "term-from-partial-sums",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "For every positive whole number n, the sum of the first n terms of a sequence is 3n^2 + 2n. What is the 10th term of the sequence? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 59
+   }
+  ],
+  "reference": "The 10th term is S(10) - S(9).\nS(10) = 300 + 20 = 320. S(9) = 243 + 18 = 261.\n320 - 261 = 59.\nANSWER: 59",
+  "negative": "Put n = 10: 3*100 + 2*10 = 320.\nANSWER: 320"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "math",
+  "subtheme": "modular-power-sum",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "What is the remainder when 2^50 + 3^50 is divided by 7? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "reference": "2^3 = 8 = 1 (mod 7); 50 = 3*16 + 2, so 2^50 = 2^2 = 4 (mod 7).\n3^6 = 1 (mod 7); 50 = 6*8 + 2, so 3^50 = 3^2 = 9 = 2 (mod 7).\n4 + 2 = 6.\nANSWER: 6",
+  "negative": "2^50 = 2^2 = 4 and 3^50 = 3^2 = 9 (mod 7), so 4 + 9 = 13.\nANSWER: 13"
+ },
+ {
+  "local_id": "g3-21",
+  "family": "math",
+  "subtheme": "periodic-recurrence-sum",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A sequence starts with a1 = 3 and a2 = 5. Every later term equals the previous term minus the term before that: a_n = a_(n-1) - a_(n-2). What is the sum of the first 100 terms? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "reference": "Terms: 3, 5, 2, -3, -5, -2, then 3, 5, ... so the sequence repeats every 6 terms.\nEach block of 6 sums to 0. 100 = 6*16 + 4.\nThe sum is the first 4 terms: 3 + 5 + 2 - 3 = 7.\nANSWER: 7",
+  "negative": "The terms repeat every 6 and each block of 6 sums to 0, so everything cancels.\nANSWER: 0"
+ }
+]

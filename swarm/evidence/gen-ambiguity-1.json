@@ -1,0 +1,33 @@
+{
+ "actor": "gen-ambiguity-1",
+ "role": "task-generation",
+ "family": "ambiguity",
+ "subtheme": "1: missing essential parameter in a service request",
+ "output_file": "tasks/ambiguity/gen_1.json",
+ "n_tasks": 21,
+ "local_ids": "g1-01..g1-21",
+ "mode": "single (all), two-way ASK/ANSWER format block used verbatim from tasks/ambiguity/spec.md",
+ "balance": {
+  "expected_action": {"ANSWER": 11, "ASK": 10},
+  "difficulty": {"easy": 7, "medium": 7, "hard": 7},
+  "difficulty_by_action": {"easy/ANSWER": 7, "medium/ASK": 5, "medium/ANSWER": 2, "hard/ASK": 5, "hard/ANSWER": 2},
+  "order": "shuffled with a fixed seed; not alternating (S=ASK, N=ANSWER): SSNNNNNSSNSNSSSSNNNSN"
+ },
+ "missing_items_in_ask_tasks": ["kiln shelf count", "crate weight", "sailing day", "rope unit (metre vs fathom)", "poster size", "normal hourly wage", "number of hire days", "coach departure time", "curtain drop", "hallway width"],
+ "answer_task_shapes": ["hourly hire price", "class end time", "pick-up day", "token conversion", "tray count by division", "price with add-on", "village stop day lookup", "quantity given in words", "irrelevant undecided value (collection day)", "first working day after request", "end time crossing the hour"],
+ "verification": [
+  "Every expected ANSWER value (28, 15:45, Thursday, 60, 7, 55, 30, 42, 12:25, Monday, plus a direct lookup Friday) was computed by Python code in the generator script (integer arithmetic, datetime for times, weekday list walk for days), not by mental arithmetic.",
+  "Beyond the required reference/negative pair, each task was self-tested with lab.core.run_check: 2-3 alternative correct wordings must pass (ASK tasks: other phrasings naming the missing item; ANSWER tasks: answer with trailing period) and 3-5 wrong replies must fail (ASK tasks: questions about a fact printed in the prompt, a restatement of the task, and ask-plus-answer replies; ANSWER tasks: plausible wrong numbers, days or times). All self-tests passed.",
+  "All prompts are under 700 characters; all content is fictional businesses."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/ambiguity/gen_1.json --family ambiguity",
+  "result": "21/21 valid"
+ },
+ "model_runs": "none (held-out tasks; no pilot was run)",
+ "notes": [
+  "The file has 21 tasks, so the ASK/ANSWER split is 10/11 rather than exactly half.",
+  "Each task carries tags.expected (ASK or ANSWER) as free metadata for later analysis.",
+  "Other generators' files were not read; nothing under lab/ or artifacts/ was modified; git was not used."
+ ]
+}

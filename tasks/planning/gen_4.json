@@ -1,0 +1,519 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "planning",
+  "subtheme": "enumerated-routes-time",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Nia drives from Fenwick to Garnet Bay. There are exactly three ways to go:\n- Ferry way: drive 12 minutes to the dock, wait 10 minutes for the ferry, then an 18 minute crossing.\n- Bridge way: one drive of 44 minutes.\n- Tunnel way: drive 25 minutes, queue 8 minutes at the tunnel, then drive 9 minutes.\nHow many minutes does the quickest way take in total?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   }
+  ],
+  "reference": "Ferry 12+10+18 = 40, bridge 44, tunnel 25+8+9 = 42.\nANSWER: 40",
+  "negative": "Ferry is 12+18.\nANSWER: 30",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-02",
+  "family": "planning",
+  "subtheme": "fixed-visiting-order",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A delivery van starts in Marrow, must call at Quill first, then at Tansy, and must finish in Vale. For each step of the trip it takes the direct road between the two places.\nDirect roads:\n- Marrow to Quill: 8 km\n- Quill to Tansy: 11 km\n- Tansy to Vale: 6 km\n- Marrow to Tansy: 5 km\n- Quill to Vale: 9 km\nHow many km does the van drive in total?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 25
+   }
+  ],
+  "reference": "Marrow-Quill 8, Quill-Tansy 11, Tansy-Vale 6.\nANSWER: 25",
+  "negative": "Add all the roads: 8+11+6+5+9.\nANSWER: 39",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-03",
+  "family": "planning",
+  "subtheme": "earliest-arrival-one-leg",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Ilse walks onto the platform at Brackwater station at 08:25. Trains from Brackwater to Sorrel Hill leave at 08:05, 08:20, 08:50 and 09:20, and the ride takes 40 minutes.\nShe takes the first train she can catch. At what time does she arrive at Sorrel Hill?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:30",
+       "09:30 am",
+       "09:30am",
+       "<09:30>",
+       "9:30",
+       "<9:30>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:30\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "The 08:05 and 08:20 have gone. She takes the 08:50 and arrives 40 minutes later.\nANSWER: 09:30",
+  "negative": "08:25 plus 40 minutes.\nANSWER: 09:05",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-04",
+  "family": "planning",
+  "subtheme": "enumerated-routes-via-town",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A cyclist rides from Kettle to Wren. Every route goes through exactly one town on the way:\n- through Lumen: Kettle to Lumen 7 km, Lumen to Wren 12 km\n- through Moss: Kettle to Moss 10 km, Moss to Wren 6 km\n- through Nettle: Kettle to Nettle 5 km, Nettle to Wren 13 km\nWhich town does the shortest route go through?\nKeep any working under 60 words. Then end with a final line: ANSWER: followed by just the town name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Moss",
+       "<Moss>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*moss\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Lumen 19 km, Moss 16 km, Nettle 18 km.\nANSWER: Moss",
+  "negative": "Nettle is the closest town to Kettle.\nANSWER: Nettle",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-05",
+  "family": "planning",
+  "subtheme": "visiting-order-json",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A sightseeing boat visits four landings once each: amber, bell, cedar, dawn.\n- The trip starts at cedar.\n- The trip ends at amber.\n- dawn is visited before bell.\nGive the only possible visiting order. Reply with only a JSON array of the four landing names, for example [\"a\",\"b\"]. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "cedar",
+     "dawn",
+     "bell",
+     "amber"
+    ]
+   }
+  ],
+  "reference": "[\"cedar\",\"dawn\",\"bell\",\"amber\"]",
+  "negative": "[\"cedar\",\"bell\",\"dawn\",\"amber\"]"
+ },
+ {
+  "local_id": "g4-06",
+  "family": "planning",
+  "subtheme": "stops-between",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A tram line has seven stops in this order: Ash, Birchley, Corran, Dell, Eastmoor, Fountain, Grange. The tram halts at every stop.\nPip gets on at Birchley and gets off at Fountain. At how many stops does the tram halt while Pip is on board, not counting Birchley and Fountain themselves?\nName those stops in one line. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Corran, Dell, Eastmoor.\nANSWER: 3",
+  "negative": "Birchley, Corran, Dell, Eastmoor, Fountain.\nANSWER: 5",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-07",
+  "family": "planning",
+  "subtheme": "latest-departure-one-leg",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Joss must be in Umberfield by 14:00 for a job interview. Coaches from Thistlewick to Umberfield leave at 12:30, 13:10, 13:25 and 13:40, and the ride takes 45 minutes.\nWhat is the departure time of the latest coach that still gets Joss to Umberfield by 14:00?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "13:10",
+       "13:10 am",
+       "13:10am",
+       "<13:10>",
+       "13:10 pm",
+       "13:10pm"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*13:10\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "The coach must leave by 13:15. The 13:10 arrives at 13:55; the 13:25 arrives at 14:10.\nANSWER: 13:10",
+  "negative": "Take the last coach.\nANSWER: 13:40",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-08",
+  "family": "planning",
+  "subtheme": "shortest-path-small-map",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Four villages are joined by exactly these two-way roads:\n- Alder to Bray: 3 km\n- Alder to Corrie: 7 km\n- Bray to Corrie: 5 km\n- Bray to Dunmore: 12 km\n- Corrie to Dunmore: 4 km\nA walker goes from Alder to Dunmore and may pass through other villages. What is the length in km of the shortest possible walk?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "reference": "Alder-Bray-Dunmore 15, Alder-Corrie-Dunmore 11, Alder-Bray-Corrie-Dunmore 12.\nANSWER: 11",
+  "negative": "Start with the short road: Alder-Bray 3, Bray-Corrie 5, Corrie-Dunmore 4.\nANSWER: 12",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-09",
+  "family": "planning",
+  "subtheme": "two-errands-order",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Wim leaves his house in Larch, must drop a letter in Mire and collect bread in Nook (in either order), and must end at the railway station in Orrin. He drives straight between places.\nDistances:\n- Larch to Mire: 4 km\n- Larch to Nook: 6 km\n- Mire to Nook: 5 km\n- Mire to Orrin: 3 km\n- Nook to Orrin: 11 km\nWork out the total for both possible orders. How many km is the shorter trip?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "reference": "Mire first: 4+5+11 = 20. Nook first: 6+5+3 = 14.\nANSWER: 14",
+  "negative": "Go to the nearer place first: 4+5+11.\nANSWER: 20",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-10",
+  "family": "planning",
+  "subtheme": "earliest-arrival-two-legs",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Oren is waiting at the Gull Rock bus stop from 08:00 and wants to reach Ivel.\n1. Bus from Gull Rock to Hythe, taking 30 minutes. Departures: 08:10, 08:40.\n2. Train from Hythe to Ivel, taking 45 minutes. Departures: 08:45, 09:15, 09:45.\nAt Hythe he needs at least 10 minutes between getting off the bus and the train leaving.\nWhat is the earliest time Oren can arrive in Ivel?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:00",
+       "10:00 am",
+       "10:00am",
+       "<10:00>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*10:00\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "The 08:10 bus reaches Hythe at 08:40. The 08:45 train is too soon, so he takes the 09:15 and arrives 45 minutes later.\nANSWER: 10:00",
+  "negative": "Bus arrives 08:40, train leaves 08:45 and takes 45 minutes.\nANSWER: 09:30",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-11",
+  "family": "planning",
+  "subtheme": "changes-on-fastest-route",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "There are exactly three ways to get from Quarry Lane to Zenith Park:\n- Bus 5: a direct ride of 52 minutes with no change.\n- Tram A then tram B: rides of 18 and 20 minutes, with one change.\n- Metro lines M1, M2 and M3: rides of 10, 12 and 11 minutes, with two changes.\nEvery change adds 6 minutes of waiting.\nHow many changes does the quickest way have?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "reference": "Bus 52. Trams 38+6 = 44. Metro 33+12 = 45. The trams are quickest.\nANSWER: 1",
+  "negative": "The metro rides add up to only 33 minutes.\nANSWER: 2",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-12",
+  "family": "planning",
+  "subtheme": "closed-road-reroute",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A rider goes from Sable to Yarrow. Each route passes through exactly one town:\n- through Tarn: Sable to Tarn 6 km, Tarn to Yarrow 7 km\n- through Umbra: Sable to Umbra 9 km, Umbra to Yarrow 8 km\n- through Vesper: Sable to Vesper 5 km, Vesper to Yarrow 10 km\nToday the bridge on the Tarn to Yarrow road is closed, so that road cannot be used.\nWhich town does the shortest route that is still open pass through?\nKeep any working under 60 words. Then end with a final line: ANSWER: followed by just the town name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Vesper",
+       "<Vesper>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*vesper\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Tarn is closed. Umbra 17 km, Vesper 15 km.\nANSWER: Vesper",
+  "negative": "Tarn 13 km, Umbra 17 km, Vesper 15 km.\nANSWER: Tarn",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-13",
+  "family": "planning",
+  "subtheme": "distance-speed-routes",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A van can go from Pellham to Rookford by exactly three roads, each driven at a steady speed:\n- the motorway: 30 km at 60 km per hour\n- the town road: 24 km at 40 km per hour\n- the lane: 20 km at 30 km per hour\nWork out the driving time of each road in minutes. How many minutes does the quickest road take?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "reference": "Motorway 30 minutes, town road 36 minutes, lane 40 minutes.\nANSWER: 30",
+  "negative": "The lane is the shortest road: 20 km at 30 km per hour.\nANSWER: 40",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-14",
+  "family": "planning",
+  "subtheme": "return-trip-with-errand",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Hana takes the 09:15 bus from Elm Cross to Farrow; the ride takes 25 minutes. Her appointment in Farrow starts as soon as she arrives and lasts 50 minutes. Buses back from Farrow to Elm Cross leave at 10:20, 10:50 and 11:20 and also take 25 minutes. She takes the first bus back that leaves after her appointment ends.\nAt what time is Hana back in Elm Cross?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "11:15",
+       "11:15 am",
+       "11:15am",
+       "<11:15>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*11:15\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Arrives 09:40, appointment ends 10:30, so the 10:20 has gone. The 10:50 bus arrives at 11:15.\nANSWER: 11:15",
+  "negative": "Arrives 09:40, takes the 10:20 bus back.\nANSWER: 10:45",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-15",
+  "family": "planning",
+  "subtheme": "shortest-path-six-towns",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Six towns are joined by exactly these two-way roads:\n- Arden to Brook: 4 km\n- Arden to Calder: 2 km\n- Brook to Calder: 1 km\n- Brook to Dray: 5 km\n- Calder to Esk: 10 km\n- Dray to Esk: 3 km\n- Dray to Firth: 11 km\n- Esk to Firth: 4 km\nA lorry drives from Arden to Firth and may pass through any towns. What is the length in km of the shortest possible drive?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   }
+  ],
+  "reference": "Arden-Calder-Brook-Dray-Esk-Firth = 2+1+5+3+4 = 15, shorter than Arden-Calder-Esk-Firth = 16.\nANSWER: 15",
+  "negative": "Arden-Calder-Esk-Firth = 2+10+4.\nANSWER: 16",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-16",
+  "family": "planning",
+  "subtheme": "latest-departure-three-legs",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Bex must be on Drum Island by 17:00. The trip has three legs:\n1. Bus from Almsford to Brine, taking 35 minutes. Departures: 13:00, 13:40, 14:20, 15:00.\n2. Train from Brine to Crest, taking 50 minutes. Departures: 14:00, 14:45, 15:30.\n3. Ferry from Crest to Drum Island, taking 40 minutes. Departures: 15:10, 15:50, 16:30.\nAt each change Bex needs at least 10 minutes between arriving and the next departure.\nWhat is the latest bus Bex can take from Almsford and still be on Drum Island by 17:00?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "13:40",
+       "13:40 am",
+       "13:40am",
+       "<13:40>",
+       "13:40 pm",
+       "13:40pm"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*13:40\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "The 16:30 ferry lands at 17:10, so use the 15:50 ferry. That needs the 14:45 train (arrives 15:35), which needs a bus at Brine by 14:35: the 13:40 bus arrives 14:15.\nANSWER: 13:40",
+  "negative": "The 14:20 bus reaches Brine at 14:55 and the trip continues from there.\nANSWER: 14:20",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-17",
+  "family": "planning",
+  "subtheme": "three-calls-best-order",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A van starts at the depot in Holm, must call once at each of Ivy, Jute and Kelp in any order, and must finish in Lark. It drives straight between places.\nDistances in km:\n- Holm to Ivy 3, Holm to Jute 5, Holm to Kelp 8\n- Ivy to Jute 6, Ivy to Kelp 4, Jute to Kelp 9\n- Ivy to Lark 12, Jute to Lark 10, Kelp to Lark 2\nOne order of the three calls gives the shortest total drive. In that order, which place does the van call at first?\nKeep any working under 60 words. Then end with a final line: ANSWER: followed by just the place name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Jute",
+       "<Jute>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*jute\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Jute, Ivy, Kelp: 5+6+4+2 = 17. Ivy, Jute, Kelp: 3+6+9+2 = 20. The other orders are 26 or more.\nANSWER: Jute",
+  "negative": "Ivy is nearest to Holm, so go there first.\nANSWER: Ivy",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-18",
+  "family": "planning",
+  "subtheme": "direct-versus-connection",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Rhea is in Stannard at 07:50 and wants to reach Zephyr Quay as early as possible. She has two options:\nOption 1: the direct coach, which leaves Stannard at 08:30 and takes 95 minutes.\nOption 2: the 08:00 train from Stannard to Wexley, taking 40 minutes, then a tram from Wexley to Zephyr Quay, taking 50 minutes. Trams leave Wexley at 08:45, 09:05 and 09:25, and she needs at least 8 minutes at Wexley between the train arriving and the tram leaving.\nWhat is the earliest time Rhea can arrive at Zephyr Quay?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:55",
+       "09:55 am",
+       "09:55am",
+       "<09:55>",
+       "9:55",
+       "<9:55>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:55\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Coach arrives 10:05. Train reaches Wexley 08:40; the 08:45 tram is too soon, so the 09:05 tram arrives 09:55.\nANSWER: 09:55",
+  "negative": "Train reaches Wexley 08:40, the 08:45 tram takes 50 minutes.\nANSWER: 09:35",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-19",
+  "family": "planning",
+  "subtheme": "route-through-required-place",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Five hamlets are joined by exactly these two-way tracks:\n- Gorse to Heron: 4 km\n- Gorse to Inch: 6 km\n- Heron to Jasper: 7 km\n- Inch to Jasper: 3 km\n- Heron to Knoll: 5 km\n- Inch to Knoll: 9 km\n- Jasper to Knoll: 14 km\nA walker goes from Gorse to Knoll but must pass through Jasper on the way to pick up a key. A hamlet or track may be used more than once.\nWhat is the length in km of the shortest walk that does this?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 21
+   }
+  ],
+  "reference": "Gorse to Jasper is shortest through Inch: 6+3 = 9. Jasper to Knoll is shortest through Heron: 7+5 = 12.\nANSWER: 21",
+  "negative": "Gorse-Heron-Knoll = 4+5.\nANSWER: 9",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-20",
+  "family": "planning",
+  "subtheme": "door-to-door-latest-leave",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Kofi must be inside the Lantern Theatre by 19:30. His trip is:\n1. Walk from home to the bus stop: 12 minutes.\n2. Bus to the Market stop: 28 minutes. Buses leave his stop at 18:05, 18:25, 18:45 and 19:05.\n3. Walk from the Market stop to the theatre: 9 minutes.\nHe does not want to wait at the bus stop longer than needed.\nWhat is the latest time Kofi can leave home and still be inside the theatre by 19:30?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "18:33",
+       "18:33 am",
+       "18:33am",
+       "<18:33>",
+       "18:33 pm",
+       "18:33pm"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*18:33\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "The bus must leave by 18:53, so he takes the 18:45 bus (theatre at 19:22). He leaves home 12 minutes before it.\nANSWER: 18:33",
+  "negative": "Take the 19:05 bus and leave home 12 minutes before it.\nANSWER: 18:53",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "g4-21",
+  "family": "planning",
+  "subtheme": "metro-interchange-choice",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A metro has two lines. Stations in order:\n- Red line: Opal, Pearl, Quartz, Ruby, Slate\n- Blue line: Vane, Quartz, Wold, Xyst, Slate, Yew\nTravelling between two neighbouring stations on a line takes 3 minutes. Changing between the lines is possible only at Quartz or at Slate and takes 5 minutes.\nMara travels from Opal to Yew. What is the smallest possible number of minutes for her trip?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 20
+   }
+  ],
+  "reference": "Change at Quartz: 2 red hops + 4 blue hops = 18, plus 5 = 23. Change at Slate: 4 red hops + 1 blue hop = 15, plus 5 = 20.\nANSWER: 20",
+  "negative": "Change at Quartz, the first shared station: 6 hops is 18 minutes, plus 5.\nANSWER: 23",
+  "max_tokens": 300
+ }
+]

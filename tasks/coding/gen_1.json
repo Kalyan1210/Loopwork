@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `ticket_code(n)` that takes a non-negative integer and returns the string 'TK-' followed by n written with at least 5 digits, padded on the left with zeros. Longer numbers are not shortened. Examples: ticket_code(42) returns 'TK-00042', ticket_code(0) returns 'TK-00000' and ticket_code(123456) returns 'TK-123456'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert ticket_code(42) == 'TK-00042'\nassert ticket_code(0) == 'TK-00000'\nassert ticket_code(123456) == 'TK-123456'\nassert ticket_code(7) == 'TK-00007'\nassert ticket_code(99999) == 'TK-99999'\nassert ticket_code(1000) == 'TK-01000'"
+   }
+  ],
+  "reference": "```python\ndef ticket_code(n):\n    return 'TK-' + str(n).zfill(5)\n```",
+  "negative": "```python\ndef ticket_code(n):\n    return 'TK-' + str(n).zfill(4)\n```"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `squeeze(s)` that returns the string in lower case with leading and trailing whitespace removed and every run of whitespace inside it (spaces, tabs or newlines) replaced by a single space. Examples: squeeze('  Hello   World ') returns 'hello world' and squeeze('A\\tB\\n\\nC') returns 'a b c'. An empty or all-whitespace string returns ''.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert squeeze('  Hello   World ') == 'hello world'\nassert squeeze('A\\tB\\n\\nC') == 'a b c'\nassert squeeze('') == ''\nassert squeeze('   ') == ''\nassert squeeze('one') == 'one'\nassert squeeze('Mix  OF     Gaps  here') == 'mix of gaps here'"
+   }
+  ],
+  "reference": "```python\ndef squeeze(s):\n    return ' '.join(s.lower().split())\n```",
+  "negative": "```python\ndef squeeze(s):\n    return s.strip().lower().replace('  ', ' ')\n```"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `mmss(seconds)` that takes a non-negative integer number of seconds and returns a string 'M:SS': the whole minutes with no padding, a colon, then the remaining seconds always written with exactly two digits. Minutes are not converted to hours. Examples: mmss(125) returns '2:05', mmss(0) returns '0:00' and mmss(3600) returns '60:00'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert mmss(125) == '2:05'\nassert mmss(0) == '0:00'\nassert mmss(3600) == '60:00'\nassert mmss(59) == '0:59'\nassert mmss(60) == '1:00'\nassert mmss(754) == '12:34'"
+   }
+  ],
+  "reference": "```python\ndef mmss(seconds):\n    return '%d:%02d' % (seconds // 60, seconds % 60)\n```",
+  "negative": "```python\ndef mmss(seconds):\n    return str(seconds // 60) + ':' + str(seconds % 60)\n```"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `snake_to_title(name)` that takes a name made of words joined by single underscores and returns the words separated by single spaces, each word with its first letter in upper case and its other letters in lower case. Examples: snake_to_title('user_first_name') returns 'User First Name' and snake_to_title('MAX_size') returns 'Max Size'. An empty string returns ''.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert snake_to_title('user_first_name') == 'User First Name'\nassert snake_to_title('MAX_size') == 'Max Size'\nassert snake_to_title('') == ''\nassert snake_to_title('id') == 'Id'\nassert snake_to_title('a_b_c_d') == 'A B C D'\nassert snake_to_title('total_COUNT') == 'Total Count'"
+   }
+  ],
+  "reference": "```python\ndef snake_to_title(name):\n    return ' '.join(w.capitalize() for w in name.split('_'))\n```",
+  "negative": "```python\ndef snake_to_title(name):\n    return name.replace('_', ' ').capitalize()\n```"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `shift_cipher(text, k)` for a toy cipher. Every lower-case letter a-z is moved k places forward in the alphabet, wrapping around from z to a. All other characters (upper-case letters, digits, spaces, punctuation) stay unchanged. k is a non-negative integer and may be larger than 26. Examples: shift_cipher('abc xyz', 2) returns 'cde zab' and shift_cipher('Hi, zed!', 1) returns 'Hj, afe!'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert shift_cipher('abc xyz', 2) == 'cde zab'\nassert shift_cipher('Hi, zed!', 1) == 'Hj, afe!'\nassert shift_cipher('', 5) == ''\nassert shift_cipher('moon', 0) == 'moon'\nassert shift_cipher('moon', 26) == 'moon'\nassert shift_cipher('az', 27) == 'ba'\nassert shift_cipher('ROOM 12b', 3) == 'ROOM 12e'"
+   }
+  ],
+  "reference": "```python\ndef shift_cipher(text, k):\n    out = []\n    for c in text:\n        if 'a' <= c <= 'z':\n            c = chr((ord(c) - 97 + k) % 26 + 97)\n        out.append(c)\n    return ''.join(out)\n```",
+  "negative": "```python\ndef shift_cipher(text, k):\n    out = []\n    for c in text:\n        if 'a' <= c <= 'z':\n            c = chr(ord(c) + k)\n        out.append(c)\n    return ''.join(out)\n```"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `is_valid_tag(s)` that returns True if the string is a valid tag and False otherwise. A valid tag is 3 to 10 characters long (inclusive), its first character is a lower-case letter a-z, and every other character is a lower-case letter a-z or a digit 0-9. Examples: is_valid_tag('ab1') returns True, is_valid_tag('1ab') returns False, is_valid_tag('ab') returns False and is_valid_tag('a_b') returns False.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert is_valid_tag('ab1') is True\nassert is_valid_tag('1ab') is False\nassert is_valid_tag('ab') is False\nassert is_valid_tag('a_b') is False\nassert is_valid_tag('abcdefghij') is True\nassert is_valid_tag('abcdefghijk') is False\nassert is_valid_tag('Abc') is False\nassert is_valid_tag('') is False"
+   }
+  ],
+  "reference": "```python\ndef is_valid_tag(s):\n    letters = 'abcdefghijklmnopqrstuvwxyz'\n    if not 3 <= len(s) <= 10:\n        return False\n    if s[0] not in letters:\n        return False\n    return all(c in letters + '0123456789' for c in s)\n```",
+  "negative": "```python\ndef is_valid_tag(s):\n    if not 3 <= len(s) <= 10:\n        return False\n    return s.isalnum() and s == s.lower()\n```"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `format_duration(seconds)` that takes a non-negative integer and returns a string built from the parts '<hours>h', '<minutes>m' and '<seconds>s', in that order, separated by single spaces. A part whose value is 0 is left out, except that 0 seconds in total returns '0s'. Hours are not converted to days. Examples: format_duration(3661) returns '1h 1m 1s', format_duration(3605) returns '1h 5s', format_duration(7200) returns '2h' and format_duration(0) returns '0s'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert format_duration(3661) == '1h 1m 1s'\nassert format_duration(3605) == '1h 5s'\nassert format_duration(7200) == '2h'\nassert format_duration(0) == '0s'\nassert format_duration(59) == '59s'\nassert format_duration(60) == '1m'\nassert format_duration(90000) == '25h'\nassert format_duration(754) == '12m 34s'"
+   }
+  ],
+  "reference": "```python\ndef format_duration(seconds):\n    h, rest = divmod(seconds, 3600)\n    m, s = divmod(rest, 60)\n    parts = []\n    if h:\n        parts.append(str(h) + 'h')\n    if m:\n        parts.append(str(m) + 'm')\n    if s:\n        parts.append(str(s) + 's')\n    return ' '.join(parts) if parts else '0s'\n```",
+  "negative": "```python\ndef format_duration(seconds):\n    h, rest = divmod(seconds, 3600)\n    m, s = divmod(rest, 60)\n    return str(h) + 'h ' + str(m) + 'm ' + str(s) + 's'\n```"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `parse_settings(s)` that parses a string of settings separated by ';' into a dict of strings. Each setting looks like 'key=value'. Rules: split a setting at its FIRST '=' only, so the value may itself contain '='; remove spaces around the key and around the value; skip a setting that has no '=' or whose key is empty; if a key appears twice, the later value wins. Examples: parse_settings('mode = fast; size=3') returns {'mode': 'fast', 'size': '3'} and parse_settings('eq=a=b;;junk;=5;eq2=') returns {'eq': 'a=b', 'eq2': ''}. An empty string returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert parse_settings('mode = fast; size=3') == {'mode': 'fast', 'size': '3'}\nassert parse_settings('eq=a=b;;junk;=5;eq2=') == {'eq': 'a=b', 'eq2': ''}\nassert parse_settings('') == {}\nassert parse_settings('a=1;a=2;b=3') == {'a': '2', 'b': '3'}\nassert parse_settings('  name =  Ada Byron  ') == {'name': 'Ada Byron'}\nassert parse_settings('nothing here') == {}\nassert parse_settings('url=http://x?q=1;') == {'url': 'http://x?q=1'}"
+   }
+  ],
+  "reference": "```python\ndef parse_settings(s):\n    out = {}\n    for part in s.split(';'):\n        if '=' not in part:\n            continue\n        key, value = part.split('=', 1)\n        key = key.strip()\n        if not key:\n            continue\n        out[key] = value.strip()\n    return out\n```",
+  "negative": "```python\ndef parse_settings(s):\n    out = {}\n    for part in s.split(';'):\n        bits = part.split('=')\n        if len(bits) != 2:\n            continue\n        out[bits[0].strip()] = bits[1].strip()\n    return out\n```"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `mask_digits(s)` that hides the digits of a code. It returns the string with every digit replaced by '#', except the LAST four digits of the string, which are kept. Characters that are not digits (dashes, spaces, letters) are never changed and do not count. If the string has four or fewer digits it is returned unchanged. Examples: mask_digits('1234-5678-9012') returns '####-####-9012', mask_digits('12 34 56') returns '## 34 56' and mask_digits('ab-12') returns 'ab-12'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert mask_digits('1234-5678-9012') == '####-####-9012'\nassert mask_digits('12 34 56') == '## 34 56'\nassert mask_digits('ab-12') == 'ab-12'\nassert mask_digits('') == ''\nassert mask_digits('1234') == '1234'\nassert mask_digits('12345') == '#2345'\nassert mask_digits('99-88-77-x') == '##-88-77-x'\nassert mask_digits('id 5 5 5 5 5 end') == 'id # 5 5 5 5 end'"
+   }
+  ],
+  "reference": "```python\ndef mask_digits(s):\n    keep = 4\n    out = []\n    for c in reversed(s):\n        if c.isdigit():\n            if keep > 0:\n                keep -= 1\n            else:\n                c = '#'\n        out.append(c)\n    return ''.join(reversed(out))\n```",
+  "negative": "```python\ndef mask_digits(s):\n    if len(s) <= 4:\n        return s\n    head = ''.join('#' if c.isdigit() else c for c in s[:-4])\n    return head + s[-4:]\n```"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `truncate(text, n)` that shortens a string to at most n characters (n is an integer, n >= 3). If text has n characters or fewer, return it unchanged. Otherwise take the first n - 3 characters, remove any spaces at the end of that piece, and add '...'. Examples: truncate('hello world', 8) returns 'hello...', truncate('hello world', 9) returns 'hello...' (the piece 'hello ' loses its trailing space) and truncate('short', 10) returns 'short'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert truncate('hello world', 8) == 'hello...'\nassert truncate('hello world', 9) == 'hello...'\nassert truncate('short', 10) == 'short'\nassert truncate('hello world', 11) == 'hello world'\nassert truncate('abcdef', 3) == '...'\nassert truncate('a   bcdefgh', 7) == 'a...'\nassert truncate('', 5) == ''\nassert truncate('river bank walk', 13) == 'river bank...'"
+   }
+  ],
+  "reference": "```python\ndef truncate(text, n):\n    if len(text) <= n:\n        return text\n    return text[:n - 3].rstrip(' ') + '...'\n```",
+  "negative": "```python\ndef truncate(text, n):\n    if len(text) <= n:\n        return text\n    return text[:n - 3] + '...'\n```"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `parse_time(s)` that converts a 24-hour clock string 'HH:MM' into the number of minutes since midnight (an integer). The string must be exactly five characters: two digits, a colon, two digits, with the hour from 00 to 23 and the minute from 00 to 59. For any other string return -1. Examples: parse_time('07:05') returns 425, parse_time('23:59') returns 1439, parse_time('7:05') returns -1 and parse_time('24:00') returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert parse_time('07:05') == 425\nassert parse_time('23:59') == 1439\nassert parse_time('7:05') == -1\nassert parse_time('24:00') == -1\nassert parse_time('00:00') == 0\nassert parse_time('12:60') == -1\nassert parse_time('') == -1\nassert parse_time('ab:cd') == -1\nassert parse_time('12-30') == -1"
+   }
+  ],
+  "reference": "```python\ndef parse_time(s):\n    if len(s) != 5 or s[2] != ':':\n        return -1\n    hh, mm = s[:2], s[3:]\n    if not (hh.isdigit() and mm.isdigit()):\n        return -1\n    h, m = int(hh), int(mm)\n    if h > 23 or m > 59:\n        return -1\n    return h * 60 + m\n```",
+  "negative": "```python\ndef parse_time(s):\n    try:\n        h, m = s.split(':')\n        return int(h) * 60 + int(m)\n    except ValueError:\n        return -1\n```"
+ },
+ {
+  "local_id": "g1-12",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `mirror(text)` for a toy 'mirror' cipher. Each letter is replaced by the letter at the opposite end of the alphabet (a becomes z, b becomes y, ..., z becomes a), keeping its case, so 'B' becomes 'Y'. Each digit d is replaced by the digit 9 - d (0 becomes 9, 7 becomes 2). Every other character stays unchanged. Examples: mirror('Abc-109') returns 'Zyx-890' and mirror('') returns ''.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert mirror('Abc-109') == 'Zyx-890'\nassert mirror('') == ''\nassert mirror('Hello, World!') == 'Svool, Dliow!'\nassert mirror('mn MN') == 'nm NM'\nassert mirror('2026') == '7973'\nassert mirror(mirror('Deck 7, bay 40')) == 'Deck 7, bay 40'\nassert mirror('z9 a0') == 'a0 z9'"
+   }
+  ],
+  "reference": "```python\ndef mirror(text):\n    out = []\n    for c in text:\n        if 'a' <= c <= 'z':\n            c = chr(219 - ord(c))\n        elif 'A' <= c <= 'Z':\n            c = chr(155 - ord(c))\n        elif '0' <= c <= '9':\n            c = str(9 - int(c))\n        out.append(c)\n    return ''.join(out)\n```",
+  "negative": "```python\ndef mirror(text):\n    out = []\n    for c in text:\n        if 'a' <= c <= 'z':\n            c = chr(219 - ord(c))\n        elif 'A' <= c <= 'Z':\n            c = chr(155 - ord(c))\n        out.append(c)\n    return ''.join(out)\n```"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `ordinal(n)` that takes a positive integer and returns it as a string with its English ordinal suffix. Numbers ending in 1 get 'st', in 2 get 'nd', in 3 get 'rd', and all others get 'th'; but numbers whose last two digits are 11, 12 or 13 always get 'th'. Examples: ordinal(1) returns '1st', ordinal(22) returns '22nd', ordinal(13) returns '13th' and ordinal(112) returns '112th'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert ordinal(1) == '1st'\nassert ordinal(22) == '22nd'\nassert ordinal(13) == '13th'\nassert ordinal(112) == '112th'\nassert ordinal(3) == '3rd'\nassert ordinal(4) == '4th'\nassert ordinal(11) == '11th'\nassert ordinal(101) == '101st'\nassert ordinal(40) == '40th'"
+   }
+  ],
+  "reference": "```python\ndef ordinal(n):\n    if n % 100 in (11, 12, 13):\n        suffix = 'th'\n    else:\n        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')\n    return str(n) + suffix\n```",
+  "negative": "```python\ndef ordinal(n):\n    suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')\n    return str(n) + suffix\n```"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `wrap_words(text, width)` that returns a list of lines. The words of text are separated by whitespace. Fill each line greedily: keep adding the next word, with one space between words, as long as the line stays at most width characters long; otherwise start a new line. A single word longer than width is placed alone on its own line and is not split. Lines have no leading or trailing spaces. Empty or all-space text returns []. Examples: wrap_words('the quick brown fox', 10) returns ['the quick', 'brown fox'] and wrap_words('a bb ccc', 4) returns ['a bb', 'ccc'].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert wrap_words('the quick brown fox', 10) == ['the quick', 'brown fox']\nassert wrap_words('a bb ccc', 4) == ['a bb', 'ccc']\nassert wrap_words('', 5) == []\nassert wrap_words('   ', 5) == []\nassert wrap_words('tiny enormousword ok', 6) == ['tiny', 'enormousword', 'ok']\nassert wrap_words('one', 10) == ['one']\nassert wrap_words('aaa bb c', 5) == ['aaa', 'bb c']\nassert wrap_words('aa bb cc dd', 5) == ['aa bb', 'cc dd']\nassert wrap_words('  spaced   out  words ', 20) == ['spaced out words']"
+   }
+  ],
+  "reference": "```python\ndef wrap_words(text, width):\n    lines = []\n    cur = ''\n    for w in text.split():\n        if not cur:\n            cur = w\n        elif len(cur) + 1 + len(w) <= width:\n            cur += ' ' + w\n        else:\n            lines.append(cur)\n            cur = w\n    if cur:\n        lines.append(cur)\n    return lines\n```",
+  "negative": "```python\ndef wrap_words(text, width):\n    lines = []\n    cur = ''\n    for w in text.split():\n        if not cur:\n            cur = w\n        elif len(cur) + len(w) <= width:\n            cur += ' ' + w\n        else:\n            lines.append(cur)\n            cur = w\n    if cur:\n        lines.append(cur)\n    return lines\n```"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `format_table(rows)` that takes a non-empty list of rows, where every row is a list of strings with the same number of cells, and returns the table as ONE string. Each column is as wide as its longest cell. Every cell, including the cells of the last column, is padded on the right with spaces to its column width. The cells of a row are joined with ' | ' (space, bar, space) and the rows are joined with '\\n', with no newline at the end. Example: format_table([['id', 'name'], ['7', 'Bo'], ['12', 'Al']]) returns 'id | name\\n7  | Bo  \\n12 | Al  '. A single cell: format_table([['x']]) returns 'x'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert format_table([['id', 'name'], ['7', 'Bo'], ['12', 'Al']]) == 'id | name\\n7  | Bo  \\n12 | Al  '\nassert format_table([['x']]) == 'x'\nassert format_table([['a', 'bb', 'ccc']]) == 'a | bb | ccc'\nassert format_table([['port'], ['a'], ['dock']]) == 'port\\na   \\ndock'\nassert format_table([['k', 'v'], ['long key', '1'], ['', '22']]) == 'k        | v \\nlong key | 1 \\n         | 22'\nassert format_table([['ab', 'cd'], ['ef', 'gh']]) == 'ab | cd\\nef | gh'"
+   }
+  ],
+  "reference": "```python\ndef format_table(rows):\n    widths = [max(len(r[i]) for r in rows) for i in range(len(rows[0]))]\n    lines = []\n    for r in rows:\n        lines.append(' | '.join(c.ljust(w) for c, w in zip(r, widths)))\n    return '\\n'.join(lines)\n```",
+  "negative": "```python\ndef format_table(rows):\n    widths = [max(len(r[i]) for r in rows) for i in range(len(rows[0]))]\n    lines = []\n    for r in rows:\n        lines.append(' | '.join(c.ljust(w) for c, w in zip(r, widths)).rstrip())\n    return '\\n'.join(lines)\n```"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `price_line(name, cents, width)` for a menu line. The price is cents (a non-negative integer) shown as '$' + whole dollars + '.' + exactly two digits of cents, for example 250 gives '$2.50' and 5 gives '$0.05'. The result is name, then a run of '.' characters, then the price, with just enough dots to make the whole string exactly width characters long. There is always at least one dot, even if that makes the string longer than width. Examples: price_line('tea', 250, 12) returns 'tea....$2.50', price_line('pie', 5, 10) returns 'pie..$0.05' and price_line('long soup', 1200, 8) returns 'long soup.$12.00'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert price_line('tea', 250, 12) == 'tea....$2.50'\nassert price_line('pie', 5, 10) == 'pie..$0.05'\nassert price_line('long soup', 1200, 8) == 'long soup.$12.00'\nassert price_line('bun', 0, 9) == 'bun.$0.00'\nassert price_line('jam', 199, 8) == 'jam.$1.99'\nassert price_line('', 100000, 10) == '..$1000.00'\nassert price_line('rice', 1001, 14) == 'rice....$10.01'"
+   }
+  ],
+  "reference": "```python\ndef price_line(name, cents, width):\n    price = '$%d.%02d' % (cents // 100, cents % 100)\n    dots = max(1, width - len(name) - len(price))\n    return name + '.' * dots + price\n```",
+  "negative": "```python\ndef price_line(name, cents, width):\n    price = '$' + str(cents / 100)\n    dots = max(1, width - len(name) - len(price))\n    return name + '.' * dots + price\n```"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `expand_counts(s)` that expands a compact string. The input consists of lower-case letters, each optionally preceded by a positive whole number written in decimal, which may have several digits. A letter with a number in front is repeated that many times; a letter with no number appears once. Examples: expand_counts('3ab2c') returns 'aaabcc', expand_counts('x12y') returns 'x' followed by twelve 'y' characters, and expand_counts('') returns ''.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert expand_counts('3ab2c') == 'aaabcc'\nassert expand_counts('x12y') == 'xyyyyyyyyyyyy'\nassert expand_counts('') == ''\nassert expand_counts('abc') == 'abc'\nassert expand_counts('10a') == 'aaaaaaaaaa'\nassert expand_counts('2a2b1c') == 'aabbc'\nassert expand_counts('z101q')==('z'+'q'*101)"
+   }
+  ],
+  "reference": "```python\ndef expand_counts(s):\n    out = []\n    num = ''\n    for c in s:\n        if c.isdigit():\n            num += c\n        else:\n            out.append(c * (int(num) if num else 1))\n            num = ''\n    return ''.join(out)\n```",
+  "negative": "```python\ndef expand_counts(s):\n    out = []\n    count = 1\n    for c in s:\n        if c.isdigit():\n            count = int(c)\n        else:\n            out.append(c * count)\n            count = 1\n    return ''.join(out)\n```"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `justify(words, width)` that takes a non-empty list of words and returns ONE string of exactly width characters with the words in order. The first word starts at the left edge and the last word ends at the right edge; the gaps between words are filled with spaces. The spaces are shared as evenly as possible, and when they cannot be equal the extra spaces go to the gaps on the LEFT, one each. If there is only one word, it is followed by spaces up to width. You may assume the words fit. Examples: justify(['a', 'b', 'c'], 8) returns 'a   b  c', justify(['to', 'be'], 6) returns 'to  be' and justify(['hi'], 4) returns 'hi  '.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert justify(['a', 'b', 'c'], 8) == 'a   b  c'\nassert justify(['to', 'be'], 6) == 'to  be'\nassert justify(['hi'], 4) == 'hi  '\nassert justify(['a', 'b', 'c', 'd'], 12) == 'a   b   c  d'\nassert justify(['ab', 'cd', 'ef'], 8) == 'ab cd ef'\nassert justify(['word'], 4) == 'word'\nassert justify(['x', 'yy', 'zzz', 'w'], 10) == 'x yy zzz w'"
+   }
+  ],
+  "reference": "```python\ndef justify(words, width):\n    if len(words) == 1:\n        return words[0].ljust(width)\n    gaps = len(words) - 1\n    spaces = width - sum(len(w) for w in words)\n    base, extra = divmod(spaces, gaps)\n    out = ''\n    for i, w in enumerate(words[:-1]):\n        out += w + ' ' * (base + (1 if i < extra else 0))\n    return out + words[-1]\n```",
+  "negative": "```python\ndef justify(words, width):\n    if len(words) == 1:\n        return words[0].ljust(width)\n    gaps = len(words) - 1\n    spaces = width - sum(len(w) for w in words)\n    base, extra = divmod(spaces, gaps)\n    out = ''\n    for i, w in enumerate(words[:-1]):\n        out += w + ' ' * (base + (extra if i == gaps - 1 else 0))\n    return out + words[-1]\n```"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `format_bytes(n)` that takes a non-negative integer number of bytes and returns a readable size string. If n is below 1024, return the integer followed by ' B', for example '512 B'. Otherwise divide by 1024 until the value is below 1024 or the unit GB is reached, using the units KB, MB, GB in that order, and return the value with exactly one digit after the decimal point, a space, and the unit. GB is the largest unit. Examples: format_bytes(1536) returns '1.5 KB', format_bytes(1048576) returns '1.0 MB', format_bytes(0) returns '0 B' and format_bytes(5 * 1024 ** 4) returns '5120.0 GB'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert format_bytes(1536) == '1.5 KB'\nassert format_bytes(1048576) == '1.0 MB'\nassert format_bytes(0) == '0 B'\nassert format_bytes(5 * 1024 ** 4) == '5120.0 GB'\nassert format_bytes(1023) == '1023 B'\nassert format_bytes(1024) == '1.0 KB'\nassert format_bytes(3 * 1024 ** 3 + 512 * 1024 ** 2) == '3.5 GB'\nassert format_bytes(256 * 1024) == '256.0 KB'"
+   }
+  ],
+  "reference": "```python\ndef format_bytes(n):\n    if n < 1024:\n        return str(n) + ' B'\n    value = n / 1024\n    units = ['KB', 'MB', 'GB']\n    i = 0\n    while value >= 1024 and i < 2:\n        value /= 1024\n        i += 1\n    return '%.1f %s' % (value, units[i])\n```",
+  "negative": "```python\ndef format_bytes(n):\n    value = float(n)\n    units = ['B', 'KB', 'MB', 'GB']\n    i = 0\n    while value >= 1024 and i < 3:\n        value /= 1024\n        i += 1\n    return '%.1f %s' % (value, units[i])\n```"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `box(text)` that draws a frame around text and returns ONE string. The text may contain several lines separated by '\\n'. Let w be the length of the longest line. The first and last lines of the result are '+' followed by w + 2 dashes '-' and another '+'. Between them, each text line becomes '| ' + the line padded on the right with spaces to w characters + ' |'. All result lines are joined with '\\n', with no newline at the end. Examples: box('hi\\nworld') returns '+-------+\\n| hi    |\\n| world |\\n+-------+' and box('') returns '+--+\\n|  |\\n+--+'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert box('hi\\nworld') == '+-------+\\n| hi    |\\n| world |\\n+-------+'\nassert box('') == '+--+\\n|  |\\n+--+'\nassert box('x') == '+---+\\n| x |\\n+---+'\nassert box('abc\\n\\nde') == '+-----+\\n| abc |\\n|     |\\n| de  |\\n+-----+'\nassert box('long line\\nab') == '+-----------+\\n| long line |\\n| ab        |\\n+-----------+'\nassert box('a b') == '+-----+\\n| a b |\\n+-----+'"
+   }
+  ],
+  "reference": "```python\ndef box(text):\n    lines = text.split('\\n')\n    w = max(len(line) for line in lines)\n    edge = '+' + '-' * (w + 2) + '+'\n    body = ['| ' + line.ljust(w) + ' |' for line in lines]\n    return '\\n'.join([edge] + body + [edge])\n```",
+  "negative": "```python\ndef box(text):\n    lines = text.split('\\n')\n    w = max(len(line) for line in lines)\n    edge = '+' + '-' * (w + 2) + '+'\n    body = ['| ' + line + ' |' for line in lines]\n    return '\\n'.join([edge] + body + [edge])\n```"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "coding",
+  "subtheme": "text-format",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Write a Python function `fmt_amount(n)` that formats an integer for a ledger and returns a string. The digits are grouped in threes counted from the right, with an apostrophe (') between groups. A negative number is shown without a minus sign and wrapped in round brackets instead. Examples: fmt_amount(1234567) returns \"1'234'567\", fmt_amount(-1234) returns \"(1'234)\", fmt_amount(999) returns \"999\", fmt_amount(-5) returns \"(5)\" and fmt_amount(0) returns \"0\".\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert fmt_amount(1234567) == \"1'234'567\"\nassert fmt_amount(-1234) == \"(1'234)\"\nassert fmt_amount(999) == '999'\nassert fmt_amount(-5) == '(5)'\nassert fmt_amount(0) == '0'\nassert fmt_amount(1000) == \"1'000\"\nassert fmt_amount(-100000) == \"(100'000)\"\nassert fmt_amount(12345) == \"12'345\""
+   }
+  ],
+  "reference": "```python\ndef fmt_amount(n):\n    digits = str(abs(n))\n    groups = []\n    while digits:\n        groups.append(digits[-3:])\n        digits = digits[:-3]\n    body = \"'\".join(reversed(groups))\n    return '(' + body + ')' if n < 0 else body\n```",
+  "negative": "```python\ndef fmt_amount(n):\n    body = format(n, ',').replace(',', \"'\")\n    return '(' + body + ')' if n < 0 else body\n```"
+ }
+]

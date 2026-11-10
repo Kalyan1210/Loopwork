@@ -1,0 +1,438 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "constraints",
+  "subtheme": "date-reformat",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional Brackenford fair opens on 2047-03-09 (written as year-month-day).\nRewrite that date in the format DD/MM/YYYY, keeping the leading zeros. Reply with ONLY the reformatted date. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*09/03/2047\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "datetime.strftime('%d/%m/%Y')"
+  },
+  "reference": "09/03/2047",
+  "negative": "03/09/2047"
+ },
+ {
+  "local_id": "g5-02",
+  "family": "constraints",
+  "subtheme": "slug-lowercase-hyphen",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A fictional campsite is called: Amber Kite Hollow\nTurn the name into a web slug: all lowercase letters, with each space replaced by a hyphen. Shape example for the name Red Fox: red-fox\nReply with ONLY the slug. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*amber\\-kite\\-hollow\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "str.lower().replace(' ', '-')"
+  },
+  "reference": "amber-kite-hollow",
+  "negative": "Amber-Kite-Hollow"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "constraints",
+  "subtheme": "wrap-markers",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Place name (fictional): Marlow Quay\nCopy the name exactly as written and wrap it in double square brackets with no spaces inside the brackets. Shape example for the name Old Mill: [[Old Mill]]\nReply with ONLY the wrapped name. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*\\[\\[Marlow Quay\\]\\]\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "f-string wrap"
+  },
+  "reference": "[[Marlow Quay]]",
+  "negative": "[Marlow Quay]"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "constraints",
+  "subtheme": "name-n-template",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Roster note for a fictional rowing club: the rower Ostrava is 34 years old.\nRewrite this in the format Name (age), with one space before the opening parenthesis. Shape example for Bly, aged 9: Bly (9)\nReply with ONLY that. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*Ostrava \\(34\\)\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "'%s (%d)' template"
+  },
+  "reference": "Ostrava (34)",
+  "negative": "Ostrava: 34"
+ },
+ {
+  "local_id": "g5-05",
+  "family": "constraints",
+  "subtheme": "uppercase-phrase",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Title of a fictional play: the glass orchard\nRewrite the title with every letter in UPPERCASE. Keep the words and the spaces exactly the same. Reply with ONLY the title. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*THE GLASS ORCHARD\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "str.upper()"
+  },
+  "reference": "THE GLASS ORCHARD",
+  "negative": "The Glass Orchard"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "constraints",
+  "subtheme": "join-separator",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Take these four words in the given order: fennel, quartz, tulip, ochre.\nJoin them on one line using a single semicolon between words and no spaces anywhere. Shape example for the words a, b: a;b\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*fennel;quartz;tulip;ochre\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "';'.join(list)"
+  },
+  "reference": "fennel;quartz;tulip;ochre",
+  "negative": "fennel; quartz; tulip; ochre"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "constraints",
+  "subtheme": "replace-spaces",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Label on a fictional warehouse door: north gate storage room\nRewrite the label with every space replaced by an underscore. Do not change any letters. Reply with ONLY the new label. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*north_gate_storage_room\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "str.replace(' ', '_')"
+  },
+  "reference": "north_gate_storage_room",
+  "negative": "north-gate-storage-room"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "constraints",
+  "subtheme": "initials",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Full name of a fictional mapmaker: Corwin Aldous Thrane\nWrite the initials: the first letter of each of the three names, in order, in UPPERCASE, each followed by a period, with no spaces. Shape example for Ada Bo Cruz: A.B.C.\nReply with ONLY the initials. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*C\\.A\\.T\\.\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "first letter of each word + '.'"
+  },
+  "reference": "C.A.T.",
+  "negative": "CAT"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "constraints",
+  "subtheme": "name-n-lines",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Supply notes for a fictional climbing hut:\n12 units of rope\n7 units of chalk\n30 units of flint\n\nRewrite the notes as exactly 3 lines in the same order, each in the format item (number). Shape example for \"5 units of wax\": wax (5)\nNo other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*rope \\(12\\)\\s*\\n\\s*chalk \\(7\\)\\s*\\n\\s*flint \\(30\\)\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "f'{item} ({n})' per line"
+  },
+  "reference": "rope (12)\nchalk (7)\nflint (30)",
+  "negative": "12 (rope)\n7 (chalk)\n30 (flint)"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "constraints",
+  "subtheme": "capitalize-join",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Three fictional trail names, in order: silver marsh, hollow pine, red fen.\nCapitalize the first letter of every word, then join the three names on one line with \" + \" (space, plus sign, space). Shape example for old oak, dry well: Old Oak + Dry Well\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*Silver Marsh \\+ Hollow Pine \\+ Red Fen\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "str.title() then ' + '.join"
+  },
+  "reference": "Silver Marsh + Hollow Pine + Red Fen",
+  "negative": "Silver marsh + Hollow pine + Red fen"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "constraints",
+  "subtheme": "date-month-name-to-iso",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A fictional ledger entry is dated 14 June 2052.\nRewrite the date in the numeric format YYYY-MM-DD (four-digit year, two-digit month number, two-digit day). Reply with ONLY the date. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*2052\\-06\\-14\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "datetime.date(2052,6,14).isoformat()"
+  },
+  "reference": "2052-06-14",
+  "negative": "2052-14-06"
+ },
+ {
+  "local_id": "g5-12",
+  "family": "constraints",
+  "subtheme": "code-hyphenate",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A fictional locker code is written without separators: KX4471Q\nReformat it by putting a hyphen after the first two characters and another hyphen before the last character. Change nothing else. Shape example for AB123C: AB-123-C\nReply with ONLY the reformatted code. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*KX\\-4471\\-Q\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "slicing c[:2], c[2:-1], c[-1]"
+  },
+  "reference": "KX-4471-Q",
+  "negative": "KX-44-71Q"
+ },
+ {
+  "local_id": "g5-13",
+  "family": "constraints",
+  "subtheme": "key-value-join",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Booking details (fictional):\ntown: Eskby\nferry: Dunlin\ndock: 4\n\nRewrite all three details on ONE line as key=value pairs in the same order, joined by \"&\" with no spaces anywhere. Shape example for a: X and b: Y: a=X&b=Y\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*town=Eskby\\&ferry=Dunlin\\&dock=4\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "'&'.join(k=v)"
+  },
+  "reference": "town=Eskby&ferry=Dunlin&dock=4",
+  "negative": "town:Eskby&ferry:Dunlin&dock:4"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "constraints",
+  "subtheme": "lowercase-start-stop-block",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Paint names in order: Olive, Garnet, Indigo.\nReply with exactly 5 lines: the first line is the word START, then each paint name on its own line in lowercase letters in the same order, then the last line is the word STOP. Shape example for the names Tan, Rose:\nSTART\ntan\nrose\nSTOP\nNo other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*START\\s*\\n\\s*olive\\s*\\n\\s*garnet\\s*\\n\\s*indigo\\s*\\n\\s*STOP\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "['START']+lower(items)+['STOP']"
+  },
+  "reference": "START\nolive\ngarnet\nindigo\nSTOP",
+  "negative": "START\nOlive\nGarnet\nIndigo\nSTOP"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "constraints",
+  "subtheme": "derived-address-join",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Staff of a fictional library, in order: Nessa Brightwater, Olan Peck, Juno Farrow.\nBuild one mail address per person: the first letter of the first name followed by the whole surname, all lowercase, then @vale.test. Join the three addresses on one line with \"; \" (semicolon, space). Shape example for Ana Ruiz, Bo Lind: aruiz@vale.test; blind@vale.test\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*nbrightwater@vale\\.test; opeck@vale\\.test; jfarrow@vale\\.test\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "first initial + surname, lower, '; '.join"
+  },
+  "reference": "nbrightwater@vale.test; opeck@vale.test; jfarrow@vale.test",
+  "negative": "nessabrightwater@vale.test; olanpeck@vale.test; junofarrow@vale.test"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "constraints",
+  "subtheme": "surname-first-uppercase",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Authors of a fictional almanac:\nTessaly Marrow\nGideon Ashcombe\nWren Dallimore\n\nRewrite the list as exactly 3 lines in the same order. On each line put the surname first in UPPERCASE, then a comma and a space, then the first name unchanged. Shape example for Ida Voss: VOSS, Ida\nNo other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*MARROW, Tessaly\\s*\\n\\s*ASHCOMBE, Gideon\\s*\\n\\s*DALLIMORE, Wren\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "split, surname.upper() + ', ' + first"
+  },
+  "reference": "MARROW, Tessaly\nASHCOMBE, Gideon\nDALLIMORE, Wren",
+  "negative": "Marrow, Tessaly\nAshcombe, Gideon\nDallimore, Wren"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "constraints",
+  "subtheme": "multi-date-short-format",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Three fictional voyage dates in year-month-day form, in order: 2038-11-05, 2039-01-27, 2039-08-03.\nRewrite each date as DD.MM.YY (two-digit day, two-digit month, last two digits of the year, separated by periods). Join the three on one line with \" -> \" (space, hyphen, greater-than sign, space). Shape example for 2030-02-01, 2031-12-25: 01.02.30 -> 25.12.31\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*05\\.11\\.38 \\-> 27\\.01\\.39 \\-> 03\\.08\\.39\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "strftime('%d.%m.%y') and ' -> '.join"
+  },
+  "reference": "05.11.38 -> 27.01.39 -> 03.08.39",
+  "negative": "11.05.38 -> 01.27.39 -> 08.03.39"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "constraints",
+  "subtheme": "acronym-with-word-count",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Name of a fictional guild: Verdant Orchard Tenders Association\nReply on one line in this exact format: the acronym made from the first letter of every word in UPPERCASE with no periods, then a space, then in parentheses the number of words in the name followed by the word \"words\". Shape example for Blue River Club: BRC (3 words)\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*VOTA \\(4 words\\)\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "first letters; len(split())"
+  },
+  "reference": "VOTA (4 words)",
+  "negative": "VOTA (3 words)"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "constraints",
+  "subtheme": "abbreviation-map-join",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Fictional addresses in order: 12 Orrin Street; 4 Vell Road; 90 Dask Avenue.\nAbbreviation rules: Street becomes St, Road becomes Rd, Avenue becomes Ave (no period after the abbreviation). Apply the rules, keep the numbers and names unchanged, and join the three addresses on one line with \" | \" (space, vertical bar, space). Shape example for 3 Elm Road; 8 Oak Street: 3 Elm Rd | 8 Oak St\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*12 Orrin St \\| 4 Vell Rd \\| 90 Dask Ave\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "dict mapping on last word, ' | '.join"
+  },
+  "reference": "12 Orrin St | 4 Vell Rd | 90 Dask Ave",
+  "negative": "12 Orrin St. | 4 Vell Rd. | 90 Dask Ave."
+ },
+ {
+  "local_id": "g5-20",
+  "family": "constraints",
+  "subtheme": "csv-to-mixed-case-fields",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "One record from a fictional census, as name,age,town: Halvard,52,Mistlethorpe\nRewrite it on one line in exactly this format: NAME=<name in UPPERCASE>; AGE=<age>; TOWN=<town in lowercase>\nThe three labels are uppercase and the parts are separated by \"; \" (semicolon, space). Shape example for Ines,7,Corby: NAME=INES; AGE=7; TOWN=corby\nReply with ONLY that line. No other text.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*NAME=HALVARD; AGE=52; TOWN=mistlethorpe\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "upper()/lower() per field"
+  },
+  "reference": "NAME=HALVARD; AGE=52; TOWN=mistlethorpe",
+  "negative": "NAME=HALVARD; AGE=52; TOWN=MISTLETHORPE"
+ },
+ {
+  "local_id": "g5-21",
+  "family": "constraints",
+  "subtheme": "numbered-uppercase-letter-count",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Three words in order: heron, sycamore, brook.\nReply with exactly 3 lines in the same order. Each line is: the line number, a period, a space, the word in UPPERCASE, a space, then the number of letters in the word in parentheses. Shape example for the words fig, plum:\n1. FIG (3)\n2. PLUM (4)\nNo other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\. HERON \\(5\\)\\s*\\n\\s*2\\. SYCAMORE \\(8\\)\\s*\\n\\s*3\\. BROOK \\(5\\)\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "enumerate, upper(), len()"
+  },
+  "reference": "1. HERON (5)\n2. SYCAMORE (8)\n3. BROOK (5)",
+  "negative": "1. HERON (5)\n2. SYCAMORE (7)\n3. BROOK (5)"
+ }
+]

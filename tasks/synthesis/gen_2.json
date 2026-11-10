@@ -1,0 +1,500 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "synthesis",
+  "subtheme": "plain sum across reports",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Team log, Alder Bank crew: 14 volunteers turned out for the river clean-up and filled 37 bags of litter.\n[Doc B] Team log, Mill Reach crew: 9 volunteers took part and filled 52 bags of litter. One pair of waders was lost.\n[Doc C] Team log, Stonebridge crew: 21 volunteers took part and filled 46 bags of litter before the rain started.\n\nQuestion: How many bags of litter did the three crews fill in total?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 135
+   }
+  ],
+  "reference": "37 + 52 + 46 = 135.\nANSWER: 135",
+  "negative": "14 + 9 + 21 = 44.\nANSWER: 44"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "synthesis",
+  "subtheme": "budget minus spends",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Award letter, Thornwick Arts Fund: The Thornwick Choir is granted 900 marks for the 2031 season. The grant was approved by five trustees.\n[Doc B] Receipt, Quaver and Sons: The Thornwick Choir paid 260 marks for sheet music.\n[Doc C] Receipt, Dunlow Parish Hall: The Thornwick Choir paid 315 marks for rehearsal room rental, covering twelve evenings.\n\nQuestion: After the two payments, how many marks of the grant does the choir have left?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 325
+   }
+  ],
+  "reference": "900 - 260 - 315 = 325.\nANSWER: 325",
+  "negative": "900 - 260 = 640.\nANSWER: 640"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "synthesis",
+  "subtheme": "quantity times rate",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Order form, Monday: The Hesper Cafe orders 18 rye loaves from the Brindle Bakery, for collection at seven o'clock.\n[Doc B] Order form, Thursday: The Hesper Cafe orders 24 rye loaves from the Brindle Bakery.\n[Doc C] Price list, Brindle Bakery: A rye loaf costs 3 pence. Paper bags are free of charge.\n\nQuestion: How many pence does the Hesper Cafe owe the bakery for the rye loaves in both orders together?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 126
+   }
+  ],
+  "reference": "(18 + 24) x 3 = 126.\nANSWER: 126",
+  "negative": "18 + 24 = 42.\nANSWER: 42"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "synthesis",
+  "subtheme": "recount replaces one figure",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Count sheet, Ferrow shelter stores: The east storeroom holds 64 blankets and the west storeroom holds 48 blankets.\n[Doc B] Count sheet, Ferrow shelter annexe: The annexe cupboard holds 75 blankets and two folding beds.\n[Doc C] Recount note, signed by the warden: The west storeroom was counted again and holds 58 blankets. This recount replaces the earlier west storeroom figure.\n\nQuestion: Using the recount, how many blankets does the Ferrow shelter hold in total?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 197
+   }
+  ],
+  "reference": "64 + 58 + 75 = 197.\nANSWER: 197",
+  "negative": "64 + 48 + 75 = 187.\nANSWER: 187"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "synthesis",
+  "subtheme": "income minus cost",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Box office slip, Calloway Players: Ticket sales for the spring play came to 310 shillings.\n[Doc B] Front-of-house note: Programme sales on the night came to 85 shillings. Three programmes were left over.\n[Doc C] Invoice, Marrin Hall: Hire of the hall for the spring play costs the Calloway Players 150 shillings.\n\nQuestion: After paying the hall hire, how many shillings did the Calloway Players have left from ticket and programme sales?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 245
+   }
+  ],
+  "reference": "310 + 85 - 150 = 245.\nANSWER: 245",
+  "negative": "310 + 85 = 395.\nANSWER: 395"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "synthesis",
+  "subtheme": "running headcount",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Membership roll, Wendle Rowing Club, 1 January 2032: The club has 86 members.\n[Doc B] Secretary's letter, February: 7 members resigned from the club this month. The boathouse lease was renewed.\n[Doc C] Joining forms file, March: 12 new members joined the club this month. Nobody resigned in March.\n\nQuestion: How many members did the Wendle Rowing Club have at the end of March?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 91
+   }
+  ],
+  "reference": "86 - 7 + 12 = 91.\nANSWER: 91",
+  "negative": "86 + 12 = 98.\nANSWER: 98"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "synthesis",
+  "subtheme": "missing part of a stated whole",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Quarterly summary, Ashgrove toy library: Across January, February and March the library lent out 500 toys in all.\n[Doc B] January tally sheet: 160 toys were lent out in January. The most popular was a wooden train.\n[Doc C] February tally sheet: 185 toys were lent out in February, despite a week of snow.\n\nQuestion: How many toys were lent out in March?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 155
+   }
+  ],
+  "reference": "500 - 160 - 185 = 155.\nANSWER: 155",
+  "negative": "160 + 185 = 345.\nANSWER: 345"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "synthesis",
+  "subtheme": "exclusion stated in another document",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Takings sheet, Orlam village fete: The bake stall took 140 pence, the raffle took 95 pence and the book stall took 60 pence.\n[Doc B] Treasurer's note: The raffle was run by the Scout troop and its takings go to the Scouts. Everything else taken at the fete goes to the hall fund.\n[Doc C] Kitchen slip: The tea urn took 35 pence at the fete. Forty cups were washed afterwards.\n\nQuestion: How many pence from the fete go to the hall fund?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 235
+   }
+  ],
+  "reference": "140 + 60 + 35 = 235.\nANSWER: 235",
+  "negative": "140 + 95 + 60 + 35 = 330.\nANSWER: 330"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "synthesis",
+  "subtheme": "filter by membership in a register",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Delivery log, Hadlow School kitchen: Carrots received this week: Pellow Farm 120 kg, Rushby Farm 75 kg, Tarn Farm 90 kg, Wexcombe Farm 60 kg.\n[Doc B] Growers' register, 2033: Pellow Farm, Tarn Farm and Wexcombe Farm hold a current organic certificate. Rushby Farm's certificate lapsed last year.\n[Doc C] Kitchen rule sheet: Only carrots from farms with a current organic certificate may go into the school soup. The soup is served on Wednesdays.\n\nQuestion: How many kilograms of this week's carrots may go into the school soup?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 270
+   }
+  ],
+  "reference": "120 + 90 + 60 = 270.\nANSWER: 270",
+  "negative": "120 + 75 + 90 + 60 = 345.\nANSWER: 345"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "synthesis",
+  "subtheme": "adjust one figure by a stated error, then apply a rate",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Meter sheet, Corvane House: Flat 1 used 210 units of gas, Flat 2 used 165 units and Flat 3 used 180 units this quarter.\n[Doc B] Engineer's note: The meter in Flat 2 was faulty and over-read by 15 units, so the true usage of Flat 2 is 15 units lower than the meter sheet shows. The other meters are sound.\n[Doc C] Tariff card, Vellen Gas: Gas is charged at 2 pence per unit. Bills are sent every quarter.\n\nQuestion: Using the true usage, how many pence is the gas bill for the three flats together?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1080
+   }
+  ],
+  "reference": "(210 + 150 + 180) x 2 = 1080.\nANSWER: 1080",
+  "negative": "(210 + 165 + 180) x 2 = 1110.\nANSWER: 1110"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "synthesis",
+  "subtheme": "budget netting with a refund",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Committee minutes, Sedge Lane Pavilion: The repainting budget is set at 1,200 florins. The vote was unanimous.\n[Doc B] Invoice, Orrel Paints: 480 florins for exterior paint, paid in full.\n[Doc C] Invoice, Tallis Scaffolding: 350 florins for scaffold hire over two weeks, paid in full.\n[Doc D] Credit note, Orrel Paints: 90 florins has been refunded to the pavilion committee for unopened tins that were returned.\n\nQuestion: Taking the refund into account, how many florins of the repainting budget remain unspent?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 460
+   }
+  ],
+  "reference": "1200 - 480 - 350 + 90 = 460.\nANSWER: 460",
+  "negative": "1200 - 480 - 350 = 370.\nANSWER: 370"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "synthesis",
+  "subtheme": "two categories with different rates",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Booking sheet, Saturday cave tour: 12 adults and 9 children are booked. Helmets are provided.\n[Doc B] Booking sheet, Sunday cave tour: 8 adults and 15 children are booked.\n[Doc C] Tariff board, Grellan Caves: An adult ticket costs 6 groats and a child ticket costs 2 groats. Tours last one hour.\n\nQuestion: How many groats do the ticket sales for the two tours come to in total?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 168
+   }
+  ],
+  "reference": "20 x 6 + 24 x 2 = 168.\nANSWER: 168",
+  "negative": "44 x 6 = 264.\nANSWER: 264"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "synthesis",
+  "subtheme": "stock flow: opening plus in minus out",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Stock book, Marrowby Chandlery, 1 May: Opening stock is 340 candles.\n[Doc B] Goods-in notes, May: Two deliveries arrived, one of 120 candles and one of 80 candles.\n[Doc C] Sales ledger, May: Candles sold in the three weeks of trading: 95, 110 and 60.\n[Doc D] Breakage report, May: 15 candles were broken in the stockroom and thrown away. A shelf has since been repaired.\n\nQuestion: How many candles should be in stock at the end of May?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 260
+   }
+  ],
+  "reference": "340 + 120 + 80 - 95 - 110 - 60 - 15 = 260.\nANSWER: 260",
+  "negative": "340 + 120 + 80 - 95 - 110 - 60 = 275.\nANSWER: 275"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "synthesis",
+  "subtheme": "tool lookup: budget minus two receipts",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "How many crowns of the Larkfield Garden Club's 2031 budget are left after its seed order and its tool order are paid? Look the figures up in the documents, then give the remaining amount as a number in your final answer.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "budget": "Larkfield Garden Club budget sheet for 2031. The committee has set a total budget of 750 crowns for the year. The sheet was signed by the chair.",
+    "seeds": "Receipt from Penhallow Seeds to the Larkfield Garden Club. Seed order for spring 2031, paid in full: 195 crowns.",
+    "tools": "Receipt from Brask Ironmongers to the Larkfield Garden Club. Tool order of spades and forks, paid in full: 240 crowns.",
+    "moorside": "Moorside Garden Club budget sheet for 2031. The committee has set a total budget of 620 crowns for the year.",
+    "showday": "Larkfield Garden Club notice. The summer show will be held on the green. Entry forms are available from the secretary."
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 315
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "Larkfield Garden Club budget"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "budget"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "seeds"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "tools"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "750-195-240"
+     }
+    }
+   ],
+   "final": "315"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "budget"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "seeds"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "750-195"
+     }
+    }
+   ],
+   "final": "555"
+  }
+ },
+ {
+  "local_id": "g2-15",
+  "family": "synthesis",
+  "subtheme": "period conversion, one-off fee and deposit",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Hire agreement, Tolland Tents: The large marquee is hired to the Ebberly Show Society at 85 crowns per week.\n[Doc B] Show schedule: The marquee is needed for exactly 28 days, from setting-up day to clearing-up day. Judging takes place on day 10.\n[Doc C] Carrier's quote: Delivery and collection of the marquee is a single charge of 60 crowns.\n[Doc D] Receipt, Tolland Tents: A deposit of 150 crowns has been received from the Ebberly Show Society and will be taken off the final bill.\n\nQuestion: The final bill is the weekly hire for the whole period plus the delivery charge, less the deposit. How many crowns does the society still have to pay?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 250
+   }
+  ],
+  "reference": "85 x 4 + 60 - 150 = 250.\nANSWER: 250",
+  "negative": "85 x 4 + 60 = 400.\nANSWER: 400"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "synthesis",
+  "subtheme": "filter by category, correct one figure, apply a rate",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Landing log, Carrow quay: The Gannet landed 140 kg of herring, the Petrel landed 95 kg of mackerel, the Skua landed 110 kg of herring and the Tern landed 80 kg of herring.\n[Doc B] Weighmaster's slip: The Skua's catch was weighed again on the quay scale and came to 125 kg. This figure replaces the one in the landing log.\n[Doc C] Buyer's contract, Hallam Smokehouse: The smokehouse buys all herring landed at Carrow quay at 3 shillings per kg. It does not buy any other fish.\n[Doc D] Harbour notice: The quay crane is out of use until Friday.\n\nQuestion: Using the corrected weight, how many shillings does the smokehouse pay for the fish in the landing log?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1035
+   }
+  ],
+  "reference": "(140 + 125 + 80) x 3 = 1035.\nANSWER: 1035",
+  "negative": "(140 + 110 + 80) x 3 = 990.\nANSWER: 990"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "synthesis",
+  "subtheme": "JSON two-part: total spend and remainder with a replaced invoice",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the five documents, then answer.\n\n[Doc A] Council minute, Yarlsea Lantern Festival: The festival budget is fixed at 2,000 crowns. No further money will be voted.\n[Doc B] Invoice, Brome Staging: 740 crowns for the stage.\n[Doc C] Invoice, Lumen Hire: 385 crowns for lighting, including two spare lamps.\n[Doc D] Invoice, Sable Press: 290 crowns for printing the programmes.\n[Doc E] Revised invoice, Sable Press: Extra pages were added, so printing the programmes now costs 310 crowns. This invoice replaces the earlier Sable Press invoice.\n\nQuestion: Counting each supplier once at its final price, how many crowns are spent in total, and how many crowns of the budget are left?\n\nReply with only a JSON object like {\"spent\": <number>, \"left\": <number>} and nothing else.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "spent",
+     "left"
+    ],
+    "equals": {
+     "spent": 1435,
+     "left": 565
+    }
+   }
+  ],
+  "reference": "{\"spent\": 1435, \"left\": 565}",
+  "negative": "{\"spent\": 1415, \"left\": 585}"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "synthesis",
+  "subtheme": "two-tier tariff on a summed quantity",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Meter card, Drayholt Farm north field: 70 kilolitres of canal water were drawn for irrigation this season.\n[Doc B] Meter card, Drayholt Farm south field: 65 kilolitres of canal water were drawn this season. The pump was serviced in June.\n[Doc C] Canal board tariff: Each farm is billed on its total draw for the season. The first 100 kilolitres cost 2 pence each. Every kilolitre above 100 costs 5 pence.\n[Doc D] Canal board circular: The towpath will be resurfaced next spring.\n\nQuestion: How many pence is Drayholt Farm billed for canal water this season?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 375
+   }
+  ],
+  "reference": "100 x 2 + 35 x 5 = 375.\nANSWER: 375",
+  "negative": "135 x 2 = 270.\nANSWER: 270"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "synthesis",
+  "subtheme": "tool lookup: hours by person, grade by person, rate by grade",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "What is the total wage bill, in pence, for the Orrin Mill packing crew for the week of 7 April 2031? Each packer is paid for the hours on the timesheet at the hourly rate for their grade. Look the figures up in the documents, then give the total as a number in your final answer.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "timesheet": "Orrin Mill packing crew timesheet, week of 7 April 2031. Hours worked: Ilsa Brandt 12 hours, Corin Vale 20 hours, Maud Ferris 8 hours.",
+    "grades": "Orrin Mill staff grades. Ilsa Brandt is a senior packer. Corin Vale is a junior packer. Maud Ferris is a senior packer.",
+    "payscale": "Orrin Mill pay scale for 2031. A senior packer is paid 9 pence per hour. A junior packer is paid 6 pence per hour.",
+    "canteen": "Orrin Mill canteen notice. Soup is served at noon. The canteen is closed on the last Friday of each month.",
+    "loading": "Orrin Mill loading bay rota, week of 7 April 2031. The loading bay crew is separate from the packing crew and worked 44 hours in all."
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 300
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "Orrin Mill packing crew timesheet"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "timesheet"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "grades"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "payscale"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "12*9+20*6+8*9"
+     }
+    }
+   ],
+   "final": "300"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "timesheet"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "payscale"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "(12+20+8)*6"
+     }
+    }
+   ],
+   "final": "240"
+  }
+ },
+ {
+  "local_id": "g2-20",
+  "family": "synthesis",
+  "subtheme": "summed cost divided by an updated headcount",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Invoice, Kessock Boatyard: 540 crowns for repairing the hull of the Pellin Sailing Club's safety boat.\n[Doc B] Harbour office bill: 180 crowns for the Pellin Sailing Club's mooring for the year. Payment is due in thirty days.\n[Doc C] Membership roll, 1 March: The Pellin Sailing Club has 15 members.\n[Doc D] Secretary's note, 20 March: 3 more members have joined since the roll was drawn up and nobody has left. The repair and mooring costs will be shared equally among all current members.\n\nQuestion: How many crowns is each current member's equal share of the two costs?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   }
+  ],
+  "reference": "(540 + 180) / (15 + 3) = 40.\nANSWER: 40",
+  "negative": "(540 + 180) / 15 = 48.\nANSWER: 48"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "synthesis",
+  "subtheme": "net count converted to dozens, then priced",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Collection sheet, Hollin Farm, Monday: 132 eggs were collected from the hen houses.\n[Doc B] Collection sheet, Hollin Farm, Tuesday: 108 eggs were collected. A fox was seen near the east fence.\n[Doc C] Packing shed note: Of the eggs collected on Monday and Tuesday, 24 were cracked and thrown away. All the rest were sold to the Wray Dairy.\n[Doc D] Price agreement, Wray Dairy: The dairy pays Hollin Farm 4 pence for every dozen eggs. A dozen is 12 eggs.\n\nQuestion: How many pence does the Wray Dairy pay for the eggs sold from Monday's and Tuesday's collections?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 72
+   }
+  ],
+  "reference": "(132 + 108 - 24) / 12 x 4 = 72.\nANSWER: 72",
+  "negative": "(132 + 108 - 24) x 4 = 864.\nANSWER: 864"
+ }
+]

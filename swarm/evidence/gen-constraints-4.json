@@ -1,0 +1,35 @@
+{
+ "actor": "gen-constraints-4",
+ "role": "task-generation",
+ "family": "constraints",
+ "subtheme": "lexical and case rules",
+ "output_file": "tasks/constraints/gen_4.json",
+ "n_tasks": 21,
+ "difficulty_mix": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/constraints/spec.md, tasks/constraints/dev.json and the text checkers in lab/core.py (run_check).",
+  "Wrote 21 single-mode tasks g4-01..g4-21 with a Python builder script (kept in the session scratchpad, not in the repo).",
+  "Rules covered: all-uppercase, all-lowercase, required first word, required last word, no digits, forbidden word, required words, capitalize each word, prefix + uppercase lines, forbidden words with required opening, first and last word, lowercase without punctuation, no commas, forbidden-word rewrite, lipogram without the letter e, alternating case by line, same initial letter, positively phrased rules, title-case headline with forbidden words, capitals only on first and last word, no digits + no commas + one capitalised word."
+ ],
+ "verification": [
+  "No arithmetic answers in this sub-theme; correctness is constraint satisfaction, so each reference and negative was executed against the real lab.core.run_check.",
+  "In addition to reference/negative, 21 alternative correct replies (expected pass) and 54 alternative near-miss replies (expected fail) were run through the same checkers; all behaved as expected (0 problems).",
+  "Every prohibition is paired with a positive content check and a minimum length (min_words or a regex repetition count); case rules use flags \"\"."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/constraints/gen_4.json --family constraints",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "No model pilot was run on these tasks (held-out), so the easy/medium/hard labels are estimates from the spec's baseline guidance, not measured.",
+  "Did not read other generators' files, so cross-generator overlap was not checked."
+ ],
+ "known_limits": [
+  "Free-writing tasks check topic only through required tokens (names, required words); an off-topic sentence containing those tokens would pass.",
+  "g4-10 requires the word 'flour' and g4-15 forbids the letter e case-insensitively; both are stated explicitly in the prompts."
+ ]
+}

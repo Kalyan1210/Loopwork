@@ -1,0 +1,56 @@
+{
+ "actor": "gen-coding-3",
+ "family": "coding",
+ "subtheme": "complete-partial",
+ "output": "tasks/coding/gen_3.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 6,
+  "medium": 8,
+  "hard": 7
+ },
+ "coverage": {
+  "loops": [
+   "g3-01",
+   "g3-06",
+   "g3-07",
+   "g3-12",
+   "g3-15",
+   "g3-20"
+  ],
+  "recursion": [
+   "g3-02",
+   "g3-08",
+   "g3-13",
+   "g3-14",
+   "g3-18"
+  ],
+  "classes": [
+   "g3-03",
+   "g3-09",
+   "g3-16",
+   "g3-21"
+  ],
+  "generators": [
+   "g3-04",
+   "g3-10",
+   "g3-17"
+  ],
+  "given-helper": [
+   "g3-05",
+   "g3-11",
+   "g3-19"
+  ]
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/coding/spec.md, dev.json and the code_tests checker in lab/core.py. Authored 21 skeleton-completion / helper-reuse tasks with a build script that assembles prompt, tests, reference and negative.",
+ "verification": "Expected values in every assert were computed by executing the reference solution (exec/eval in the build script), then read against the prose spec. The script also asserts that every non-placeholder skeleton line appears verbatim in the reference and that each skeleton has 1-3 '...' placeholders. lab/validate_tasks.py then ran each reference (must pass) and each negative (must fail) in the sandbox.",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/coding/gen_3.json --family coding",
+  "result": "21/21 valid"
+ },
+ "model_run_on_tasks": false,
+ "notes": [
+  "Difficulty labels are author estimates; no pilot was run, as required for held-out tasks.",
+  "Did not read other generators' files; overlap with them is unchecked."
+ ]
+}

@@ -1,0 +1,422 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `clamp(x, lo, hi)` should return x limited to the range lo..hi: lo when x is below lo, hi when x is above hi, otherwise x itself.\n\nBuggy code:\n```python\ndef clamp(x, lo, hi):\n    if x < lo:\n        return lo\n    if x > hi:\n        return lo\n    return x\n```\n\nSymptom: clamp(15, 0, 10) returns 0 but should return 10.\nFind the bug and write the corrected version of `clamp`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert clamp(15, 0, 10) == 10\nassert clamp(-3, 0, 10) == 0\nassert clamp(7, 0, 10) == 7\nassert clamp(10, 0, 10) == 10\nassert clamp(0, 0, 10) == 0\nassert clamp(99, -5, -1) == -1"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong return value in a branch"
+  },
+  "reference": "```python\ndef clamp(x, lo, hi):\n    if x < lo:\n        return lo\n    if x > hi:\n        return hi\n    return x\n```",
+  "negative": "```python\ndef clamp(x, lo, hi):\n    if x < lo:\n        return lo\n    if x > hi:\n        return lo\n    return x\n```"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `smallest(nums)` should return the smallest number in the list nums, or None when the list is empty.\n\nBuggy code:\n```python\ndef smallest(nums):\n    if not nums:\n        return None\n    best = 0\n    for n in nums:\n        if n < best:\n            best = n\n    return best\n```\n\nSymptom: smallest([4, 2, 9]) returns 0 but should return 2.\nFind the bug and write the corrected version of `smallest`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert smallest([4, 2, 9]) == 2\nassert smallest([7]) == 7\nassert smallest([-1, -8, 3]) == -8\nassert smallest([5, 5, 6]) == 5\nassert smallest([10, 20, 30]) == 10\nassert smallest([]) is None"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong initial value"
+  },
+  "reference": "```python\ndef smallest(nums):\n    if not nums:\n        return None\n    best = nums[0]\n    for n in nums:\n        if n < best:\n            best = n\n    return best\n```",
+  "negative": "```python\ndef smallest(nums):\n    if not nums:\n        return None\n    best = 0\n    for n in nums:\n        if n < best:\n            best = n\n    return best\n```"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `mean_score(scores)` should return the arithmetic mean of the numbers in scores as a float (for example 1.5), or 0.0 when the list is empty.\n\nBuggy code:\n```python\ndef mean_score(scores):\n    if not scores:\n        return 0.0\n    total = 0\n    for s in scores:\n        total += s\n    return total // len(scores)\n```\n\nSymptom: mean_score([1, 2]) returns 1 but should return 1.5.\nFind the bug and write the corrected version of `mean_score`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert mean_score([1, 2]) == 1.5\nassert mean_score([3, 4, 4, 6]) == 4.25\nassert mean_score([10]) == 10.0\nassert mean_score([]) == 0.0\nassert mean_score([-1, -2]) == -1.5\nassert mean_score([0, 0, 1, 0]) == 0.25"
+   }
+  ],
+  "tags": {
+   "bug_class": "integer vs float division"
+  },
+  "reference": "```python\ndef mean_score(scores):\n    if not scores:\n        return 0.0\n    total = 0\n    for s in scores:\n        total += s\n    return total / len(scores)\n```",
+  "negative": "```python\ndef mean_score(scores):\n    if not scores:\n        return 0.0\n    total = 0\n    for s in scores:\n        total += s\n    return total // len(scores)\n```"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `all_positive(nums)` should return True when every number in nums is greater than 0 (an empty list also gives True) and False otherwise.\n\nBuggy code:\n```python\ndef all_positive(nums):\n    for n in nums:\n        if n > 0:\n            return True\n        else:\n            return False\n    return True\n```\n\nSymptom: all_positive([1, -2]) returns True but should return False.\nFind the bug and write the corrected version of `all_positive`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert all_positive([1, -2]) == False\nassert all_positive([3, 4, 5]) == True\nassert all_positive([]) == True\nassert all_positive([2, 2, 0]) == False\nassert all_positive([-1, 5]) == False\nassert all_positive([6, 1, 9, -4, 2]) == False"
+   }
+  ],
+  "tags": {
+   "bug_class": "early return"
+  },
+  "reference": "```python\ndef all_positive(nums):\n    for n in nums:\n        if n <= 0:\n            return False\n    return True\n```",
+  "negative": "```python\ndef all_positive(nums):\n    for n in nums:\n        if n > 0:\n            return True\n        else:\n            return False\n    return True\n```"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `last_index_of(items, target)` should return the index of the last occurrence of target in the list items, or -1 when target is not in the list.\n\nBuggy code:\n```python\ndef last_index_of(items, target):\n    i = len(items) - 1\n    while i > 0:\n        if items[i] == target:\n            return i\n        i -= 1\n    return -1\n```\n\nSymptom: last_index_of([7, 8, 9], 7) returns -1 but should return 0.\nFind the bug and write the corrected version of `last_index_of`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert last_index_of([7, 8, 9], 7) == 0\nassert last_index_of([1, 2, 1, 3], 1) == 2\nassert last_index_of([4, 5], 6) == -1\nassert last_index_of([], 1) == -1\nassert last_index_of(['a'], 'a') == 0\nassert last_index_of([2, 2, 2], 2) == 2"
+   }
+  ],
+  "tags": {
+   "bug_class": "off-by-one loop bound"
+  },
+  "reference": "```python\ndef last_index_of(items, target):\n    i = len(items) - 1\n    while i >= 0:\n        if items[i] == target:\n            return i\n        i -= 1\n    return -1\n```",
+  "negative": "```python\ndef last_index_of(items, target):\n    i = len(items) - 1\n    while i > 0:\n        if items[i] == target:\n            return i\n        i -= 1\n    return -1\n```"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `count_at_least(nums, limit)` should return how many numbers in nums are greater than or equal to limit.\n\nBuggy code:\n```python\ndef count_at_least(nums, limit):\n    count = 0\n    for n in nums:\n        if n > limit:\n            count += 1\n    return count\n```\n\nSymptom: count_at_least([5, 7, 3], 5) returns 1 but should return 2.\nFind the bug and write the corrected version of `count_at_least`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_at_least([5, 7, 3], 5) == 2\nassert count_at_least([1, 2, 3], 4) == 0\nassert count_at_least([], 0) == 0\nassert count_at_least([2, 2, 2], 2) == 3\nassert count_at_least([-1, 0, 1], 0) == 2\nassert count_at_least([9, 8], 1) == 2"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong comparison operator"
+  },
+  "reference": "```python\ndef count_at_least(nums, limit):\n    count = 0\n    for n in nums:\n        if n >= limit:\n            count += 1\n    return count\n```",
+  "negative": "```python\ndef count_at_least(nums, limit):\n    count = 0\n    for n in nums:\n        if n > limit:\n            count += 1\n    return count\n```"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `longest_run(nums)` should return the length of the longest run of equal values that sit next to each other in the list nums (0 for an empty list).\n\nBuggy code:\n```python\ndef longest_run(nums):\n    if not nums:\n        return 0\n    best = 1\n    cur = 1\n    for i in range(1, len(nums)):\n        if nums[i] == nums[i - 1]:\n            cur += 1\n        best = max(best, cur)\n    return best\n```\n\nSymptom: longest_run([1, 1, 2, 2]) returns 3 but should return 2.\nFind the bug and write the corrected version of `longest_run`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert longest_run([1, 1, 2, 2]) == 2\nassert longest_run([]) == 0\nassert longest_run([5]) == 1\nassert longest_run([3, 3, 3, 1, 3, 3]) == 3\nassert longest_run([1, 2, 3]) == 1\nassert longest_run([4, 4, 7, 7, 7, 7, 4]) == 4\nassert longest_run([2, 2, 1, 1, 2, 2]) == 2"
+   }
+  ],
+  "tags": {
+   "bug_class": "state not reset in a loop"
+  },
+  "reference": "```python\ndef longest_run(nums):\n    if not nums:\n        return 0\n    best = 1\n    cur = 1\n    for i in range(1, len(nums)):\n        if nums[i] == nums[i - 1]:\n            cur += 1\n        else:\n            cur = 1\n        best = max(best, cur)\n    return best\n```",
+  "negative": "```python\ndef longest_run(nums):\n    if not nums:\n        return 0\n    best = 1\n    cur = 1\n    for i in range(1, len(nums)):\n        if nums[i] == nums[i - 1]:\n            cur += 1\n        best = max(best, cur)\n    return best\n```"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `add_tag(tag, tags=None)` should strip and lower-case tag, append it to the list tags unless it is empty or already present, and return the list; when tags is not passed, every call must start from a brand-new empty list.\n\nBuggy code:\n```python\ndef add_tag(tag, tags=[]):\n    tag = tag.strip().lower()\n    if tag == '':\n        return tags\n    if tag not in tags:\n        tags.append(tag)\n    return tags\n```\n\nSymptom: calling add_tag('red') and then add_tag('blue'), the second call returns ['red', 'blue'] but should return ['blue'].\nFind the bug and write the corrected version of `add_tag`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert add_tag('red') == ['red']\nassert add_tag('blue') == ['blue']\nassert add_tag('  ') == []\nassert add_tag(' Green ') == ['green']\nassert add_tag(' Y ', ['x']) == ['x', 'y']\nassert add_tag('x', ['x']) == ['x']\nassert add_tag('', ['k']) == ['k']"
+   }
+  ],
+  "tags": {
+   "bug_class": "mutable default argument"
+  },
+  "reference": "```python\ndef add_tag(tag, tags=None):\n    if tags is None:\n        tags = []\n    tag = tag.strip().lower()\n    if tag == '':\n        return tags\n    if tag not in tags:\n        tags.append(tag)\n    return tags\n```",
+  "negative": "```python\ndef add_tag(tag, tags=[]):\n    tag = tag.strip().lower()\n    if tag == '':\n        return tags\n    if tag not in tags:\n        tags.append(tag)\n    return tags\n```"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `top_three(scores)` should return a new list with the three highest numbers of scores in descending order (all of them when there are fewer than three) and must leave the list scores unchanged.\n\nBuggy code:\n```python\ndef top_three(scores):\n    scores.sort(reverse=True)\n    result = []\n    for s in scores:\n        if len(result) < 3:\n            result.append(s)\n    return result\n```\n\nSymptom: after s = [3, 9, 1, 7] and top_three(s), the list s is [9, 7, 3, 1] but should still be [3, 9, 1, 7].\nFind the bug and write the corrected version of `top_three`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert top_three([3, 9, 1, 7]) == [9, 7, 3]\nassert top_three([2, 5]) == [5, 2]\nassert top_three([]) == []\nassert top_three([4, 4, 4, 4]) == [4, 4, 4]\nassert top_three([-1, -5, -3, -2]) == [-1, -2, -3]\ns = [3, 9, 1, 7]\ntop_three(s)\nassert s == [3, 9, 1, 7]\nt = [1, 2]\nr = top_three(t)\nassert t == [1, 2] and r == [2, 1]"
+   }
+  ],
+  "tags": {
+   "bug_class": "input list mutated"
+  },
+  "reference": "```python\ndef top_three(scores):\n    ordered = sorted(scores, reverse=True)\n    result = []\n    for s in ordered:\n        if len(result) < 3:\n            result.append(s)\n    return result\n```",
+  "negative": "```python\ndef top_three(scores):\n    scores.sort(reverse=True)\n    result = []\n    for s in scores:\n        if len(result) < 3:\n            result.append(s)\n    return result\n```"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `most_common_char(s)` should return the character that occurs most often in the string s; when several characters share the highest count it returns the one that appears first in s, and it returns '' for an empty string.\n\nBuggy code:\n```python\ndef most_common_char(s):\n    best = ''\n    best_count = 0\n    for ch in s:\n        c = s.count(ch)\n        if c >= best_count:\n            best = ch\n            best_count = c\n    return best\n```\n\nSymptom: most_common_char('abab') returns 'b' but should return 'a'.\nFind the bug and write the corrected version of `most_common_char`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert most_common_char('abab') == 'a'\nassert most_common_char('') == ''\nassert most_common_char('zebra') == 'z'\nassert most_common_char('hello') == 'l'\nassert most_common_char('xyyx') == 'x'\nassert most_common_char('aabbb') == 'b'\nassert most_common_char('q') == 'q'"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong tie-break"
+  },
+  "reference": "```python\ndef most_common_char(s):\n    best = ''\n    best_count = 0\n    for ch in s:\n        c = s.count(ch)\n        if c > best_count:\n            best = ch\n            best_count = c\n    return best\n```",
+  "negative": "```python\ndef most_common_char(s):\n    best = ''\n    best_count = 0\n    for ch in s:\n        c = s.count(ch)\n        if c >= best_count:\n            best = ch\n            best_count = c\n    return best\n```"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `median(nums)` should return the median of a non-empty list of numbers: the middle value of the sorted list when the length is odd, and the average of the two middle values (a float) when the length is even.\n\nBuggy code:\n```python\ndef median(nums):\n    s = sorted(nums)\n    mid = len(s) // 2\n    if len(s) % 2 == 1:\n        return s[mid]\n    return (s[mid] + s[mid + 1]) / 2\n```\n\nSymptom: median([1, 2, 3, 4]) returns 3.5 but should return 2.5.\nFind the bug and write the corrected version of `median`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert median([1, 2, 3, 4]) == 2.5\nassert median([5, 1, 3]) == 3\nassert median([8]) == 8\nassert median([4, 2]) == 3.0\nassert median([10, -2, 4, 6]) == 5.0\nassert median([7, 7, 1, 9, 3, 3]) == 5.0"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong index for the middle pair"
+  },
+  "reference": "```python\ndef median(nums):\n    s = sorted(nums)\n    mid = len(s) // 2\n    if len(s) % 2 == 1:\n        return s[mid]\n    return (s[mid - 1] + s[mid]) / 2\n```",
+  "negative": "```python\ndef median(nums):\n    s = sorted(nums)\n    mid = len(s) // 2\n    if len(s) % 2 == 1:\n        return s[mid]\n    return (s[mid] + s[mid + 1]) / 2\n```"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `chunk(items, size)` should split the list items into consecutive lists of length size (size >= 1) and return them as a list; the last list may be shorter when the items do not divide evenly, and an empty input gives [].\n\nBuggy code:\n```python\ndef chunk(items, size):\n    out = []\n    cur = []\n    for x in items:\n        cur.append(x)\n        if len(cur) == size:\n            out.append(cur)\n            cur = []\n    return out\n```\n\nSymptom: chunk([1, 2, 3], 2) returns [[1, 2]] but should return [[1, 2], [3]].\nFind the bug and write the corrected version of `chunk`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert chunk([1, 2, 3], 2) == [[1, 2], [3]]\nassert chunk([], 3) == []\nassert chunk([1, 2, 3, 4], 2) == [[1, 2], [3, 4]]\nassert chunk(['a'], 5) == [['a']]\nassert chunk([1, 2, 3, 4, 5, 6, 7], 3) == [[1, 2, 3], [4, 5, 6], [7]]\nassert chunk([9, 8], 1) == [[9], [8]]"
+   }
+  ],
+  "tags": {
+   "bug_class": "leftover state not flushed after the loop"
+  },
+  "reference": "```python\ndef chunk(items, size):\n    out = []\n    cur = []\n    for x in items:\n        cur.append(x)\n        if len(cur) == size:\n            out.append(cur)\n            cur = []\n    if cur:\n        out.append(cur)\n    return out\n```",
+  "negative": "```python\ndef chunk(items, size):\n    out = []\n    cur = []\n    for x in items:\n        cur.append(x)\n        if len(cur) == size:\n            out.append(cur)\n            cur = []\n    return out\n```"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `make_grid(rows, cols)` should return a list of rows lists, each holding cols zeros, where every row is a separate list so that changing one row does not change the others.\n\nBuggy code:\n```python\ndef make_grid(rows, cols):\n    row = []\n    for _ in range(cols):\n        row.append(0)\n    grid = []\n    for _ in range(rows):\n        grid.append(row)\n    return grid\n```\n\nSymptom: after g = make_grid(2, 2) and g[0][0] = 5, the grid g is [[5, 0], [5, 0]] but should be [[5, 0], [0, 0]].\nFind the bug and write the corrected version of `make_grid`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert make_grid(2, 3) == [[0, 0, 0], [0, 0, 0]]\nassert make_grid(0, 4) == []\nassert make_grid(1, 1) == [[0]]\ng = make_grid(2, 2)\ng[0][0] = 5\nassert g == [[5, 0], [0, 0]]\nh = make_grid(3, 1)\nh[2].append(7)\nassert h == [[0], [0], [0, 7]]\nk = make_grid(3, 2)\nk[1][1] = 1\nassert k[0] == [0, 0] and k[2] == [0, 0]"
+   }
+  ],
+  "tags": {
+   "bug_class": "aliased rows (shared list object)"
+  },
+  "reference": "```python\ndef make_grid(rows, cols):\n    grid = []\n    for _ in range(rows):\n        row = []\n        for _ in range(cols):\n            row.append(0)\n        grid.append(row)\n    return grid\n```",
+  "negative": "```python\ndef make_grid(rows, cols):\n    row = []\n    for _ in range(cols):\n        row.append(0)\n    grid = []\n    for _ in range(rows):\n        grid.append(row)\n    return grid\n```"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `count_words(text)` should split text on whitespace and return a dict that maps each word, converted to lower case, to the number of times it occurs, so 'Hi' and 'hi' are counted as the same word.\n\nBuggy code:\n```python\ndef count_words(text):\n    counts = {}\n    for word in text.split():\n        if word in counts:\n            counts[word] += 1\n        else:\n            counts[word] = 0\n    return counts\n```\n\nSymptom: count_words('hi hi') returns {'hi': 1} but should return {'hi': 2}.\nFind the bug and write the corrected version of `count_words`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_words('hi hi') == {'hi': 2}\nassert count_words('') == {}\nassert count_words('Hi hi HI') == {'hi': 3}\nassert count_words('one') == {'one': 1}\nassert count_words('To be or not to BE') == {'to': 2, 'be': 2, 'or': 1, 'not': 1}\nassert count_words('  a   b a ') == {'a': 2, 'b': 1}"
+   }
+  ],
+  "tags": {
+   "bug_class": "two bugs: wrong initial count and missing case folding (symptom shows one)"
+  },
+  "reference": "```python\ndef count_words(text):\n    counts = {}\n    for word in text.split():\n        word = word.lower()\n        if word in counts:\n            counts[word] += 1\n        else:\n            counts[word] = 1\n    return counts\n```",
+  "negative": "```python\ndef count_words(text):\n    counts = {}\n    for word in text.split():\n        if word in counts:\n            counts[word] += 1\n        else:\n            counts[word] = 0\n    return counts\n```"
+ },
+ {
+  "local_id": "g2-15",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `split_runs(nums)` should split the list nums into runs in which each number is exactly 1 more than the number before it, and return the runs as a list of lists that keeps every number in its original order ([] for an empty list).\n\nBuggy code:\n```python\ndef split_runs(nums):\n    runs = []\n    cur = []\n    for n in nums:\n        if cur and n != cur[-1] + 1:\n            runs.append(cur)\n            cur = []\n        else:\n            cur.append(n)\n    if cur:\n        runs.append(cur)\n    return runs\n```\n\nSymptom: split_runs([1, 2, 7, 8]) returns [[1, 2], [8]] but should return [[1, 2], [7, 8]].\nFind the bug and write the corrected version of `split_runs`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert split_runs([1, 2, 7, 8]) == [[1, 2], [7, 8]]\nassert split_runs([]) == []\nassert split_runs([4]) == [[4]]\nassert split_runs([1, 2, 3, 7, 8, 10]) == [[1, 2, 3], [7, 8], [10]]\nassert split_runs([5, 5, 6]) == [[5], [5, 6]]\nassert split_runs([3, 2, 1]) == [[3], [2], [1]]\nassert split_runs([-1, 0, 1, 9]) == [[-1, 0, 1], [9]]"
+   }
+  ],
+  "tags": {
+   "bug_class": "state reset to the wrong value in a sweep"
+  },
+  "reference": "```python\ndef split_runs(nums):\n    runs = []\n    cur = []\n    for n in nums:\n        if cur and n != cur[-1] + 1:\n            runs.append(cur)\n            cur = []\n        cur.append(n)\n    if cur:\n        runs.append(cur)\n    return runs\n```",
+  "negative": "```python\ndef split_runs(nums):\n    runs = []\n    cur = []\n    for n in nums:\n        if cur and n != cur[-1] + 1:\n            runs.append(cur)\n            cur = []\n        else:\n            cur.append(n)\n    if cur:\n        runs.append(cur)\n    return runs\n```"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `rank_players(scores)` takes a dict that maps player names to integer scores and should return the list of names ordered by score from highest to lowest, with players on the same score ordered alphabetically (A before B).\n\nBuggy code:\n```python\ndef rank_players(scores):\n    pairs = []\n    for name in scores:\n        pairs.append((scores[name], name))\n    pairs.sort(reverse=True)\n    return [name for score, name in pairs]\n```\n\nSymptom: rank_players({'bo': 5, 'al': 5, 'cy': 9}) returns ['cy', 'bo', 'al'] but should return ['cy', 'al', 'bo'].\nFind the bug and write the corrected version of `rank_players`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert rank_players({'bo': 5, 'al': 5, 'cy': 9}) == ['cy', 'al', 'bo']\nassert rank_players({}) == []\nassert rank_players({'zed': 1}) == ['zed']\nassert rank_players({'b': 2, 'c': 2, 'a': 2}) == ['a', 'b', 'c']\nassert rank_players({'kim': 3, 'lee': 8, 'ann': 8, 'joe': 0}) == ['ann', 'lee', 'kim', 'joe']\nassert rank_players({'x': -1, 'y': -4, 'w': -1}) == ['w', 'x', 'y']"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong tie-break in a sort"
+  },
+  "reference": "```python\ndef rank_players(scores):\n    pairs = []\n    for name in scores:\n        pairs.append((-scores[name], name))\n    pairs.sort()\n    return [name for score, name in pairs]\n```",
+  "negative": "```python\ndef rank_players(scores):\n    pairs = []\n    for name in scores:\n        pairs.append((scores[name], name))\n    pairs.sort(reverse=True)\n    return [name for score, name in pairs]\n```"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `find_index(nums, target)` takes a list of distinct integers sorted in ascending order and should return the index of target using binary search, or -1 when target is not in the list (including when the list is empty).\n\nBuggy code:\n```python\ndef find_index(nums, target):\n    lo = 0\n    hi = len(nums) - 1\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return -1\n```\n\nSymptom: find_index([4], 4) returns -1 but should return 0.\nFind the bug and write the corrected version of `find_index`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert find_index([4], 4) == 0\nassert find_index([], 3) == -1\nassert find_index([4], 1) == -1\nassert find_index([1, 3, 5, 7], 7) == 3\nassert find_index([1, 3, 5, 7], 1) == 0\nassert find_index([1, 3, 5, 7], 4) == -1\nassert find_index([2, 6, 9], 10) == -1\nassert find_index([2, 6, 9], 6) == 1"
+   }
+  ],
+  "tags": {
+   "bug_class": "two interacting binary-search bugs (loop condition and bound update)"
+  },
+  "reference": "```python\ndef find_index(nums, target):\n    lo = 0\n    hi = len(nums) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n```",
+  "negative": "```python\ndef find_index(nums, target):\n    lo = 0\n    hi = len(nums) - 1\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] == target:\n            return mid\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return -1\n```"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `rotate_left(items, k)` should return a new list with the elements of items rotated k positions to the left, where k is any integer >= 0 and may be larger than the length of the list (rotating by the length gives the same order), and an empty list gives [].\n\nBuggy code:\n```python\ndef rotate_left(items, k):\n    result = []\n    for x in items[k:]:\n        result.append(x)\n    for x in items[:k]:\n        result.append(x)\n    return result\n```\n\nSymptom: rotate_left([1, 2, 3], 4) returns [1, 2, 3] but should return [2, 3, 1].\nFind the bug and write the corrected version of `rotate_left`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert rotate_left([1, 2, 3], 4) == [2, 3, 1]\nassert rotate_left([1, 2, 3], 1) == [2, 3, 1]\nassert rotate_left([], 5) == []\nassert rotate_left([1, 2, 3], 3) == [1, 2, 3]\nassert rotate_left(['a', 'b', 'c', 'd'], 10) == ['c', 'd', 'a', 'b']\nassert rotate_left([9], 7) == [9]\nassert rotate_left([1, 2], 0) == [1, 2]"
+   }
+  ],
+  "tags": {
+   "bug_class": "missing wrap-around for large k, with an empty-list trap"
+  },
+  "reference": "```python\ndef rotate_left(items, k):\n    if not items:\n        return []\n    k = k % len(items)\n    return items[k:] + items[:k]\n```",
+  "negative": "```python\ndef rotate_left(items, k):\n    result = []\n    for x in items[k:]:\n        result.append(x)\n    for x in items[:k]:\n        result.append(x)\n    return result\n```"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `best_slice_sum(nums)` should return the largest sum of any non-empty run of neighbouring elements in the list nums (so a list of only negative numbers gives its largest single element), and 0 for an empty list.\n\nBuggy code:\n```python\ndef best_slice_sum(nums):\n    best = 0\n    cur = 0\n    for n in nums:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```\n\nSymptom: best_slice_sum([-3, -1, -2]) returns 0 but should return -1.\nFind the bug and write the corrected version of `best_slice_sum`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert best_slice_sum([-3, -1, -2]) == -1\nassert best_slice_sum([]) == 0\nassert best_slice_sum([2, -1, 3]) == 4\nassert best_slice_sum([-5]) == -5\nassert best_slice_sum([1, -4, 2, 2, -1]) == 4\nassert best_slice_sum([-2, -7]) == -2\nassert best_slice_sum([4, 5]) == 9"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong initial value in a running-maximum sweep"
+  },
+  "reference": "```python\ndef best_slice_sum(nums):\n    if not nums:\n        return 0\n    best = nums[0]\n    cur = nums[0]\n    for n in nums[1:]:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```",
+  "negative": "```python\ndef best_slice_sum(nums):\n    best = 0\n    cur = 0\n    for n in nums:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```"
+ },
+ {
+  "local_id": "g2-20",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `avg_by_name(pairs)` takes a list of [name, score] lists and should return a dict that maps each name to the average (a float) of that name's own scores only.\n\nBuggy code:\n```python\ndef avg_by_name(pairs):\n    totals = {}\n    count = 0\n    for name, score in pairs:\n        totals[name] = totals.get(name, 0) + score\n        count += 1\n    return {name: totals[name] / count for name in totals}\n```\n\nSymptom: avg_by_name([['a', 4], ['b', 6]]) returns {'a': 2.0, 'b': 3.0} but should return {'a': 4.0, 'b': 6.0}.\nFind the bug and write the corrected version of `avg_by_name`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert avg_by_name([['a', 4], ['b', 6]]) == {'a': 4.0, 'b': 6.0}\nassert avg_by_name([]) == {}\nassert avg_by_name([['a', 1], ['a', 2]]) == {'a': 1.5}\nassert avg_by_name([['x', 3], ['y', 8], ['x', 6], ['x', 0]]) == {'x': 3.0, 'y': 8.0}\nassert avg_by_name([['solo', 7]]) == {'solo': 7.0}\nassert avg_by_name([['p', -2], ['q', 2], ['p', 4], ['q', 3]]) == {'p': 1.0, 'q': 2.5}"
+   }
+  ],
+  "tags": {
+   "bug_class": "shared counter instead of per-key state"
+  },
+  "reference": "```python\ndef avg_by_name(pairs):\n    totals = {}\n    counts = {}\n    for name, score in pairs:\n        totals[name] = totals.get(name, 0) + score\n        counts[name] = counts.get(name, 0) + 1\n    return {name: totals[name] / counts[name] for name in totals}\n```",
+  "negative": "```python\ndef avg_by_name(pairs):\n    totals = {}\n    count = 0\n    for name, score in pairs:\n        totals[name] = totals.get(name, 0) + score\n        count += 1\n    return {name: totals[name] / count for name in totals}\n```"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "coding",
+  "subtheme": "bugfix",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "The function `is_palindrome(text)` should return True when text reads the same forwards and backwards after ignoring upper/lower case and every character that is not a letter or digit, and False otherwise (a text with no letters or digits gives True).\n\nBuggy code:\n```python\ndef is_palindrome(text):\n    chars = [c for c in text if c.isalnum()]\n    for i in range(len(chars) // 2):\n        if chars[i] != chars[len(chars) - i]:\n            return False\n    return True\n```\n\nSymptom: is_palindrome('abba') raises IndexError but should return True.\nFind the bug and write the corrected version of `is_palindrome`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert is_palindrome('abba') == True\nassert is_palindrome('abca') == False\nassert is_palindrome('Level') == True\nassert is_palindrome('Was it a car, or a cat I saw?') == True\nassert is_palindrome('') == True\nassert is_palindrome('?!') == True\nassert is_palindrome('No lemons') == False\nassert is_palindrome('x') == True"
+   }
+  ],
+  "tags": {
+   "bug_class": "two bugs: off-by-one mirror index and missing case folding (symptom shows one)"
+  },
+  "reference": "```python\ndef is_palindrome(text):\n    chars = [c.lower() for c in text if c.isalnum()]\n    for i in range(len(chars) // 2):\n        if chars[i] != chars[len(chars) - 1 - i]:\n            return False\n    return True\n```",
+  "negative": "```python\ndef is_palindrome(text):\n    chars = [c for c in text if c.isalnum()]\n    for i in range(len(chars) // 2):\n        if chars[i] != chars[len(chars) - i]:\n            return False\n    return True\n```"
+ }
+]

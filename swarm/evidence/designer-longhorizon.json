@@ -1,0 +1,34 @@
+{
+ "actor": "designer-longhorizon",
+ "role": "task-suite-design",
+ "family": "longhorizon",
+ "dev_tasks_valid": 10,
+ "validation": "lab/validate_tasks.py tasks/longhorizon/dev.json --family longhorizon -> 10/10 valid",
+ "dev_mix": {"multi": 6, "tool": 4, "easy": 3, "medium": 4, "hard": 3},
+ "pilot_rounds": [
+  {"round": 1, "passed": 1, "total": 10, "pass_rate": 0.1, "note": "First draft (5 multi, 5 tool). Silent NOTED tracking, a bare-number echoed counter and every tool task needing arithmetic between read and write failed. Only the kv pointer-chain task passed."},
+  {"round": 2, "passed": 4, "total": 10, "pass_rate": 0.4, "note": "Reworked to 6 multi / 4 tool: added a latest-value overwrite task, labelled echo (STOCK:/TOTAL:), free acknowledgement, simpler object moves, explicit calc hints. Passes: dev-01, dev-02, dev-04, dev-09. dev-05 failed partly on format (model wrapped the JSON array in an object) as well as on a tracking error."},
+  {"round": 3, "passed": 4, "total": 10, "pass_rate": 0.4, "note": "Final file. dev-05 answer format changed to a labelled comma-separated line with an anchored regex; dev-07 replaced by a kv consolidation task; dev-08 given a stepwise hint. Same four passes. dev-05 still fails on a real tracking error (duplicated name); dev-07 computed the right sum but skipped the required kv_set; dev-08 added a 'sold' amount and updated only one of two keys."}
+ ],
+ "final_baseline_dev_pass_rate": 0.4,
+ "target_band": "0.40-0.75",
+ "in_target_band": true,
+ "what_i_did": [
+  "Read lab/TASKS.md, lab/core.py (episode loop, checkers), lab/validate_tasks.py and lab/pilot.py.",
+  "Wrote 10 dev tasks with a generator script that asserts every expected state by simulation.",
+  "Ran 3 pilot rounds on the baseline (the limit) and read every reply.",
+  "After round 3, changed only two difficulty labels to match observed results (dev-07 easy -> medium, dev-09 medium -> easy); prompts, env and checks are identical to the piloted round-3 file, and the file was revalidated.",
+  "Wrote the family spec with reply policies, answer formats, checker patterns, observed pitfalls, an example task, difficulty guidance and five sub-themes."
+ ],
+ "known_limitations": [
+  "Final pass rate 0.40 sits at the low edge of the target band; spec.md tells generators to skew slightly easier than the dev set.",
+  "All four passes are easy or medium tasks; all three hard tasks fail, and 3 of the 4 tool tasks fail, so the tool half of the family is close to floor on the baseline.",
+  "dev-03 fails by an off-by-one arithmetic slip after a correction rather than by losing the update outright.",
+  "The two relabelled difficulties were set after seeing the results, so difficulty labels in the dev set are fitted to the baseline."
+ ],
+ "files_written": [
+  "/Users/saikalyan/Loopwork/tasks/longhorizon/dev.json",
+  "/Users/saikalyan/Loopwork/tasks/longhorizon/spec.md",
+  "/Users/saikalyan/Loopwork/swarm/evidence/designer-longhorizon.json"
+ ]
+}

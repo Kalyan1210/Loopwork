@@ -1,0 +1,472 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "planning",
+  "subtheme": "assignment-json",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 200,
+  "prompt": "A guest house has three rooms: red, blue and green. Three guests (Ada, Bo, Cy) each get exactly one room, and no room is shared.\nRules:\n- Bo gets the blue room.\n- Ada cannot have the green room.\nReply with only a JSON object whose keys are \"Ada\", \"Bo\" and \"Cy\" and whose values are the room colours in lowercase, in the form {\"Ada\":\"...\",\"Bo\":\"...\",\"Cy\":\"...\"}. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "Ada",
+     "Bo",
+     "Cy"
+    ],
+    "equals": {
+     "Ada": "red",
+     "Bo": "blue",
+     "Cy": "green"
+    }
+   }
+  ],
+  "reference": "{\"Ada\": \"red\", \"Bo\": \"blue\", \"Cy\": \"green\"}",
+  "negative": "{\"Ada\": \"green\", \"Bo\": \"blue\", \"Cy\": \"red\"}"
+ },
+ {
+  "local_id": "g3-02",
+  "family": "planning",
+  "subtheme": "capacity-trips",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A van carries at most 9 crates per trip. A shop needs 30 crates delivered in total. The van has already made 2 trips, each with a full load of 9 crates.\nHow many more trips are needed to deliver the rest of the crates? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "reference": "Delivered 18, so 12 remain. 12 crates need 2 trips of at most 9.\nANSWER: 2",
+  "negative": "30 crates at 9 per trip needs 4 trips.\nANSWER: 4"
+ },
+ {
+  "local_id": "g3-03",
+  "family": "planning",
+  "subtheme": "assignment-skills",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Three flatmates share three chores: cooking, cleaning and shopping. Each flatmate does exactly one chore and each chore is done by exactly one flatmate.\n- Ivo is willing to do cooking or cleaning.\n- Rin is willing to do shopping or cooking.\n- Tam is willing to do cooking only.\nWho does the cleaning? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the flatmate's name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Ivo",
+       "<Ivo>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*ivo\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Tam must cook. Ivo's only other option is cleaning, and Rin shops.\nANSWER: Ivo",
+  "negative": "Ivo cooks, so Rin takes the cleaning.\nANSWER: Rin"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "planning",
+  "subtheme": "capacity-allocation",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A storeroom has two shelves. Shelf A holds at most 3 boxes and shelf B holds at most 5 boxes. Seven boxes must be stored. The rule is to fill shelf B completely first and put only the remaining boxes on shelf A.\nHow many boxes end up on shelf A? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "reference": "Shelf B takes 5 boxes. 7 - 5 = 2 boxes are left for shelf A.\nANSWER: 2",
+  "negative": "Shelf A holds 3 boxes, so it gets 3.\nANSWER: 3"
+ },
+ {
+  "local_id": "g3-05",
+  "family": "planning",
+  "subtheme": "capacity-count",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A camping group has 4 adults and 5 children. Each tent sleeps at most 3 people, and any mix of adults and children may share a tent.\nWhat is the minimum number of tents needed so that everyone has a place? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "There are 4 + 5 = 9 people. 9 / 3 = 3 tents, all full.\nANSWER: 3",
+  "negative": "5 children need 2 tents and 4 adults need 2 tents.\nANSWER: 4"
+ },
+ {
+  "local_id": "g3-06",
+  "family": "planning",
+  "subtheme": "assignment-json",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 200,
+  "prompt": "A kennel has three pens: small, medium and large. Three dogs (a hound, a terrier and a pup) each need their own pen.\n- The hound only fits in the large pen.\n- The terrier fits in the medium or the large pen.\n- The pup fits in any pen.\nReply with only a JSON object whose keys are \"small\", \"medium\" and \"large\" and whose values are the dog placed in that pen (\"hound\", \"terrier\" or \"pup\"), in the form {\"small\":\"...\",\"medium\":\"...\",\"large\":\"...\"}. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "small",
+     "medium",
+     "large"
+    ],
+    "equals": {
+     "large": "hound",
+     "medium": "terrier",
+     "small": "pup"
+    }
+   }
+  ],
+  "reference": "{\"large\": \"hound\", \"medium\": \"terrier\", \"small\": \"pup\"}",
+  "negative": "{\"small\": \"terrier\", \"medium\": \"pup\", \"large\": \"hound\"}"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "planning",
+  "subtheme": "assignment-availability",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A club has one talk on each of three days: Monday, Tuesday and Wednesday. Three speakers (Lena, Omar, Kai) each give exactly one talk.\n- Lena is away on Monday and Tuesday.\n- Omar is away on Monday.\n- Kai is free on all three days.\nOn which day does Kai speak? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the day.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Monday",
+       "<Monday>",
+       "Mon"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*monday\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Lena must take Wednesday. Omar then takes Tuesday, leaving Monday for Kai.\nANSWER: Monday",
+  "negative": "Kai is free every day, so Kai takes the last day.\nANSWER: Wednesday"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "planning",
+  "subtheme": "assignment-4x4",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A community garden has four plots: north, south, east and west. Four gardeners (Asa, Bryn, Coel, Dara) each tend exactly one plot, and every plot has exactly one gardener.\n- Dara tends the west plot.\n- Asa cannot tend the north plot or the south plot.\n- Bryn cannot tend the south plot.\nWho tends the south plot? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the gardener's name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Coel",
+       "<Coel>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*coel\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Dara has west, so Asa must take east. Bryn cannot take south, so Bryn takes north and Coel takes south.\nANSWER: Coel",
+  "negative": "Dara west, Asa east, Coel north, so Bryn gets south.\nANSWER: Bryn"
+ },
+ {
+  "local_id": "g3-09",
+  "family": "planning",
+  "subtheme": "capacity-seating",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A cafe has tables that seat at most 6 people each. Six families arrive with 4, 4, 3, 3, 2 and 2 people. A family must sit together at one table, and several families may share a table if they fit.\nWhat is the minimum number of tables needed to seat all six families? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Pair them as 4+2, 4+2 and 3+3. Each table is full with 6, and 18 people cannot fit on 2 tables.\nANSWER: 3",
+  "negative": "4+3 does not fit, so the two families of 4 sit alone, then 3+3 and 2+2.\nANSWER: 4"
+ },
+ {
+  "local_id": "g3-10",
+  "family": "planning",
+  "subtheme": "capacity-vehicles",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Three choirs are travelling to a festival: one with 8 singers, one with 7 singers and one with 5 singers. Each minibus has 10 passenger seats. A choir must travel together in one minibus, and choirs may share a minibus if they all fit.\nWhat is the minimum number of minibuses needed? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "8+7, 8+5 and 7+5 are all more than 10, so no two choirs can share. Each needs its own minibus.\nANSWER: 3",
+  "negative": "There are 20 singers and 20 / 10 = 2.\nANSWER: 2"
+ },
+ {
+  "local_id": "g3-11",
+  "family": "planning",
+  "subtheme": "team-allocation",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Five helpers (Ana, Ben, Cal, Dee, Eli) are split into two teams for a village fair: exactly 2 helpers in the kitchen and exactly 3 in the hall.\n- Ana and Ben must be on different teams.\n- Cal must be on the same team as Ana.\n- Dee and Eli must be on the same team.\nDee and Eli end up in the hall. Who is the third helper in the hall? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the helper's name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Ben",
+       "<Ben>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*ben\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Ana and Cal stay together and Ben is apart from Ana. The hall has one free place, so Ana and Cal take the kitchen and Ben joins the hall.\nANSWER: Ben",
+  "negative": "Cal joins Dee and Eli in the hall, and Ana and Ben take the kitchen.\nANSWER: Cal"
+ },
+ {
+  "local_id": "g3-12",
+  "family": "planning",
+  "subtheme": "capacity-two-limits",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A delivery cart may carry at most 4 boxes per trip and at most 50 kg per trip. There are 10 boxes to move and every box weighs 15 kg. Boxes cannot be opened or split.\nWhat is the minimum number of trips needed to move all 10 boxes? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "Four boxes weigh 60 kg, too heavy, so each trip takes at most 3 boxes (45 kg). 10 boxes need 4 trips.\nANSWER: 4",
+  "negative": "4 boxes per trip: 10 / 4 rounds up to 3.\nANSWER: 3"
+ },
+ {
+  "local_id": "g3-13",
+  "family": "planning",
+  "subtheme": "assignment-json-after-working",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A band has four members (Jo, Kit, Lou, Max) and four instruments: drums, bass, piano and flute. Each member plays exactly one instrument and no instrument is played twice.\n- Only Kit or Lou can play the drums.\n- Lou can only play the flute.\n- Jo cannot play the bass.\nWrite each member and instrument on its own line in plain text, without brackets. Then end with a final line that is only a JSON object with exactly the keys \"Jo\", \"Kit\", \"Lou\", \"Max\" and the instrument in lowercase as each value.",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "Jo",
+     "Kit",
+     "Lou",
+     "Max"
+    ],
+    "equals": {
+     "Jo": "piano",
+     "Kit": "drums",
+     "Lou": "flute",
+     "Max": "bass"
+    }
+   }
+  ],
+  "reference": "Lou plays flute\nKit plays drums\nJo plays piano\nMax plays bass\n{\"Jo\": \"piano\", \"Kit\": \"drums\", \"Lou\": \"flute\", \"Max\": \"bass\"}",
+  "negative": "Lou plays flute\nKit plays drums\nJo plays bass\nMax plays piano\n{\"Jo\": \"bass\", \"Kit\": \"drums\", \"Lou\": \"flute\", \"Max\": \"piano\"}"
+ },
+ {
+  "local_id": "g3-14",
+  "family": "planning",
+  "subtheme": "capacity-reserved-seat",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Ten children must cross a lake in rowing boats, all at the same time. Each boat seats at most 4 people in total, and every boat must have exactly one adult rower on board, who takes up one of the seats. Five adult rowers are available.\nWhat is the minimum number of boats needed to carry all ten children? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "The rower uses one seat, so each boat carries 3 children. 3 boats carry 9, so a fourth boat is needed.\nANSWER: 4",
+  "negative": "10 children at 4 per boat rounds up to 3.\nANSWER: 3"
+ },
+ {
+  "local_id": "g3-15",
+  "family": "planning",
+  "subtheme": "assignment-5x5",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A clinic has five wards: maple, oak, pine, rowan and yew. Five nurses (Fen, Gus, Hal, Ida, Jon) each cover exactly one ward, and every ward has exactly one nurse.\n- Ida can only cover pine.\n- Fen can only cover pine or yew.\n- Hal can only cover maple or oak.\n- Gus cannot cover maple, oak or pine.\n- Jon cannot cover oak or yew.\nWhich nurse covers the oak ward? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the nurse's name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Hal",
+       "<Hal>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*hal\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Ida pine, so Fen yew. Gus is left with rowan. Jon cannot take oak, so Jon takes maple and Hal takes oak.\nANSWER: Hal",
+  "negative": "Ida pine, Fen yew, Hal maple, Gus rowan, so Jon is left with oak.\nANSWER: Jon"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "planning",
+  "subtheme": "capacity-waste",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A cargo drone can lift at most 10 kg per flight. Five sealed parcels must be flown to an island, and each parcel weighs exactly 4 kg. A parcel cannot be split, and several parcels may share a flight if their total weight is at most 10 kg.\nWhat is the minimum number of flights needed to deliver all five parcels? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Three parcels weigh 12 kg, too much, so a flight takes at most 2 parcels. Five parcels need 3 flights.\nANSWER: 3",
+  "negative": "Total weight is 20 kg and 20 / 10 = 2.\nANSWER: 2"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "planning",
+  "subtheme": "assignment-relative-order",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A help desk is staffed Monday to Friday by five people (Nia, Odo, Pia, Quin, Rae). Each person works exactly one day and each day has exactly one person.\n- Quin works on Tuesday.\n- Nia works on the day immediately after Rae.\n- Odo works on an earlier day than Rae.\n- Pia works on a later day than Nia.\nWho works on Wednesday? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the person's name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Rae",
+       "<Rae>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*rae\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Order must be Odo, Rae, Nia, Pia with Rae and Nia adjacent, and Quin fixed on Tuesday: Odo Monday, Quin Tuesday, Rae Wednesday, Nia Thursday, Pia Friday.\nANSWER: Rae",
+  "negative": "Odo Monday, Quin Tuesday, then Nia Wednesday, Rae Thursday, Pia Friday.\nANSWER: Nia"
+ },
+ {
+  "local_id": "g3-18",
+  "family": "planning",
+  "subtheme": "capacity-with-conflicts",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Six campers (Uma, Vic, Wes, Xan, Yul, Zed) must be placed in cabins. Each cabin sleeps at most 3 campers.\nThese pairs refuse to share a cabin:\n- Uma and Vic\n- Vic and Wes\n- Uma and Wes\n- Xan and Yul\nWhat is the minimum number of cabins needed so that nobody shares with someone they refuse? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Uma, Vic and Wes all refuse each other, so they need three different cabins. Xan, Yul and Zed can join them, for example Uma+Xan, Vic+Yul, Wes+Zed.\nANSWER: 3",
+  "negative": "Six campers at 3 per cabin gives 6 / 3 = 2.\nANSWER: 2"
+ },
+ {
+  "local_id": "g3-19",
+  "family": "planning",
+  "subtheme": "capacity-mixed-fleet",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A farm must move 26 hay bales to a barn using two trucks. The big truck carries at most 7 bales per trip but has fuel for only 2 trips. The small truck carries at most 4 bales per trip and can make as many trips as needed.\nWhat is the minimum total number of trips (big and small together) needed to move all 26 bales? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "reference": "Use both big trips: 14 bales. The other 12 bales need 3 small trips. 2 + 3 = 5.\nANSWER: 5",
+  "negative": "The big truck carries 7 bales, and 26 / 7 rounds up to 4.\nANSWER: 4"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "planning",
+  "subtheme": "staffing-minimum",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A gate is guarded for five shifts in a row. Each shift needs exactly 2 guards on duty. No guard may work two shifts in a row, but a guard may work again after resting for one shift.\nWhat is the minimum number of different guards needed to cover all five shifts? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "Two neighbouring shifts need 4 different guards. Four are enough: one pair takes shifts 1, 3, 5 and the other pair takes shifts 2, 4.\nANSWER: 4",
+  "negative": "5 shifts with 2 guards each is 10 guard places, so 10 guards.\nANSWER: 10"
+ },
+ {
+  "local_id": "g3-21",
+  "family": "planning",
+  "subtheme": "capacity-return-trips",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Seven hikers must cross a river using one rowing boat that holds at most 3 people. The boat cannot cross empty: every time it comes back, one hiker has to row it. All seven hikers start on the near bank and must end on the far bank.\nCounting each one-way crossing of the boat (in either direction) as one crossing, what is the minimum number of crossings? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "reference": "Cross with 3, one rows back (2 over). Cross with 3, one rows back (4 over). Last 3 cross. That is 3 crossings over and 2 back.\nANSWER: 5",
+  "negative": "7 hikers at 3 per crossing rounds up to 3.\nANSWER: 3"
+ }
+]

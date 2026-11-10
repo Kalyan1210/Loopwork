@@ -1,0 +1,443 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "constraints",
+  "subtheme": "sort-numeric",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Crate weights at the fictional Dunmarrow depot: 47, 9, 132, 58, 20.\nSort the weights from smallest to largest. Reply with exactly 5 lines, one number per line, digits only. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*9\\s*\\n\\s*20\\s*\\n\\s*47\\s*\\n\\s*58\\s*\\n\\s*132\\s*$"
+   }
+  ],
+  "reference": "9\n20\n47\n58\n132",
+  "negative": "132\n20\n47\n58\n9"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "constraints",
+  "subtheme": "reverse",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Ships left the fictional port of Vessany in this order: Pellwick, Grey Otter, Sundrift, Harrowgale.\nList them in REVERSED order (last to leave first). Reply with exactly 4 lines, one ship per line, each line starting with \"- \" (dash, space). No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*\\-\\s+Harrowgale\\s*\\n\\s*\\-\\s+Sundrift\\s*\\n\\s*\\-\\s+Grey\\s+Otter\\s*\\n\\s*\\-\\s+Pellwick\\s*$"
+   }
+  ],
+  "reference": "- Harrowgale\n- Sundrift\n- Grey Otter\n- Pellwick",
+  "negative": "- Pellwick\n- Grey Otter\n- Sundrift\n- Harrowgale"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "constraints",
+  "subtheme": "filter-first-letter",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Storeroom items: barrel, candle, bucket, anchor, bellows, drum, basket.\nKeep ONLY the items that start with the letter b, in the same order as given. Reply with one item per line in lowercase. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*barrel\\s*\\n\\s*bucket\\s*\\n\\s*bellows\\s*\\n\\s*basket\\s*$"
+   }
+  ],
+  "reference": "barrel\nbucket\nbellows\nbasket",
+  "negative": "barrel\nbucket\nbellows\ndrum"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "constraints",
+  "subtheme": "renumber",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A job list from the fictional boatyard at Corrin Flats has gaps in its numbering:\n4) Mend the nets\n9) Oil the winch\n15) Paint the hull\n22) Stow the ropes\n\nRenumber the jobs 1 to 4 in the same order, keeping the text of each job unchanged. Reply with exactly 4 lines in the format \"1) Job text\". No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\)\\s+Mend\\s+the\\s+nets\\s*\\n\\s*2\\)\\s+Oil\\s+the\\s+winch\\s*\\n\\s*3\\)\\s+Paint\\s+the\\s+hull\\s*\\n\\s*4\\)\\s+Stow\\s+the\\s+ropes\\s*$"
+   }
+  ],
+  "reference": "1) Mend the nets\n2) Oil the winch\n3) Paint the hull\n4) Stow the ropes",
+  "negative": "4) Mend the nets\n9) Oil the winch\n15) Paint the hull\n22) Stow the ropes"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "constraints",
+  "subtheme": "sort-alpha-desc",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Paint colours in a fictional catalogue: plume, garnet, willow, cobalt, saffron.\nSort them in REVERSE alphabetical order (Z to A). Reply with exactly 5 lines, one lowercase word per line. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*willow\\s*\\n\\s*saffron\\s*\\n\\s*plume\\s*\\n\\s*garnet\\s*\\n\\s*cobalt\\s*$"
+   }
+  ],
+  "reference": "willow\nsaffron\nplume\ngarnet\ncobalt",
+  "negative": "cobalt\ngarnet\nplume\nsaffron\nwillow"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "constraints",
+  "subtheme": "filter-parity",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Ticket numbers drawn at the fictional Hobbin Fair, in order: 31, 44, 17, 60, 85, 12, 73.\nKeep ONLY the even numbers, in the order they were drawn. Reply with one number per line, digits only. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*44\\s*\\n\\s*60\\s*\\n\\s*12\\s*$"
+   }
+  ],
+  "reference": "44\n60\n12",
+  "negative": "12\n44\n60"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "constraints",
+  "subtheme": "top-k",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Archery scores at the fictional Larkmoor tourney:\nOdrun 71\nMaelis 88\nTibbet 64\nKorvane 93\nSella 79\nBrask 55\n\nList the names of the 3 highest scorers, highest score first. Reply with exactly 3 lines, one name per line, names only (no scores). No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Korvane\\s*\\n\\s*Maelis\\s*\\n\\s*Sella\\s*$"
+   }
+  ],
+  "reference": "Korvane\nMaelis\nSella",
+  "negative": "Odrun\nMaelis\nTibbet"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "constraints",
+  "subtheme": "sort-by-length",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Words: lantern, fig, quartzite, oath, ember, meadow, ploughshare.\nSort the words by number of letters, shortest first (every word has a different length). Reply with exactly 7 lines, one lowercase word per line. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 7
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*fig\\s*\\n\\s*oath\\s*\\n\\s*ember\\s*\\n\\s*meadow\\s*\\n\\s*lantern\\s*\\n\\s*quartzite\\s*\\n\\s*ploughshare\\s*$"
+   }
+  ],
+  "reference": "fig\noath\nember\nmeadow\nlantern\nquartzite\nploughshare",
+  "negative": "ember\nfig\nlantern\nmeadow\noath\nploughshare\nquartzite"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "constraints",
+  "subtheme": "sort-numeric-format",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Members of the fictional Thornwick choir and their ages: Hesper is 34, Dunnic is 19, Ravella is 62, Ottoline is 27, Brannoc is 45.\nList all five from youngest to oldest. One member per line in the format Name (age), for example: Zed (50). Reply with exactly 5 lines. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Dunnic\\s+\\(19\\)\\s*\\n\\s*Ottoline\\s+\\(27\\)\\s*\\n\\s*Hesper\\s+\\(34\\)\\s*\\n\\s*Brannoc\\s+\\(45\\)\\s*\\n\\s*Ravella\\s+\\(62\\)\\s*$"
+   }
+  ],
+  "reference": "Dunnic (19)\nOttoline (27)\nHesper (34)\nBrannoc (45)\nRavella (62)",
+  "negative": "Ravella (62)\nBrannoc (45)\nHesper (34)\nOttoline (27)\nDunnic (19)"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "constraints",
+  "subtheme": "filter-sort",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Stock count at the fictional Pinfold Haberdashery:\nthimbles 12\nribbon 0\nbuttons 40\nlace 0\nneedles 7\nfelt 0\nzippers 3\n\nList ONLY the items with a stock of 0, in alphabetical order. One item per line, each line starting with \"* \" (asterisk, space), item name only. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*\\*\\s+felt\\s*\\n\\s*\\*\\s+lace\\s*\\n\\s*\\*\\s+ribbon\\s*$"
+   }
+  ],
+  "reference": "* felt\n* lace\n* ribbon",
+  "negative": "* ribbon\n* lace\n* felt"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "constraints",
+  "subtheme": "filter-exclusion-renumber",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Guest list for a fictional dinner at Elder Hall, in seating order: Wynn, Corbel, Isaude, Marrek, Thessaly, Pim, Oswin.\nThese guests cancelled: Marrek, Wynn, Pim.\nList the guests who are still coming, in the original seating order, numbered from 1 like \"1. Name\". One guest per line. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\.\\s+Corbel\\s*\\n\\s*2\\.\\s+Isaude\\s*\\n\\s*3\\.\\s+Thessaly\\s*\\n\\s*4\\.\\s+Oswin\\s*$"
+   }
+  ],
+  "reference": "1. Corbel\n2. Isaude\n3. Thessaly\n4. Oswin",
+  "negative": "2. Corbel\n3. Isaude\n5. Thessaly\n7. Oswin"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "constraints",
+  "subtheme": "sort-chronological",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Events in the fictional town of Wexcombe:\nBridge rebuilt (1874)\nMill founded (1791)\nGreat flood (1856)\nClock tower raised (1902)\nCharter signed (1688)\n\nList all five events from earliest to latest. One per line in the format year: Event, for example: 1500: Well dug. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1688:\\s+Charter\\s+signed\\s*\\n\\s*1791:\\s+Mill\\s+founded\\s*\\n\\s*1856:\\s+Great\\s+flood\\s*\\n\\s*1874:\\s+Bridge\\s+rebuilt\\s*\\n\\s*1902:\\s+Clock\\s+tower\\s+raised\\s*$"
+   }
+  ],
+  "reference": "1688: Charter signed\n1791: Mill founded\n1856: Great flood\n1874: Bridge rebuilt\n1902: Clock tower raised",
+  "negative": "1902: Clock tower raised\n1874: Bridge rebuilt\n1856: Great flood\n1791: Mill founded\n1688: Charter signed"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "constraints",
+  "subtheme": "filter-by-position",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Tram stops on the fictional Greyline, in order: Ashford Gate, Millrace, Corvin Square, Tanners Row, Low Quay, Saltmarket, Beacon Hill, Fennick End.\nThe express tram stops only at every second stop: the 2nd, 4th, 6th and 8th. List the express stops in route order, one per line, lettered like \"a) Name\", \"b) Name\" and so on. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*a\\)\\s+Millrace\\s*\\n\\s*b\\)\\s+Tanners\\s+Row\\s*\\n\\s*c\\)\\s+Saltmarket\\s*\\n\\s*d\\)\\s+Fennick\\s+End\\s*$"
+   }
+  ],
+  "reference": "a) Millrace\nb) Tanners Row\nc) Saltmarket\nd) Fennick End",
+  "negative": "a) Ashford Gate\nb) Corvin Square\nc) Low Quay\nd) Beacon Hill"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "constraints",
+  "subtheme": "sort-by-surname",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Librarians at the fictional Kestrel Archive: Lorna Vance, Edric Hallow, Sabine Orrick, Tobin Marsh, Ada Quill.\nSort them alphabetically by SURNAME (A to Z). One person per line in the format \"Surname, Firstname\" (for example: Stone, Mara). Reply with exactly 5 lines. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Hallow,\\s+Edric\\s*\\n\\s*Marsh,\\s+Tobin\\s*\\n\\s*Orrick,\\s+Sabine\\s*\\n\\s*Quill,\\s+Ada\\s*\\n\\s*Vance,\\s+Lorna\\s*$"
+   }
+  ],
+  "reference": "Hallow, Edric\nMarsh, Tobin\nOrrick, Sabine\nQuill, Ada\nVance, Lorna",
+  "negative": "Quill, Ada\nHallow, Edric\nVance, Lorna\nOrrick, Sabine\nMarsh, Tobin"
+ },
+ {
+  "local_id": "g2-15",
+  "family": "constraints",
+  "subtheme": "filter-sort-derived-length",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Birds seen at the fictional Mossfen reserve: heron, kingfisher, wren, nuthatch, plover, swift, goldcrest, curlew, dunnock.\nKeep ONLY the names with more than 6 letters. Sort them from longest name to shortest. One per line in the format name (letters), where letters is the number of letters in the name, for example: owl (3). No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*kingfisher\\s+\\(10\\)\\s*\\n\\s*goldcrest\\s+\\(9\\)\\s*\\n\\s*nuthatch\\s+\\(8\\)\\s*\\n\\s*dunnock\\s+\\(7\\)\\s*$"
+   }
+  ],
+  "reference": "kingfisher (10)\ngoldcrest (9)\nnuthatch (8)\ndunnock (7)",
+  "negative": "kingfisher (10)\ngoldcrest (9)\nnuthatch (8)\ndunnock (7)\ncurlew (6)\nplover (6)"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "constraints",
+  "subtheme": "two-key-sort",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Quiz results at the fictional Harrow Vale school (team, player, points):\nRed, Ilka, 14\nBlue, Joss, 22\nRed, Marn, 31\nGold, Tavi, 9\nBlue, Edda, 27\nGold, Ruan, 18\nRed, Pell, 25\n\nList all 7 players grouped by team in alphabetical team order (Blue, Gold, Red). Inside each team, put the player with the most points first. One per line in the format Team - Player - points. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 7
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Blue\\s+\\-\\s+Edda\\s+\\-\\s+27\\s*\\n\\s*Blue\\s+\\-\\s+Joss\\s+\\-\\s+22\\s*\\n\\s*Gold\\s+\\-\\s+Ruan\\s+\\-\\s+18\\s*\\n\\s*Gold\\s+\\-\\s+Tavi\\s+\\-\\s+9\\s*\\n\\s*Red\\s+\\-\\s+Marn\\s+\\-\\s+31\\s*\\n\\s*Red\\s+\\-\\s+Pell\\s+\\-\\s+25\\s*\\n\\s*Red\\s+\\-\\s+Ilka\\s+\\-\\s+14\\s*$"
+   }
+  ],
+  "reference": "Blue - Edda - 27\nBlue - Joss - 22\nGold - Ruan - 18\nGold - Tavi - 9\nRed - Marn - 31\nRed - Pell - 25\nRed - Ilka - 14",
+  "negative": "Blue - Joss - 22\nBlue - Edda - 27\nGold - Tavi - 9\nGold - Ruan - 18\nRed - Ilka - 14\nRed - Pell - 25\nRed - Marn - 31"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "constraints",
+  "subtheme": "merge-dedupe-sort",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Two clerks at the fictional Aldgrave registry wrote down locker numbers.\nClerk A: 12, 45, 7, 88, 30\nClerk B: 45, 61, 7, 19, 88, 5\n\nMerge both lists into one, remove duplicates so each number appears once, and sort from largest to smallest. Number the lines from 1 in the format \"1. number\". One per line. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 8
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\.\\s+88\\s*\\n\\s*2\\.\\s+61\\s*\\n\\s*3\\.\\s+45\\s*\\n\\s*4\\.\\s+30\\s*\\n\\s*5\\.\\s+19\\s*\\n\\s*6\\.\\s+12\\s*\\n\\s*7\\.\\s+7\\s*\\n\\s*8\\.\\s+5\\s*$"
+   }
+  ],
+  "reference": "1. 88\n2. 61\n3. 45\n4. 30\n5. 19\n6. 12\n7. 7\n8. 5",
+  "negative": "1. 88\n2. 88\n3. 61\n4. 45\n5. 45\n6. 30\n7. 19\n8. 12\n9. 7\n10. 7\n11. 5"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "constraints",
+  "subtheme": "range-filter-alpha-sort",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Meeting rooms at the fictional Lowmere Institute and their seat counts:\nJuniper 24\nAlder 8\nSorrel 30\nBirch 45\nMarram 12\nYarrow 6\nClover 18\nThrift 36\n\nKeep ONLY rooms with at least 10 and at most 30 seats (10 and 30 both count). Sort the kept rooms alphabetically by room name. One per line in the format Name: N seats, for example: Oak: 50 seats. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Clover:\\s+18\\s+seats\\s*\\n\\s*Juniper:\\s+24\\s+seats\\s*\\n\\s*Marram:\\s+12\\s+seats\\s*\\n\\s*Sorrel:\\s+30\\s+seats\\s*$"
+   }
+  ],
+  "reference": "Clover: 18 seats\nJuniper: 24 seats\nMarram: 12 seats\nSorrel: 30 seats",
+  "negative": "Clover: 18 seats\nJuniper: 24 seats\nMarram: 12 seats"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "constraints",
+  "subtheme": "computed-topk",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Order sheet from the fictional chandlery at Skerry Point (item, quantity, price each in marks):\nrope, 6, 7\nlamp oil, 3, 15\nnails, 20, 2\ncanvas, 4, 13\ntar, 7, 5\nchalk, 11, 3\n\nFor each item the line total is quantity times price. List ONLY the 3 items with the largest line totals, largest total first. One per line in the format item=total, for example: glue=8. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*canvas=52\\s*\\n\\s*lamp\\s+oil=45\\s*\\n\\s*rope=42\\s*$"
+   }
+  ],
+  "reference": "canvas=52\nlamp oil=45\nrope=42",
+  "negative": "canvas=52\nlamp oil=45\nnails=40"
+ },
+ {
+  "local_id": "g2-20",
+  "family": "constraints",
+  "subtheme": "filter-natural-sort",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Location codes in the fictional Torrow warehouse: bay-12, dock-4, bay-3, bay-101, dock-27, bay-20, yard-9, bay-7.\nKeep ONLY the codes that start with \"bay-\". Sort them by the NUMBER after the dash, smallest number first (so bay-3 comes before bay-12). One code per line, written exactly as given. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*bay\\-3\\s*\\n\\s*bay\\-7\\s*\\n\\s*bay\\-12\\s*\\n\\s*bay\\-20\\s*\\n\\s*bay\\-101\\s*$"
+   }
+  ],
+  "reference": "bay-3\nbay-7\nbay-12\nbay-20\nbay-101",
+  "negative": "bay-101\nbay-12\nbay-20\nbay-3\nbay-7"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "constraints",
+  "subtheme": "rank-with-derived-gap",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Finish times in seconds at the fictional Brackenridge sprint:\nFenna 62\nCorwin 55\nYsolde 71\nHadrik 58\nMossa 66\n\nRank all five runners from fastest (lowest time) to slowest. One per line in the format #rank Name +gap, where gap is how many seconds the runner finished behind the winner; the winner's gap is 0. Example for other data: #1 Abe +0 then #2 Cy +4. No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*\\#1\\s+Corwin\\s+\\+0\\s*\\n\\s*\\#2\\s+Hadrik\\s+\\+3\\s*\\n\\s*\\#3\\s+Fenna\\s+\\+7\\s*\\n\\s*\\#4\\s+Mossa\\s+\\+11\\s*\\n\\s*\\#5\\s+Ysolde\\s+\\+16\\s*$"
+   }
+  ],
+  "reference": "#1 Corwin +0\n#2 Hadrik +3\n#3 Fenna +7\n#4 Mossa +11\n#5 Ysolde +16",
+  "negative": "#1 Corwin +0\n#2 Hadrik +3\n#3 Fenna +4\n#4 Mossa +4\n#5 Ysolde +5"
+ }
+]

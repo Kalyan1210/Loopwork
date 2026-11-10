@@ -1,0 +1,1425 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "tools",
+  "subtheme": "file-lookup-among-distractors",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "From which platform does the Mirelle ferry leave? It is written in the file 'timetable'. Final answer: just the platform number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "kv_get",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "timetable": "Corvane ferry: platform 2\nMirelle ferry: platform 5\nTessaly ferry: platform 1"
+   },
+   "kv": {
+    "platforms_total": 6
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "path": "timetable"
+    }
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 2
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.timetable",
+    "value": "Mirelle"
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "timetable"
+     }
+    }
+   ],
+   "final": "5"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "platforms_total"
+     }
+    }
+   ],
+   "final": "6"
+  }
+ },
+ {
+  "local_id": "g1-02",
+  "family": "tools",
+  "subtheme": "direct-read-doc-not-search",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "At what setting must the relief valve of the pump be? The answer is in the document with id 'pump-manual'. You already know the id, so open that document directly instead of searching. Final answer: just the number.",
+  "tools": [
+   "read_doc",
+   "search",
+   "calc"
+  ],
+  "env": {
+   "docs": {
+    "pump-manual": "Pump manual. Prime the pump before each use. The relief valve must be set to 85 units.",
+    "boiler-manual": "Boiler manual. The relief valve on the boiler is factory sealed at 60 units and must not be adjusted."
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 85
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "id": "pump-manual"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "search"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 2
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "pump-manual"
+     }
+    }
+   ],
+   "final": "85"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "relief valve"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "pump-manual"
+     }
+    }
+   ],
+   "final": "85"
+  }
+ },
+ {
+  "local_id": "g1-03",
+  "family": "tools",
+  "subtheme": "no-tool-answer-in-prompt",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The blue crate holds rope and the teal crate holds candles. Which color crate holds the candles? The answer is in this message, so do not call any tool: reply with the final answer right away. Final answer: just the color.",
+  "tools": [
+   "kv_get",
+   "read_file"
+  ],
+  "env": {
+   "kv": {
+    "crate_candles": "see the label on the crate"
+   },
+   "files": {
+    "crates": "Crate labels are printed on the lid."
+   }
+  },
+  "checks": [
+   {
+    "type": "exact",
+    "value": "teal"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 0
+   }
+  ],
+  "reference": {
+   "steps": [],
+   "final": "teal"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_candles"
+     }
+    }
+   ],
+   "final": "teal"
+  }
+ },
+ {
+  "local_id": "g1-04",
+  "family": "tools",
+  "subtheme": "kv-word-lookup",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "Is the river bridge open or closed right now? The status is in the key-value store under the key 'bridge_status'. Final answer: exactly one word, OPEN or CLOSED.",
+  "tools": [
+   "kv_get",
+   "kv_list",
+   "kv_set",
+   "send_message"
+  ],
+  "env": {
+   "kv": {
+    "bridge_status": "CLOSED",
+    "ferry_status": "OPEN",
+    "tunnel_status": "OPEN"
+   }
+  },
+  "checks": [
+   {
+    "type": "exact",
+    "value": "CLOSED"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "bridge_status"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 2
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.bridge_status",
+    "value": "CLOSED"
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "bridge_status"
+     }
+    }
+   ],
+   "final": "CLOSED"
+  },
+  "negative": {
+   "steps": [],
+   "final": "OPEN"
+  }
+ },
+ {
+  "local_id": "g1-05",
+  "family": "tools",
+  "subtheme": "listing-instead-of-reading",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "How many files are in the sandbox? One call to list_files tells you. Do not open any file. Final answer: just the number.",
+  "tools": [
+   "list_files",
+   "read_file",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "atlas": "maps of the northern coast",
+    "ballad": "a song about the tide",
+    "census": "households by street",
+    "diary": "private notes"
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   },
+   {
+    "type": "tool_called",
+    "tool": "list_files",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "read_file"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    }
+   ],
+   "final": "4"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "atlas"
+     }
+    }
+   ],
+   "final": "4"
+  }
+ },
+ {
+  "local_id": "g1-06",
+  "family": "tools",
+  "subtheme": "kv-list-for-key-name",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "Exactly one key in the key-value store has a name that starts with 'vault_'. Call kv_list once to see all key names and report the full name of that key. You do not need its value. Final answer: just the key name.",
+  "tools": [
+   "kv_list",
+   "kv_get",
+   "kv_delete"
+  ],
+  "env": {
+   "kv": {
+    "vault_east": 5,
+    "gate_north": 2,
+    "gate_south": 8,
+    "cellar_key": 1
+   }
+  },
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bvault_east\\b"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_list",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_get"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_delete"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_list",
+     "args": {}
+    }
+   ],
+   "final": "vault_east"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "vault_"
+     }
+    },
+    {
+     "tool": "kv_list",
+     "args": {}
+    }
+   ],
+   "final": "vault_east"
+  }
+ },
+ {
+  "local_id": "g1-07",
+  "family": "tools",
+  "subtheme": "no-tool-table-in-prompt",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "Here is today's full kiln schedule:\nkiln 1: bowls\nkiln 2: tiles\nkiln 3: vases\nWhich kiln fires the tiles? The schedule above is complete, so no tool call is needed. Final answer: just the kiln number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "list_files"
+  ],
+  "env": {
+   "files": {
+    "kiln_schedule": "kiln 1: bowls\nkiln 2: tiles\nkiln 3: vases"
+   },
+   "kv": {
+    "kilns": 3
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 0
+   }
+  ],
+  "reference": {
+   "steps": [],
+   "final": "2"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "kiln_schedule"
+     }
+    }
+   ],
+   "final": "2"
+  }
+ },
+ {
+  "local_id": "g1-08",
+  "family": "tools",
+  "subtheme": "no-tool-pasted-file",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "I pasted the whole file 'roster' here:\nMon night: Ilse\nTue night: Bram\nWed night: Oona\nThu night: Ilse\nWho has the night shift on Wed? Use as few tool calls as possible. Final answer: just the name.",
+  "tools": [
+   "read_file",
+   "list_files"
+  ],
+  "env": {
+   "files": {
+    "roster": "Mon night: Ilse\nTue night: Bram\nWed night: Oona\nThu night: Ilse",
+    "holidays": "none this week"
+   }
+  },
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\boona\\b"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(ilse|bram)\\b"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 0
+   }
+  ],
+  "reference": {
+   "steps": [],
+   "final": "Oona"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "roster"
+     }
+    }
+   ],
+   "final": "Oona"
+  }
+ },
+ {
+  "local_id": "g1-09",
+  "family": "tools",
+  "subtheme": "authoritative-source-choice",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "What does one coil of rope cost today? The file 'price_board' is last year's board and is out of date; today's price is in the key-value store under the key 'rope_price'. Use one tool call. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_list",
+   "kv_set"
+  ],
+  "env": {
+   "kv": {
+    "rope_price": 17,
+    "chain_price": 23
+   },
+   "files": {
+    "price_board": "rope: 14 coins per coil\nchain: 20 coins per length"
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 17
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "rope_price"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "read_file"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "rope_price"
+     }
+    }
+   ],
+   "final": "17"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "price_board"
+     }
+    }
+   ],
+   "final": "14"
+  }
+ },
+ {
+  "local_id": "g1-10",
+  "family": "tools",
+  "subtheme": "two-exact-lookups",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Read two water gauges from the key-value store: first get the key 'north_gauge', then get the key 'south_gauge'. Those two calls are all you need; do not list or read any other key. Final answer: the two numbers separated by a comma, north first.",
+  "tools": [
+   "kv_get",
+   "kv_list",
+   "kv_delete",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "north_gauge": 47,
+    "south_gauge": 63,
+    "east_gauge": 52,
+    "west_gauge": 58
+   }
+  },
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\b47\\b\\D+\\b63\\b"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "north_gauge"
+    }
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "south_gauge"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_list"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_delete"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 2
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "north_gauge"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "south_gauge"
+     }
+    }
+   ],
+   "final": "47, 63"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "north_gauge"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "south_gauge"
+     }
+    }
+   ],
+   "final": "47, 63"
+  }
+ },
+ {
+  "local_id": "g1-11",
+  "family": "tools",
+  "subtheme": "search-result-is-enough",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Exactly one document mentions the saffron tariff. Find it with a single search for 'saffron tariff' and report its id. The search result already shows the id, so do not open the document. Final answer: just the document id.",
+  "tools": [
+   "search",
+   "read_doc",
+   "send_message"
+  ],
+  "env": {
+   "docs": {
+    "ledger-7": "Customs ledger, page 7. The saffron tariff was raised at the spring council.",
+    "ledger-2": "Customs ledger, page 2. Wool and tin duties stay unchanged this year.",
+    "harbor-notes": "Notes on dredging the harbor and on the new crane.",
+    "recipe-book": "Rice with saffron and almonds, a festival dish."
+   }
+  },
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bledger-7\\b"
+   },
+   {
+    "type": "tool_called",
+    "tool": "search",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "read_doc"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "saffron tariff"
+     }
+    }
+   ],
+   "final": "ledger-7"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "saffron tariff"
+     }
+    },
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "ledger-7"
+     }
+    }
+   ],
+   "final": "ledger-7"
+  }
+ },
+ {
+  "local_id": "g1-12",
+  "family": "tools",
+  "subtheme": "doc-vs-file-same-name",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "What quorum does the guild charter set? Use the document with id 'charter'. It is a document, not the file that happens to have the same name, so read_file is the wrong tool here. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "read_doc",
+   "search",
+   "list_files"
+  ],
+  "env": {
+   "docs": {
+    "charter": "Guild charter, article 4: the quorum for any vote is 11 members."
+   },
+   "files": {
+    "charter": "Draft notes for a new charter: lower the quorum to 9 members?"
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "id": "charter"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "read_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "charter"
+     }
+    }
+   ],
+   "final": "11"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "charter"
+     }
+    }
+   ],
+   "final": "9"
+  }
+ },
+ {
+  "local_id": "g1-13",
+  "family": "tools",
+  "subtheme": "pick-source-by-stated-rule",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "Boiler readings taken between 06:00 and 18:00 are in the file 'day_log'; readings taken at any other hour are in the file 'night_log'. I need the boiler pressure that was read at 23:00. Open only the log that applies. Final answer: just the pressure number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "delete_file"
+  ],
+  "env": {
+   "files": {
+    "day_log": "boiler pressure: 41",
+    "night_log": "boiler pressure: 38"
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 38
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "path": "night_log"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "night_log"
+     }
+    }
+   ],
+   "final": "38"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "day_log"
+     }
+    }
+   ],
+   "final": "41"
+  }
+ },
+ {
+  "local_id": "g1-14",
+  "family": "tools",
+  "subtheme": "fetch-only-the-missing-part",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "My locker number is 214. Shelf codes are in the key-value store under the key 'locker_' followed by the locker number, so mine is under 'locker_214'. Tell me my locker number and my shelf code. You already know the first one, so one tool call is enough. Final answer: the locker number, a space, then the shelf code.",
+  "tools": [
+   "kv_get",
+   "kv_list",
+   "kv_set"
+  ],
+  "env": {
+   "kv": {
+    "locker_214": "Q7",
+    "locker_241": "R2",
+    "locker_124": "M5"
+   }
+  },
+  "checks": [
+   {
+    "type": "contains_all",
+    "values": [
+     "214",
+     "Q7"
+    ]
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "locker_214"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_list"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "locker_214"
+     }
+    }
+   ],
+   "final": "214 Q7"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "locker_241"
+     }
+    }
+   ],
+   "final": "214 R2"
+  }
+ },
+ {
+  "local_id": "g1-15",
+  "family": "tools",
+  "subtheme": "no-tool-despite-stale-store",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "I just counted the barrels in the cellar by hand and there are 58. The key 'barrels' in the key-value store still holds an older figure. How many barrels did I count? Final answer: just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "kv_list"
+  ],
+  "env": {
+   "kv": {
+    "barrels": 61,
+    "casks": 12
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 58
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 0
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.barrels",
+    "value": 61
+   }
+  ],
+  "reference": {
+   "steps": [],
+   "final": "58"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "barrels"
+     }
+    }
+   ],
+   "final": "61"
+  }
+ },
+ {
+  "local_id": "g1-16",
+  "family": "tools",
+  "subtheme": "one-call-among-many-tools",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "Which berth is the ship Kestrel assigned to today? Today's assignments are in the file 'berth_list'. Final answer: just the berth number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "kv_get",
+   "kv_list",
+   "search",
+   "delete_file",
+   "send_message"
+  ],
+  "env": {
+   "files": {
+    "berth_list": "Kestrel: berth 9\nMarlin: berth 4\nOsprey: berth 12",
+    "berth_draft": "Kestrel: berth 3 (proposal for next month)",
+    "berth_archive": "Kestrel: berth 6 (last week)"
+   },
+   "kv": {
+    "berth_kestrel": 6
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "path": "berth_list"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_get"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "list_files"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "berth_list"
+     }
+    }
+   ],
+   "final": "9"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "berth_list"
+     }
+    }
+   ],
+   "final": "9"
+  }
+ },
+ {
+  "local_id": "g1-17",
+  "family": "tools",
+  "subtheme": "name-the-tool-without-calling",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "Later I will want to see the content of the file 'notes'. For now do not call anything. Just tell me the name of the one tool you would call to see that content. Final answer: just the tool name.",
+  "tools": [
+   "list_files",
+   "read_file",
+   "write_file",
+   "kv_get"
+  ],
+  "env": {
+   "files": {
+    "notes": "Buy lamp oil. Mend the west fence."
+   }
+  },
+  "checks": [
+   {
+    "type": "exact",
+    "value": "read_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 0
+   },
+   {
+    "type": "env_equals",
+    "path": "files.notes",
+    "value": "Buy lamp oil. Mend the west fence."
+   }
+  ],
+  "reference": {
+   "steps": [],
+   "final": "read_file"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "notes"
+     }
+    }
+   ],
+   "final": "read_file"
+  }
+ },
+ {
+  "local_id": "g1-18",
+  "family": "tools",
+  "subtheme": "file-points-to-key",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The file 'pointer' contains nothing but the name of one key in the key-value store. Report the value stored under that key. Use at most two tool calls. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_list",
+   "list_files",
+   "search"
+  ],
+  "env": {
+   "files": {
+    "pointer": "silo_west"
+   },
+   "kv": {
+    "silo_west": 614,
+    "silo_east": 590,
+    "silo_north": 377
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 614
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "path": "pointer"
+    }
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "silo_west"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_list"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 2
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "pointer"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "silo_west"
+     }
+    }
+   ],
+   "final": "614"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "pointer"
+     }
+    },
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "silo_west"
+     }
+    }
+   ],
+   "final": "614"
+  }
+ },
+ {
+  "local_id": "g1-19",
+  "family": "tools",
+  "subtheme": "stop-after-first-sufficient-read",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "How many sacks of barley were stored this season? The total is stated in the file 'summary'. Use the smallest number of tool calls that answers the question. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "calc",
+   "send_message"
+  ],
+  "env": {
+   "files": {
+    "summary": "Harvest summary: 342 sacks of barley were stored this season. The full breakdown by field is in the file 'appendix'.",
+    "appendix": "Field A: 120 sacks\nField B: 97 sacks\nField C: 125 sacks"
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 342
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "path": "summary"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "calc"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "summary"
+     }
+    }
+   ],
+   "final": "342"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "summary"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "appendix"
+     }
+    }
+   ],
+   "final": "342"
+  }
+ },
+ {
+  "local_id": "g1-20",
+  "family": "tools",
+  "subtheme": "full-doc-not-search-snippet",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "What is the current daily dock fee according to the document with id 'dock-fees'? Use one tool call. Final answer: just the number.",
+  "tools": [
+   "search",
+   "read_doc",
+   "calc",
+   "send_message"
+  ],
+  "env": {
+   "docs": {
+    "dock-fees": "Dock fee notice of the Port Velden wardens. Last season the daily dock fee was 45 crowns and many skippers complained that the notice was posted far too late. After the autumn vote the fee changed. The current daily dock fee is 52 crowns.",
+    "dock-history": "The docks were rebuilt after the great storm and widened twice."
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 52
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_doc",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "id": "dock-fees"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "search"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_doc",
+     "args": {
+      "id": "dock-fees"
+     }
+    }
+   ],
+   "final": "52"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "search",
+     "args": {
+      "query": "daily dock fee"
+     }
+    }
+   ],
+   "final": "45"
+  }
+ },
+ {
+  "local_id": "g1-21",
+  "family": "tools",
+  "subtheme": "avoid-the-restricted-tool",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "Today's visitor count is in the file 'visitor_log', and the same number is mirrored in the key-value store under the key 'mirror_count'. The file reader is rate-limited today, so get the number without using read_file at all. Final answer: just the number.",
+  "tools": [
+   "read_file",
+   "list_files",
+   "kv_get",
+   "kv_list"
+  ],
+  "env": {
+   "files": {
+    "visitor_log": "visitors today: 126"
+   },
+   "kv": {
+    "mirror_count": 126,
+    "mirror_date": "today"
+   }
+  },
+  "checks": [
+   {
+    "type": "number",
+    "value": 126
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "min": 1,
+    "ok_only": true,
+    "args_contains": {
+     "key": "mirror_count"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "read_file"
+   },
+   {
+    "type": "max_tool_calls",
+    "value": 1
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "mirror_count"
+     }
+    }
+   ],
+   "final": "126"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "visitor_log"
+     }
+    }
+   ],
+   "final": "126"
+  }
+ }
+]

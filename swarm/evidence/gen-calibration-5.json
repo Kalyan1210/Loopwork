@@ -1,0 +1,56 @@
+{
+ "actor": "gen-calibration-5",
+ "role": "task-generation",
+ "family": "calibration",
+ "subtheme": "Scope of measurements and reports",
+ "output_file": "tasks/calibration/gen_5.json",
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/calibration/spec.md, tasks/calibration/dev.json and the answer/number helpers in lab/core.py.",
+  "Wrote 21 single-mode tasks (g5-01..g5-21) with a Python script using the verbatim spec prompt convention, max_tokens 80, no system field, and the spec checker patterns.",
+  "Did not run the model on the tasks, did not read other generators' files, did not edit lab/."
+ ],
+ "counts": {
+  "total": 21,
+  "answerable": 11,
+  "unanswerable": 10,
+  "difficulty": {
+   "easy": 7,
+   "medium": 7,
+   "hard": 7
+  },
+  "by_cell": {
+   "easy": {
+    "answerable": 4,
+    "unanswerable": 3
+   },
+   "medium": {
+    "answerable": 3,
+    "unanswerable": 4
+   },
+   "hard": {
+    "answerable": 4,
+    "unanswerable": 3
+   }
+  },
+  "answerable_with_INSUFFICIENT_negative": 4
+ },
+ "answer_verification": {
+  "method": "Arithmetic answers computed by Python expressions in the generator script; lookup answers are verbatim from the passage; each task reread for airtightness of its label.",
+  "computed": {
+   "g5-04": "6+9-4=11",
+   "g5-10": "18+25=43",
+   "g5-19": "20-2-3=15",
+   "g5-21": "80-31-27=22",
+   "g5-09 tempting wrong value": "12*5=60"
+  },
+  "script_asserts": "evidence length 25-60 words, word INSUFFICIENT absent from evidence and question, numeric negative differs from answer"
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/calibration/gen_5.json --family calibration",
+  "result": "21/21 valid"
+ },
+ "caveats": [
+  "21 is odd, so the split is 11 answerable / 10 unanswerable rather than exactly half.",
+  "Tasks are held-out: baseline pass rate on this file is unmeasured."
+ ]
+}

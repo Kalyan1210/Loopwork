@@ -1,0 +1,124 @@
+{
+ "actor": "gen-synthesis-1",
+ "role": "task-generation",
+ "family": "synthesis",
+ "subtheme": "cross-document comparison and ranking",
+ "output_file": "tasks/synthesis/gen_1.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "mode_counts": {
+  "single": 19,
+  "tool": 2
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/synthesis/spec.md, tasks/synthesis/dev.json and the checker code in lab/core.py",
+  "Wrote one Python generator script that holds each task's figures as data, builds the prompt text from that data and computes the expected answer and the tempting wrong answer from the same data",
+  "Ran lab/validate_tasks.py on the output file"
+ ],
+ "answer_verification": "Every expected value (argmax/argmin, second place, differences, rank, unit and period conversions, per-entity changes) was computed in Python from the same dictionaries that fill the prompt, with assertions on the expected value, on the trap value and on the absence of ties. Prompt plus env size asserted under 1500 characters per task.",
+ "per_task_computation": [
+  {
+   "local_id": "g1-01",
+   "computed": "argmax members -> Quenby; trap = argmax loans -> Pellisande"
+  },
+  {
+   "local_id": "g1-02",
+   "computed": "argmin seconds -> Skerry Crew; trap argmax -> Marrow Crew"
+  },
+  {
+   "local_id": "g1-03",
+   "computed": "264-197=67; trap uses the valley's top farm: 115"
+  },
+  {
+   "local_id": "g1-04",
+   "computed": "sorted desc [\"Abbot's Lane\", 'Fennimore Street', 'Kessel Road']; second = Fennimore Street; trap = top"
+  },
+  {
+   "local_id": "g1-05",
+   "computed": "max-min = 63; trap = top minus middle = 38"
+  },
+  {
+   "local_id": "g1-06",
+   "computed": "argmin -> August; trap argmax -> July"
+  },
+  {
+   "local_id": "g1-07",
+   "computed": "argmin price -> Rookhurst at 29; trap = dearest"
+  },
+  {
+   "local_id": "g1-08",
+   "computed": "sorted asc ['Carrick Fen', 'Eppley', 'Aldrow', 'Dunstal', 'Bessamy']; second = Eppley; trap = smallest"
+  },
+  {
+   "local_id": "g1-09",
+   "computed": "gains {'Morwen': 25, 'Thackley': 75, 'Isard': 45}; argmax -> Thackley; trap = largest apiary Morwen"
+  },
+  {
+   "local_id": "g1-10",
+   "computed": "top two [912, 874] diff 38; trap = top minus bottom 122"
+  },
+  {
+   "local_id": "g1-11",
+   "computed": "max-min bunks = 36; trap = Mossop minus Netherby (stopped early) 25"
+  },
+  {
+   "local_id": "g1-12",
+   "computed": "non-finishers {'Hartsell': 22, 'Brimlow': 16, 'Coddington': 29, 'Yewdale': 25}; argmax -> Coddington; trap = most starters Brimlow"
+  },
+  {
+   "local_id": "g1-13",
+   "computed": "rank from top = 4; trap = rank from bottom 2"
+  },
+  {
+   "local_id": "g1-14",
+   "computed": "argmin 2044 -> Sandle; its 2046 value 88; trap = its 2044 value"
+  },
+  {
+   "local_id": "g1-15",
+   "computed": "falls {'Ravensgill': 35, 'Tolbury': -15, 'Marchweir': 62, 'Coombe Ash': 39}; argmax -> Marchweir (62); trap = largest chapel Ravensgill"
+  },
+  {
+   "local_id": "g1-16",
+   "computed": "minutes {'Lantern Players': 95, 'Gable Troupe': 88, 'Reedham Company': 80, 'Old Mill Players': 102}; order ['Old Mill Players', 'Lantern Players', 'Gable Troupe', 'Reedham Company']; second = Lantern Players; trap = second among minute-only figures"
+  },
+  {
+   "local_id": "g1-17",
+   "computed": "weekly {\"Hobbin's\": 665, 'Crumbwell': 640, 'Stokeley': 660, 'Farthing Lane': 615}; argmax -> Hobbin's; traps: Stokeley (highest daily rate among near-daily), Crumbwell (largest printed number)"
+  },
+  {
+   "local_id": "g1-18",
+   "computed": "leads {'March': 33, 'April': 45, 'May': 37, 'June': 39}; argmax -> April (45); trap = busiest month June"
+  },
+  {
+   "local_id": "g1-19",
+   "computed": "last year {'Tansley': 310, 'Wickmere': 341, 'Lorrimer': 397, 'Paxhill': 394, 'Garron': 356}; argmax -> Lorrimer; trap = this year's top Wickmere"
+  },
+  {
+   "local_id": "g1-20",
+   "computed": "order ['Norrow', 'Tibbet', 'Ebbfleet', 'Scard', 'Harl']; margin top-second = 9; trap = top minus bottom 63"
+  },
+  {
+   "local_id": "g1-21",
+   "computed": "changes {'Alderwick': 32, 'Brookend': -21, 'Cinderford Mill': 43}; min abs = 21 (Brookend, a fall); trap = smallest rise 32"
+  }
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/synthesis/gen_1.json --family synthesis",
+  "result": "21/21 valid",
+  "passed": true
+ },
+ "not_done": [
+  "No model run or pilot on these tasks (held-out)",
+  "Did not read other generators' files"
+ ],
+ "notes": [
+  "Tasks 9, 15 and 21 all involve per-entity change between two dated reports but differ in question (largest gain as a name, largest fall as JSON, smallest absolute change via tools)",
+  "Difficulty labels are estimates from the spec's guidance, not measured",
+  "The generator briefly wrote a stray computed_log.json into the project root; it was moved out to the session scratchpad",
+  "The handoff and done dashboard events were emitted just before this evidence file was written, because the first write attempt failed on the stray-file path"
+ ]
+}

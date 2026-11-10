@@ -1,0 +1,26 @@
+{
+ "actor": "designer-constraints",
+ "family": "constraints",
+ "role": "task-suite-design",
+ "did": [
+  "Read lab/TASKS.md and lab/core.py (checker semantics)",
+  "Wrote 10 dev tasks (3 easy, 4 medium, 3 hard), all pass lab/validate_tasks.py",
+  "Piloted on the baseline model with lab/pilot.py --show and read every reply",
+  "Round 1 -> replaced dev-03 (a pick-the-fruit question whose crux was knowledge, not the case rule) with a pure case-rule task",
+  "Wrote tasks/constraints/spec.md with conventions, checker patterns, pitfalls and 5 sub-themes"
+ ],
+ "pilot_rounds": [
+  {"round": 1, "passed": 4, "total": 10, "pass_rate": 0.4, "note": "all 6 failures were genuine model errors; no checker rejected a correct reply"},
+  {"round": 2, "passed": 4, "total": 10, "pass_rate": 0.4, "note": "unintended repeat of round 1: the dev-03 edit did not apply (see incident), file was unchanged"},
+  {"round": 3, "passed": 5, "total": 10, "pass_rate": 0.5, "note": "dev-03 replaced; final"}
+ ],
+ "final_baseline_dev_pass_rate": 0.5,
+ "final_per_task": {"dev-01": 1, "dev-02": 1, "dev-03": 1, "dev-04": 0, "dev-05": 0, "dev-06": 0, "dev-07": 1, "dev-08": 1, "dev-09": 0, "dev-10": 0},
+ "dev_tasks_valid": 10,
+ "incident": "The session scratchpad directory is shared between agents. My generator script there (gen.py) was overwritten by the planning designer's script of the same name, and I executed it once before noticing (about 23:54). That script rewrites tasks/planning/dev.json from its own definitions. I did not edit that file by hand and did not rerun the script. If the planning designer had hand-edited tasks/planning/dev.json after generating it, those edits were reverted to the script's output. My progress event for round 2 said I was easing a task; that edit had in fact not applied until round 3.",
+ "files_written": [
+  "tasks/constraints/dev.json",
+  "tasks/constraints/spec.md",
+  "swarm/evidence/designer-constraints.json"
+ ]
+}

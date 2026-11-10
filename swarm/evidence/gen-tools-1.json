@@ -1,0 +1,58 @@
+{
+ "actor": "gen-tools-1",
+ "family": "tools",
+ "subtheme": "Tool selection and economy",
+ "output": "tasks/tools/gen_1.json",
+ "n_tasks": 21,
+ "local_ids": [
+  "g1-01",
+  "g1-02",
+  "g1-03",
+  "g1-04",
+  "g1-05",
+  "g1-06",
+  "g1-07",
+  "g1-08",
+  "g1-09",
+  "g1-10",
+  "g1-11",
+  "g1-12",
+  "g1-13",
+  "g1-14",
+  "g1-15",
+  "g1-16",
+  "g1-17",
+  "g1-18",
+  "g1-19",
+  "g1-20",
+  "g1-21"
+ ],
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "zero_call_tasks": [
+  "g1-03",
+  "g1-07",
+  "g1-08",
+  "g1-15",
+  "g1-17"
+ ],
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/tools/spec.md, tasks/tools/dev.json and the tool/checker code in lab/core.py",
+  "Wrote the 21 tasks with a Python generator script (kept in the session scratchpad, outside the repo) that dumps a single JSON array",
+  "Ran lab/validate_tasks.py on the file"
+ ],
+ "answer_verification": "No arithmetic is involved; every expected answer is a value read from the env or stated in the prompt. The generator script asserts the facts the tasks rely on (g1-01 timetable line, g1-05 file count 4, g1-06 single vault_ key, g1-11 single doc with the phrase, g1-18 pointer resolves to 614, g1-19 appendix sums to 342, g1-20 old fee 45 inside the first 160 chars and current fee 52 outside them). The validator replays each reference and negative through the simulated tools: all references pass, all negatives fail.",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/tools/gen_1.json --family tools",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "none (held-out; the model was not run on these tasks)",
+ "notes": [
+  "max_tool_calls is 0, 1 or 2 in every task as the brief requires; tasks allowing one spare call beyond the reference: g1-01, g1-02, g1-04; the rest are exact",
+  "tool_called args_contains is a substring match, so look-alike file names were chosen so that no decoy name contains the target name",
+  "Difficulty labels are estimates from spec.md guidance, not measured"
+ ]
+}

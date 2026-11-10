@@ -1,0 +1,55 @@
+{
+ "actor": "gen-coding-5",
+ "role": "task-generation",
+ "family": "coding",
+ "subtheme": "algorithms",
+ "output": "tasks/coding/gen_5.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 6,
+  "medium": 7,
+  "hard": 8
+ },
+ "functions": [
+  "gcd_all(nums)",
+  "primes_below(n)",
+  "lower_bound(nums, target)",
+  "longest_true_streak(flags)",
+  "to_digits(n, base)",
+  "prefix_totals(nums)",
+  "best_window(nums, k)",
+  "has_pair_sum(nums, target)",
+  "walk(rows, cols, moves)",
+  "longest_climb(nums)",
+  "prime_factors(n)",
+  "balance_index(nums)",
+  "int_sqrt(n)",
+  "peak_load(sessions)",
+  "fewest_coins(amount, coins)",
+  "count_routes(rows, cols, blocked)",
+  "shortest_reach(nums, target)",
+  "find_span(nums, target)",
+  "free_gaps(busy, start, end)",
+  "longest_ones(bits, k)",
+  "covered_length(intervals)"
+ ],
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/coding/spec.md and tasks/coding/dev.json (examples only, none reused).",
+  "Wrote 21 write-from-spec algorithm tasks with a generator script; each has a reference solution and a realistic near-miss negative (off-by-one bound, greedy change-making, missing max() in sweep, 'if' instead of 'while' in sliding window, set membership reusing one position, etc.).",
+  "Did not run the model on any task (held-out) and did not read other generators' files."
+ ],
+ "verification": [
+  "Every expected value in the tests is executed against the reference solution by lab/validate_tasks.py (reference must pass, negative must fail).",
+  "First validator run: 19/21. g5-16 had a hand-computed expected value that was wrong; g5-20's negative passed (tests too weak).",
+  "Fixed g5-16 by replacing the assert with a case whose value (4) was computed by an independent recursive brute-force path counter; strengthened g5-20 with a case ([1,0,1,1,0,1,1,1], k=1 -> 6) computed by an independent brute-force over all sublists. No check was weakened.",
+  "Trimmed two tasks from 9 to 8 asserts to match the family spec (5-8 asserts) and re-validated."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/coding/gen_5.json --family coding",
+  "result": "21/21 valid"
+ },
+ "notes": [
+  "Difficulty split 6 easy / 7 medium / 8 hard: the generator brief asks for about a third each while the family spec asks to skew harder; this is a compromise.",
+  "Difficulty labels are estimates for a 1.7B model; they are not measured because no pilot was allowed."
+ ]
+}

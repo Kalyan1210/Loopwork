@@ -1,0 +1,42 @@
+{
+ "actor": "gen-math-1",
+ "family": "math",
+ "subtheme": "Arithmetic, rates and units",
+ "output": "tasks/math/gen_1.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 6,
+  "medium": 8,
+  "hard": 7
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/math/spec.md and dev.json; wrote 21 distinct single-mode tasks (quantities, coin money, discount, percent change, ratio, averages, speed, work rates, stated-factor unit conversions) using the spec's verbatim format sentences and number checkers.",
+ "verification": "Every expected value is computed in a Python generator script with exact Fractions from the problem's numbers (not typed by hand); integer answers asserted integral; negatives asserted to differ from the answer beyond tolerance. g1-07, g1-16 and g1-17 were additionally re-derived by independent time-step simulation. The model was not run on these tasks.",
+ "traps": {
+  "g1-01": "7*46=322; 5*38=190; 512*3=1536.",
+  "g1-02": "2*36=72 flagons; 72*0.75=54.",
+  "g1-03": "15% of 260 = 39; 260-39=221.",
+  "g1-04": "The middle value when sorted is 12.4.",
+  "g1-05": "Total time 4 hours at 18+12=30: 30*4=120.",
+  "g1-06": "40*3/5=24.",
+  "g1-07": "Together 20 per minute: 300/20=15.",
+  "g1-08": "Down 25% then up 25% cancels out.",
+  "g1-09": "Average of 30 and 20 is 25.",
+  "g1-10": "4 crowns = 48 marks; saddle = 43 marks; change = 5.",
+  "g1-11": "Cloth 150 + thread 35 = 185; 250-185=65.",
+  "g1-12": "(70+80)/2=75.",
+  "g1-13": "The mean dropped by 2, so the crate is 42+2=44.",
+  "g1-14": "45*5=225; 225/28=8.04, so 9 trips.",
+  "g1-15": "Wall = 60 mason-days; 60/4 = 15.",
+  "g1-16": "Gap 190, closing speed 38: 190/38=5.",
+  "g1-17": "2/3 left; both: 5/18 per h; (2/3)/(5/18)=2.4.",
+  "g1-18": "10 litres syrup + 10 added = 20; 20/40 = 50%.",
+  "g1-19": "Cost 600; 180 good; 180*5=900; 900-600=300.",
+  "g1-20": "The 20% cut and 20% charge cancel, so 180+10=190.",
+  "g1-21": "90 km at 24 km/h = 3.75 h, plus 0.5 = 4.25."
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/math/gen_1.json --family math",
+  "result": "21/21 valid"
+ },
+ "notes": "g1-07 was relabelled easy->medium after drafting (staged rate with a 2-dp answer). Difficulty labels are estimates; no pilot was run, so baseline pass rates are unknown."
+}

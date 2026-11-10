@@ -1,0 +1,8 @@
+{"_note":"TEST config for pipeline check; final magnitudes are chosen on DEV tasks only",
+ "conditions":[
+ {"id":"baseline","type":"baseline","label":"unchanged model","method":"unchanged"},
+ {"id":"noop","type":"control","label":"edit pipeline with x1.0 (no-op)","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"noop"}},
+ {"id":"t_ffn","type":"intervention","label":"test","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.3}},
+ {"id":"t_rand","type":"control","label":"test","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"random_sign","eps":0.3,"seed":1234}},
+ {"id":"t_rb","type":"control","label":"test","method":"edit_then_rollback","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.3}}
+]}

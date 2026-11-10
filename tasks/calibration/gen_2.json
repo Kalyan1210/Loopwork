@@ -1,0 +1,725 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "calibration",
+  "subtheme": "stated-value-among-neighbours",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nRoster, Hollin School. Class Heron has 27 pupils and is taught by Mr Tasco. Class Wren has 31 pupils. Class Finch meets in the garden room.\n\nQUESTION: How many pupils are in class Wren?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 31
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 31\nCONFIDENCE: 90",
+  "negative": "ANSWER: 27\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "calibration",
+  "subtheme": "neighbour-attribute-absent",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nChess ladder, Vennor School. Hale Brisk and Ummi Tarrow are the two team captains. Hale plays on board one and Ummi plays on board two. The club meets in the library after lessons.\n\nQUESTION: How old is Ummi Tarrow, in years?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 14\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "calibration",
+  "subtheme": "neighbour-value-missing",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHill race, Corrow Fell. Bryn Astel reached the top in 52 minutes. Mavi Thorne reached the top some time before Bryn did. Senn Dural turned back at the stream and did not finish.\n\nQUESTION: In how many minutes did Mavi Thorne reach the top?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 52\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "calibration",
+  "subtheme": "one-step-offset",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSled race, Yarrow Pass. Dunna Velk crossed the line after 58 minutes. Orin Pask crossed the line 7 minutes before Dunna. Hett Ruvio's sled broke a runner and he did not finish.\n\nQUESTION: What was Orin Pask's time in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 51
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 51\nCONFIDENCE: 90",
+  "negative": "ANSWER: 65\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "calibration",
+  "subtheme": "neighbour-never-measured",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nPumpkin contest, Wethel fair. Sorrel Agnew's pumpkin weighed 41 kilograms. The scale broke before Brann Okey's pumpkin could be put on it, so its weight was never taken.\n\nQUESTION: How many kilograms did Brann Okey's pumpkin weigh?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 41\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "calibration",
+  "subtheme": "name-lookup-among-neighbours",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nExpedition log, Mount Corvane. The north party was led by Sella Draim and reached the ridge camp on day 6. The south party was led by Brok Unnel and stayed in the valley.\n\nQUESTION: Who led the south party? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Brok Unnel",
+       "Unnel",
+       "<Brok Unnel>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(brok\\s+)?unnel\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Brok Unnel\nCONFIDENCE: 90",
+  "negative": "ANSWER: Sella Draim\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "calibration",
+  "subtheme": "two-step-chain",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCanoe race, River Asp. Calla Wren finished in 30 minutes. Oru Havel finished 6 minutes after Calla. Vesh Tamrin finished 4 minutes after Oru. All three paddled alone.\n\nQUESTION: What was Vesh Tamrin's finishing time in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 40\nCONFIDENCE: 90",
+  "negative": "ANSWER: 34\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "calibration",
+  "subtheme": "no-names-given",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nStation diary, Brell. Two parties set out for the Ashen Glacier this week. The Tern party pulled sledges and the Skua party travelled on skis. Both parties returned safely before the snow.\n\nQUESTION: Who led the Skua party? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Tern\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "calibration",
+  "subtheme": "stated-value-beside-lost-record",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nQuiz night, Mossgate hall. Team Fenwick's score sheet was lost before anyone counted it. Team Larkspur scored 48 points. Team Ombra arrived late and only watched.\n\nQUESTION: How many points did team Larkspur score?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 48
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 48\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "calibration",
+  "subtheme": "neighbour-value-missing",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSchool notice, Darrow Vale. Class Alder has 22 pupils. Class Rowan uses the same corridor as class Alder and shares its teaching aide. Class Rowan is taught by Ms Pell.\n\nQUESTION: How many pupils are in class Rowan?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 22\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "calibration",
+  "subtheme": "event-not-held",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSpelling contest, Kestrel House. Lio Farran and Dessa Wynn both reached the final round. The final was postponed because of a storm and has not been held yet.\n\nQUESTION: Who won the final round? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Lio Farran\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "calibration",
+  "subtheme": "name-lookup-with-withdrawn-entity",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nRegatta sheet, Lake Purnell. The boat Asterfin rowed in lane 2. The boat Glimmerwake rowed in lane 5 and won the heat. The boat Tolvane was withdrawn before the start.\n\nQUESTION: Which boat won the heat? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Glimmerwake",
+       "<Glimmerwake>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*glimmerwake\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Glimmerwake\nCONFIDENCE: 90",
+  "negative": "ANSWER: Asterfin\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "calibration",
+  "subtheme": "one-step-multiple",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nJam contest, Pellow fair. Irsa Monk entered 6 jars. Teb Callow entered twice as many jars as Irsa. Nobody counted the jars brought by Wyn Dorrow, who came late.\n\nQUESTION: How many jars did Teb Callow enter?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 12\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "calibration",
+  "subtheme": "partial-total",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHoop toss, Linden yard. Team Garnet scored 15 points in round one and 12 points in round two. Team Jasper scored 10 points in round one. The card for Jasper's round two is missing.\n\nQUESTION: How many points did team Jasper score in total over the two rounds?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 10\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-15",
+  "family": "calibration",
+  "subtheme": "neighbour-attribute-absent",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nBoat race, Dunhaven quay. The crews Kestrel and Marlin started together at the bell. Kestrel was steered by Fenn Ould. Each crew had six rowers and one spare oar.\n\nQUESTION: In which year was the boat Marlin built?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 1904\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "calibration",
+  "subtheme": "two-hop-name",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nClimb report, Thessin Peak. The first climber to reach the summit belonged to the Amber team. Rusk Hallen is the only climber on the Amber team. Tovi Marn climbs for the Slate team.\n\nQUESTION: Who reached the summit first? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Rusk Hallen",
+       "Hallen",
+       "<Rusk Hallen>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(rusk\\s+)?hallen\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Rusk Hallen\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "calibration",
+  "subtheme": "did-not-take-part",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSwim meet, Calder Pool. Nima Voss swam the 200 metres in 3 minutes. Roke Aldun was entered in the same race but stayed on the bench with a sore shoulder and did not swim.\n\nQUESTION: What was Roke Aldun's time for the 200 metres, in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 3\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "calibration",
+  "subtheme": "one-step-rank",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nKite contest, Saffron Down. Mirel Osk finished in fourth place. Jossa Tain finished exactly one place better than Mirel. Pim Arrow's kite tore and was not ranked.\n\nQUESTION: In which place did Jossa Tain finish? Give the place as a number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 3\nCONFIDENCE: 90",
+  "negative": "ANSWER: 5\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "calibration",
+  "subtheme": "offset-from-missing-anchor",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nDarts league, Hobb Lane. Odo Finch scored 20 points more than Pell Varga. Pell's score was not written down. Rill Sattan scored 85 points in the same match.\n\nQUESTION: How many points did Odo Finch score?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 105\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-20",
+  "family": "calibration",
+  "subtheme": "no-scores-given",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nPie contest, Orrin fair. Madda Quill baked a plum pie and Jorv Tennet baked a leek pie. The judges tasted both pies before noon and then went to lunch.\n\nQUESTION: How many points did the judges give Jorv Tennet's pie?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 8\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "calibration",
+  "subtheme": "remainder-of-total",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nRoster, Brakk Hall. The class has 24 pupils split into three groups. The Otter group has 9 pupils and the Lynx group has 8 pupils. All the remaining pupils are in the Stoat group.\n\nQUESTION: How many pupils are in the Stoat group?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 7\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ }
+]

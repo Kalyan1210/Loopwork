@@ -1,0 +1,377 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "planning",
+  "subtheme": "money-left",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Nilo has 70 coins to set up a kite stall. He must buy everything on this list:\n- 2 spools of string at 9 coins each\n- 1 bamboo frame set at 23 coins\n- 4 ribbons at 3 coins each\nHow many coins does Nilo have left after buying the whole list? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 17
+   }
+  ],
+  "reference": "String 18, frames 23, ribbons 12, total 53. 70 - 53 = 17.\nANSWER: 17",
+  "negative": "9 + 23 + 3 = 35. 70 - 35 = 35.\nANSWER: 35"
+ },
+ {
+  "local_id": "g5-02",
+  "family": "planning",
+  "subtheme": "units-after-fixed-cost",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Sela has 95 coins for the night market. She must first pay a stall fee of 28 coins. With the money that remains she buys paper lanterns to sell, at 8 coins per lantern. Lanterns are sold whole only.\nWhat is the largest number of lanterns Sela can buy? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "reference": "95 - 28 = 67 coins left. 8 lanterns cost 64, 9 would cost 72.\nANSWER: 8",
+  "negative": "95 / 8 = 11.9, so 11 lanterns.\nANSWER: 11"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "planning",
+  "subtheme": "overspend-amount",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "The village feast has a budget of 120 coins. The cook proposes this shopping plan:\n- bread: 26 coins\n- cheese: 38 coins\n- fruit: 31 coins\n- cider: 39 coins\nThe plan costs more than the budget. By how many coins does the plan exceed the budget? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "reference": "26 + 38 + 31 + 39 = 134. 134 - 120 = 14.\nANSWER: 14",
+  "negative": "26 + 38 + 31 + 39 = 134.\nANSWER: 134"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "planning",
+  "subtheme": "rule-audit",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Before a hike, Brin proposes this shopping plan:\n- rope from the Harbor Shop, 12 coins\n- lamp from the Harbor Shop, 9 coins\n- boots from the Hill Shop, 14 coins\n- tin cup from the Harbor Shop, 3 coins\nRules:\nRule 1: The plan costs at most 40 coins in total.\nRule 2: At most two items come from the same shop.\nRule 3: The plan includes a lamp.\nExactly one rule is broken by the plan. Which rule number is it? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "reference": "Total 38, fine. Three items come from the Harbor Shop. A lamp is included.\nANSWER: 2",
+  "negative": "12 + 9 + 14 + 3 is too much for 40 coins.\nANSWER: 1"
+ },
+ {
+  "local_id": "g5-05",
+  "family": "planning",
+  "subtheme": "only-valid-option",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A group of 6 friends wants to hire one boat for a lake trip. The boat must have at least 6 seats and must cost 60 coins or less.\nBoats:\n- Wren: 4 seats, 35 coins\n- Heron: 6 seats, 72 coins\n- Swift: 7 seats, 58 coins\n- Pike: 5 seats, 44 coins\nOnly one boat meets both conditions. First write one plain-text line per boat saying whether it has enough seats and whether it is cheap enough. Then end with a final line that is only a JSON object with exactly the keys \"boat\" and \"cost\" for the boat they should hire (cost is its price in coins, as a number).",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "boat",
+     "cost"
+    ],
+    "equals": {
+     "boat": "Swift",
+     "cost": 58
+    }
+   }
+  ],
+  "reference": "Wren: too few seats, cheap enough\nHeron: enough seats, too expensive\nSwift: enough seats, cheap enough\nPike: too few seats, cheap enough\n{\"boat\":\"Swift\",\"cost\":58}",
+  "negative": "Wren: too few seats\nHeron: enough seats\nSwift: enough seats\nPike: too few seats\n{\"boat\":\"Heron\",\"cost\":72}"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "planning",
+  "subtheme": "first-failing-step",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Odra goes to market with 30 coins and no way to get more. Her plan, in order:\nStep 1: buy bread for 12 coins\nStep 2: buy oil for 10 coins\nStep 3: buy cloth for 15 coins\nStep 4: buy salt for 2 coins\nShe pays for each step in turn from what is left in her purse. Which step is the first one she cannot pay for? Give the step number. Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "After step 1 she has 18, after step 2 she has 8. Cloth costs 15, more than 8.\nANSWER: 3",
+  "negative": "12 + 10 + 15 + 2 = 39, which is over 30 at the last step.\nANSWER: 4"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "planning",
+  "subtheme": "cheapest-plan",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Kesh needs a hand cart for exactly 3 days. The yard offers three price plans:\n- Plan A: a sign-up fee of 10 coins, plus 6 coins per day\n- Plan B: no fee, 11 coins per day\n- Plan C: a flat 30 coins for the whole 3 days\nWhat is the lowest total cost in coins for the 3 days? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 28
+   }
+  ],
+  "reference": "Plan A: 10 + 18 = 28. Plan B: 33. Plan C: 30.\nANSWER: 28",
+  "negative": "Plan B is 33, Plan C is a flat 30, the flat price is lowest.\nANSWER: 30"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "planning",
+  "subtheme": "cheapest-valid-pair",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A travelling musician must buy exactly one drum and exactly one flute. The two together must weigh 9 kg or less, and she wants to spend as little as possible.\nDrums: Tarn (30 coins, 7 kg), Vale (36 coins, 5 kg).\nFlutes: Lark (12 coins, 3 kg), Finch (20 coins, 2 kg).\nFirst write the four possible pairs with their total cost and total weight, one pair per line, in plain text. Then end with a final line that is only a JSON object with exactly the keys \"drum\", \"flute\", \"cost\" for the cheapest pair that is light enough (cost is that pair's total in coins, as a number).",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "drum",
+     "flute",
+     "cost"
+    ],
+    "equals": {
+     "drum": "Vale",
+     "flute": "Lark",
+     "cost": 48
+    }
+   }
+  ],
+  "reference": "Tarn + Lark: 42 coins, 10 kg\nTarn + Finch: 50 coins, 9 kg\nVale + Lark: 48 coins, 8 kg\nVale + Finch: 56 coins, 7 kg\n{\"drum\":\"Vale\",\"flute\":\"Lark\",\"cost\":48}",
+  "negative": "Tarn + Lark: 42 coins, 10 kg\nTarn + Finch: 50 coins, 9 kg\nVale + Lark: 48 coins, 8 kg\nVale + Finch: 56 coins, 7 kg\n{\"drum\":\"Tarn\",\"flute\":\"Lark\",\"cost\":42}"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "planning",
+  "subtheme": "units-two-limits",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A miller has 90 coins. He must pay 18 coins for a market permit, and spends the rest on sacks of grain at 7 coins per sack. Each sack weighs 8 kg, and his cart can carry at most 60 kg in total. He makes only one trip, and sacks are sold whole.\nWhat is the largest number of sacks he can buy and carry home on the cart? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "reference": "Money: 90 - 18 = 72, enough for 10 sacks. Cart: 7 sacks weigh 56 kg, 8 would weigh 64 kg. The cart is the limit.\nANSWER: 7",
+  "negative": "90 - 18 = 72 coins, and 72 / 7 gives 10 sacks.\nANSWER: 10"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "planning",
+  "subtheme": "overspend-conditional-fee",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A carpenter has a budget of 100 coins and proposes this order from the timber yard:\n- 4 planks at 9 coins each\n- 2 buckets of varnish at 17 coins each\n- 1 saw at 26 coins\nThe yard adds a delivery fee of 12 coins, but the fee is waived when the goods alone cost 100 coins or more.\nBy how many coins does the full cost of the order exceed the budget? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "reference": "Goods: 36 + 34 + 26 = 96, below 100, so the 12 coin fee applies. 108 - 100 = 8.\nANSWER: 8",
+  "negative": "Goods: 36 + 34 + 26 = 96, which is within the 100 coin budget.\nANSWER: 0"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "planning",
+  "subtheme": "first-rule-breaking-step",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A roofer proposes this buying plan, in order:\nStep 1: Monday, nails, 14 coins\nStep 2: Monday, twine, 5 coins\nStep 3: Tuesday, tiles, 16 coins\nStep 4: Tuesday, tar, 7 coins\nStep 5: Wednesday, brushes, 9 coins\nRules:\nRule 1: No more than 20 coins may be spent on any one day.\nRule 2: The running total of all spending may never go above 45 coins.\nWhich step is the first one that breaks a rule? Give the step number. Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "Monday 19, fine. Tuesday reaches 16 + 7 = 23 at step 4, over 20. The running total is only 42 there.\nANSWER: 4",
+  "negative": "Running total: 14, 19, 35, 42, 51. It passes 45 at the last step.\nANSWER: 5"
+ },
+ {
+  "local_id": "g5-12",
+  "family": "planning",
+  "subtheme": "rule-audit-with-total",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "An expedition leader proposes this spending plan:\n- food: 48 coins\n- gear: 55 coins\n- guide: 40 coins\n- permits: 12 coins\n- reserve fund: 25 coins\nRules:\nRule 1: No single line costs more than 60 coins.\nRule 2: Gear costs more than food.\nRule 3: The whole plan costs at most 170 coins.\nRule 4: The reserve fund is at least 20 coins.\nExactly one rule is broken by the plan. Which rule number is it? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "reference": "Largest line is 55. Gear 55 is more than food 48. Total 48 + 55 + 40 + 12 + 25 = 180, over 170. Reserve is 25.\nANSWER: 3",
+  "negative": "Gear at 55 is too close to the limit and costs more than food, which is not allowed.\nANSWER: 2"
+ },
+ {
+  "local_id": "g5-13",
+  "family": "planning",
+  "subtheme": "money-left-with-choice",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Juno brings 50 coins to the fair. Entry costs 10 coins. She will go on exactly 5 rides. Rides can be paid for in two ways: single tickets at 5 coins per ride, or one day pass for 22 coins that covers every ride. She picks whichever way is cheaper for her 5 rides.\nHow many coins does Juno have left at the end of the day? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 18
+   }
+  ],
+  "reference": "Single tickets: 5 x 5 = 25. The pass at 22 is cheaper. 50 - 10 - 22 = 18.\nANSWER: 18",
+  "negative": "5 rides at 5 coins is 25. 50 - 10 - 25 = 15.\nANSWER: 15"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "planning",
+  "subtheme": "weeks-to-afford",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Pim wants a drum that costs 50 coins, and the shop charges 4 coins more to deliver it. Pim has 15 coins now and saves exactly 6 coins at the end of every week, spending nothing else.\nAfter how many full weeks of saving can Pim first pay for the drum and its delivery? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "reference": "Needs 54, has 15, so 39 more. 6 weeks give 36, not enough. 7 weeks give 42.\nANSWER: 7",
+  "negative": "54 - 15 = 39, and 39 / 6 is 6.5, so 6 weeks.\nANSWER: 6"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "planning",
+  "subtheme": "exact-spend-subset",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A trader has a voucher worth exactly 50 coins. It must be used on exactly three different items, and their prices must add up to exactly 50 coins.\nItems: candle 7, rope 12, pot 15, blanket 19, lamp 23, kettle 26 (prices in coins).\nOnly one set of three items works. What is the price in coins of the cheapest item in that set? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "reference": "rope 12 + pot 15 + lamp 23 = 50. No other three prices add up to 50. The cheapest is the rope.\nANSWER: 12",
+  "negative": "The candle is the cheapest item, so it is in the set: 7 + 19 + 23 = 49, close to 50.\nANSWER: 7"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "planning",
+  "subtheme": "best-value-under-budget",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A team has 20 coins to decorate its camp. Each item can be bought at most once and earns points from the judges:\n- map: 9 coins, 12 points\n- flag: 4 coins, 8 points\n- bell: 11 coins, 14 points\n- drum: 12 coins, 16 points\n- rug: 10 coins, 4 points\nThe team may buy any set of items that costs 20 coins or less in total. What is the highest total number of points the team can earn? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 26
+   }
+  ],
+  "reference": "map + bell costs 9 + 11 = 20 and earns 12 + 14 = 26. drum + flag earns 24, map + flag 20, no set of three fits.\nANSWER: 26",
+  "negative": "Take the drum first (16 points, 12 coins), then the flag fits (8 points, 4 coins). 16 + 8 = 24.\nANSWER: 24"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "planning",
+  "subtheme": "cheapest-valid-kit",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A camper must buy exactly one tent, one sleeping bag and one stove.\nTents: Reed (20 coins, warmth 3), Moss (28 coins, warmth 5).\nSleeping bags: Fern (15 coins, warmth 2), Wool (24 coins, warmth 5).\nStoves: Tin (11 coins, warmth 1), Iron (18 coins, warmth 3).\nRules:\nRule 1: The warmth of the three items must add up to at least 10.\nRule 2: The Iron stove may not be used with the Moss tent.\nWhat is the lowest total cost in coins of a kit that follows both rules? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 62
+   }
+  ],
+  "reference": "Reed + Wool + Iron: warmth 11, cost 62. Moss + Wool + Tin: warmth 11, cost 63. Moss + Fern + Iron is 61 but breaks rule 2.\nANSWER: 62",
+  "negative": "Moss + Fern + Iron has warmth 5 + 2 + 3 = 10 and costs 28 + 15 + 18 = 61.\nANSWER: 61"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "planning",
+  "subtheme": "units-tiered-price",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A potter has 100 coins to order clay. The supplier charges a delivery fee of 14 coins once per order. The first 5 bags in an order cost 6 coins each, and every bag after the fifth costs 9 coins each. Bags are sold whole.\nWhat is the largest number of bags the potter can get in one order? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "reference": "100 - 14 = 86. First 5 bags cost 30, leaving 56. 56 / 9 allows 6 more bags (54). 5 + 6 = 11.\nANSWER: 11",
+  "negative": "100 - 14 = 86, and 86 / 6 gives 14 bags.\nANSWER: 14"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "planning",
+  "subtheme": "plan-repair",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A wedding plan has two required lines: hall 40 coins and music 34 coins. It also has four optional lines: flowers 12, banners 18, fireworks 25 and cake 31 coins. With every line included the plan costs more than the budget of 140 coins.\nThe planner will remove exactly one optional line, so that the plan fits the budget and its total stays as high as possible.\nWhat is the total cost in coins of the plan after that one line is removed? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 135
+   }
+  ],
+  "reference": "Full plan: 160, so at least 20 must go. Flowers 12 and banners 18 are too small. Removing fireworks gives 135, removing cake gives 129.\nANSWER: 135",
+  "negative": "Full plan: 160. Remove the most expensive optional line, the cake: 160 - 31 = 129.\nANSWER: 129"
+ },
+ {
+  "local_id": "g5-20",
+  "family": "planning",
+  "subtheme": "units-with-option-choice",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "A club has 120 coins for a museum trip. Exactly 3 adults must go, and as many children as possible.\nTickets: 9 coins per adult, 5 coins per child.\nThe club must hire exactly one bus for everyone: the small bus costs 40 coins and holds at most 10 people in total (adults and children), the large bus costs 65 coins and holds at most 20 people.\nWhat is the largest number of children who can go on the trip? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "reference": "Adults cost 27. Small bus: 53 coins left pays for 10 children, but only 7 seats remain. Large bus: 28 coins left pays for 5 children.\nANSWER: 7",
+  "negative": "Adults 27, small bus 40, so 53 coins remain. 53 / 5 gives 10 children.\nANSWER: 10"
+ },
+ {
+  "local_id": "g5-21",
+  "family": "planning",
+  "subtheme": "overspend-multipliers",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 300,
+  "prompt": "Four friends plan an island trip lasting 3 days and 2 nights, with a shared budget of 150 coins. Their plan:\n- food: 5 coins per person per day\n- lodging: 2 rooms, each at 12 coins per room per night\n- ferry: 7 coins per person each way, going there and coming back\nThe plan costs more than the budget. By how many coins does the plan exceed the budget? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "reference": "Food 5 x 4 x 3 = 60. Lodging 12 x 2 x 2 = 48. Ferry 7 x 4 x 2 = 56. Total 164, which is 14 over 150.\nANSWER: 14",
+  "negative": "Food 60. Lodging 12 x 2 x 3 = 72. Ferry 56. Total 188, which is 38 over 150.\nANSWER: 38"
+ }
+]

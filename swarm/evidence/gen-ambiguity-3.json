@@ -1,0 +1,48 @@
+{
+ "actor": "gen-ambiguity-3",
+ "role": "task-generation",
+ "family": "ambiguity",
+ "subtheme": "Conflicting instructions under a stated priority rule",
+ "output_file": "tasks/ambiguity/gen_3.json",
+ "n_tasks": 21,
+ "local_ids": "g3-01..g3-21",
+ "mode": "single (two-way round-3 format block, verbatim)",
+ "balance": {
+  "ANSWER": 11,
+  "ASK": 10,
+  "by_difficulty": {
+   "easy": {
+    "ANSWER": 7
+   },
+   "medium": {
+    "ANSWER": 2,
+    "ASK": 5
+   },
+   "hard": {
+    "ANSWER": 2,
+    "ASK": 5
+   }
+  }
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/ambiguity/spec.md, tasks/ambiguity/dev.json and the checker code in lab/core.py (read only).",
+  "Designed 21 tasks with distinct rule structures: role override, later date wins, safety rule, three-role chain, channel priority plus one multiplication, specific beats general, earlier date wins, role+date with an off-topic top-role instruction, topic-scoped priority, safety discard then role then date, ordered three-clause rule with URGENT mark (ANSWER); undated note, same date with no time, seniority value missing, rule criterion ties (both written), ownership fact missing, tied vote, unranked role, safety rule not decisive between equal ranks, top role undated, rule scope mismatch (ASK).",
+  "Task order is shuffled so ASK and ANSWER do not alternate.",
+  "Generated the file with a Python build script (kept in the session scratchpad, not in the repo)."
+ ],
+ "answer_verification": [
+  "Every ANSWER-expected value is computed in Python from structured instruction data by resolver functions (rank order, rank then latest date, safety filter, ordered key tuple) and asserted equal to the expected value before the task is emitted; the one arithmetic step (6 * 7 = 42) is computed in code.",
+  "Every ASK-expected task has an assertion showing the stated rule yields no unique winner (tied key, missing value, unranked role, scope mismatch).",
+  "60 extra probe replies were scored with core.score_episode: alternative correct surface forms must pass; losing-instruction answers and questions that merely restate the Task line must fail. A well-formed opposite-move reply was also checked to fail on every task. 0 problems."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/ambiguity/gen_3.json --family ambiguity",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "none (held-out; the model was not run on these tasks)",
+ "limits": [
+  "Difficulty labels follow the spec's guidance and are not measured, since no pilot was allowed.",
+  "ASK content regexes accept role names or priority words; an off-target question that happens to name a role (e.g. 'foreman') would pass."
+ ],
+ "max_prompt_chars": 968
+}

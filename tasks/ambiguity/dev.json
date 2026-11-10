@@ -1,0 +1,280 @@
+[
+ {
+  "local_id": "dev-01",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "You take table bookings for the fictional restaurant Marlo's. A booking needs three things: the day, the time and the number of guests.\nCustomer message: \"Please book me a table for Friday at 7 pm.\"\nTask: confirm the booking details.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day, time and number of guests>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(how many|guests?|people|party|persons?|diners?|number of)"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: How many guests will the table be for?",
+  "negative": "ACTION: ANSWER\nANSWER: Friday, 7 pm, 2 guests"
+ },
+ {
+  "local_id": "dev-02",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "The fictional courier Pellin Post charges a flat fee of 5 coins per order plus 4 coins per parcel.\nCustomer message: \"I am sending 3 parcels in one order. What will it cost?\"\nTask: give the total cost in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 17
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: 17",
+  "negative": "ACTION: ASK\nQUESTION: How many parcels are you sending?"
+ },
+ {
+  "local_id": "dev-03",
+  "family": "ambiguity",
+  "subtheme": "missing-parameter",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "The island of Quorra uses a currency called the drav. The island of Selm uses a currency called the lumen.\nTraveller message: \"I have 250 dravs. How many lumens will I get when I change all of them?\"\nTask: give the number of lumens.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(rate|how many lumens? .*(per|for|to|is|are|in)|how many dravs? .*(per|for|to|is|are|in)|worth|value of)"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: What is the exchange rate between dravs and lumens?",
+  "negative": "ACTION: ANSWER\nANSWER: 500"
+ },
+ {
+  "local_id": "dev-04",
+  "family": "ambiguity",
+  "subtheme": "fully-specified",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Room bookings at the fictional Tarn Library need a date, a start time and a length.\nStaff note: the weekly \"reading circle\" always lasts 45 minutes.\nRequest: \"Book the Heron room on 14 March for the reading circle, starting at 10:00.\"\nTask: give the time the booking ends.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the end time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "\\b10[:.]45\\b"
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: 10:45",
+  "negative": "ACTION: ASK\nQUESTION: How long should the booking last?"
+ },
+ {
+  "local_id": "dev-05",
+  "family": "ambiguity",
+  "subtheme": "conflict-priority",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Delivery desk of the fictional shop Brindle & Co.\nPriority rule: if two notes disagree, the manager's note overrides the customer's note.\nCustomer's note: \"Deliver the wardrobe on Tuesday.\"\nManager's note: \"The van is only free on Thursday. Deliver the wardrobe on Thursday.\"\nTask: on which day is the wardrobe delivered?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Thursday"
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: Thursday",
+  "negative": "ACTION: ANSWER\nANSWER: Tuesday"
+ },
+ {
+  "local_id": "dev-06",
+  "family": "ambiguity",
+  "subtheme": "conflict-priority",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Label printing at the fictional Osk Brewery.\nPriority rules: (1) An instruction from the owner beats an instruction from anyone else. (2) Between two instructions from the same person, the one with the later date wins.\n3 May, owner: \"Use green labels.\"\n9 May, clerk: \"Use red labels.\"\n6 May, owner: \"Use blue labels.\"\n12 May, clerk: \"Use white labels.\"\nTask: which label colour must be used?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the colour only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "blue"
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: blue",
+  "negative": "ACTION: ANSWER\nANSWER: white"
+ },
+ {
+  "local_id": "dev-07",
+  "family": "ambiguity",
+  "subtheme": "ambiguous-reference",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Staff list of the fictional firm Aldery Works:\n- Maya Orlov, finance\n- Dario Penn, design\n- Maya Tench, design\n- Ines Rook, finance\nRequest: \"Please forward the budget sheet to Maya.\"\nTask: give the full name of the person who must receive the budget sheet.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|orlov|tench|last name|surname|full name)"
+   }
+  ],
+  "reference": "ACTION: ASK\nQUESTION: Which Maya do you mean, Maya Orlov or Maya Tench?",
+  "negative": "ACTION: ANSWER\nANSWER: Maya Orlov"
+ },
+ {
+  "local_id": "dev-08",
+  "family": "ambiguity",
+  "subtheme": "ambiguous-reference",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Parcels waiting at the fictional Kesh depot:\n- P1: going to Vell, weight 3 kg\n- P2: going to Dorn, weight 8 kg\n- P3: going to Vell, weight 8 kg\nRequest: \"Put a fragile sticker on the 8 kg parcel that is going to Vell.\"\nTask: give the id of the parcel that gets the sticker.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the parcel id only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "P3"
+   }
+  ],
+  "reference": "ACTION: ANSWER\nANSWER: P3",
+  "negative": "ACTION: ASK\nQUESTION: Which 8 kg parcel do you mean, P2 or P3?"
+ },
+ {
+  "local_id": "dev-09",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Order record of the fictional stall Wren's Candles:\n- Item: beeswax candle\n- Quantity ordered: 4\n- Price per candle: 15 coins\n- Packing slip says: \"6 candles packed\"\nTask: how many coins does the customer owe for the candles?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:.*\\b4\\b.*\\b6\\b|CONFLICT:.*\\b6\\b.*\\b4\\b"
+   }
+  ],
+  "reference": "ACTION: FLAG\nCONFLICT: quantity ordered 4 vs 6 candles packed",
+  "negative": "ACTION: ANSWER\nANSWER: 60"
+ },
+ {
+  "local_id": "dev-10",
+  "family": "ambiguity",
+  "subtheme": "clarify-then-answer",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "The fictional Fennick Maze charges 9 coins per person. There are no discounts.\nVisitor message: \"I am bringing my walking group on Sunday. What will we pay in total?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+   "Visitor message: \"There will be 6 of us.\"\nUse the same two-line reply format."
+  ],
+  "checks": [
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "tag",
+     "name": "ACTION",
+     "allowed": [
+      "ASK"
+     ]
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "regex",
+     "pattern": "QUESTION:.*(how many|number of|people|guests?|children|kids|group|size)"
+    }
+   },
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 54
+   }
+  ],
+  "reference": [
+   "ACTION: ASK\nQUESTION: How many people are in the group?",
+   "ACTION: ANSWER\nANSWER: 54"
+  ],
+  "negative": [
+   "ACTION: ANSWER\nANSWER: 9",
+   "ACTION: ANSWER\nANSWER: 54"
+  ]
+ }
+]

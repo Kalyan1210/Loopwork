@@ -1,0 +1,27 @@
+{
+ "actor": "designer-coding",
+ "family": "coding",
+ "role": "task-suite-design",
+ "what_i_did": [
+  "Read lab/TASKS.md and the code_tests / extract_code / run_episode parts of lab/core.py.",
+  "Wrote 10 dev tasks (mode code, one code_tests check each) over string-from-spec, bugfix, complete-partial, dict-list-manipulation and small-algorithm; 3 easy / 4 medium / 3 hard. Every expected value is asserted against the reference by validate_tasks.py (10/10 valid in every version).",
+  "Pilot round 1: 3/10. All three bug-fix tasks failed because the model echoed the buggy code unchanged; other failures were genuine model errors.",
+  "Pilot round 2: 3/10. This round was wasted: my patch script aborted, so the file was unchanged and the run was an identical repeat (it does confirm the pilot is deterministic).",
+  "Revision before round 3: bug-fix prompts restructured (contract, fenced buggy code, Symptom line with a concrete wrong call, instruction); initials prompt states the trailing dot explicitly with a second example; compress_ranges (hard) dropped, merge_intervals relabelled hard and moved to dev-08, new medium second_largest added as dev-06; top_words wording clarified. No expected answer was changed.",
+  "Pilot round 3 (final): 8/10. Failures: dev-01 initials (omits trailing dot) and dev-08 merge_intervals (wrong merge condition). No further changes were made after round 3, so dev.json is exactly the piloted file.",
+  "Wrote tasks/coding/spec.md with conventions, pitfalls, a good example, difficulty guidance and five sub-themes."
+ ],
+ "pilot_pass_rates": {"round_1": 0.3, "round_2": 0.3, "round_3": 0.8},
+ "final_baseline_dev_pass_rate": 0.8,
+ "dev_tasks_valid": 10,
+ "caveats": [
+  "Final rate 0.8 is slightly above the 40-75% target band and the 3-round pilot budget is used up, so I did not retune; spec.md tells generators to skew harder (about 25/35/40 easy/medium/hard).",
+  "Difficulty labels were assigned before piloting: dev-01 (easy) fails at baseline while dev-09 and dev-10 (hard) pass.",
+  "Incident: the session scratchpad directory is shared with sibling agents. My generator script there (gen.py) was overwritten by the planning designer's own gen.py, and one of my commands then executed that file once (about 23:54 local), which rewrote tasks/planning/dev.json with the planning generator's own output. That was seconds after the planning designer wrote the script and before its later patch scripts, so it was most likely a no-op, but I did not verify this with that agent. I did not modify any other family's files otherwise and moved my scratch work to a private subdirectory."
+ ],
+ "files_written": [
+  "/Users/saikalyan/Loopwork/tasks/coding/dev.json",
+  "/Users/saikalyan/Loopwork/tasks/coding/spec.md",
+  "/Users/saikalyan/Loopwork/swarm/evidence/designer-coding.json"
+ ]
+}

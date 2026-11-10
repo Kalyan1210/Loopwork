@@ -1,0 +1,156 @@
+{
+ "id": "tune_attn_m15",
+ "type": "intervention",
+ "label": "attn_norm gain x0.85, blocks 10-17",
+ "built_from": "artifacts/baseline.gguf",
+ "baseline_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+ "method": "edit",
+ "spec": {
+  "module": "attn_norm",
+  "layers": [
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17
+  ],
+  "method": "scale",
+  "eps": -0.15
+ },
+ "tensors": [
+  {
+   "tensor": "blk.10.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 767078560,
+   "sha256_before": "bcd5a10e34ebc686b844b381efdc0c77d62682adc153fbad2d68d21c3cdabf14",
+   "sha256_after": "641ca5dc025376cd2ad0aa6ef0a0c121780a0359768fe77ec552d965daf26c7f",
+   "delta_l2": 5.5098419995260235,
+   "weight_l2_before": 36.73228588921852,
+   "mean_before": 0.7777942419052124,
+   "mean_after": 0.661125123500824
+  },
+  {
+   "tensor": "blk.11.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 798422176,
+   "sha256_before": "f70b9be60e4dee7f41251020486f692375b7678022e52ed12fa48e8a7abecbac",
+   "sha256_after": "e77bbea23208bec130e151eaeb551f8726892687cbc71382c013a936814b4641",
+   "delta_l2": 7.45794658416081,
+   "weight_l2_before": 49.71965132974681,
+   "mean_before": 1.0137839317321777,
+   "mean_after": 0.8617163896560669
+  },
+  {
+   "tensor": "blk.12.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 833009824,
+   "sha256_before": "bab9d9c93b4e082ec208c077796c0f8ea8ac5d647ca54cdd7429ef5cec9619c5",
+   "sha256_after": "2ab680c8b96f9d33582467a717a2b88ae4151edc9797eb50d9881a3096f56789",
+   "delta_l2": 8.906278712736057,
+   "weight_l2_before": 59.37520031946067,
+   "mean_before": 1.2041921615600586,
+   "mean_after": 1.0235633850097656
+  },
+  {
+   "tensor": "blk.13.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 864353440,
+   "sha256_before": "10725e7938822df5c81a07ceebb6f122a357e49b2a7b099e532c24dd14863960",
+   "sha256_after": "9c43754439f34079a3a13fcb7ccf7b09c8c7729af6e778a1b4109c6ad4d77c47",
+   "delta_l2": 9.87719563673566,
+   "weight_l2_before": 65.84798001401678,
+   "mean_before": 1.3235735893249512,
+   "mean_after": 1.125037670135498
+  },
+  {
+   "tensor": "blk.14.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 895697056,
+   "sha256_before": "2564e38434c6b5f105b3f5cdd771c424c683d5efa73f3703a88e260374b8426c",
+   "sha256_after": "0b6636b33ba5a820ba2d1fbac8b68b010d1eeda26d25fd22af2784903dd3b1ed",
+   "delta_l2": 12.693700149692617,
+   "weight_l2_before": 84.62468081011134,
+   "mean_before": 1.690366268157959,
+   "mean_after": 1.4368113279342651
+  },
+  {
+   "tensor": "blk.15.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 930284704,
+   "sha256_before": "3f2eaa3c74c9c806e421deff33ea8c994b6c3e5878cec408116cc3cd7712f4fb",
+   "sha256_after": "d35756d18974448f6b15b371ca6a42a9680b0ee8c17482ae354a3ae955d94506",
+   "delta_l2": 17.5133277862723,
+   "weight_l2_before": 116.75553629326798,
+   "mean_before": 2.3835105895996094,
+   "mean_after": 2.0259838104248047
+  },
+  {
+   "tensor": "blk.16.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 961628320,
+   "sha256_before": "09ae8ca299fa17a0160329dfd05dfae5689599a8be80816f6dd2254b5fe5e76f",
+   "sha256_after": "bc428ba312633b6322bf54f44a32f53cfe79e3fe97337264c8ac87936ae9f4a5",
+   "delta_l2": 16.710223906200163,
+   "weight_l2_before": 111.40150915387352,
+   "mean_before": 2.2990283966064453,
+   "mean_after": 1.9541741609573364
+  },
+  {
+   "tensor": "blk.17.attn_norm.weight",
+   "dtype": "F32",
+   "shape": [
+    2048
+   ],
+   "n_elements": 2048,
+   "data_offset": 992971936,
+   "sha256_before": "5d9ad992382e74731515475b099359b400d0150e1daceeb9ca9b914e0ee5cee2",
+   "sha256_after": "1ef522ce1933e40ff9dfb638a033be7fc09134de8fc5f16b1bb83491e70679ab",
+   "delta_l2": 29.329603898799014,
+   "weight_l2_before": 195.53072107020594,
+   "mean_before": 4.073002815246582,
+   "mean_after": 3.462052345275879
+  }
+ ],
+ "steps": [
+  "in-place edit: scale on 8 tensors"
+ ],
+ "total_delta_l2": 43.24539330105272,
+ "relative_delta_l2": 0.14999997783423033,
+ "n_elements_edited": 16384,
+ "artifact": "artifacts/tune_attn_m15.gguf",
+ "artifact_sha256": "e85298a936e43cf533aeb5ca4b67f434cd17e3b396ebcda19da328ac1ef50140",
+ "artifact_bytes": 1359279776,
+ "identical_to_baseline": false,
+ "built_at": "2026-11-10T00:08:34-0500"
+}

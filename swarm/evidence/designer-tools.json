@@ -1,0 +1,39 @@
+{
+ "actor": "designer-tools",
+ "family": "tools",
+ "role": "task-suite-design",
+ "did": [
+  "Read lab/TASKS.md, lab/core.py, lab/pilot.py, lab/validate_tasks.py",
+  "Wrote 10 tool-mode dev tasks covering calc discipline, tool selection, read-before-write, unrequested messages, error recovery, lookup-then-calc, scoped deletion, no-tool-needed, multi-tool pipeline, conditional action",
+  "Validated: 10/10 valid (reference passes, negative fails)",
+  "Piloted 3 times on the baseline (the allowed maximum)",
+  "Wrote the family spec with 5 distinct sub-themes"
+ ],
+ "pilot_rounds": [
+  {"round": 1, "passed": 2, "total": 10, "pass_rate": 0.2, "passed_ids": ["dev-01", "dev-06"]},
+  {"round": 2, "passed": 2, "total": 10, "pass_rate": 0.2, "note": "Unintended rerun of the UNCHANGED round-1 file: my edit script failed, so no task changed. Replies were identical to round 1, which confirms the pilot is deterministic. It still used up one of the three rounds."},
+  {"round": 3, "passed": 8, "total": 10, "pass_rate": 0.8, "passed_ids": ["dev-01", "dev-02", "dev-03", "dev-05", "dev-06", "dev-08", "dev-09", "dev-10"], "note": "Six prompts made more explicit; dev-09 replaced by a step-by-step medium variant."}
+ ],
+ "final_dev_file": {
+  "valid": 10,
+  "baseline_pass_rate": 0.7,
+  "measured_in_a_single_run": false,
+  "how_derived": "8/10 in round 3 was above the 40-75% target and no pilot round was left. dev-09 was restored to its round-1 hard version, which failed in rounds 1 and 2. The other nine tasks are exactly as piloted in round 3 (7 of them passed). 7/10 is therefore assembled from per-task results of rounds 1/2 and 3, relying on the deterministic settings; the final file as a whole was not re-piloted.",
+  "expected_pass_ids": ["dev-01", "dev-02", "dev-03", "dev-05", "dev-06", "dev-08", "dev-10"],
+  "expected_fail_ids": ["dev-04", "dev-07", "dev-09"],
+  "difficulty_mix": {"easy": 3, "medium": 3, "hard": 4}
+ },
+ "observations": [
+  "The model often dumps several JSON objects in its first reply; only the first is executed",
+  "Bare-text replies after a tool result cost a step and count as format errors, so no_tool_errors is unsuitable",
+  "The model followed an instruction embedded in a file and sent an unrequested message (dev-04)",
+  "Asked to delete only tmp_-prefixed files, it deleted every file (dev-07)",
+  "Explicit step-by-step wording is the main difficulty dial: the same task passes with steps spelled out and fails as a goal"
+ ],
+ "incident": "The scratchpad directory is shared with other agents. In round 2 my generator script had been replaced by another agent's file of the same name (gen.py); my command ran that file once. tasks/tools/dev.json was not changed by it. I did not check what that script wrote; it presumably regenerated its owner's own output. I then moved to a private subdirectory.",
+ "files_written": [
+  "/Users/saikalyan/Loopwork/tasks/tools/dev.json",
+  "/Users/saikalyan/Loopwork/tasks/tools/spec.md",
+  "/Users/saikalyan/Loopwork/swarm/evidence/designer-tools.json"
+ ]
+}

@@ -1,0 +1,215 @@
+[
+ {
+  "local_id": "dev-01",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A potter must do four steps, one at a time: glaze, fire, shape, dry.\nRules:\n- dry comes before glaze\n- glaze comes before fire\n- shape comes before dry\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "shape",
+     "dry",
+     "glaze",
+     "fire"
+    ]
+   }
+  ],
+  "reference": "[\"shape\",\"dry\",\"glaze\",\"fire\"]",
+  "negative": "[\"shape\",\"glaze\",\"dry\",\"fire\"]"
+ },
+ {
+  "local_id": "dev-02",
+  "family": "planning",
+  "subtheme": "dependency-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A workshop has five jobs, done one at a time: A, B, C, D, E.\n- Job B can start only after job C is finished.\n- Job C can start only after job A is finished.\n- Job D can start only after job E is finished.\n- Job E can start only after job B is finished.\n- Job A needs nothing.\nWhich job is done third? Keep any working under 60 words. Then end with a final line: ANSWER: followed by the single job letter.",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "B",
+     "job B",
+     "<B>"
+    ]
+   }
+  ],
+  "reference": "Order: A, C, B, E, D.\nANSWER: B",
+  "negative": "Order: A, B, C, D, E.\nANSWER: C",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-03",
+  "family": "planning",
+  "subtheme": "time-window-scheduling",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A mechanic starts work at 09:00 and does three jobs in this fixed order, with no breaks unless forced to wait:\n1. Oil change: 30 minutes.\n2. Brake check: 45 minutes. The brake parts arrive at 10:00, so this job cannot start before 10:00.\n3. Tyre check: 15 minutes.\nAt what time does the mechanic finish the third job? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "11:00",
+     "11:00 am",
+     "11:00am",
+     "<11:00>"
+    ]
+   }
+  ],
+  "reference": "Oil 09:00-09:30, wait, brakes 10:00-10:45, tyres 10:45-11:00.\nANSWER: 11:00",
+  "negative": "30+45+15 = 90 minutes after 09:00.\nANSWER: 10:30",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-04",
+  "family": "planning",
+  "subtheme": "parallel-scheduling",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A kitchen team has plenty of cooks, so any number of tasks can run at the same time, but a task can start only when the tasks it depends on are finished.\nTasks (minutes):\n- chop vegetables: 10\n- boil water: 15\n- cook pasta: 12, needs boiled water\n- make sauce: 20, needs chopped vegetables\n- mix pasta and sauce: 5, needs cooked pasta and finished sauce\n- set the table: 8\nDinner is ready when every task is finished. What is the minimum number of minutes from start until dinner is ready?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 35
+   }
+  ],
+  "reference": "chop->sauce ends at 30, boil->pasta ends at 27, mix starts at 30 and ends at 35, table done at 8.\nANSWER: 35",
+  "negative": "10+15+12+20+5+8\nANSWER: 70",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-05",
+  "family": "planning",
+  "subtheme": "assignment",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A shelter has three shifts: morning, noon, night. Three volunteers (Mira, Oto, Pell) each take exactly one shift, and every shift gets exactly one volunteer.\nConstraints:\n- Oto can only work noon.\n- Mira cannot work night.\nWho works the night shift? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the volunteer's name.",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Pell",
+       "<Pell>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*pell\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "reference": "Oto takes noon. Mira cannot take night, so Mira takes morning and Pell takes night.\nANSWER: Pell",
+  "negative": "Oto takes noon, Mira takes night.\nANSWER: Mira",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-06",
+  "family": "planning",
+  "subtheme": "capacity-allocation",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A small lift carries at most 12 kg per trip. Five crates must go up: three crates of 7 kg each and two crates of 6 kg each. A crate cannot be split, and several crates may share a trip if their total weight is at most 12 kg.\nWhat is the minimum number of trips needed to carry all five crates?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "reference": "7+7=14 and 7+6=13 are too heavy, so each 7 kg crate rides alone (3 trips). 6+6=12 fits in one trip.\nANSWER: 4",
+  "negative": "Total is 33 kg, 33/12 rounds up to 3.\nANSWER: 3",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-07",
+  "family": "planning",
+  "subtheme": "route-planning",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A courier must travel from Arlo to Dune. There are exactly three possible routes:\n- Arlo to Birch (4 km), then Birch to Dune (9 km)\n- Arlo to Cove (6 km), then Cove to Dune (5 km)\n- the direct road from Arlo to Dune (14 km)\nWhat is the length in km of the shortest route?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "reference": "Via Birch 13, via Cove 11, direct 14.\nANSWER: 11",
+  "negative": "Via Birch is 4+9.\nANSWER: 13",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-08",
+  "family": "planning",
+  "subtheme": "itinerary-timetable",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Tavi must be in Port Lune by 13:30. The trip has two legs:\n1. Bus from Hollow to Midway, taking 50 minutes. Departures: 09:10, 10:40, 12:05.\n2. Ferry from Midway to Port Lune, taking 35 minutes. Departures: 10:15, 11:45, 13:20.\nTavi needs at least 10 minutes at Midway between getting off the bus and the ferry leaving.\nWhat is the latest bus Tavi can take from Hollow and still be in Port Lune by 13:30?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "10:40",
+     "10:40 am",
+     "10:40am",
+     "<10:40>"
+    ]
+   }
+  ],
+  "reference": "The 13:20 ferry arrives 13:55, too late. The 11:45 ferry arrives 12:20. The bus must reach Midway by 11:35; the 10:40 bus arrives 11:30.\nANSWER: 10:40",
+  "negative": "The last bus is fine.\nANSWER: 12:05",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-09",
+  "family": "planning",
+  "subtheme": "budget-selection",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A hiker has a budget of 50 coins and must buy exactly one tent and exactly one stove.\nTents: Alto (40 coins), Brim (28 coins).\nStoves: Dot (25 coins), Ember (15 coins).\nOnly one tent-and-stove pair costs 50 coins or less in total.\nFirst write the four possible pairs with their totals, one pair per line, in plain text. Then end with a final line that is only a JSON object with exactly the keys \"tent\", \"stove\", \"cost\" for the affordable pair (cost is that pair's total in coins, as a number).",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "tent",
+     "stove",
+     "cost"
+    ],
+    "equals": {
+     "tent": "Brim",
+     "stove": "Ember",
+     "cost": 43
+    }
+   }
+  ],
+  "reference": "Alto + Dot = 65\nAlto + Ember = 55\nBrim + Dot = 53\nBrim + Ember = 43\n{\"tent\":\"Brim\",\"stove\":\"Ember\",\"cost\":43}",
+  "negative": "Alto + Dot = 65\nAlto + Ember = 55\nBrim + Dot = 53\nBrim + Ember = 43\n{\"tent\":\"Brim\",\"stove\":\"Dot\",\"cost\":53}",
+  "max_tokens": 300
+ },
+ {
+  "local_id": "dev-10",
+  "family": "planning",
+  "subtheme": "plan-verification",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A decorator proposes this plan, in order:\nStep 1: sand the wall\nStep 2: hang the picture\nStep 3: paint the wall\nRules:\nRule 1: The wall must be sanded before it is painted.\nRule 2: The picture is hung only after the wall is painted.\nRule 3: Sanding is the first step.\nExactly one rule is broken by the plan. Which rule number is it?\nCheck each rule against the step numbers in one short line each. Then end with a final line in exactly this form: ANSWER: <number>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "reference": "The picture is hung at step 2, before painting at step 3.\nANSWER: 2",
+  "negative": "Sanding is too early.\nANSWER: 1",
+  "max_tokens": 300
+ }
+]

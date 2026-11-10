@@ -1,0 +1,56 @@
+{
+ "actor": "gen-planning-5",
+ "family": "planning",
+ "role": "task-generation",
+ "subtheme": "Budget plans and plan verification",
+ "did": [
+  "Read lab/TASKS.md, tasks/planning/spec.md, tasks/planning/dev.json and the number/exact/json checker code in lab/core.py",
+  "Wrote 21 single-mode tasks g5-01..g5-21 (7 easy, 7 medium, 7 hard) with a Python build script",
+  "Validated with lab/validate_tasks.py: 21/21 valid (every reference passes, every negative fails)"
+ ],
+ "task_coverage": {
+  "easy": [
+   "money left after a quantity list",
+   "units after a fixed fee",
+   "overspend amount of a 4-line plan",
+   "which rule is broken (shop-count rule)",
+   "only boat meeting seat and price limits (JSON after working)",
+   "first step that cannot be paid from a purse",
+   "cheapest of three price plans"
+  ],
+  "medium": [
+   "cheapest drum+flute pair under a weight limit (JSON after working)",
+   "units limited by cart weight rather than money",
+   "overspend with a conditional delivery fee",
+   "first step breaking a daily cap or running-total rule",
+   "rule audit where the broken rule needs the plan total",
+   "money left after choosing pass vs single tickets",
+   "minimum saving weeks (round up)"
+  ],
+  "hard": [
+   "only triple of items summing exactly to a voucher",
+   "best points under a budget where greedy fails",
+   "cheapest 3-part kit with warmth minimum and banned pairing",
+   "units under tiered pricing after a fee",
+   "remove one optional line to fit budget with highest total",
+   "most children given ticket prices and a bus size choice",
+   "overspend with per-person, per-day and per-night multipliers"
+  ]
+ },
+ "answer_verification": "Every expected answer is computed and asserted in the build script: arithmetic by direct evaluation, uniqueness and optimality by brute force (all pairs, all 3-item subsets, all subsets under budget, all 8 kits, all child counts per bus), step audits by simulating the plan, and the tempting wrong answer for each negative is computed too (greedy result, money-only limit, cheapest invalid combination).",
+ "checker_notes": [
+  "19 tasks use the number checker on an ANSWER line holding one number; 2 tasks (g5-05, g5-08) use a non-strict json object check with keys and equals after plain-text working that contains no braces or brackets",
+  "No two-option answers; rule and step questions have 3 to 5 candidates",
+  "Negatives are the most tempting error: unit price without quantity, ignoring the fixed fee, reporting the total instead of the excess, cheapest pair or kit that breaks a rule, money-only limit, rounding down weeks, greedy pick"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/planning/gen_5.json --family planning",
+  "result": "21/21 valid"
+ },
+ "not_done": "No model pilot was run on these tasks (held-out by instruction), so the easy/medium/hard labels are estimates from the spec's baseline guidance, not measured. Other generators' files were not read, so overlap with them is unchecked.",
+ "build_script": "/private/tmp/claude-501/-Users-saikalyan--claude-spares-spare-vrp9aR/75b34680-04dd-45a3-8c3a-a7b7eb5558c5/scratchpad/genp5/build.py",
+ "files_written": [
+  "tasks/planning/gen_5.json",
+  "swarm/evidence/gen-planning-5.json"
+ ]
+}

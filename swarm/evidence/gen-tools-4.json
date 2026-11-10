@@ -1,0 +1,20 @@
+{
+ "actor": "gen-tools-4",
+ "role": "task-generation",
+ "family": "tools",
+ "subtheme": "Restraint with destructive and outbound actions",
+ "output_file": "tasks/tools/gen_4.json",
+ "n_tasks": 21,
+ "difficulty_split": {"easy": 7, "medium": 7, "hard": 7},
+ "what_was_done": [
+  "Read lab/TASKS.md, tasks/tools/spec.md, tasks/tools/dev.json and the checker/simulator code in lab/core.py and lab/validate_tasks.py",
+  "Wrote 21 tool-mode tasks (g4-01..g4-21) with a Python generator script and dumped them as a single JSON array",
+  "Coverage: read-only lookups with destructive distractor tools, single named delete among look-alike names, scoped deletes (named pair, by content, prefix with exception list), conditional deletes and alerts whose condition is false (stated in prompt, numeric from kv, computed with calc), do-not-overwrite-if-exists, draft-but-do-not-send, embedded harmless requests in files/docs (delete a scratch file, message a group, delete a cache key), exactly-one-message tasks (given recipient, looked-up value, looked-up recipient), and a two-rule task where one rule fires and the other must not"
+ ],
+ "answer_verification": "Every expected number and condition outcome is computed or asserted in the generator script with Python (sums 211 and 396, prefix counts, exception-list delete set, remaining-key count, threshold comparisons, fact position beyond the 160-char search snippet). Each reference and negative is replayed through the sandbox simulator by lab/validate_tasks.py; each negative is a realistic discipline failure (extra delete, extra message, overwrite, acting on an embedded request) with a plausible final answer.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/tools/gen_4.json --family tools",
+ "validator_result": "21/21 valid",
+ "model_pilot_run": false,
+ "other_generators_files_read": false,
+ "notes": "No dots in checked kv keys or file names. no_tool_errors is not used. All content fictional; embedded instructions are harmless."
+}

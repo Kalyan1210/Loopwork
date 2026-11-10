@@ -1,0 +1,46 @@
+{
+ "actor": "gen-calibration-1",
+ "role": "task-generation",
+ "family": "calibration",
+ "subtheme": "Records and attributes (one entity per passage)",
+ "output_file": "tasks/calibration/gen_1.json",
+ "n_tasks": 21,
+ "what_was_done": [
+  "Read lab/TASKS.md, tasks/calibration/spec.md, tasks/calibration/dev.json and the checker helpers in lab/core.py (norm, answer_text, last_number, run_check).",
+  "Wrote 21 single-mode tasks g1-01..g1-21 with a Python builder script using the verbatim prompt convention, max_tokens 80, no system field and the spec's checker patterns.",
+  "Did not run the model on these tasks and did not read other generators' files."
+ ],
+ "balance": {
+  "answerable": 11,
+  "unanswerable": 10,
+  "easy": 7,
+  "medium": 7,
+  "hard": 7,
+  "by_label": {
+   "answerable": {
+    "easy": 4,
+    "medium": 4,
+    "hard": 3
+   },
+   "unanswerable": {
+    "easy": 3,
+    "medium": 3,
+    "hard": 4
+   }
+  },
+  "note": "21 is odd, so an exact half split is impossible; the split is 11/10.",
+  "answerable_tasks_with_INSUFFICIENT_negative": 4
+ },
+ "answer_verification": [
+  "Numeric answers computed in the builder script and asserted: 48-13=35 (g1-09), 40+40*2=120 (g1-13), 50-18-20=12 (g1-21); naive wrong value 14*3=42 used as the negative of g1-16.",
+  "Builder asserts each name/word answer appears verbatim in its passage, each passage is 25-60 words, and neither passage nor question contains the word INSUFFICIENT.",
+  "Each task reread for airtightness: unanswerable items give no value for the asked attribute by lookup, arithmetic or elimination; answerable items have exactly one supported value."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/calibration/gen_1.json --family calibration",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "No baseline pilot (held-out by instruction), so difficulty labels are estimates from the spec's guidance, not measured."
+ ]
+}

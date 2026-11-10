@@ -1,0 +1,699 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "calibration",
+  "subtheme": "add-two-counts",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nFarm tally. Wenna Dask keeps 24 hens in the north coop and 13 hens in the south coop. She also keeps 5 geese on the mill pond.\n\nQUESTION: How many hens does Wenna Dask keep in total?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 37
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 37\nCONFIDENCE: 90",
+  "negative": "ANSWER: 42\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-02",
+  "family": "calibration",
+  "subtheme": "missing-unit-price",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nStall note. On market day the Ferrow honey stall in Calder Square sold 14 jars of heather honey. The stall is run by Ibbe Marsh and her brother.\n\nQUESTION: How many marks did the stall take in from honey on market day?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 140\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-03",
+  "family": "calibration",
+  "subtheme": "unit-price-times-count",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nShop slip. At Yeld's chandlery a tallow candle costs 4 marks. Orin Sabe bought 6 tallow candles there this morning. The shop opens at 9 o'clock.\n\nQUESTION: How many marks did Orin Sabe pay for the candles?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 24\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "calibration",
+  "subtheme": "missing-load",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nTravel note. The wool cart of Jorra Pell left Brenmoor at dawn for the town of Ossling. It was pulled by two oxen and reached Ossling before dark.\n\nQUESTION: How many bales of wool were on the cart?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 20\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-05",
+  "family": "calibration",
+  "subtheme": "subtract-used",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nKitchen board, Marl Inn. The big pot held 30 ladles of barley soup at noon. During lunch 12 ladles were served and none were added. The cook has worked at the inn for 8 years.\n\nQUESTION: How many ladles of soup were left in the pot after lunch?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 18
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 18\nCONFIDENCE: 90",
+  "negative": "ANSWER: 22\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-06",
+  "family": "calibration",
+  "subtheme": "missing-ingredient-amount",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nKitchen note. Before dawn the baker Olwen Trask shaped 30 seed rolls and baked them on two trays. All of them were sold at the Pellin gate.\n\nQUESTION: How many grams of flour went into the seed rolls?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 1500\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "calibration",
+  "subtheme": "missing-container-size",
+  "difficulty": "easy",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nFarm note. Every morning Dova Hale milks her goats on Senna hill. She carries the milk down to the Senna dairy in 3 tin cans.\n\nQUESTION: How many litres of milk does Dova Hale carry to the dairy each morning?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 30\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "calibration",
+  "subtheme": "speed-times-time",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nCoach log. The Aldry coach carried 28 passengers to Venn. It kept a steady 40 kilometres per hour for the whole trip, which took exactly 3 hours.\n\nQUESTION: How many kilometres did the coach travel from Aldry to Venn?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 120
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 120\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g3-09",
+  "family": "calibration",
+  "subtheme": "duration-not-timed",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nWorkshop note. The potter Sael Brim loaded 40 bowls into the Ridge kiln and lit it at dusk. The firing went on into the night, but nobody timed how long it lasted.\n\nQUESTION: For how many hours did the firing last?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 10\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-10",
+  "family": "calibration",
+  "subtheme": "equal-division",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nWorkshop slip. The carpenter Hobb Ferris bought an oak plank for 15 marks. The plank was 240 centimetres long, and he sawed all of it into 6 shelves of equal length.\n\nQUESTION: How many centimetres long is each shelf?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 40\nCONFIDENCE: 90",
+  "negative": "ANSWER: 16\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-11",
+  "family": "calibration",
+  "subtheme": "future-price-undecided",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nStore notice. At Garrow's lamp store a brass lamp costs 12 marks today. The owner, Tivi Garrow, says the price will go up next month but has not decided by how much.\n\nQUESTION: How many marks will a brass lamp cost next month?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 12\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-12",
+  "family": "calibration",
+  "subtheme": "stock-after-removal-with-unrecorded-neighbour",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nGranary sheet. Nobody recorded how many sacks are in the Hollin bin. The Marrow bin held 85 sacks of oats at dawn; during the day a cart took out 30 sacks in 4 runs and none were added.\n\nQUESTION: How many sacks of oats were in the Marrow bin at the end of the day?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 55\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g3-13",
+  "family": "calibration",
+  "subtheme": "distance-missing-duration",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nRiver log. The boat Pell Heron left Carrow quay at 7 in the morning with 30 passengers, bound for Dunmere. It held 9 kilometres per hour all the way. The log does not note when it arrived.\n\nQUESTION: How many kilometres is it by river from Carrow quay to Dunmere?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 63\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-14",
+  "family": "calibration",
+  "subtheme": "elapsed-hours",
+  "difficulty": "medium",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nBakery sheet. The Stonegate oven was lit at 6 o'clock in the morning and put out at 11 o'clock the same morning. In that time it baked 140 loaves.\n\nQUESTION: For how many hours was the Stonegate oven lit?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 5\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g3-15",
+  "family": "calibration",
+  "subtheme": "total-over-two-days",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nBarge sheet. The barge Low Wren carries exactly 12 crates on every trip. It made 3 trips on the first day and 2 trips on the second day. Each crate weighs 50 kilograms.\n\nQUESTION: How many crates did the Low Wren carry over the two days?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 60
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 60\nCONFIDENCE: 90",
+  "negative": "ANSWER: 36\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "calibration",
+  "subtheme": "missing-per-row-count",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nOrchard sheet. The Tessel orchard has 9 rows of plum trees. This year the pickers needed 3 days to clear it and filled 54 baskets.\n\nQUESTION: How many plum trees are in the Tessel orchard?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 27\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "calibration",
+  "subtheme": "baked-minus-sold",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nBakery tally. This morning Renn Calloway baked 7 full trays of honey buns, with 9 buns on each tray, in an oven set to 220 degrees. By noon 50 of the buns had been sold.\n\nQUESTION: How many of this morning's honey buns were still unsold at noon?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 13
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 13\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g3-18",
+  "family": "calibration",
+  "subtheme": "missing-one-unit-price",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nDraper's slip. At the Garrow drapery Mira Oswin bought 7 metres of blue linen and 2 spools of thread. A spool of thread costs 3 marks.\n\nQUESTION: How many marks did Mira Oswin pay in total?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 6\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-19",
+  "family": "calibration",
+  "subtheme": "fill-time-known-start",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": true
+  },
+  "prompt": "EVIDENCE:\nDye works sheet. The Quarrow vat holds 600 litres when full and stands 2 metres tall. At dawn it contained 150 litres. From dawn a pipe added 30 litres per minute and nothing was drawn off.\n\nQUESTION: How many minutes after dawn was the vat full?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: 15\nCONFIDENCE: 90",
+  "negative": "ANSWER: 20\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "calibration",
+  "subtheme": "missing-group-size",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nFeast plan. The cook Hensa Vole bakes 3 flat loaves for every guest. Tonight's feast is laid at the long table, which seats 20, but some of the seats will stay empty.\n\nQUESTION: How many flat loaves must Hensa Vole bake for tonight's feast?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 60\nCONFIDENCE: 90"
+ },
+ {
+  "local_id": "g3-21",
+  "family": "calibration",
+  "subtheme": "missing-existing-stock",
+  "difficulty": "hard",
+  "mode": "single",
+  "max_tokens": 80,
+  "tags": {
+   "answerable": false
+  },
+  "prompt": "EVIDENCE:\nSmithy note. The Darrow smithy burns 6 sacks of charcoal every working day. This morning a cart brought 18 sacks, which were stacked with the sacks already in the shed.\n\nQUESTION: For how many working days will the charcoal in the shed last?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 3\nCONFIDENCE: 90"
+ }
+]

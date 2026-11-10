@@ -1,0 +1,152 @@
+{
+ "actor": "gen-math-3",
+ "role": "task-generation",
+ "family": "math",
+ "subtheme": "number theory and sequences",
+ "output_file": "tasks/math/gen_3.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/math/spec.md and tasks/math/dev.json. Wrote 21 single-mode tasks (g3-01..g3-21) with a generator script that computes each expected answer in Python and asserts it before writing the JSON array. Each task uses the spec's verbatim integer format sentence, max_tokens 320, one number check, a short worked reference and a trap-value negative.",
+ "verification": "Every answer was computed by Python (brute force / exact integer arithmetic) with assertions; digit and gcd/lcm puzzles were brute-forced to confirm a unique solution. Per-task method below.",
+ "per_task": {
+  "g3-01": {
+   "subtheme": "lcm-scheduling",
+   "difficulty": "easy",
+   "answer": 9,
+   "method": "brute force over t=0..300"
+  },
+  "g3-02": {
+   "subtheme": "base-to-decimal",
+   "difficulty": "easy",
+   "answer": 147,
+   "method": "int('2103',4)"
+  },
+  "g3-03": {
+   "subtheme": "arithmetic-nth-term",
+   "difficulty": "easy",
+   "answer": 83,
+   "method": "solved d and a1, evaluated a20"
+  },
+  "g3-04": {
+   "subtheme": "odd-divisors",
+   "difficulty": "easy",
+   "answer": 6,
+   "method": "enumerated divisors of 360"
+  },
+  "g3-05": {
+   "subtheme": "remainder-linear",
+   "difficulty": "easy",
+   "answer": 3,
+   "method": "checked all n=7 mod 9 below 2000"
+  },
+  "g3-06": {
+   "subtheme": "gcd-tiling",
+   "difficulty": "easy",
+   "answer": 6,
+   "method": "math.gcd and area ratio"
+  },
+  "g3-07": {
+   "subtheme": "geometric-sum",
+   "difficulty": "easy",
+   "answer": 765,
+   "method": "direct summation"
+  },
+  "g3-08": {
+   "subtheme": "digit-reversal",
+   "difficulty": "medium",
+   "answer": 47,
+   "method": "brute force over all two-digit numbers, unique solution"
+  },
+  "g3-09": {
+   "subtheme": "common-remainder-largest",
+   "difficulty": "medium",
+   "answer": 955,
+   "method": "brute force over 100..999"
+  },
+  "g3-10": {
+   "subtheme": "count-multiples-exclusion",
+   "difficulty": "medium",
+   "answer": 33,
+   "method": "brute force count"
+  },
+  "g3-11": {
+   "subtheme": "units-digit-powers",
+   "difficulty": "medium",
+   "answer": 9,
+   "method": "pow(.,.,10)"
+  },
+  "g3-12": {
+   "subtheme": "sum-of-multiples",
+   "difficulty": "medium",
+   "answer": 1421,
+   "method": "direct summation"
+  },
+  "g3-13": {
+   "subtheme": "base-5-addition",
+   "difficulty": "medium",
+   "answer": 432,
+   "method": "int(...,5) and conversion back"
+  },
+  "g3-14": {
+   "subtheme": "recurrence-backward",
+   "difficulty": "medium",
+   "answer": 5,
+   "method": "forward simulation from 5 reproduces 35 at term 5; map is injective"
+  },
+  "g3-15": {
+   "subtheme": "smallest-with-divisor-count",
+   "difficulty": "hard",
+   "answer": 48,
+   "method": "brute-force divisor counts"
+  },
+  "g3-16": {
+   "subtheme": "factorial-trailing-zeros",
+   "difficulty": "hard",
+   "answer": 32,
+   "method": "computed 130! exactly and counted trailing zeros"
+  },
+  "g3-17": {
+   "subtheme": "gcd-lcm-pair",
+   "difficulty": "hard",
+   "answer": 96,
+   "method": "brute force over all pairs up to 180, unique pair (36,60)"
+  },
+  "g3-18": {
+   "subtheme": "digit-divisibility",
+   "difficulty": "hard",
+   "answer": 6732,
+   "method": "brute force over all A,B"
+  },
+  "g3-19": {
+   "subtheme": "term-from-partial-sums",
+   "difficulty": "hard",
+   "answer": 59,
+   "method": "S(10)-S(9)"
+  },
+  "g3-20": {
+   "subtheme": "modular-power-sum",
+   "difficulty": "hard",
+   "answer": 6,
+   "method": "exact big-integer arithmetic"
+  },
+  "g3-21": {
+   "subtheme": "periodic-recurrence-sum",
+   "difficulty": "hard",
+   "answer": 7,
+   "method": "simulated 100 terms and summed"
+  }
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/math/gen_3.json --family math",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "not run (held-out tasks); difficulty labels are estimates from the spec's guidance, not measured",
+ "not_done": [
+  "no model run on these tasks",
+  "did not read other generators' files"
+ ]
+}

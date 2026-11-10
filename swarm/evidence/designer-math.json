@@ -1,0 +1,31 @@
+{
+ "actor": "designer-math",
+ "role": "task-suite-design",
+ "family": "math",
+ "dev_tasks_valid": 10,
+ "validation": "lab/validate_tasks.py tasks/math/dev.json --family math -> 10/10 valid",
+ "pilot_rounds": [
+  {"round": 1, "passed": 9, "total": 10, "pass_rate": 0.9, "note": "First draft. Only failure (committee count) had the correct value in \\boxed{30} but no ANSWER line, and failed a regex that required the ANSWER line."},
+  {"round": 2, "passed": 9, "total": 10, "pass_rate": 0.9, "note": "Unintended re-run of the UNCHANGED round-1 file. My generator script in the shared scratchpad had been overwritten by another agent's file of the same name, so the planned hardening was not applied. Same pass/fail pattern; reply wording and token counts differed slightly, so output is not perfectly reproducible."},
+  {"round": 3, "passed": 8, "total": 10, "pass_rate": 0.8, "note": "Final file. Replaced 6 tasks with harder ones, dropped the ANSWER-line regex on number tasks, max_tokens 320. Failures: dev-05 (3-set inclusion-exclusion, reply truncated at 320 tokens) and dev-10 (ordering puzzle, wrong answer Sam)."}
+ ],
+ "final_baseline_dev_pass_rate": 0.8,
+ "target_band": "0.40-0.75",
+ "in_target_band": false,
+ "what_i_did": [
+  "Read lab/TASKS.md and the checker code in lab/core.py (answer_text, last_number, exact, number).",
+  "Wrote 10 dev tasks over arithmetic, rates, linear algebra, percent algebra, number theory, combinatorics, probability, deduction, sequences and ordering logic; every expected answer asserted in python (brute force for the logic puzzles and counts).",
+  "Ran 3 pilot runs on the baseline (the limit) and read the replies.",
+  "Wrote the family spec with format sentences, checker patterns, observed pitfalls, difficulty guidance and five sub-themes."
+ ],
+ "known_limitations": [
+  "Final dev pass rate 0.80 is slightly above the 0.40-0.75 target; the 3-round pilot limit was reached (one round was lost to the scratch file collision), so no further tuning was done. spec.md tells generators to skew harder than the dev set.",
+  "dev-05 fails by token truncation rather than by a wrong computation.",
+  "In round 2 my edit step and generator run touched another agent's gen.py in the shared scratchpad (a read and rewrite with no matching replacements, then one execution of it). I believe this was a no-op for them but did not verify it."
+ ],
+ "files_written": [
+  "/Users/saikalyan/Loopwork/tasks/math/dev.json",
+  "/Users/saikalyan/Loopwork/tasks/math/spec.md",
+  "/Users/saikalyan/Loopwork/swarm/evidence/designer-math.json"
+ ]
+}

@@ -1,0 +1,603 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Order slip of the fictional bakery Hollin Oven:\n- Item: rye loaf\n- Loaves ordered: 7\n- Loaves packed: 7\n- Price per loaf: 3 coins\nTask: how many coins does the customer owe for the loaves?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 21
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 21",
+  "negative": "ACTION: FLAG\nCONFLICT: 7 loaves ordered vs 3 coins"
+ },
+ {
+  "local_id": "g4-02",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Records of the fictional Pell Ferry for Tuesday:\n- Duty list: \"Captain: Oda Brink\"\n- Duty list: \"Deckhand: Sem Quill\"\n- Noticeboard: \"Tuesday captain: Ilse Marrow\"\nTask: who is the captain of the ferry on Tuesday?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the full name only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*brink)(?=.*marrow)"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: captain Oda Brink on the duty list vs Ilse Marrow on the noticeboard",
+  "negative": "ACTION: ANSWER\nANSWER: Oda Brink"
+ },
+ {
+  "local_id": "g4-03",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Shipping slip of the fictional carrier Dunmore Freight:\n- Sender: Hale Pottery\n- Destination: Port Ibbet\n- Contents: glazed bowls\n- Rate: 3 coins per kg\n- Parcel weight (kg): ____\nTask: how many coins does it cost to ship the parcel?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(weigh|heavy|mass|how many (kg|kilo)|(kg|kilos?|kilograms?) (is|does|are|in))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What is the weight of the parcel in kg?",
+  "negative": "ACTION: ANSWER\nANSWER: 3"
+ },
+ {
+  "local_id": "g4-04",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Stock record of the fictional shop Tamsin Wool:\n- Item: lambswool scarf\n- Colour on the tag: red\n- Colour in the catalogue: maroon\n- Price per scarf: 9 coins\n- Scarves sold to Mr Ode: 3\nTask: how many coins does Mr Ode pay for his scarves?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 27
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 27",
+  "negative": "ACTION: FLAG\nCONFLICT: red on the tag vs maroon in the catalogue"
+ },
+ {
+  "local_id": "g4-05",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Delivery note of the fictional cannery Brackwater:\n- Crates delivered: 5\n- Jars in every crate: 12\n- Total jars delivered: 72\n- Driver: Nell Aster\nTask: how many jars were delivered?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*\\b72\\b)(?=.*(\\b60\\b|\\b5\\b.*\\b12\\b|\\b12\\b.*\\b5\\b))"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: 5 crates of 12 jars make 60 jars vs total 72 jars",
+  "negative": "ACTION: ANSWER\nANSWER: 72"
+ },
+ {
+  "local_id": "g4-06",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Keeper roster of the fictional Skerry Lighthouse:\n- Monday: Bram Tolley\n- Tuesday: Una Fesk\n- Wednesday: Jory Halm\n- Thursday: Una Fesk\nTask: who keeps the light on Wednesday?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the full name only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Jory Halm"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Jory Halm",
+  "negative": "ACTION: ASK\nQUESTION: Who is the keeper on Wednesday?"
+ },
+ {
+  "local_id": "g4-07",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Account card of the fictional Corran Boat Hire:\n- Customer: Wessel Thane\n- Boat: rowing skiff, 2 days\n- Hire charge: 40 coins\n- Status: PAID IN FULL\n- Balance still owed: 40 coins\nTask: how many coins does the customer still owe?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*(paid|\\b0\\b|zero|nothing))(?=.*(\\b40\\b|owed|balance))"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: status PAID IN FULL vs balance still owed 40 coins",
+  "negative": "ACTION: ANSWER\nANSWER: 40"
+ },
+ {
+  "local_id": "g4-08",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Order log of the fictional Yarrow School:\n- Chairs ordered: 10\n- Monday entry: 6 chairs delivered\n- Thursday entry: 4 more chairs delivered\n- No other deliveries were made.\nTask: how many chairs are still to be delivered?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 0
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 0",
+  "negative": "ACTION: FLAG\nCONFLICT: 10 chairs ordered vs 6 chairs delivered"
+ },
+ {
+  "local_id": "g4-09",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Timesheet of the fictional Marrin Print Shop, Friday:\n- Worker: Lio Vance\n- Start time: 09:00\n- Breaks: none\n- Pay rate: 8 coins per hour\nTask: how many hours did the worker work on Friday?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(end|finish|stop|leave|left|clock.?out|until|sign.?out)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: At what time did Lio Vance finish work on Friday?",
+  "negative": "ACTION: ANSWER\nANSWER: 8"
+ },
+ {
+  "local_id": "g4-10",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Rain gauge log of the fictional Odder Farm, in millimetres:\n- 08:00 reading: 5\n- 11:00 reading: 9\n- 14:00 reading: 18\n- 17:00 reading: 21\nTask: what was the reading at 14:00?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 18
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 18",
+  "negative": "ACTION: ANSWER\nANSWER: 21"
+ },
+ {
+  "local_id": "g4-11",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Seed packet of the fictional Greel Nursery:\n- Plant: winter kale\n- Front label: \"Sow in March\"\n- Back label: \"Sow in September\"\n- Seeds in packet: 50\nTask: in which month must the seeds be sown?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the month only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*march)(?=.*september)"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: front label March vs back label September",
+  "negative": "ACTION: ANSWER\nANSWER: March"
+ },
+ {
+  "local_id": "g4-12",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Shift card of the fictional Vandry Mill:\n- Worker: Petra Lowe\n- Shift start: 08:00\n- Shift end: 16:00\n- Breaks: none\n- Hours worked: 6\n- Pay rate: 9 coins per hour\nTask: how many coins is the worker paid for this shift?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*\\b6\\b)(?=.*(\\b8\\b|\\b0?8[:.]00\\b|\\b16[:.]00\\b))"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: 08:00 to 16:00 is 8 hours vs hours worked 6",
+  "negative": "ACTION: ANSWER\nANSWER: 54"
+ },
+ {
+  "local_id": "g4-13",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Box label of the fictional Plover Jam Works:\n- Product: plum jam\n- Jars in the box: 8\n- Net weight of one jar: 250 grams\n- Best before: next spring\nTask: what is the total net weight of jam in the box, in grams?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 2000
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 2000",
+  "negative": "ACTION: ASK\nQUESTION: How many jars are in the box?"
+ },
+ {
+  "local_id": "g4-14",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Morning roster of the fictional Asterby Pottery:\n- 09:00, kiln room: Tovo\n- 09:00, glaze bench: Mirren\n- 09:00, packing table: Tovo\n- 11:00, kiln room: Mirren\nTask: where does Tovo work at 09:00?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the place only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*kiln)(?=.*pack)"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: Tovo is in the kiln room and at the packing table at 09:00",
+  "negative": "ACTION: ANSWER\nANSWER: kiln room"
+ },
+ {
+  "local_id": "g4-15",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Weekend sheet of the fictional Brisco Garden Centre:\n- Saturday till: Ilka Dorn\n- Sunday till: Fenn Abel\n- Staff phone list: Ilka Dorn, extension 114\n- Door sign: \"Questions? Call Ilka Dorn on extension 141\"\nTask: who works the till on Saturday?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the full name only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Ilka Dorn"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Ilka Dorn",
+  "negative": "ACTION: FLAG\nCONFLICT: extension 114 vs extension 141"
+ },
+ {
+  "local_id": "g4-16",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Paint order form of the fictional Hobb & Daughter Decorators:\n- Paint: moss green emulsion\n- Tin size: 5 litres\n- Wall area to paint: 40 square metres\n- Coats: 1\nTask: how many tins are needed for the job?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(cover|per lit|per tin|spread|(area|square|metres|meters).*(one|each|a|per) (tin|lit))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many square metres does one litre of the paint cover?",
+  "negative": "ACTION: ANSWER\nANSWER: 8"
+ },
+ {
+  "local_id": "g4-17",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Loan slip of the fictional Quillby Library:\n- Book: \"The Salt Road\"\n- Borrowed on: day 4 of the month\n- Loan length: 10 days\n- Due back on: day 14 of the month\nTask: on which day of the month is the book due back?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the day number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 14",
+  "negative": "ACTION: FLAG\nCONFLICT: day 4 vs day 14"
+ },
+ {
+  "local_id": "g4-18",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Team sheet of the fictional Lantern Quiz League:\n- Team: The Night Owls\n- Number of members: 4\n- Members: Asha Pell, Bren Outh, Corin Vay\n- One badge is printed for each member.\nTask: how many badges must be printed for the team?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*\\b(4|four)\\b)(?=.*\\b(3|three)\\b)"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "reference": "ACTION: FLAG\nCONFLICT: number of members 4 vs 3 names listed",
+  "negative": "ACTION: ANSWER\nANSWER: 4"
+ },
+ {
+  "local_id": "g4-19",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Stock entry of the fictional chandler Morwen & Pike (1 m = 100 cm):\n- Item: mooring rope\n- Length on the tag: 3 m\n- Length in the stock book: 300 cm\n- Price: 2 coins per metre\nTask: how many coins does the whole rope cost?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 6",
+  "negative": "ACTION: FLAG\nCONFLICT: 3 m on the tag vs 300 cm in the stock book"
+ },
+ {
+  "local_id": "g4-20",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Opening roster of the fictional Tidewell Tea Room:\n- Monday: Sorrel\n- Tuesday: Hadley\n- Wednesday: Sorrel\n- Friday: Quince\n- Saturday: Hadley\nTask: who opens the tea room on Thursday?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the name only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*thursday"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: Who is rostered to open on Thursday? The roster has no Thursday entry.",
+  "negative": "ACTION: ANSWER\nANSWER: Sorrel"
+ },
+ {
+  "local_id": "g4-21",
+  "family": "ambiguity",
+  "subtheme": "contradictory-data",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Room sheet of the fictional Ember Hall:\n- Room 2: 30 seats\n- Room 5: 12 seats\n- Booking: Room 5, chess club, 11 people\nTask: how many seats in the booked room stay empty?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 1",
+  "negative": "ACTION: ANSWER\nANSWER: 19"
+ }
+]

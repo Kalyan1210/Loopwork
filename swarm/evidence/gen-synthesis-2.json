@@ -1,0 +1,45 @@
+{
+ "actor": "gen-synthesis-2",
+ "family": "synthesis",
+ "subtheme": "Aggregation and derived totals",
+ "output": "tasks/synthesis/gen_2.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "mode_counts": {
+  "single": 19,
+  "tool": 2
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/synthesis/spec.md, dev.json and the number/search/answer parsing in lab/core.py; wrote 21 distinct tasks (plain sum, budget netting, quantity x rate, recount override, income minus cost, running headcount, missing part of a whole, exclusion, register filter, delta correction then rate, refund netting, two-category rates, stock flow, tool netting, period conversion with fee and deposit, filter+correction+rate, JSON spent/left with replaced invoice, two-tier tariff, tool person->grade->rate, shared cost over updated headcount, dozens conversion) following the spec prompt conventions.",
+ "verification": "Every expected value and every negative is computed by the Python generator script from the same variables that are formatted into the documents (nothing typed by hand); the script asserts integer results, exact divisibility where a division occurs, answer != negative, prompt under 1500 chars, and that the answer value never appears verbatim in the document bundle. Negatives are the tempting wrong answer (uncorrected figure, unfiltered sum, skipped step). The model was not run on these tasks and no other generator's file was read.",
+ "computations": {
+  "g2-01": "37 + 52 + 46 = 135 ; negative 14 + 9 + 21 = 44",
+  "g2-02": "900 - 260 - 315 = 325 ; negative 900 - 260 = 640",
+  "g2-03": "(18 + 24) x 3 = 126 ; negative 18 + 24 = 42",
+  "g2-04": "64 + 58 + 75 = 197 ; negative 64 + 48 + 75 = 187",
+  "g2-05": "310 + 85 - 150 = 245 ; negative 310 + 85 = 395",
+  "g2-06": "86 - 7 + 12 = 91 ; negative 86 + 12 = 98",
+  "g2-07": "500 - 160 - 185 = 155 ; negative 160 + 185 = 345",
+  "g2-08": "140 + 60 + 35 = 235 ; negative 140 + 95 + 60 + 35 = 330",
+  "g2-09": "120 + 90 + 60 = 270 ; negative 120 + 75 + 90 + 60 = 345",
+  "g2-10": "(210 + 150 + 180) x 2 = 1080 ; negative (210 + 165 + 180) x 2 = 1110",
+  "g2-11": "1200 - 480 - 350 + 90 = 460 ; negative 1200 - 480 - 350 = 370",
+  "g2-12": "20 x 6 + 24 x 2 = 168 ; negative 44 x 6 = 264",
+  "g2-13": "340 + 120 + 80 - 95 - 110 - 60 - 15 = 260 ; negative 340 + 120 + 80 - 95 - 110 - 60 = 275",
+  "g2-14": "750 - 195 - 240 = 315 ; negative omits the tool order = 555",
+  "g2-15": "85 x 4 + 60 - 150 = 250 ; negative 85 x 4 + 60 = 400",
+  "g2-16": "(140 + 125 + 80) x 3 = 1035 ; negative (140 + 110 + 80) x 3 = 990",
+  "g2-17": "spent 740+385+310 = 1435, left 2000-1435 = 565 ; negative uses the superseded invoice (1415, 585)",
+  "g2-18": "100 x 2 + 35 x 5 = 375 ; negative 135 x 2 = 270",
+  "g2-19": "12x9 + 20x6 + 8x9 = 300 ; negative pays all 40 hours at the junior rate = 240",
+  "g2-20": "(540 + 180) / (15 + 3) = 40 ; negative (540 + 180) / 15 = 48",
+  "g2-21": "(132 + 108 - 24) / 12 x 4 = 72 ; negative (132 + 108 - 24) x 4 = 864"
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/synthesis/gen_2.json --family synthesis",
+  "result": "21/21 valid"
+ }
+}

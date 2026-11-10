@@ -1,0 +1,731 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "calibration",
+  "subtheme": "in-scope-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nWeather sheet, Pellin Ridge station. During the month of Thawmoon the station collected 47 millimetres of rain. The strongest gust that month reached 61 kilometres per hour, on the ninth day.\n\nQUESTION: How many millimetres of rain did the Pellin Ridge station collect during Thawmoon?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 47
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 47\nCONFIDENCE: 95",
+  "negative": "ANSWER: 61\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-02",
+  "family": "calibration",
+  "subtheme": "absent-measurement",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nStation diary, Hask Island. The keeper logged only the wind direction on each day of Emberweek. The wind blew from the west on all seven days, and the vane was oiled once.\n\nQUESTION: What was the highest air temperature on Hask Island during Emberweek, in degrees?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 7\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "calibration",
+  "subtheme": "different-place",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nInspection card, Orchard Dairy. On the 9th of Larkmonth inspector Sela Brand visited the milking shed and gave it 82 points. The cheese cellar was locked that day and received no score.\n\nQUESTION: How many points did the cheese cellar at Orchard Dairy receive?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 82\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "calibration",
+  "subtheme": "in-scope-two-step",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nThermometer log, Station Quay, first day of Frostwane. The dawn reading was 6 degrees. The noon reading was 9 degrees higher than the dawn reading, and the dusk reading was 4 degrees lower than the noon reading. No midnight reading was taken.\n\nQUESTION: What was the dusk reading at Station Quay, in degrees?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 11\nCONFIDENCE: 90",
+  "negative": "ANSWER: 15\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-05",
+  "family": "calibration",
+  "subtheme": "in-scope-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nBridge report, Kellmar Ford. The east span was inspected by Dova Rennick, who found 4 cracked planks. The bridge itself was built long ago by the mason Ilo Farne.\n\nQUESTION: Who inspected the east span at Kellmar Ford? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Dova Rennick",
+       "Rennick",
+       "<Dova Rennick>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(dova\\s+)?rennick\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Dova Rennick\nCONFIDENCE: 95",
+  "negative": "ANSWER: Ilo Farne\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "calibration",
+  "subtheme": "different-condition",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLab log, seed lot Q-9 of Marren barley. Fifty seeds were set to sprout in a dark cupboard, the only condition tried. After six days 37 of the 50 seeds had sprouted.\n\nQUESTION: How many of fifty Q-9 seeds sprout within six days under lamp light?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 37\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "calibration",
+  "subtheme": "stated-beside-unrecorded",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLab log, Mourn clay. The wet weight of sample K-7 was not recorded because the scale was being repaired. After two days in the oven the same sample weighed 212 grams dry.\n\nQUESTION: What was the dry weight of sample K-7, in grams?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 212
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 212\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "calibration",
+  "subtheme": "absent-attribute",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSoil survey note. The survey of the Ansel terraces took 30 soil cores, all during the month of Harrowtide. The cores are now stored in crates at Wend Hall.\n\nQUESTION: Who led the soil survey of the Ansel terraces? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Wend Hall\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "calibration",
+  "subtheme": "partial-period-total",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nRain book, Brenn Top station. Mistmonth has 30 days. The gauge caught 12 millimetres of rain on each of the first 5 days. Then the gauge cracked, and nothing was measured for the rest of the month.\n\nQUESTION: How many millimetres of rain fell at Brenn Top during the whole of Mistmonth?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 60\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "calibration",
+  "subtheme": "in-scope-sum",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGauge notes, Corrow Mill. The gauge was taken away after the second week of Sowmonth, so later weeks were not recorded. It caught 18 millimetres of rain in the first week and 25 millimetres in the second week.\n\nQUESTION: How many millimetres of rain did the Corrow Mill gauge catch in the first two weeks of Sowmonth together?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 43
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 43\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "calibration",
+  "subtheme": "in-scope-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nBird survey, Tamsk Marsh, month of Reedfall. Three observers walked the dyke path each morning. The most common bird they counted was the grey stilt. The marsh wren was seen only twice.\n\nQUESTION: Which bird was the most common in the Tamsk Marsh survey? Give the name of the bird.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "grey stilt",
+       "the grey stilt",
+       "stilt",
+       "gray stilt",
+       "<grey stilt>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(the\\s+)?(gr[ea]y\\s+)?stilts?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: grey stilt\nCONFIDENCE: 95",
+  "negative": "ANSWER: marsh wren\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-12",
+  "family": "calibration",
+  "subtheme": "different-period",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nTide table, Port Yelder. The tide station logged water heights for the month of Glasswane only, and the highest tide was 3.2 metres. In the month before, Dimwane, the station had not yet been built.\n\nQUESTION: What was the highest tide at Port Yelder in Dimwane, in metres?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 3.2\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-13",
+  "family": "calibration",
+  "subtheme": "in-scope-two-hop",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCensus of Tolle Reach, north shore only; the south shore was not counted. The clerk was Hul Marrin. The largest village on the north shore is Aske. The headman of Aske is Bren Oduya.\n\nQUESTION: Who is the headman of the largest village on the north shore of Tolle Reach? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Bren Oduya",
+       "Oduya",
+       "<Bren Oduya>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(bren\\s+)?oduya\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Bren Oduya\nCONFIDENCE: 90",
+  "negative": "ANSWER: Hul Marrin\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "calibration",
+  "subtheme": "false-presupposition",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nSchool survey, Ivel Cross. Only the pupils of year four were asked about their walk to school. Their average walk took 14 minutes. The survey was done once, in the month of Leafturn.\n\nQUESTION: By how many minutes did the average walk shorten after the new footbridge opened?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 14\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "calibration",
+  "subtheme": "in-scope-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCensus roll, Orrow Hamlet, year 1204 of the Vale calendar. The census takers counted 318 residents. They also listed 96 houses, each marked with a chalk number.\n\nQUESTION: How many houses did the census list in Orrow Hamlet?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 96
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 96\nCONFIDENCE: 95",
+  "negative": "ANSWER: 318\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "calibration",
+  "subtheme": "different-year",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCensus shelf, Pell Harbour. The census of year 88 counted 1430 residents in Pell Harbour. Of the census of year 78, only the page for Sarn Village survives, showing 610 residents; the other pages burned.\n\nQUESTION: How many residents did Pell Harbour have in the census of year 78?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 1430\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "calibration",
+  "subtheme": "stated-beside-unrecorded",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nParish count, Lowmere. Nobody counted the west bank this year. On the east bank the counters visited every door, and the largest household there was the Tarrow family, with 11 members.\n\nQUESTION: Which family was the largest household on the east bank of Lowmere? Give the family name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Tarrow",
+       "the Tarrow family",
+       "Tarrow family",
+       "the Tarrows",
+       "<Tarrow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(the\\s+)?tarrows?(\\s+family)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Tarrow\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "calibration",
+  "subtheme": "absent-measurement",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nWell inspection, Dunnet Vale. Inspector Maro Quill checked 12 village wells for sound covers and clean rope. All of them passed, and each was given a blue tag.\n\nQUESTION: How deep is the deepest well in Dunnet Vale, in metres?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 12\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "calibration",
+  "subtheme": "in-scope-two-step",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nDye log, batch 12 of Wren blue. Twenty cloth strips were cut. Two tore and were thrown away before testing. All the others were washed at 40 degrees, and 3 of them faded. The 60 degree wash was postponed.\n\nQUESTION: How many strips were washed at 40 degrees without fading?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 15\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g5-20",
+  "family": "calibration",
+  "subtheme": "different-quantity",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nRiver post, Sedge Weir. The staff gauge shows only the height of the water, and on the 3rd of Rainmoon it read 140 centimetres. The post has no instrument for measuring flow.\n\nQUESTION: What was the flow of the river at Sedge Weir on the 3rd of Rainmoon, in litres per second?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 140\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g5-21",
+  "family": "calibration",
+  "subtheme": "in-scope-two-step",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLark count, Sorrel Heath. The count ran on three mornings in Budmonth; no evening counts were made. Watchers counted 31 larks on the first morning and 27 on the second. The three mornings together gave 80 larks.\n\nQUESTION: How many larks were counted on the third morning?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 22\nCONFIDENCE: 90",
+  "negative": "ANSWER: 58\nCONFIDENCE: 85"
+ }
+]

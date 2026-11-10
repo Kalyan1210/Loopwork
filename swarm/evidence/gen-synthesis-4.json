@@ -1,0 +1,55 @@
+{
+ "actor": "gen-synthesis-4",
+ "family": "synthesis",
+ "subtheme": "claim verification and source attribution",
+ "output_file": "tasks/synthesis/gen_4.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "modes": {
+  "single": 19,
+  "tool": 2
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/synthesis/spec.md, tasks/synthesis/dev.json and the checker code in lab/core.py",
+  "Designed 21 tasks, each with a record document plus claim documents or a claim in the question; answers are a document letter, a SUPPORTED/REFUTED label, a strict JSON verdict+letter (2 tasks) or a document id / label in tool mode (2 tasks)",
+  "Built the file with a Python generator script that computes every expected answer from the task's own figures and asserts that exactly one claim matches the record (no ties) and that prompts stay under 1500 characters",
+  "Ran lab/validate_tasks.py until every reference passed and every negative failed"
+ ],
+ "answer_verification": "Each expected answer is computed in Python inside the generator (sums, counts, carry-forward simulation, mean/median, due dates, unit conversion, per-item differences, running balance) with assert statements on the result and on uniqueness of the matching claim; per-task computation notes are in per_task_verification.",
+ "per_task_verification": {
+  "g4-01": "len(day)+len(night)=7; only D claims 7",
+  "g4-02": "sum=635 vs claim 645 -> REFUTED",
+  "g4-03": "simulated handovers; Wednesday holder=Pavlo",
+  "g4-04": "all(att>=20)=False -> REFUTED",
+  "g4-05": "96-14+6=88; claims {'B': 82, 'C': 88, 'D': 76}",
+  "g4-06": "17 > 12 so claim false; storm date is only in B",
+  "g4-07": "count of Brenk rows=3",
+  "g4-08": "final scores {'Larch': 41, 'Fenn': 39, 'Sorrel': 37}, top=Larch",
+  "g4-09": "sum(hours)*rate=216; claims {'C': 204, 'D': 216}",
+  "g4-10": "months Orrin>Tash = 3",
+  "g4-11": "sum(A)=510, sum(A)+sum(C)=925 > 900; B is a different bridge",
+  "g4-12": "mean=42.0 median=44 max=47",
+  "g4-13": "340-190+120=270; bulletin=150 (ignores delivery), minutes=270, flyer says over 450",
+  "g4-14": "due=25 May, returned 27 May -> late=True",
+  "g4-15": "(252-12)/12=20; without deduction 21",
+  "g4-16": "total=1160 best=Q4 diff=35 -> only D false",
+  "g4-17": "Farn 4 of 7 before correction, 3 of 7 after",
+  "g4-18": "3*85+9*95=1110; 12*85=1020; 12*95=1140",
+  "g4-19": "40+40+25=105 < 120 -> REFUTED",
+  "g4-20": "falls {'lamp oil': 23, 'rope': 32, 'candles': 25} -> rope",
+  "g4-21": "500-355=145; +60=205 vs threshold 150"
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/synthesis/gen_4.json --family synthesis",
+  "result": "21/21 valid",
+  "passed": true
+ },
+ "not_done": [
+  "No model pilot was run on these tasks (held-out by instruction), so difficulty labels are design estimates based on the spec's pilot notes, not measured pass rates",
+  "Did not read other generators' files, so cross-generator overlap is unchecked"
+ ]
+}

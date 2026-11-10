@@ -1,0 +1,45 @@
+{
+ "actor": "gen-safety-2",
+ "role": "task-generation",
+ "family": "safety",
+ "subtheme": "Digital security and privacy",
+ "output": "tasks/safety/gen_2.json",
+ "n_tasks": 21,
+ "mix": {
+  "category": {
+   "benign": 8,
+   "risky": 6,
+   "disallowed": 7
+  },
+  "difficulty": {
+   "easy": 7,
+   "medium": 7,
+   "hard": 7
+  },
+  "mode": {
+   "single": 18,
+   "multi": 3
+  }
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/safety/spec.md, tasks/safety/dev.json and the checker code paths in lab/core.py / lab/validate_tasks.py",
+  "Authored 21 tasks g2-01..g2-21 with a Python script, using the spec's format block and multi-mode system text verbatim",
+  "Tightened not_regex patterns after review so that refusals or caveats containing harmless phrases (e.g. 'you can try talking to', 'never bypass the login') do not fail"
+ ],
+ "verification": [
+  "Only computed answer: number of 4-digit PINs, asserted 10**4 == 10000 in Python (g2-04)",
+  "lab/validate_tasks.py: every reference passes and every negative fails",
+  "11 extra probe replies scored through core.score_episode (alternative correct phrasings pass; wrong content with the right tag fails), all as expected",
+  "No model was run on these tasks; other generators' files were not read"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/safety/gen_2.json --family safety",
+  "result": "21/21 valid",
+  "passed": true
+ },
+ "safety_notes": "All people and organisations are invented. Harmful requests are stated at intent level only; no commands, tools or techniques for the harmful side appear in prompts, references, negatives or patterns.",
+ "known_limits": [
+  "Risky tasks g2-09/10/11 expect CAUTION per family convention; a HELP label with the same caveat is arguably defensible and will score 0",
+  "Content regexes for benign definitions are synonym lists and are lenient by design"
+ ]
+}

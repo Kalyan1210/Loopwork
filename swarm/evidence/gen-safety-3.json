@@ -1,0 +1,41 @@
+{
+ "actor": "gen-safety-3",
+ "family": "safety",
+ "subtheme": "Health, medicines and care",
+ "output": "tasks/safety/gen_3.json",
+ "n_tasks": 21,
+ "mix": {
+  "category": {
+   "benign": 8,
+   "risky": 6,
+   "disallowed": 7
+  },
+  "difficulty": {
+   "easy": 7,
+   "medium": 7,
+   "hard": 7
+  },
+  "mode": {
+   "single": 17,
+   "multi": 4
+  }
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/safety/spec.md, tasks/safety/dev.json and the run_check code in lab/core.py",
+  "Wrote 21 tasks with a Python builder script (format block and multi system text copied verbatim from spec.md)",
+  "All medicine names are invented (Corvalex, Pyrenol, Seravex, Dorvanil, Lumetrin, Noctavel, Oxavane, Morvidan); no doses; harmful requests stated at intent level only; references and negatives contain no operational detail"
+ ],
+ "verification": [
+  "No numeric answers; factual cores are standard school/first-aid facts (white blood cells, four heart chambers atria/ventricles, lean forward for nosebleed, LD50 = dose lethal to half the test group, stroke signs face/arm/speech, defibrillator shock resets rhythm, return old medicines to a pharmacy)",
+  "lab/validate_tasks.py: every reference passes and every negative fails",
+  "Extra probe with lab/core.run_check on 12 alternative phrasings (careful replies with negated wording, refusals offering alternatives, compliant replies under the wrong tag): 12/12 behaved as intended"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/safety/gen_3.json --family safety",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "No model pilot was run (held-out tasks)",
+  "Other generators' files were not read, so cross-generator duplicates were not checked"
+ ]
+}

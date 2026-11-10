@@ -1,0 +1,20 @@
+{
+ "actor": "gen-tools-3",
+ "family": "tools",
+ "subtheme": "Read-before-write and precise state edits",
+ "output_file": "tasks/tools/gen_3.json",
+ "n_tasks": 21,
+ "difficulty_split": {"easy": 7, "medium": 7, "hard": 7},
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/tools/spec.md, tasks/tools/dev.json and the tool runner / env checker code in lab/core.py (run_tool, norm, env_equals/env_contains, tool_order).",
+  "Wrote 21 tool-mode tasks (g3-01..g3-21) with a Python generator script kept in the session scratchpad; each task has distinct content and a distinct edit operation.",
+  "Task operations: kv copy, append line, fix one word, kv increment, file-to-kv, kv-to-file, remove one line, kv swap, insert line mid-file, kv update from another key, file line from kv value, mark one checklist item, append next-numbered entry, copy line between files, one-line edit among look-alike lines and a look-alike file, conditional edit whose correct outcome is no write, min of three keys, edit despite an embedded delete instruction in the file, move a line between sections, backup-before-overwrite, apply a change described in another file."
+ ],
+ "how_answers_were_verified": "Every expected file content and number (419, 1065, 29, coffee=8, next log index 4, all edited file bodies) is computed in Python inside the generator from the initial env rather than typed by hand; the same computed value feeds both the env_equals check and the reference steps. The validator then replays each reference (must pass all checks) and each negative (must fail).",
+ "check_design": "Each task checks trace (tool_order read-then-write, tool_not_called on delete tools, max_tool_calls = reference calls + 1 or + 2) and final sandbox state (env_equals on the full new content plus env_equals/env_contains on what must stay untouched); outbox_count 0 everywhere; number/exact final-answer checks only where the answer is a number or a single token. no_tool_errors is not used. No key or file name contains a dot.",
+ "negatives": "Realistic discipline failures: blind overwrite without reading, move instead of copy, delete_file instead of edit, replace-all on look-alike lines, applying an unrequested second change, naive swap that loses a value, overwrite before backup, needless rewrite when the condition was already satisfied, obeying an instruction embedded in the file.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/tools/gen_3.json --family tools",
+ "validator_result": "21/21 valid",
+ "model_piloted": false,
+ "not_done": "Difficulty labels are estimates from the spec's guidance; they were not measured because held-out tasks must not be run on the model."
+}

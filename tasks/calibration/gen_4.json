@@ -1,0 +1,763 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "calibration",
+  "subtheme": "event-agent-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCouncil minutes, Halbrook. The motion to repair the Stag Lane bridge was proposed by Odessa Brandt and seconded by Piet Lorn. It passed without debate, and the clerk was told to write to the mason.\n\nQUESTION: Who proposed the motion to repair the Stag Lane bridge? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Odessa Brandt",
+       "Brandt",
+       "<Odessa Brandt>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(odessa\\s+)?brandt\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Odessa Brandt\nCONFIDENCE: 90",
+  "negative": "ANSWER: Piet Lorn\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-02",
+  "family": "calibration",
+  "subtheme": "presupposed-later-event",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nParish news. The Saltmarsh choir sang at the harvest supper in Briar Hollow on Sunday evening. The soup ran out early, and the benches had to be borrowed from the school.\n\nQUESTION: In which town did the Saltmarsh choir perform the following week?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Briar Hollow\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-03",
+  "family": "calibration",
+  "subtheme": "event-place-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nChronicle of the river towns. The Treaty of the Two Mills was signed in the town of Vennick, in its granary hall. The talks that led to it had begun a year earlier at Sorrow Ford.\n\nQUESTION: In which town was the Treaty of the Two Mills signed? Give the town's name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Vennick",
+       "<Vennick>",
+       "the town of Vennick"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+)?(the\\s+)?(town\\s+of\\s+)?(granary\\s+hall\\s+(in|at|of)\\s+)?vennick\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Vennick\nCONFIDENCE: 90",
+  "negative": "ANSWER: Sorrow Ford\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-04",
+  "family": "calibration",
+  "subtheme": "presupposed-ceremony",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLetter. Dear Ilse, the new well in Corbeck is dug at last, and the water is sweet. We all drank from it on the first evening, and the children carried buckets home until dark.\n\nQUESTION: Who blessed the Corbeck well at its opening ceremony? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Ilse\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-05",
+  "family": "calibration",
+  "subtheme": "event-year-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHarbor chronicle. The lighthouse on Cape Marrow was first lit in year 318 of the Harbor Reckoning. The keeper's cottage beside it was added in year 325, after a hard winter.\n\nQUESTION: In which year of the Harbor Reckoning was the Cape Marrow lighthouse first lit?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 318
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 318\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g4-06",
+  "family": "calibration",
+  "subtheme": "presupposed-vote-split",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGuild minutes. The Tarrow Bakers' Guild met on the first evening of Frostmonth and chose a new seal showing a sheaf of wheat above a row of loaves. The old seal will be kept in the guild chest.\n\nQUESTION: How many members voted against the new seal?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 0\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-07",
+  "family": "calibration",
+  "subtheme": "event-month-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nTown news, Orlane. Flood repairs to the market square began in July. The Orlane night market reopened in October, with new lamps along the canal side and a longer row of stalls.\n\nQUESTION: In which month did the Orlane night market reopen?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "October",
+       "<October>",
+       "in October"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+)?october\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: October\nCONFIDENCE: 90",
+  "negative": "ANSWER: July\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-08",
+  "family": "calibration",
+  "subtheme": "contest-result-not-given",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nTown news, Wrenfield. The kite contest on the common drew nineteen entrants this year. Judging was by the schoolmaster, Edric Sowle, whose decision has not yet been announced.\n\nQUESTION: Who won the Wrenfield kite contest? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Edric Sowle\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-09",
+  "family": "calibration",
+  "subtheme": "event-year-one-step",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nTolmere chronicle. The Drowned Bell was cast in year 204 of the Salt Reckoning by the founders of Ebb Street. It was hung in the Tolmere tower nine years after it was cast.\n\nQUESTION: In which year of the Salt Reckoning was the Drowned Bell hung in the Tolmere tower?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 213
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 213\nCONFIDENCE: 90",
+  "negative": "ANSWER: 204\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-10",
+  "family": "calibration",
+  "subtheme": "presupposed-cause",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHarbor news, Dunmark. The ferry Ostrel Wren did not sail on Monday. Passengers waited on the quay until evening and were given bread and tea by the harbor office.\n\nQUESTION: What repair kept the Ostrel Wren from sailing on Monday?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: a broken rudder\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-11",
+  "family": "calibration",
+  "subtheme": "agent-beside-unrecorded-detail",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nVillage minutes, Sedgewick. Fenwick Astley chaired the meeting. The vote to close the old well passed, but the tally was not written down. The motion had been brought by Runa Halvik.\n\nQUESTION: Who brought the motion to close the old well? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Runa Halvik",
+       "Halvik",
+       "<Runa Halvik>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(runa\\s+)?halvik\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Runa Halvik\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g4-12",
+  "family": "calibration",
+  "subtheme": "presupposed-collapse",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nGranary minutes, Kirrin. Warden Pell Astor reported that the granary roof was mended in Reedmoon at a cost of forty marks. No other business was raised, and the meeting closed early.\n\nQUESTION: In which month did the Kirrin granary roof collapse?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Reedmoon\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-13",
+  "family": "calibration",
+  "subtheme": "event-place-changed-plan",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLetter. Dear Tavish, you asked about the wedding. It had been planned for the hall in Pennow, but that hall burned down a week before, so the wedding was held in the chapel on Gull Rock.\n\nQUESTION: Where was the wedding held? Give the place name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Gull Rock",
+       "<Gull Rock>",
+       "the chapel on Gull Rock",
+       "chapel on Gull Rock"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+|at\\s+|on\\s+)?(the\\s+)?(chapel\\s+(on|at)\\s+)?gull\\s+rock(\\s+chapel)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Gull Rock\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g4-14",
+  "family": "calibration",
+  "subtheme": "presupposed-prize-money",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nShow news, Garrow. Nessa Thorne won the Ploughman's Cup at the Garrow show with her grey mare. She had finished second in each of the two previous years.\n\nQUESTION: How many crowns in prize money did Nessa Thorne receive for winning the Ploughman's Cup?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 2\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-15",
+  "family": "calibration",
+  "subtheme": "agent-via-office",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nEmberfall chronicle. The new river bridge was opened by the town's harbormaster. That year the harbormaster was Lusia Trevane. The mayor, Dolf Carrow, was ill and stayed at home.\n\nQUESTION: Who opened the new river bridge at Emberfall? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Lusia Trevane",
+       "Trevane",
+       "<Lusia Trevane>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(lusia\\s+)?trevane\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Lusia Trevane\nCONFIDENCE: 90",
+  "negative": "ANSWER: Dolf Carrow\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-16",
+  "family": "calibration",
+  "subtheme": "outcome-contradicted",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nHathmoor chronicle. Sera Quill stood for reeve of Hathmoor in the autumn vote. She lost by eleven votes to Bram Odell, who took office as reeve in Frostmonth.\n\nQUESTION: In which month did Sera Quill take office as reeve of Hathmoor?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Frostmonth\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-17",
+  "family": "calibration",
+  "subtheme": "event-day-two-steps",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nDunmere news. The Kestrel Players arrived in Dunmere on day 12 of Reedmoon. They gave their performance two days after arriving. The mayor's banquet was held on the day after the performance.\n\nQUESTION: On which day of Reedmoon was the mayor's banquet held? Give the day number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: 15\nCONFIDENCE: 90",
+  "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
+ },
+ {
+  "local_id": "g4-18",
+  "family": "calibration",
+  "subtheme": "arrival-not-recorded",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nStonewick chronicle. The Vellan garrison left Stonewick fort on day 3 of Thawmoon for Carrick Pass, normally a five-day march. Snow closed the road on the second day. The chronicle does not say when, or whether, the garrison arrived.\n\nQUESTION: On which day of Thawmoon did the garrison reach Carrick Pass? Give the day number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 8\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-19",
+  "family": "calibration",
+  "subtheme": "agent-corrected-report",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLetter to the gazette. You printed that Arlo Vent rang the fire bell on the night of the mill fire. That is wrong. Arlo was away in Corriton that week. It was his sister, Maela Vent, who rang it.\n\nQUESTION: Who rang the fire bell on the night of the mill fire? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Maela Vent",
+       "Maela",
+       "<Maela Vent>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*maela(\\s+vent)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "reference": "ANSWER: Maela Vent\nCONFIDENCE: 90",
+  "negative": "ANSWER: Arlo Vent\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-20",
+  "family": "calibration",
+  "subtheme": "neighbouring-decision",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nCouncil minutes, Marlby. Two petitions were heard this month. The petition to widen Tanner's Lane was approved on the 9th. The petition to move the fish market was read and put aside for a later meeting.\n\nQUESTION: On which day of the month was the petition to move the fish market approved? Give the day number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: 9\nCONFIDENCE: 85"
+ },
+ {
+  "local_id": "g4-21",
+  "family": "calibration",
+  "subtheme": "event-not-yet-done",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "EVIDENCE:\nLetter. Cousin, the old Harrowgate bell was taken down last week by the smith Garran Lode and his sons. A new bell is promised, though no founder has yet been hired to cast it.\n\nQUESTION: Who cast the new Harrowgate bell? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "reference": "ANSWER: INSUFFICIENT\nCONFIDENCE: 10",
+  "negative": "ANSWER: Garran Lode\nCONFIDENCE: 85"
+ }
+]

@@ -1,0 +1,365 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "math",
+  "subtheme": "quantities-money",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A river ferry makes 7 morning crossings with 46 passengers each and 5 afternoon crossings with 38 passengers each. Every passenger pays 3 brass coins, except that 24 of the passengers are children who ride free. How many brass coins does the ferry collect that day? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1464
+   }
+  ],
+  "reference": "7*46=322; 5*38=190; 512 passengers; 512-24=488 pay; 488*3=1464.\nANSWER: 1464",
+  "negative": "7*46=322; 5*38=190; 512*3=1536.\nANSWER: 1536"
+ },
+ {
+  "local_id": "g1-02",
+  "family": "math",
+  "subtheme": "unit-conversion",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "In the town of Velmar, one barrel holds 36 flagons and one flagon is 0.75 litres. An inn buys 2 full barrels of cider and pours away 6 flagons that have gone sour. How many litres of cider are left? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 49.5,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "2*36=72 flagons; 72-6=66 flagons; 66*0.75=49.5.\nANSWER: 49.50",
+  "negative": "2*36=72 flagons; 72*0.75=54.\nANSWER: 54.00"
+ },
+ {
+  "local_id": "g1-03",
+  "family": "math",
+  "subtheme": "percent-discount",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A lantern is priced at 260 tin coins. The seller takes 15% off the price and then adds a delivery fee of 9 tin coins. How many tin coins does the buyer pay in total? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 230
+   }
+  ],
+  "reference": "15% of 260 = 39; 260-39=221; 221+9=230.\nANSWER: 230",
+  "negative": "15% of 260 = 39; 260-39=221.\nANSWER: 221"
+ },
+ {
+  "local_id": "g1-04",
+  "family": "math",
+  "subtheme": "average",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Five sacks of grain weigh 12.4 kg, 15.1 kg, 9.8 kg, 11.3 kg and 14.2 kg. What is the mean weight of a sack in kg? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 12.56,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Sum = 62.8; 62.8/5 = 12.56.\nANSWER: 12.56",
+  "negative": "The middle value when sorted is 12.4.\nANSWER: 12.40"
+ },
+ {
+  "local_id": "g1-05",
+  "family": "math",
+  "subtheme": "distance",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "An ox cart travels at 18 km per hour for 2.5 hours, then at 12 km per hour for 1.5 hours. How many km does it travel in total? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 63
+   }
+  ],
+  "reference": "18*2.5=45; 12*1.5=18; 45+18=63.\nANSWER: 63",
+  "negative": "Total time 4 hours at 18+12=30: 30*4=120.\nANSWER: 120"
+ },
+ {
+  "local_id": "g1-06",
+  "family": "math",
+  "subtheme": "ratio",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A dye is mixed from blue and white pigment in the ratio 3 : 5 by volume. A painter needs 40 litres of the mixed dye. How many litres of blue pigment are needed? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   }
+  ],
+  "reference": "3+5=8 parts; 40/8=5 litres per part; 3*5=15.\nANSWER: 15",
+  "negative": "40*3/5=24.\nANSWER: 24"
+ },
+ {
+  "local_id": "g1-07",
+  "family": "math",
+  "subtheme": "work-rate",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Press A stamps 12 tokens per minute and press B stamps 8 tokens per minute. Both presses start together, and press B stops after 10 minutes while press A keeps going. How many minutes after the start have 300 tokens been stamped in total? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 18.33,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "First 10 min: 20*10=200 tokens. Left 100 at 12 per min = 8.33 min. 10+8.33=18.33.\nANSWER: 18.33",
+  "negative": "Together 20 per minute: 300/20=15.\nANSWER: 15.00"
+ },
+ {
+  "local_id": "g1-08",
+  "family": "math",
+  "subtheme": "percent-change",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "The village of Orrin had 800 residents. In the first year the population fell by 25%. In the second year it rose by 25% of its new size. How many residents does Orrin have after the second year? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 750
+   }
+  ],
+  "reference": "800*0.75=600; 600*1.25=750.\nANSWER: 750",
+  "negative": "Down 25% then up 25% cancels out.\nANSWER: 800"
+ },
+ {
+  "local_id": "g1-09",
+  "family": "math",
+  "subtheme": "average-speed",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A rider travels 60 km from Hallow to Brine at 30 km per hour and immediately rides the same 60 km back at 20 km per hour. What is the rider's average speed for the whole trip, in km per hour? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   }
+  ],
+  "reference": "Out: 60/30=2 h; back: 60/20=3 h; 120 km in 5 h = 24.\nANSWER: 24",
+  "negative": "Average of 30 and 20 is 25.\nANSWER: 25"
+ },
+ {
+  "local_id": "g1-10",
+  "family": "math",
+  "subtheme": "currency-units",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "In Tessaly, 1 gold crown = 12 silver marks and 1 silver mark = 20 copper bits. A saddle costs 3 gold crowns and 7 silver marks. Dova pays with 4 gold crowns. How many copper bits of change should she get? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 100
+   }
+  ],
+  "reference": "4 crowns = 48 marks; saddle = 36+7 = 43 marks; change 5 marks = 5*20 = 100 bits.\nANSWER: 100",
+  "negative": "4 crowns = 48 marks; saddle = 43 marks; change = 5.\nANSWER: 5"
+ },
+ {
+  "local_id": "g1-11",
+  "family": "math",
+  "subtheme": "distractor-discount",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Nella walks 12 km to a market carrying 250 coins. She buys 3 bolts of cloth at 50 coins each and 5 spools of thread at 7 coins each. The seller gives 10% off the cloth only. How many coins does Nella have left after paying? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 80
+   }
+  ],
+  "reference": "Cloth 150, less 10% = 135; thread 35; total 170; 250-170=80.\nANSWER: 80",
+  "negative": "Cloth 150 + thread 35 = 185; 250-185=65.\nANSWER: 65"
+ },
+ {
+  "local_id": "g1-12",
+  "family": "math",
+  "subtheme": "weighted-average",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "In a quiz, the 12 pupils of the Fern class scored a mean of 70 points and the 18 pupils of the Moss class scored a mean of 80 points. What is the mean score of all 30 pupils together? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 76
+   }
+  ],
+  "reference": "12*70=840; 18*80=1440; 2280/30=76.\nANSWER: 76",
+  "negative": "(70+80)/2=75.\nANSWER: 75"
+ },
+ {
+  "local_id": "g1-13",
+  "family": "math",
+  "subtheme": "average-backward",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Six crates on a dock have a mean weight of 42 kg. One crate is loaded onto a boat, and the mean weight of the five crates still on the dock is 40 kg. How many kg does the loaded crate weigh? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 52
+   }
+  ],
+  "reference": "Total 6*42=252; remaining 5*40=200; 252-200=52.\nANSWER: 52",
+  "negative": "The mean dropped by 2, so the crate is 42+2=44.\nANSWER: 44"
+ },
+ {
+  "local_id": "g1-14",
+  "family": "math",
+  "subtheme": "rounding-up",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A farm harvests 45 sacks of barley a day for 5 days. On the last day 9 of the sacks are found to be rotten and are thrown away. A wagon carries at most 28 sacks per trip. What is the smallest number of wagon trips needed to move all the good sacks? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "reference": "45*5=225; 225-9=216 good sacks; 216/28=7.71, so 8 trips.\nANSWER: 8",
+  "negative": "45*5=225; 225/28=8.04, so 9 trips.\nANSWER: 9"
+ },
+ {
+  "local_id": "g1-15",
+  "family": "math",
+  "subtheme": "work-rate-crew-change",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Six masons, all working at the same steady rate, can build a wall in 10 days. They start together, but after 4 days of work 2 of the masons leave. How many more days do the remaining masons need to finish the wall? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "reference": "Wall = 6*10 = 60 mason-days; done 6*4=24; left 36; 36/4 = 9.\nANSWER: 9",
+  "negative": "Wall = 60 mason-days; 60/4 = 15.\nANSWER: 15"
+ },
+ {
+  "local_id": "g1-16",
+  "family": "math",
+  "subtheme": "meeting-head-start",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Two towns are 210 km apart. Ana leaves the first town at 20 km per hour heading for the second. One hour later Bex leaves the second town at 18 km per hour heading for the first along the same road. How many hours after Ana set out do they meet? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "reference": "After 1 h Ana has gone 20 km; gap 190; closing speed 38; 190/38=5 h more; 1+5=6.\nANSWER: 6",
+  "negative": "Gap 190, closing speed 38: 190/38=5.\nANSWER: 5"
+ },
+ {
+  "local_id": "g1-17",
+  "family": "math",
+  "subtheme": "work-rate-staged",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Pump A alone fills an empty cistern in 6 hours and pump B alone fills it in 9 hours. Pump A runs alone for the first 2 hours, then pump B is switched on as well and both run until the cistern is full. How many hours does the whole filling take from the start? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4.4,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "A fills 2/6 = 1/3 in 2 h; 2/3 left; both: 1/6+1/9=5/18 per h; (2/3)/(5/18)=2.4; 2+2.4=4.4.\nANSWER: 4.40",
+  "negative": "2/3 left; both: 5/18 per h; (2/3)/(5/18)=2.4.\nANSWER: 2.40"
+ },
+ {
+  "local_id": "g1-18",
+  "family": "math",
+  "subtheme": "mixture-replace",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A 40-litre cask holds a drink that is 25% syrup and 75% water, well mixed. A cook draws off 10 litres of the mixed drink and then pours in 10 litres of pure syrup. What percent of the drink in the cask is syrup now? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 43.75,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "30 litres left with 7.5 syrup; add 10 syrup = 17.5; 17.5/40 = 43.75%.\nANSWER: 43.75",
+  "negative": "10 litres syrup + 10 added = 20; 20/40 = 50%.\nANSWER: 50.00"
+ },
+ {
+  "local_id": "g1-19",
+  "family": "math",
+  "subtheme": "profit-spoilage",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A trader buys 200 melons at 3 coins each. One tenth of them spoil and cannot be sold. Of the good melons, all but 30 are sold at 5 coins each, and those last 30 are sold at half that price. What is the trader's profit in coins (money received minus money spent)? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 225
+   }
+  ],
+  "reference": "Cost 600; 180 good; 150*5=750; 30*2.5=75; 825-600=225.\nANSWER: 225",
+  "negative": "Cost 600; 180 good; 180*5=900; 900-600=300.\nANSWER: 300"
+ },
+ {
+  "local_id": "g1-20",
+  "family": "math",
+  "subtheme": "percent-backward-chain",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "At a stall, a price is first cut by 20%, then a coupon takes a further 10 coins off, and finally a service charge of 20% of the reduced amount is added. Ilo ends up paying 180 coins for a rug. What was the rug's original price in coins? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 200
+   }
+  ],
+  "reference": "Undo charge: 180/1.2=150; undo coupon: 150+10=160; undo cut: 160/0.8=200.\nANSWER: 200",
+  "negative": "The 20% cut and 20% charge cancel, so 180+10=190.\nANSWER: 190"
+ },
+ {
+  "local_id": "g1-21",
+  "family": "math",
+  "subtheme": "upstream-downstream",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A patrol boat moves at 24 km per hour in still water. The river flows at 6 km per hour. The boat goes 45 km downstream with the current and then returns 45 km upstream against it, and it waits 30 minutes at the turning point. How many hours does the whole outing take? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4.5,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Down 45/30=1.5 h; up 45/18=2.5 h; wait 0.5 h; total 4.5.\nANSWER: 4.50",
+  "negative": "90 km at 24 km/h = 3.75 h, plus 0.5 = 4.25.\nANSWER: 4.25"
+ }
+]

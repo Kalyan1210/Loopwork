@@ -1,0 +1,44 @@
+{
+ "actor": "gen-calibration-4",
+ "role": "task-generation",
+ "family": "calibration",
+ "subtheme": "presuppositions about events (minutes, chronicles, letters, town news)",
+ "output_file": "tasks/calibration/gen_4.json",
+ "n_tasks": 21,
+ "composition": {
+  "answerable": 10,
+  "unanswerable": 11,
+  "easy": {
+   "answerable": 4,
+   "unanswerable": 3
+  },
+  "medium": {
+   "answerable": 3,
+   "unanswerable": 4
+  },
+  "hard": {
+   "answerable": 3,
+   "unanswerable": 4
+  },
+  "note": "21 is odd, so an exact half split is impossible; 10/11 is the closest."
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/calibration/spec.md and tasks/calibration/dev.json",
+  "Wrote 21 tasks with a Python generator script using the spec's verbatim prompt convention and checker patterns (max_tokens 80, no system field)",
+  "Did not run the model on these tasks, did not read other generators' files, did not edit lab/"
+ ],
+ "answer_verification": [
+  "Numeric answers computed in Python inside the generator: g4-09 204+9=213, g4-17 12+2+1=15, naive distractor for g4-18 3+5=8; g4-05 (318) is a verbatim lookup",
+  "Evidence length asserted 25-60 words for every task",
+  "Extra checker test via lab/core.score_episode: alternate correct surface forms (surname only, 'year 318', 'day 15', 'the chapel on Gull Rock') pass; distractor values and ANSWER: INSUFFICIENT fail on all 10 answerable tasks; lowercase 'insufficient' passes and a reply without a CONFIDENCE line fails on all 11 unanswerable tasks",
+  "INSUFFICIENT used as the negative on 4 of 10 answerable tasks (g4-05, g4-11, g4-13, g4-17)"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/calibration/gen_4.json --family calibration",
+  "result": "21/21 valid"
+ },
+ "caveats": [
+  "Held-out: baseline pass rate is not measured, difficulty labels are judgments based on the spec's pilot observations",
+  "g4-12 (roof 'collapse' when only a mending is recorded) relies on the reader not equating mending with a collapse; labelled unanswerable because no collapse or its month is stated"
+ ]
+}

@@ -1,0 +1,248 @@
+{
+ "actor": "gen-coding-2",
+ "role": "task-generation",
+ "family": "coding",
+ "subtheme": "bugfix",
+ "output_file": "tasks/coding/gen_2.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 6,
+  "medium": 7,
+  "hard": 8
+ },
+ "what_was_done": [
+  "Read lab/TASKS.md, tasks/coding/spec.md, tasks/coding/dev.json and the code_tests checker in lab/core.py.",
+  "Authored 21 bug-fix tasks (contract sentence, fenced buggy code, Symptom line, fix instruction, fixed format line), each with a different function and bug class; none reuse the dev functions.",
+  "Generated the file with a build script (kept in the session scratchpad, not in the repo)."
+ ],
+ "verification": [
+  "Every Symptom line was produced by executing the buggy code and the reference on the stated call(s) in a fresh namespace; the build asserts that the two results differ.",
+  "Every expected value in the asserts was computed by running the reference solution, not written by hand; the hand-written multi-statement tests (mutation, aliasing, mutable default) were executed against the reference.",
+  "The build asserts that the reference passes all asserts and that the unchanged buggy code (the negative) fails at least one.",
+  "Final check with the project validator, which runs reference and negative through the sandboxed code_tests checker."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/coding/gen_2.json --family coding",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "The model was not run on these tasks (held-out, no pilot), so the easy/medium/hard labels are author estimates based on the spec's guidance, not measured pass rates.",
+  "Other generators' files were not read, so cross-generator overlap was not checked."
+ ],
+ "notes": [
+  "g2-17 (find_index): a half fix (only changing the loop condition) loops forever and fails by the 8 s checker timeout.",
+  "g2-21 (is_palindrome): the symptom is an IndexError rather than a wrong return value."
+ ],
+ "tasks": [
+  {
+   "local_id": "g2-01",
+   "function": "clamp",
+   "difficulty": "easy",
+   "bug_class": "wrong return value in a branch",
+   "buggy_lines": 6,
+   "n_asserts": 6,
+   "symptom": "clamp(15, 0, 10) returns 0 but should return 10.",
+   "prompt_chars": 530
+  },
+  {
+   "local_id": "g2-02",
+   "function": "smallest",
+   "difficulty": "easy",
+   "bug_class": "wrong initial value",
+   "buggy_lines": 8,
+   "n_asserts": 6,
+   "symptom": "smallest([4, 2, 9]) returns 0 but should return 2.",
+   "prompt_chars": 552
+  },
+  {
+   "local_id": "g2-03",
+   "function": "mean_score",
+   "difficulty": "easy",
+   "bug_class": "integer vs float division",
+   "buggy_lines": 7,
+   "n_asserts": 6,
+   "symptom": "mean_score([1, 2]) returns 1 but should return 1.5.",
+   "prompt_chars": 596
+  },
+  {
+   "local_id": "g2-04",
+   "function": "all_positive",
+   "difficulty": "easy",
+   "bug_class": "early return",
+   "buggy_lines": 7,
+   "n_asserts": 6,
+   "symptom": "all_positive([1, -2]) returns True but should return False.",
+   "prompt_chars": 594
+  },
+  {
+   "local_id": "g2-05",
+   "function": "last_index_of",
+   "difficulty": "easy",
+   "bug_class": "off-by-one loop bound",
+   "buggy_lines": 7,
+   "n_asserts": 6,
+   "symptom": "last_index_of([7, 8, 9], 7) returns -1 but should return 0.",
+   "prompt_chars": 618
+  },
+  {
+   "local_id": "g2-06",
+   "function": "count_at_least",
+   "difficulty": "easy",
+   "bug_class": "wrong comparison operator",
+   "buggy_lines": 6,
+   "n_asserts": 6,
+   "symptom": "count_at_least([5, 7, 3], 5) returns 1 but should return 2.",
+   "prompt_chars": 552
+  },
+  {
+   "local_id": "g2-07",
+   "function": "longest_run",
+   "difficulty": "medium",
+   "bug_class": "state not reset in a loop",
+   "buggy_lines": 10,
+   "n_asserts": 7,
+   "symptom": "longest_run([1, 1, 2, 2]) returns 3 but should return 2.",
+   "prompt_chars": 679
+  },
+  {
+   "local_id": "g2-08",
+   "function": "add_tag",
+   "difficulty": "medium",
+   "bug_class": "mutable default argument",
+   "buggy_lines": 7,
+   "n_asserts": 7,
+   "symptom": "calling add_tag('red') and then add_tag('blue'), the second call returns ['red', 'blue'] but should return ['blue'].",
+   "prompt_chars": 751
+  },
+  {
+   "local_id": "g2-09",
+   "function": "top_three",
+   "difficulty": "medium",
+   "bug_class": "input list mutated",
+   "buggy_lines": 7,
+   "n_asserts": 7,
+   "symptom": "after s = [3, 9, 1, 7] and top_three(s), the list s is [9, 7, 3, 1] but should still be [3, 9, 1, 7].",
+   "prompt_chars": 715
+  },
+  {
+   "local_id": "g2-10",
+   "function": "most_common_char",
+   "difficulty": "medium",
+   "bug_class": "wrong tie-break",
+   "buggy_lines": 9,
+   "n_asserts": 7,
+   "symptom": "most_common_char('abab') returns 'b' but should return 'a'.",
+   "prompt_chars": 734
+  },
+  {
+   "local_id": "g2-11",
+   "function": "median",
+   "difficulty": "medium",
+   "bug_class": "wrong index for the middle pair",
+   "buggy_lines": 6,
+   "n_asserts": 6,
+   "symptom": "median([1, 2, 3, 4]) returns 3.5 but should return 2.5.",
+   "prompt_chars": 659
+  },
+  {
+   "local_id": "g2-12",
+   "function": "chunk",
+   "difficulty": "medium",
+   "bug_class": "leftover state not flushed after the loop",
+   "buggy_lines": 9,
+   "n_asserts": 6,
+   "symptom": "chunk([1, 2, 3], 2) returns [[1, 2]] but should return [[1, 2], [3]].",
+   "prompt_chars": 726
+  },
+  {
+   "local_id": "g2-13",
+   "function": "make_grid",
+   "difficulty": "medium",
+   "bug_class": "aliased rows (shared list object)",
+   "buggy_lines": 8,
+   "n_asserts": 6,
+   "symptom": "after g = make_grid(2, 2) and g[0][0] = 5, the grid g is [[5, 0], [5, 0]] but should be [[5, 0], [0, 0]].",
+   "prompt_chars": 702
+  },
+  {
+   "local_id": "g2-14",
+   "function": "count_words",
+   "difficulty": "hard",
+   "bug_class": "two bugs: wrong initial count and missing case folding (symptom shows one)",
+   "buggy_lines": 8,
+   "n_asserts": 6,
+   "symptom": "count_words('hi hi') returns {'hi': 1} but should return {'hi': 2}.",
+   "prompt_chars": 708
+  },
+  {
+   "local_id": "g2-15",
+   "function": "split_runs",
+   "difficulty": "hard",
+   "bug_class": "state reset to the wrong value in a sweep",
+   "buggy_lines": 12,
+   "n_asserts": 7,
+   "symptom": "split_runs([1, 2, 7, 8]) returns [[1, 2], [8]] but should return [[1, 2], [7, 8]].",
+   "prompt_chars": 817
+  },
+  {
+   "local_id": "g2-16",
+   "function": "rank_players",
+   "difficulty": "hard",
+   "bug_class": "wrong tie-break in a sort",
+   "buggy_lines": 6,
+   "n_asserts": 6,
+   "symptom": "rank_players({'bo': 5, 'al': 5, 'cy': 9}) returns ['cy', 'bo', 'al'] but should return ['cy', 'al', 'bo'].",
+   "prompt_chars": 766
+  },
+  {
+   "local_id": "g2-17",
+   "function": "find_index",
+   "difficulty": "hard",
+   "bug_class": "two interacting binary-search bugs (loop condition and bound update)",
+   "buggy_lines": 12,
+   "n_asserts": 8,
+   "symptom": "find_index([4], 4) returns -1 but should return 0.",
+   "prompt_chars": 797
+  },
+  {
+   "local_id": "g2-18",
+   "function": "rotate_left",
+   "difficulty": "hard",
+   "bug_class": "missing wrap-around for large k, with an empty-list trap",
+   "buggy_lines": 7,
+   "n_asserts": 7,
+   "symptom": "rotate_left([1, 2, 3], 4) returns [1, 2, 3] but should return [2, 3, 1].",
+   "prompt_chars": 746
+  },
+  {
+   "local_id": "g2-19",
+   "function": "best_slice_sum",
+   "difficulty": "hard",
+   "bug_class": "wrong initial value in a running-maximum sweep",
+   "buggy_lines": 7,
+   "n_asserts": 7,
+   "symptom": "best_slice_sum([-3, -1, -2]) returns 0 but should return -1.",
+   "prompt_chars": 678
+  },
+  {
+   "local_id": "g2-20",
+   "function": "avg_by_name",
+   "difficulty": "hard",
+   "bug_class": "shared counter instead of per-key state",
+   "buggy_lines": 7,
+   "n_asserts": 6,
+   "symptom": "avg_by_name([['a', 4], ['b', 6]]) returns {'a': 2.0, 'b': 3.0} but should return {'a': 4.0, 'b': 6.0}.",
+   "prompt_chars": 731
+  },
+  {
+   "local_id": "g2-21",
+   "function": "is_palindrome",
+   "difficulty": "hard",
+   "bug_class": "two bugs: off-by-one mirror index and missing case folding (symptom shows one)",
+   "buggy_lines": 6,
+   "n_asserts": 8,
+   "symptom": "is_palindrome('abba') raises IndexError but should return True.",
+   "prompt_chars": 755
+  }
+ ]
+}

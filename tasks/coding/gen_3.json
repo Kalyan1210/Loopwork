@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this function. `clamp_all(xs, lo, hi)` returns a new list in which every number below lo is replaced by lo, every number above hi is replaced by hi, and all other numbers are unchanged, e.g. clamp_all([5, -2, 12], 0, 10) returns [5, 0, 10] and clamp_all([], 0, 1) returns []. Keep the given lines and replace the `...` parts.\n\ndef clamp_all(xs, lo, hi):\n    out = []\n    for x in xs:\n        if ...:\n            out.append(lo)\n        elif ...:\n            out.append(hi)\n        else:\n            out.append(x)\n    return out\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert clamp_all([5, -2, 12], 0, 10) == [5, 0, 10]\nassert clamp_all([], 0, 1) == []\nassert clamp_all([0, 10], 0, 10) == [0, 10]\nassert clamp_all([-7, -1, 4], -3, -2) == [-3, -2, -2]\nassert clamp_all([3, 3, 99], 3, 3) == [3, 3, 3]"
+   }
+  ],
+  "reference": "```python\ndef clamp_all(xs, lo, hi):\n    out = []\n    for x in xs:\n        if x < lo:\n            out.append(lo)\n        elif x > hi:\n            out.append(hi)\n        else:\n            out.append(x)\n    return out\n```",
+  "negative": "```python\ndef clamp_all(xs, lo, hi):\n    out = []\n    for x in xs:\n        if x > hi:\n            out.append(lo)\n        elif x < lo:\n            out.append(hi)\n        else:\n            out.append(x)\n    return out\n```"
+ },
+ {
+  "local_id": "g3-02",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this recursive function. `digit_sum(n)` returns the sum of the decimal digits of a non-negative integer n, e.g. digit_sum(407) returns 11 and digit_sum(0) returns 0. Keep the given lines and replace the `...` parts.\n\ndef digit_sum(n):\n    if n < 10:\n        return ...\n    return ... + digit_sum(...)\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert digit_sum(407) == 11\nassert digit_sum(0) == 0\nassert digit_sum(9) == 9\nassert digit_sum(10) == 1\nassert digit_sum(99999) == 45\nassert digit_sum(1203004) == 10"
+   }
+  ],
+  "reference": "```python\ndef digit_sum(n):\n    if n < 10:\n        return n\n    return n % 10 + digit_sum(n // 10)\n```",
+  "negative": "```python\ndef digit_sum(n):\n    if n < 10:\n        return 0\n    return n % 10 + digit_sum(n // 10)\n```"
+ },
+ {
+  "local_id": "g3-03",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this class. A `Tally` counts how many times each item was added: `add(item)` increases the count of item by 1 and `count(item)` returns that count as an int (0 for an item that was never added). Example: after t = Tally(); t.add('fox'); t.add('fox'); t.add('owl'), t.count('fox') returns 2 and t.count('elk') returns 0. Keep the given lines and replace the `...` parts.\n\nclass Tally:\n    def __init__(self):\n        self.counts = {}\n\n    def add(self, item):\n        ...  # increase the count of item by 1\n\n    def count(self, item):\n        ...  # return the count of item, 0 if it was never added\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "t = Tally()\nassert t.count('fox') == 0\nt.add('fox'); t.add('fox'); t.add('owl')\nassert t.count('fox') == 2\nassert t.count('owl') == 1\nassert t.count('elk') == 0\nu = Tally()\nfor k in [3, 1, 3, 3]: u.add(k)\nassert u.count(3) == 3\nassert u.count(1) == 1\nassert t.count(3) == 0"
+   }
+  ],
+  "reference": "```python\nclass Tally:\n    def __init__(self):\n        self.counts = {}\n\n    def add(self, item):\n        self.counts[item] = self.counts.get(item, 0) + 1\n\n    def count(self, item):\n        return self.counts.get(item, 0)\n```",
+  "negative": "```python\nclass Tally:\n    def __init__(self):\n        self.counts = {}\n\n    def add(self, item):\n        self.counts[item] = 1\n\n    def count(self, item):\n        return self.counts.get(item, 0)\n```"
+ },
+ {
+  "local_id": "g3-04",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this generator function. `countdown(n, step)` yields n, then n - step, then n - 2*step and so on, for as long as the value is greater than 0 (step is a positive integer), e.g. list(countdown(10, 3)) returns [10, 7, 4, 1], list(countdown(6, 2)) returns [6, 4, 2] and list(countdown(0, 5)) returns []. Keep the given lines and replace the `...` parts.\n\ndef countdown(n, step):\n    while ...:\n        yield n\n        ...\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert list(countdown(10, 3)) == [10, 7, 4, 1]\nassert list(countdown(6, 2)) == [6, 4, 2]\nassert list(countdown(0, 5)) == []\nassert list(countdown(1, 1)) == [1]\nassert list(countdown(-4, 2)) == []\nassert list(countdown(5, 9)) == [5]"
+   }
+  ],
+  "reference": "```python\ndef countdown(n, step):\n    while n > 0:\n        yield n\n        n -= step\n```",
+  "negative": "```python\ndef countdown(n, step):\n    while n >= 0:\n        yield n\n        n -= step\n```"
+ },
+ {
+  "local_id": "g3-05",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Here is a helper function that scores a lower-case word (a=1, b=2, ..., z=26, summed):\n\ndef word_score(word):\n    return sum(ord(c) - ord('a') + 1 for c in word)\n\nWrite a function `best_word(words)` that calls `word_score` and returns the word from the list with the highest score. If the list is empty it returns ''. Examples: best_word(['cab', 'zz', 'hello']) returns 'zz' (scores 6, 52, 52: on a tie the earlier word wins) and best_word([]) returns ''. Your reply must contain both functions: `word_score` exactly as given, and `best_word`.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert best_word(['cab', 'zz', 'hello']) == 'zz'\nassert best_word([]) == ''\nassert best_word(['a']) == 'a'\nassert best_word(['aaaa', 'z']) == 'z'\nassert best_word(['bat', 'tab', 'abt']) == 'bat'\nassert word_score('cab') == 6"
+   }
+  ],
+  "reference": "```python\ndef word_score(word):\n    return sum(ord(c) - ord('a') + 1 for c in word)\n\ndef best_word(words):\n    best = ''\n    for w in words:\n        if best == '' or word_score(w) > word_score(best):\n            best = w\n    return best\n```",
+  "negative": "```python\ndef word_score(word):\n    return sum(ord(c) - ord('a') + 1 for c in word)\n\ndef best_word(words):\n    best = ''\n    for w in words:\n        if len(w) > len(best):\n            best = w\n    return best\n```"
+ },
+ {
+  "local_id": "g3-06",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "easy",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this function. `last_index(xs, target)` returns the index of the LAST occurrence of target in the list xs, or -1 if target is not in the list, e.g. last_index([4, 7, 4, 9], 4) returns 2 and last_index([], 1) returns -1. Keep the given lines and replace the `...` parts.\n\ndef last_index(xs, target):\n    i = len(xs) - 1\n    while i >= 0:\n        if ...:\n            return i\n        ...\n    return -1\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert last_index([4, 7, 4, 9], 4) == 2\nassert last_index([], 1) == -1\nassert last_index([5], 5) == 0\nassert last_index([1, 2, 3], 8) == -1\nassert last_index(['a', 'b', 'a', 'a'], 'a') == 3\nassert last_index([0, 0, 1], 1) == 2"
+   }
+  ],
+  "reference": "```python\ndef last_index(xs, target):\n    i = len(xs) - 1\n    while i >= 0:\n        if xs[i] == target:\n            return i\n        i -= 1\n    return -1\n```",
+  "negative": "```python\ndef last_index(xs, target):\n    i = 0\n    while i < len(xs):\n        if xs[i] == target:\n            return i\n        i += 1\n    return -1\n```"
+ },
+ {
+  "local_id": "g3-07",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this binary search. `find_first(xs, target)` takes a list sorted in ascending order that may contain duplicates and returns the index of the FIRST occurrence of target, or -1 if target is absent, e.g. find_first([1, 3, 3, 3, 8], 3) returns 1, find_first([1, 3, 8], 5) returns -1 and find_first([], 2) returns -1. Keep the given lines and replace the `...` parts.\n\ndef find_first(xs, target):\n    lo, hi = 0, len(xs)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            ...\n        else:\n            ...\n    if lo < len(xs) and xs[lo] == target:\n        return lo\n    return -1\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert find_first([1, 3, 3, 3, 8], 3) == 1\nassert find_first([1, 3, 8], 5) == -1\nassert find_first([], 2) == -1\nassert find_first([2, 2, 2, 2], 2) == 0\nassert find_first([1, 2, 4, 6, 9], 9) == 4\nassert find_first([1, 2, 4, 6, 9], 1) == 0\nassert find_first([1, 2, 4, 6, 9], 10) == -1\nassert find_first([1, 2, 4, 4, 6, 9, 9], 6) == 4"
+   }
+  ],
+  "reference": "```python\ndef find_first(xs, target):\n    lo, hi = 0, len(xs)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(xs) and xs[lo] == target:\n        return lo\n    return -1\n```",
+  "negative": "```python\ndef find_first(xs, target):\n    lo, hi = 0, len(xs)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    if lo < len(xs) and xs[lo] == target:\n        return lo\n    return -1\n```"
+ },
+ {
+  "local_id": "g3-08",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this recursive function. `depth_sum(nested, depth=1)` takes a list whose items are integers or further lists of the same kind and returns the sum of every integer multiplied by its nesting depth: integers directly in the outer list have depth 1, integers one list deeper have depth 2, and so on. Examples: depth_sum([1, [2, [3]]]) returns 14 (1*1 + 2*2 + 3*3) and depth_sum([]) returns 0. Keep the given lines and replace the `...` parts.\n\ndef depth_sum(nested, depth=1):\n    total = 0\n    for item in nested:\n        if isinstance(item, list):\n            total += ...\n        else:\n            total += ...\n    return total\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert depth_sum([1, [2, [3]]]) == 14\nassert depth_sum([]) == 0\nassert depth_sum([4, 5]) == 9\nassert depth_sum([[1, 1], 2, [1, 1]]) == 10\nassert depth_sum([[[[2]]]]) == 8\nassert depth_sum([[], [[]], -3, [-1]]) == -5"
+   }
+  ],
+  "reference": "```python\ndef depth_sum(nested, depth=1):\n    total = 0\n    for item in nested:\n        if isinstance(item, list):\n            total += depth_sum(item, depth + 1)\n        else:\n            total += item * depth\n    return total\n```",
+  "negative": "```python\ndef depth_sum(nested, depth=1):\n    total = 0\n    for item in nested:\n        if isinstance(item, list):\n            total += depth_sum(item, depth)\n        else:\n            total += item * depth\n    return total\n```"
+ },
+ {
+  "local_id": "g3-09",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this class. An `Inventory` keeps item quantities in the dict `self.stock`. `add(item, qty)` increases the stock of item by qty (creating the item if needed). `remove(item, qty)` returns False and changes nothing when the item is unknown or has less than qty in stock; otherwise it subtracts qty, deletes the item from `self.stock` if its quantity reaches 0, and returns True. Example: after inv = Inventory(); inv.add('nail', 5), inv.remove('nail', 7) returns False, inv.remove('nail', 5) returns True and inv.stock is then {}. Keep the given lines and replace the `...` parts.\n\nclass Inventory:\n    def __init__(self):\n        self.stock = {}\n\n    def add(self, item, qty):\n        ...  # increase the stock of item by qty\n\n    def remove(self, item, qty):\n        if ...:  # item unknown or not enough stock\n            return False\n        self.stock[item] -= qty\n        if self.stock[item] == 0:\n            ...  # forget the item\n        return True\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "inv = Inventory()\ninv.add('nail', 5)\nassert inv.remove('nail', 7) == False\nassert inv.remove('nail', 5) == True\nassert inv.stock == {}\nassert inv.remove('bolt', 1) == False\ninv.add('bolt', 2); inv.add('bolt', 3); inv.add('glue', 1)\nassert inv.remove('bolt', 4) == True\nassert inv.stock == {'bolt': 1, 'glue': 1}\nassert inv.remove('bolt', 2) == False\nassert inv.stock == {'bolt': 1, 'glue': 1}"
+   }
+  ],
+  "reference": "```python\nclass Inventory:\n    def __init__(self):\n        self.stock = {}\n\n    def add(self, item, qty):\n        self.stock[item] = self.stock.get(item, 0) + qty\n\n    def remove(self, item, qty):\n        if self.stock.get(item, 0) < qty:\n            return False\n        self.stock[item] -= qty\n        if self.stock[item] == 0:\n            del self.stock[item]\n        return True\n```",
+  "negative": "```python\nclass Inventory:\n    def __init__(self):\n        self.stock = {}\n\n    def add(self, item, qty):\n        self.stock[item] = self.stock.get(item, 0) + qty\n\n    def remove(self, item, qty):\n        if self.stock.get(item, 0) <= qty:\n            return False\n        self.stock[item] -= qty\n        if self.stock[item] == 0:\n            del self.stock[item]\n        return True\n```"
+ },
+ {
+  "local_id": "g3-10",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this generator function. `chunks(xs, n)` yields consecutive pieces of the list xs as separate lists of exactly n items each; if items are left over at the end they are yielded as one shorter final list, and no empty list is ever yielded. Examples: list(chunks([1, 2, 3, 4, 5], 2)) returns [[1, 2], [3, 4], [5]], list(chunks([1, 2, 3, 4], 2)) returns [[1, 2], [3, 4]] and list(chunks([], 3)) returns []. Keep the given lines and replace the `...` parts.\n\ndef chunks(xs, n):\n    buf = []\n    for x in xs:\n        buf.append(x)\n        if ...:\n            yield buf\n            ...  # start a fresh list\n    if ...:\n        yield buf\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert list(chunks([1, 2, 3, 4, 5], 2)) == [[1, 2], [3, 4], [5]]\nassert list(chunks([1, 2, 3, 4], 2)) == [[1, 2], [3, 4]]\nassert list(chunks([], 3)) == []\nassert list(chunks(['a', 'b'], 5)) == [['a', 'b']]\nassert list(chunks([7, 8, 9], 1)) == [[7], [8], [9]]\nassert list(chunks([1, 2, 3, 4, 5, 6, 7], 3)) == [[1, 2, 3], [4, 5, 6], [7]]"
+   }
+  ],
+  "reference": "```python\ndef chunks(xs, n):\n    buf = []\n    for x in xs:\n        buf.append(x)\n        if len(buf) == n:\n            yield buf\n            buf = []\n    if buf:\n        yield buf\n```",
+  "negative": "```python\ndef chunks(xs, n):\n    buf = []\n    for x in xs:\n        buf.append(x)\n        if len(buf) == n:\n            yield buf\n            buf = []\n    if len(buf) < n:\n        yield buf\n```"
+ },
+ {
+  "local_id": "g3-11",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Here is a helper function:\n\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\nWrite a function `lcm_all(nums)` that calls `gcd` and returns the least common multiple of a list of positive integers (the smallest positive integer divisible by every number in the list). An empty list returns 1. Examples: lcm_all([4, 6]) returns 12, lcm_all([2, 3, 4, 6]) returns 12 and lcm_all([]) returns 1. Your reply must contain both functions: `gcd` exactly as given, and `lcm_all`.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert lcm_all([4, 6]) == 12\nassert lcm_all([2, 3, 4, 6]) == 12\nassert lcm_all([]) == 1\nassert lcm_all([7]) == 7\nassert lcm_all([5, 5, 5]) == 5\nassert lcm_all([3, 5, 7]) == 105\nassert lcm_all([12, 18, 30]) == 180\nassert gcd(12, 18) == 6"
+   }
+  ],
+  "reference": "```python\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\ndef lcm_all(nums):\n    result = 1\n    for n in nums:\n        result = result * n // gcd(result, n)\n    return result\n```",
+  "negative": "```python\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\ndef lcm_all(nums):\n    result = 1\n    for n in nums:\n        result = result * n\n    return result\n```"
+ },
+ {
+  "local_id": "g3-12",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this function. `unique_names(names)` removes repeated names from a list of strings, where two names count as the same if they differ only in upper/lower case. It returns a new list that keeps the FIRST spelling of each name, in the original order, e.g. unique_names(['Ana', 'bo', 'ANA', 'Bo', 'cy']) returns ['Ana', 'bo', 'cy'] and unique_names([]) returns []. Keep the given lines and replace the `...` parts.\n\ndef unique_names(names):\n    seen = set()\n    out = []\n    for name in names:\n        key = ...\n        if ...:\n            ...\n            out.append(name)\n    return out\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert unique_names(['Ana', 'bo', 'ANA', 'Bo', 'cy']) == ['Ana', 'bo', 'cy']\nassert unique_names([]) == []\nassert unique_names(['Zed']) == ['Zed']\nassert unique_names(['x', 'X', 'x', 'X']) == ['x']\nassert unique_names(['MIA', 'mia', 'Lou', 'Mia', 'lou']) == ['MIA', 'Lou']\nassert unique_names(['al', 'Alf', 'AL', 'ALF']) == ['al', 'Alf']"
+   }
+  ],
+  "reference": "```python\ndef unique_names(names):\n    seen = set()\n    out = []\n    for name in names:\n        key = name.lower()\n        if key not in seen:\n            seen.add(key)\n            out.append(name)\n    return out\n```",
+  "negative": "```python\ndef unique_names(names):\n    seen = set()\n    out = []\n    for name in names:\n        key = name.lower()\n        if key not in seen:\n            seen.add(key)\n            out.append(key)\n    return out\n```"
+ },
+ {
+  "local_id": "g3-13",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this recursive function. `grid_paths(rows, cols)` returns the number of different routes from the top-left cell to the bottom-right cell of a grid with `rows` rows and `cols` columns (both at least 1) when each move goes one cell right or one cell down. A grid with a single row or a single column has exactly 1 route. Results are cached in the dict `memo`. Examples: grid_paths(2, 2) returns 2, grid_paths(3, 3) returns 6 and grid_paths(1, 5) returns 1. Keep the given lines and replace the `...` parts.\n\ndef grid_paths(rows, cols, memo=None):\n    if memo is None:\n        memo = {}\n    if ...:  # a single row or a single column\n        return 1\n    if (rows, cols) not in memo:\n        memo[(rows, cols)] = ...\n    return memo[(rows, cols)]\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert grid_paths(2, 2) == 2\nassert grid_paths(3, 3) == 6\nassert grid_paths(1, 5) == 1\nassert grid_paths(4, 1) == 1\nassert grid_paths(1, 1) == 1\nassert grid_paths(3, 7) == 28\nassert grid_paths(2, 6) == 6\nassert grid_paths(12, 12) == 705432"
+   }
+  ],
+  "reference": "```python\ndef grid_paths(rows, cols, memo=None):\n    if memo is None:\n        memo = {}\n    if rows == 1 or cols == 1:\n        return 1\n    if (rows, cols) not in memo:\n        memo[(rows, cols)] = grid_paths(rows - 1, cols, memo) + grid_paths(rows, cols - 1, memo)\n    return memo[(rows, cols)]\n```",
+  "negative": "```python\ndef grid_paths(rows, cols, memo=None):\n    if memo is None:\n        memo = {}\n    if rows == 1 or cols == 1:\n        return 1\n    if (rows, cols) not in memo:\n        memo[(rows, cols)] = grid_paths(rows - 1, cols, memo) + grid_paths(rows - 1, cols - 1, memo)\n    return memo[(rows, cols)]\n```"
+ },
+ {
+  "local_id": "g3-14",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "medium",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this recursive function. `to_base(n, b)` returns the integer n written in base b (2 <= b <= 16) as a string, using the digits 0-9 and then lower-case a-f. Zero gives '0' and a negative number gets a leading '-'. Examples: to_base(255, 16) returns 'ff', to_base(5, 2) returns '101', to_base(0, 7) returns '0' and to_base(-10, 2) returns '-1010'. Keep the given lines and replace the `...` parts.\n\ndef to_base(n, b):\n    digits = '0123456789abcdef'\n    if n < 0:\n        return ...\n    if n < b:\n        return ...\n    return ...\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert to_base(255, 16) == 'ff'\nassert to_base(5, 2) == '101'\nassert to_base(0, 7) == '0'\nassert to_base(-10, 2) == '-1010'\nassert to_base(9, 10) == '9'\nassert to_base(100, 3) == '10201'\nassert to_base(-171, 16) == '-ab'\nassert to_base(16, 16) == '10'"
+   }
+  ],
+  "reference": "```python\ndef to_base(n, b):\n    digits = '0123456789abcdef'\n    if n < 0:\n        return '-' + to_base(-n, b)\n    if n < b:\n        return digits[n]\n    return to_base(n // b, b) + digits[n % b]\n```",
+  "negative": "```python\ndef to_base(n, b):\n    digits = '0123456789abcdef'\n    if n < 0:\n        return '-' + to_base(-n, b)\n    if n < b:\n        return digits[n]\n    return digits[n % b] + to_base(n // b, b)\n```"
+ },
+ {
+  "local_id": "g3-15",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this function. `longest_streak(xs)` finds the longest run of equal neighbouring values in the list xs and returns [start, length], where start is the index at which that run begins. If several runs share the greatest length, the EARLIEST one wins. An empty list returns [0, 0]. Examples: longest_streak([5, 5, 2, 2, 2, 5]) returns [2, 3], longest_streak([1, 1, 4, 4]) returns [0, 2] and longest_streak([]) returns [0, 0]. Keep the given lines and replace the `...` parts.\n\ndef longest_streak(xs):\n    best_start, best_len = 0, 0\n    start = 0\n    for i in range(len(xs)):\n        if i > 0 and xs[i] != xs[i - 1]:\n            ...  # a new run begins at index i\n        length = ...  # length of the current run up to and including index i\n        if ...:\n            best_start, best_len = start, length\n    return [best_start, best_len]\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert longest_streak([5, 5, 2, 2, 2, 5]) == [2, 3]\nassert longest_streak([1, 1, 4, 4]) == [0, 2]\nassert longest_streak([]) == [0, 0]\nassert longest_streak([9]) == [0, 1]\nassert longest_streak([3, 1, 2]) == [0, 1]\nassert longest_streak([0, 7, 7, 7, 7]) == [1, 4]\nassert longest_streak(['a', 'a', 'b', 'a', 'a', 'a', 'b', 'b', 'b']) == [3, 3]"
+   }
+  ],
+  "reference": "```python\ndef longest_streak(xs):\n    best_start, best_len = 0, 0\n    start = 0\n    for i in range(len(xs)):\n        if i > 0 and xs[i] != xs[i - 1]:\n            start = i\n        length = i - start + 1\n        if length > best_len:\n            best_start, best_len = start, length\n    return [best_start, best_len]\n```",
+  "negative": "```python\ndef longest_streak(xs):\n    best_start, best_len = 0, 0\n    start = 0\n    for i in range(len(xs)):\n        if i > 0 and xs[i] != xs[i - 1]:\n            start = i\n        length = i - start + 1\n        if length >= best_len:\n            best_start, best_len = start, length\n    return [best_start, best_len]\n```"
+ },
+ {
+  "local_id": "g3-16",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this class. A `RecentCache` stores at most `capacity` key/value pairs (capacity is at least 1). `self.keys` lists the stored keys from least recently used (front) to most recently used (end). `get(key)` returns the stored value and makes that key the most recently used; it returns None for a missing key. `put(key, value)` stores or updates the pair and makes the key the most recently used; when a NEW key is put into a full cache, the least recently used key is removed first. Example: c = RecentCache(2); c.put('a', 1); c.put('b', 2); c.get('a'); c.put('c', 3) removes 'b', so c.get('b') returns None and c.get('a') returns 1. Keep the given lines and replace the `...` parts.\n\nclass RecentCache:\n    def __init__(self, capacity):\n        self.capacity = capacity\n        self.keys = []\n        self.data = {}\n\n    def get(self, key):\n        if key not in self.data:\n            return None\n        ...  # move key to the end of self.keys\n        return self.data[key]\n\n    def put(self, key, value):\n        if key in self.data:\n            self.keys.remove(key)\n        elif ...:  # the cache is full\n            ...  # remove the least recently used key from self.keys and self.data\n        self.keys.append(key)\n        self.data[key] = value\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "c = RecentCache(2)\nc.put('a', 1); c.put('b', 2)\nassert c.get('a') == 1\nc.put('c', 3)\nassert c.get('b') == None\nassert c.get('a') == 1\nassert sorted(c.data) == ['a', 'c']\nd = RecentCache(2)\nd.put('x', 1); d.put('y', 2); d.put('x', 9); d.put('z', 3)\nassert d.get('y') == None\nassert d.get('x') == 9\ne = RecentCache(1)\ne.put('p', 1); e.put('q', 2)\nassert e.get('p') == None\nassert e.get('q') == 2"
+   }
+  ],
+  "reference": "```python\nclass RecentCache:\n    def __init__(self, capacity):\n        self.capacity = capacity\n        self.keys = []\n        self.data = {}\n\n    def get(self, key):\n        if key not in self.data:\n            return None\n        self.keys.remove(key)\n        self.keys.append(key)\n        return self.data[key]\n\n    def put(self, key, value):\n        if key in self.data:\n            self.keys.remove(key)\n        elif len(self.keys) >= self.capacity:\n            oldest = self.keys.pop(0)\n            del self.data[oldest]\n        self.keys.append(key)\n        self.data[key] = value\n```",
+  "negative": "```python\nclass RecentCache:\n    def __init__(self, capacity):\n        self.capacity = capacity\n        self.keys = []\n        self.data = {}\n\n    def get(self, key):\n        if key not in self.data:\n            return None\n        return self.data[key]\n\n    def put(self, key, value):\n        if key in self.data:\n            self.keys.remove(key)\n        elif len(self.keys) >= self.capacity:\n            oldest = self.keys.pop(0)\n            del self.data[oldest]\n        self.keys.append(key)\n        self.data[key] = value\n```"
+ },
+ {
+  "local_id": "g3-17",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this generator function. `split_on(xs, sep)` cuts the list xs at every item equal to sep and yields the pieces between the separators as lists, in order; the separators themselves are dropped. A piece may be empty (two separators in a row, or a separator at the very start or end), and the number of yielded pieces is always the number of separators plus one. Examples: list(split_on([1, 0, 2, 3, 0], 0)) returns [[1], [2, 3], []], list(split_on([4, 5], 0)) returns [[4, 5]] and list(split_on([], 0)) returns [[]]. Keep the given lines and replace the `...` parts.\n\ndef split_on(xs, sep):\n    part = []\n    for x in xs:\n        if x == sep:\n            yield part\n            ...\n        else:\n            ...\n    ...\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert list(split_on([1, 0, 2, 3, 0], 0)) == [[1], [2, 3], []]\nassert list(split_on([4, 5], 0)) == [[4, 5]]\nassert list(split_on([], 0)) == [[]]\nassert list(split_on([0], 0)) == [[], []]\nassert list(split_on([7, 0, 0, 8], 0)) == [[7], [], [8]]\nassert list(split_on(['a', '-', 'b', 'c'], '-')) == [['a'], ['b', 'c']]\nassert list(split_on([0, 1], 0)) == [[], [1]]"
+   }
+  ],
+  "reference": "```python\ndef split_on(xs, sep):\n    part = []\n    for x in xs:\n        if x == sep:\n            yield part\n            part = []\n        else:\n            part.append(x)\n    yield part\n```",
+  "negative": "```python\ndef split_on(xs, sep):\n    part = []\n    for x in xs:\n        if x == sep:\n            yield part\n            part = []\n        else:\n            part.append(x)\n    if part:\n        yield part\n```"
+ },
+ {
+  "local_id": "g3-18",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this function. `balanced(n)` returns a list of all strings made of exactly n '(' and n ')' characters in which the brackets are correctly matched. The inner function `build` grows a string s one character at a time, always trying '(' before ')'; `opened` and `closed` count the '(' and ')' used so far. Examples: balanced(2) returns ['(())', '()()'], balanced(1) returns ['()'] and balanced(0) returns ['']. Keep the given lines and replace the `...` parts.\n\ndef balanced(n):\n    out = []\n    def build(s, opened, closed):\n        if len(s) == 2 * n:\n            out.append(s)\n            return\n        if ...:\n            build(s + '(', opened + 1, closed)\n        if ...:\n            build(s + ')', opened, closed + 1)\n    build('', 0, 0)\n    return out\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert balanced(2) == ['(())', '()()']\nassert balanced(1) == ['()']\nassert balanced(0) == ['']\nassert balanced(3) == ['((()))', '(()())', '(())()', '()(())', '()()()']\nassert len(balanced(4)) == 14\nassert balanced(4)[0] == '(((())))'\nassert balanced(4)[-1] == '()()()()'"
+   }
+  ],
+  "reference": "```python\ndef balanced(n):\n    out = []\n    def build(s, opened, closed):\n        if len(s) == 2 * n:\n            out.append(s)\n            return\n        if opened < n:\n            build(s + '(', opened + 1, closed)\n        if closed < opened:\n            build(s + ')', opened, closed + 1)\n    build('', 0, 0)\n    return out\n```",
+  "negative": "```python\ndef balanced(n):\n    out = []\n    def build(s, opened, closed):\n        if len(s) == 2 * n:\n            out.append(s)\n            return\n        if opened < n:\n            build(s + '(', opened + 1, closed)\n        if closed < n:\n            build(s + ')', opened, closed + 1)\n    build('', 0, 0)\n    return out\n```"
+ },
+ {
+  "local_id": "g3-19",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Here is a helper function that converts a 24-hour clock time such as '07:45' to minutes after midnight:\n\ndef to_minutes(t):\n    h, m = t.split(':')\n    return int(h) * 60 + int(m)\n\nWrite a function `shift_length(start, end)` that calls `to_minutes` and returns how long a work shift lasts, as a string of the form '<hours>h<minutes>m' where the hours have no leading zero and the minutes always have exactly two digits. If `end` is earlier on the clock than `start`, the shift runs past midnight and ends the next day. Equal times give '0h00m'. Examples: shift_length('09:15', '17:05') returns '7h50m', shift_length('22:30', '06:00') returns '7h30m' and shift_length('08:00', '08:00') returns '0h00m'. Your reply must contain both functions: `to_minutes` exactly as given, and `shift_length`.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert shift_length('09:15', '17:05') == '7h50m'\nassert shift_length('22:30', '06:00') == '7h30m'\nassert shift_length('08:00', '08:00') == '0h00m'\nassert shift_length('00:00', '23:59') == '23h59m'\nassert shift_length('23:59', '00:00') == '0h01m'\nassert shift_length('10:00', '10:07') == '0h07m'\nassert shift_length('13:20', '01:20') == '12h00m'\nassert to_minutes('07:45') == 465"
+   }
+  ],
+  "reference": "```python\ndef to_minutes(t):\n    h, m = t.split(':')\n    return int(h) * 60 + int(m)\n\ndef shift_length(start, end):\n    d = (to_minutes(end) - to_minutes(start)) % (24 * 60)\n    return '%dh%02dm' % (d // 60, d % 60)\n```",
+  "negative": "```python\ndef to_minutes(t):\n    h, m = t.split(':')\n    return int(h) * 60 + int(m)\n\ndef shift_length(start, end):\n    d = abs(to_minutes(end) - to_minutes(start))\n    return '%dh%02dm' % (d // 60, d % 60)\n```"
+ },
+ {
+  "local_id": "g3-20",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this function. `wrap_words(words, width)` packs a list of words into lines, in order. Words on the same line are joined by one space, and a word is added to the current line only if the line, including that space and the word, is still at most `width` characters long; otherwise the current line is finished and the word starts a new line. A word longer than `width` simply gets a line of its own. It returns the list of lines. Examples: wrap_words(['the', 'quick', 'brown', 'fox'], 9) returns ['the quick', 'brown fox'], wrap_words(['a', 'b', 'c'], 3) returns ['a b', 'c'] and wrap_words([], 5) returns []. Keep the given lines and replace the `...` parts.\n\ndef wrap_words(words, width):\n    lines = []\n    line = ''\n    for w in words:\n        if line == '':\n            line = w\n        elif ...:  # w still fits on the current line\n            line = line + ' ' + w\n        else:\n            ...  # finish the current line, then start a new line with w\n    if line:\n        lines.append(line)\n    return lines\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert wrap_words(['the', 'quick', 'brown', 'fox'], 9) == ['the quick', 'brown fox']\nassert wrap_words(['a', 'b', 'c'], 3) == ['a b', 'c']\nassert wrap_words([], 5) == []\nassert wrap_words(['solo'], 10) == ['solo']\nassert wrap_words(['hi', 'enormous', 'ox', 'ox'], 5) == ['hi', 'enormous', 'ox ox']\nassert wrap_words(['ab', 'cd', 'ef', 'gh'], 8) == ['ab cd ef', 'gh']\nassert wrap_words(['ab', 'cd', 'ef', 'gh'], 100) == ['ab cd ef gh']\nassert wrap_words(['one', 'two'], 6) == ['one', 'two']"
+   }
+  ],
+  "reference": "```python\ndef wrap_words(words, width):\n    lines = []\n    line = ''\n    for w in words:\n        if line == '':\n            line = w\n        elif len(line) + 1 + len(w) <= width:\n            line = line + ' ' + w\n        else:\n            lines.append(line)\n            line = w\n    if line:\n        lines.append(line)\n    return lines\n```",
+  "negative": "```python\ndef wrap_words(words, width):\n    lines = []\n    line = ''\n    for w in words:\n        if line == '':\n            line = w\n        elif len(line) + len(w) <= width:\n            line = line + ' ' + w\n        else:\n            lines.append(line)\n            line = w\n    if line:\n        lines.append(line)\n    return lines\n```"
+ },
+ {
+  "local_id": "g3-21",
+  "family": "coding",
+  "subtheme": "complete-partial",
+  "difficulty": "hard",
+  "mode": "code",
+  "max_tokens": 320,
+  "prompt": "Complete this class. A `TextBuffer` records pieces of text. `write(s)` appends the piece s; `undo()` takes back the most recent piece that is still in the text; `redo()` puts back the piece that was undone most recently; `text()` returns all current pieces joined together. `undo()` and `redo()` do nothing when there is nothing to undo or redo, and after any `write` the previously undone pieces can no longer be redone. Example: b = TextBuffer(); b.write('ab'); b.write('cd'); b.undo() gives b.text() == 'ab'; then b.redo() gives 'abcd'; then b.undo(); b.write('X'); b.redo() gives 'abX'. Keep the given lines and replace the `...` parts.\n\nclass TextBuffer:\n    def __init__(self):\n        self.parts = []\n        self.undone = []\n\n    def write(self, s):\n        self.parts.append(s)\n        ...  # the undone pieces can no longer be redone\n\n    def undo(self):\n        if self.parts:\n            ...  # move the last piece from self.parts to self.undone\n\n    def redo(self):\n        if self.undone:\n            ...  # move the most recently undone piece back to self.parts\n\n    def text(self):\n        return ''.join(self.parts)\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "b = TextBuffer()\nassert b.text() == ''\nb.undo(); b.redo()\nassert b.text() == ''\nb.write('ab'); b.write('cd'); b.undo()\nassert b.text() == 'ab'\nb.redo()\nassert b.text() == 'abcd'\nb.undo(); b.write('X'); b.redo()\nassert b.text() == 'abX'\nc = TextBuffer()\nc.write('1'); c.write('2'); c.write('3'); c.undo(); c.undo(); c.redo()\nassert c.text() == '12'\nc.redo(); c.redo()\nassert c.text() == '123'\nc.undo(); c.undo(); c.undo(); c.undo()\nassert c.text() == ''"
+   }
+  ],
+  "reference": "```python\nclass TextBuffer:\n    def __init__(self):\n        self.parts = []\n        self.undone = []\n\n    def write(self, s):\n        self.parts.append(s)\n        self.undone = []\n\n    def undo(self):\n        if self.parts:\n            self.undone.append(self.parts.pop())\n\n    def redo(self):\n        if self.undone:\n            self.parts.append(self.undone.pop())\n\n    def text(self):\n        return ''.join(self.parts)\n```",
+  "negative": "```python\nclass TextBuffer:\n    def __init__(self):\n        self.parts = []\n        self.undone = []\n\n    def write(self, s):\n        self.parts.append(s)\n\n    def undo(self):\n        if self.parts:\n            self.undone.append(self.parts.pop())\n\n    def redo(self):\n        if self.undone:\n            self.parts.append(self.undone.pop())\n\n    def text(self):\n        return ''.join(self.parts)\n```"
+ }
+]

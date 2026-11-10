@@ -1,0 +1,291 @@
+{
+ "actor": "gen-math-5",
+ "role": "task-generation",
+ "family": "math",
+ "subtheme": "logic and deduction",
+ "output_file": "tasks/math/gen_5.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "subthemes": [
+  "logic-comparison-chain",
+  "logic-assignment",
+  "logic-syllogism",
+  "logic-truth-liar",
+  "logic-seating",
+  "logic-elimination",
+  "logic-conditional",
+  "logic-ordering",
+  "logic-truth-liar",
+  "logic-assignment-grid",
+  "logic-circular-seating",
+  "logic-must-be-true",
+  "logic-set-membership",
+  "logic-truth-liar",
+  "logic-assignment-grid",
+  "logic-conditional-ordering",
+  "logic-half-truths",
+  "logic-could-be-true",
+  "logic-one-liar",
+  "logic-floors",
+  "logic-mislabelled-boxes"
+ ],
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/math/spec.md, tasks/math/dev.json and the exact/number checker code in lab/core.py.",
+  "Designed 21 distinct deduction puzzles (comparison chain, assignment grids, syllogism, truth-teller/liar variants, seating in a row and round a table, must-be-true and could-be-true lettered questions, conditional ordering, half-truths, one-liar, floors, mislabelled boxes).",
+  "Generated the file with a Python build script that brute-forces every puzzle before writing it.",
+  "Did not run the model on these tasks and did not open other generators' task files."
+ ],
+ "verification_method": "For each task the script enumerates the full state space (permutations, truth assignments, or all 65535 inhabited-type models for the syllogism) and asserts: exactly one solution/answer under all clues (or exactly one lettered option true in all models / in some model); the negative's trap answer differs from the expected answer; for clue-list puzzles, dropping the hardest clue makes the trap answer reachable and every clue is necessary for uniqueness. Exception noted: in g5-17 only Odile's statement pair is strictly necessary once the other two are given (the puzzle is over-determined but has a unique solution).",
+ "per_task_verification": [
+  {
+   "local_id": "g5-01",
+   "expected": "Brin",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "Brin",
+    "Dax",
+    "Hale"
+   ],
+   "trap": "Dax",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-02",
+   "expected": "flute",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "flute",
+    "violin"
+   ],
+   "trap": "violin",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-03",
+   "expected": "B",
+   "n_models": 128,
+   "options_true_in_all_models": [
+    "B"
+   ],
+   "trap": "A",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-04",
+   "expected": "Sefa",
+   "n_solutions_full": 1,
+   "trap": "Marek"
+  },
+  {
+   "local_id": "g5-05",
+   "expected": "1",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "1",
+    "4"
+   ],
+   "trap": "4",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-06",
+   "expected": "Wednesday",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "Monday",
+    "Tuesday",
+    "Wednesday"
+   ],
+   "trap": "Monday",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-07",
+   "expected": "C",
+   "n_models": 1,
+   "options_true_in_all_models": [
+    "C"
+   ],
+   "trap": "D",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-08",
+   "expected": "Jett",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "Jett",
+    "Lorn"
+   ],
+   "trap": "Lorn",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-09",
+   "expected": "Yule",
+   "culprits_consistent_with_exactly_one_true_statement": [
+    "Yule"
+   ],
+   "true_counts": {
+    "Tarn": 2,
+    "Wim": 2,
+    "Yule": 1
+   },
+   "trap": "Tarn"
+  },
+  {
+   "local_id": "g5-10",
+   "expected": "milk",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "milk",
+    "tea"
+   ],
+   "trap": "tea",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-11",
+   "expected": "Lida",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "Ilse",
+    "Kofi",
+    "Lida"
+   ],
+   "trap": "Ilse",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-12",
+   "expected": "B",
+   "n_models": 2,
+   "options_true_in_all_models": [
+    "B"
+   ],
+   "trap": "A",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-13",
+   "expected": "Quill",
+   "people_forced_to_be_trainee": [
+    "Penn",
+    "Quill"
+   ],
+   "trap": "Rusk"
+  },
+  {
+   "local_id": "g5-14",
+   "expected": "Esme",
+   "n_solutions_full": 1,
+   "trap": "Finn"
+  },
+  {
+   "local_id": "g5-15",
+   "expected": "Kade",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "Ines",
+    "Kade"
+   ],
+   "trap": "Ines",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-16",
+   "expected": "Ugo",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "Rhea",
+    "Sven",
+    "Tova",
+    "Ugo"
+   ],
+   "trap": "Rhea",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-17",
+   "expected": "Pavel",
+   "n_solutions_full": 1,
+   "order": [
+    "Pavel",
+    "Odile",
+    "Nico"
+   ],
+   "trap": "Nico",
+   "winner_candidates_if_speaker_dropped": {
+    "Nico": [
+     "Pavel"
+    ],
+    "Odile": [
+     "Nico",
+     "Pavel"
+    ],
+    "Pavel": [
+     "Pavel"
+    ]
+   }
+  },
+  {
+   "local_id": "g5-18",
+   "expected": "C",
+   "n_models": 2,
+   "options_true_in_some_model": [
+    "C"
+   ],
+   "trap": "B",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-19",
+   "expected": "Xavi",
+   "n_solutions_full": 1,
+   "liar": "Wren",
+   "order_oldest_first": [
+    "Zane",
+    "Xavi",
+    "Wren",
+    "Yann"
+   ],
+   "trap": "Wren"
+  },
+  {
+   "local_id": "g5-20",
+   "expected": "2",
+   "n_solutions_full": 1,
+   "answers_if_hardest_clue_dropped": [
+    "1",
+    "2",
+    "4",
+    "5"
+   ],
+   "trap": "1",
+   "every_clue_necessary": true
+  },
+  {
+   "local_id": "g5-21",
+   "expected": "C",
+   "n_solutions_full": 1,
+   "contents_by_label[two gold,two silver,one of each]": [
+    "SS",
+    "GS",
+    "GG"
+   ],
+   "trap": "A"
+  }
+ ],
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/math/gen_5.json --family math",
+ "validator_result": "21/21 valid",
+ "model_pilot_run": false,
+ "notes": [
+  "Baseline pass rates are unknown because these are held-out; difficulty labels are estimates.",
+  "Lettered tasks use exact match on one letter; a reply like 'ANSWER: B)' would fail because ')' is not stripped by core.norm, so the prompt says 'one letter only'.",
+  "g5-05 and g5-20 ask for a seat/floor number and use the number checker."
+ ]
+}

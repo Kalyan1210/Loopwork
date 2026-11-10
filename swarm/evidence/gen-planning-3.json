@@ -1,0 +1,103 @@
+{
+ "actor": "gen-planning-3",
+ "role": "task-generation",
+ "family": "planning",
+ "subtheme": "assignment and capacity allocation",
+ "output": "tasks/planning/gen_3.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/planning/spec.md, the two sub-theme examples in dev.json and the checker code in lab/core.py",
+  "Wrote one generator script that builds all 21 tasks and asserts each expected answer before writing the file",
+  "Ran lab/validate_tasks.py until all tasks passed",
+  "Did not run the model on any task and did not read other generators' files"
+ ],
+ "verification": {
+  "assignment_tasks": "brute force over all permutations (or all 2/3 team splits for g3-11); asserted exactly one assignment satisfies the stated constraints (g3-01,03,06,07,08,11,13,15,17)",
+  "packing_tasks": "exhaustive branch-and-bound bin packing for the true minimum, including the conflict-pair variant (g3-09,10,16,18)",
+  "arithmetic_capacity_tasks": "computed in Python: ceil division and enumeration of trip mixes (g3-02,04,05,12,14,19)",
+  "g3-20": "exhaustive search over crew sequences for each guard count, minimum feasible count is 4",
+  "g3-21": "breadth-first search over (hikers on near bank, boat side) states, minimum crossings is 5",
+  "computed_answers": {
+   "1": {
+    "Ada": "red",
+    "Bo": "blue",
+    "Cy": "green"
+   },
+   "2": 2,
+   "3": {
+    "Ivo": "cleaning",
+    "Rin": "shopping",
+    "Tam": "cooking"
+   },
+   "4": 2,
+   "5": 3,
+   "6": {
+    "large": "hound",
+    "medium": "terrier",
+    "small": "pup"
+   },
+   "7": {
+    "Lena": "Wednesday",
+    "Omar": "Tuesday",
+    "Kai": "Monday"
+   },
+   "8": {
+    "Asa": "east",
+    "Bryn": "north",
+    "Coel": "south",
+    "Dara": "west"
+   },
+   "9": 3,
+   "10": 3,
+   "11": {
+    "Ana": "kitchen",
+    "Ben": "hall",
+    "Cal": "kitchen",
+    "Dee": "hall",
+    "Eli": "hall"
+   },
+   "12": 4,
+   "13": {
+    "Jo": "piano",
+    "Kit": "drums",
+    "Lou": "flute",
+    "Max": "bass"
+   },
+   "14": 4,
+   "15": {
+    "Fen": "yew",
+    "Gus": "rowan",
+    "Hal": "oak",
+    "Ida": "pine",
+    "Jon": "maple"
+   },
+   "16": 3,
+   "17": {
+    "Nia": "Thursday",
+    "Odo": "Monday",
+    "Pia": "Friday",
+    "Quin": "Tuesday",
+    "Rae": "Wednesday"
+   },
+   "18": 3,
+   "19": 5,
+   "20": 4,
+   "21": 5
+  }
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/planning/gen_3.json --family planning",
+  "result": "21/21 valid"
+ },
+ "model_pilot": "not run (held-out)",
+ "notes": [
+  "Formats follow spec.md conventions 1-4; max_tokens 300 where working is allowed, 200 for the two JSON-only easy tasks",
+  "g3-13 uses a non-strict JSON check after plain-text working; the prompt asks for no brackets in the working lines",
+  "Difficulty labels are estimates from the spec's baseline observations, not measured"
+ ]
+}

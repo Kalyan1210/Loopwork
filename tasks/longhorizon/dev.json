@@ -1,0 +1,734 @@
+[
+ {
+  "local_id": "dev-01",
+  "family": "longhorizon",
+  "subtheme": "latest-value-overwrite",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the settings of a fictional greenhouse. Acknowledge each update in a few words. Settings: the heater target is 18 degrees and the fan is off.",
+   "The fan is switched on.",
+   "The heater target is changed to 22 degrees.",
+   "Unrelated: the temperature outside is 9 degrees.",
+   "Correction: the heater target should be 21 degrees, not 22.",
+   "What is the heater target now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 21
+   }
+  ],
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 21"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 22"
+  ]
+ },
+ {
+  "local_id": "dev-02",
+  "family": "longhorizon",
+  "subtheme": "running-counter",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Let's track the stock of lanterns in a fictional shop. After each of my messages, reply with only one line in the form STOCK: <number> giving the current number of lanterns. The shop starts with 20 lanterns.",
+   "A customer buys 5 lanterns.",
+   "A delivery brings 10 more lanterns.",
+   "3 lanterns are found broken and are thrown away."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   },
+   {
+    "type": "reply_check",
+    "index": 1,
+    "check": {
+     "type": "number",
+     "value": 15
+    }
+   }
+  ],
+  "reference": [
+   "STOCK: 20",
+   "STOCK: 15",
+   "STOCK: 25",
+   "STOCK: 22"
+  ],
+  "negative": [
+   "STOCK: 20",
+   "STOCK: 15",
+   "STOCK: 25",
+   "STOCK: 25"
+  ]
+ },
+ {
+  "local_id": "dev-03",
+  "family": "longhorizon",
+  "subtheme": "correction-and-distractor",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "I am logging points for a fictional quiz team called the Otters. After each of my messages, reply with only one line in the form TOTAL: <number> giving the Otters' current total. Round 1: the Otters score 17 points.",
+   "Round 2: the Otters score 9 points.",
+   "Unrelated: the rival team, the Herons, has 40 points so far.",
+   "Correction: the Round 2 score was recorded wrongly. The Otters scored 6 in Round 2, not 9.",
+   "Round 3: the Otters score 11 points and then lose 4 points as a penalty."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "reference": [
+   "TOTAL: 17",
+   "TOTAL: 26",
+   "TOTAL: 26",
+   "TOTAL: 23",
+   "TOTAL: 30"
+  ],
+  "negative": [
+   "TOTAL: 17",
+   "TOTAL: 26",
+   "TOTAL: 26",
+   "TOTAL: 26",
+   "TOTAL: 33"
+  ]
+ },
+ {
+  "local_id": "dev-04",
+  "family": "longhorizon",
+  "subtheme": "object-locations",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track where things are in a fictional workshop. There are three drawers: red, blue and green. The key is in the red drawer, the coin is in the blue drawer and the ring is in the green drawer. Acknowledge each update in a few words.",
+   "I move the key from the red drawer to the green drawer.",
+   "I move the coin to the red drawer.",
+   "I move everything that is in the green drawer into the blue drawer.",
+   "Which drawer is the key in now, and which drawer is the coin in now? Reply with only a JSON object with exactly the keys \"key\" and \"coin\"; each value is a drawer colour."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "key",
+     "coin"
+    ],
+    "equals": {
+     "key": "blue",
+     "coin": "red"
+    }
+   }
+  ],
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"key\": \"blue\", \"coin\": \"red\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"key\": \"green\", \"coin\": \"red\"}"
+  ]
+ },
+ {
+  "local_id": "dev-05",
+  "family": "longhorizon",
+  "subtheme": "ordered-queue",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track a queue at a fictional bakery. After each of my messages, reply with only one line in the form QUEUE: followed by the names from front to back, separated by commas. From front to back the queue is: Ines, Tomas, Rahel, Dov.",
+   "Tomas leaves the queue. Then Mirek joins at the back.",
+   "The person at the front is served and leaves.",
+   "Dov lets Mirek go ahead of him, so the two of them swap places.",
+   "Suri joins at the back."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(queue\\W+)?rahel\\W+mirek\\W+dov\\W+suri\\W*$",
+    "flags": "i"
+   }
+  ],
+  "reference": [
+   "QUEUE: Ines, Tomas, Rahel, Dov",
+   "QUEUE: Ines, Rahel, Dov, Mirek",
+   "QUEUE: Rahel, Dov, Mirek",
+   "QUEUE: Rahel, Mirek, Dov",
+   "QUEUE: Rahel, Mirek, Dov, Suri"
+  ],
+  "negative": [
+   "QUEUE: Ines, Tomas, Rahel, Dov",
+   "QUEUE: Ines, Rahel, Dov, Mirek",
+   "QUEUE: Rahel, Dov, Mirek",
+   "QUEUE: Rahel, Dov, Mirek",
+   "QUEUE: Rahel, Dov, Mirek, Suri"
+  ]
+ },
+ {
+  "local_id": "dev-06",
+  "family": "longhorizon",
+  "subtheme": "multi-account-ledger",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track coin balances for three fictional traders. Start: Asha has 50 coins, Bram has 30 coins and Cleo has 20 coins. Reply with only the word NOTED until I ask a question.",
+   "Asha pays Bram 12 coins.",
+   "Bram pays Cleo 25 coins.",
+   "Cleo pays Asha 10 coins. Then each of the three traders receives a bonus of 5 coins.",
+   "The payment from Bram to Cleo was a mistake and is now fully reversed.",
+   "How many coins does Bram have now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 47
+   }
+  ],
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "30 + 12 - 25 + 5 + 25 = 47\nANSWER: 47"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "30 + 12 - 25 + 5 = 22\nANSWER: 22"
+  ]
+ },
+ {
+  "local_id": "dev-07",
+  "family": "longhorizon",
+  "subtheme": "kv-consolidation",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The key-value store holds the number of jars on three shelves of a fictional pantry under the keys shelf_a, shelf_b and shelf_c. Read all three values, use the calc tool to add them, and store the sum under the key total. Final answer: the total, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "shelf_a": 14,
+    "shelf_b": 9,
+    "shelf_c": 22,
+    "cellar": 31
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.total",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.shelf_c",
+    "value": 22
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "shelf_c"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_a"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_b"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_c"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "14+9+22"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "total",
+      "value": 45
+     }
+    }
+   ],
+   "final": "45"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_a"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_b"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_c"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "14+9"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "total",
+      "value": 23
+     }
+    }
+   ],
+   "final": "23"
+  }
+ },
+ {
+  "local_id": "dev-08",
+  "family": "longhorizon",
+  "subtheme": "file-driven-inventory",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv store holds stock counts for a fictional hardware stall. The file named orders lists today's stock movements, one per line. For each item in the file: read its current count with kv_get, use the calc tool to apply all of its movements, then store the result with kv_set, so that each kv key holds its end-of-day count. Final answer: the end-of-day bolt count, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "bolt": 30,
+    "nut": 8,
+    "washer": 50
+   },
+   "files": {
+    "orders": "bolt: sold 7\nnut: received 20\nbolt: sold 5\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 18
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.bolt",
+    "value": 18
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.nut",
+    "value": 28
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.washer",
+    "value": 50
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "orders"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "bolt"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "nut"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "bolt",
+      "value": 18
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "nut",
+      "value": 28
+     }
+    }
+   ],
+   "final": "18"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "orders"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "bolt"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "nut"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "bolt",
+      "value": 23
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "nut",
+      "value": 28
+     }
+    }
+   ],
+   "final": "23"
+  }
+ },
+ {
+  "local_id": "dev-09",
+  "family": "longhorizon",
+  "subtheme": "pointer-chain",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The kv store describes a fictional treasure trail. Each entry holds a number of points and the name of the next key to read. Begin at the key start and follow the trail entry by entry until an entry's next is \"end\". Do not read keys that are not on the trail. Final answer: the sum of the points of all entries on the trail, just the number.",
+  "tools": [
+   "kv_get",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "start": {
+     "points": 6,
+     "next": "pine"
+    },
+    "pine": {
+     "points": 9,
+     "next": "moss"
+    },
+    "moss": {
+     "points": 4,
+     "next": "fern"
+    },
+    "fern": {
+     "points": 11,
+     "next": "end"
+    },
+    "reed": {
+     "points": 20,
+     "next": "end"
+    },
+    "oak": {
+     "points": 7,
+     "next": "reed"
+    }
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 30
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "fern"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "moss"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "start"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "pine"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "moss"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "fern"
+     }
+    }
+   ],
+   "final": "30"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "start"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "pine"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "moss"
+     }
+    }
+   ],
+   "final": "19"
+  }
+ },
+ {
+  "local_id": "dev-10",
+  "family": "longhorizon",
+  "subtheme": "transfer-and-cleanup",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv keys north and south hold crate counts for two fictional warehouses. Carry out the transfer described in the file named transfer by updating both kv keys. Then write a file named done whose content is just the new south count, and delete the file named transfer. Do not touch any other file. Final answer: the new north count, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "write_file",
+   "delete_file"
+  ],
+  "env": {
+   "kv": {
+    "north": 60,
+    "south": 25
+   },
+   "files": {
+    "transfer": "move 18 crates from north to south",
+    "note": "keep this file"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 42
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.north",
+    "value": 42
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.south",
+    "value": 43
+   },
+   {
+    "type": "env_equals",
+    "path": "files.done",
+    "value": "43"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.transfer"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.note",
+    "value": "keep this file"
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "transfer"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "north"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "south"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "north",
+      "value": 42
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "south",
+      "value": 43
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "done",
+      "content": "43"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "transfer"
+     }
+    }
+   ],
+   "final": "42"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "transfer"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "north"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "south"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "north",
+      "value": 42
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "done",
+      "content": "25"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "transfer"
+     }
+    }
+   ],
+   "final": "42"
+  }
+ }
+]

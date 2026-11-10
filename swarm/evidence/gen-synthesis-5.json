@@ -1,0 +1,108 @@
+{
+ "actor": "gen-synthesis-5",
+ "family": "synthesis",
+ "subtheme": "contradiction detection and entity linking",
+ "output_file": "tasks/synthesis/gen_5.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "mode_counts": {
+  "single": 19,
+  "tool": 2
+ },
+ "what_was_done": "Read lab/TASKS.md, tasks/synthesis/spec.md, dev.json and the checker code in lab/core.py. Wrote 21 tasks with a Python build script: 13 contradiction tasks (11 letter-pair, 1 disputed-detail label, 1 disputed-entity name) and 8 entity-linking chains (2 in tool mode).",
+ "how_answers_were_verified": "Each contradiction task encodes every document's facts as a table (derived values such as 2058-15, 07:40 to 08:15, 6+9+5, weekday of 4 June 2041, 2 km in metres are computed in Python); a pairwise comparison asserts exactly one conflicting pair and that pair becomes the answer. The pair regex is asserted to accept both orders and common surface forms and to reject every other pair and three-letter answers. Chain tasks compute the answer by composing Python dicts (the elimination task enumerates all permutations and asserts a unique assignment). Negatives are the tempting wrong answer (decoy pair, pre-memo value, first-listed entity).",
+ "per_task": [
+  {
+   "local_id": "g5-01",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/C on 'height_m'"
+  },
+  {
+   "local_id": "g5-02",
+   "verified_by": "structured facts, python comparison: only attribute with two values is 'founder'"
+  },
+  {
+   "local_id": "g5-03",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/C on 'entry_price_crowns'"
+  },
+  {
+   "local_id": "g5-04",
+   "verified_by": "python dict composition port[crew[person]]"
+  },
+  {
+   "local_id": "g5-05",
+   "verified_by": "per-document length tables, python comparison: only boat with two values is 'Curlew'"
+  },
+  {
+   "local_id": "g5-06",
+   "verified_by": "python dict composition keeper[prize['first']]"
+  },
+  {
+   "local_id": "g5-07",
+   "verified_by": "python dict composition room[role_of[person]]"
+  },
+  {
+   "local_id": "g5-08",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/C on 'rehearsal_day'"
+  },
+  {
+   "local_id": "g5-09",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict B/D on 'mill_is_upstream_of_bridge'"
+  },
+  {
+   "local_id": "g5-10",
+   "verified_by": "python dict composition leader[team[supports[depot]]]"
+  },
+  {
+   "local_id": "g5-11",
+   "verified_by": "python dict composition warden[place[group[person]]]; reference replayed in sandbox by validator"
+  },
+  {
+   "local_id": "g5-12",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict B/D on 'seats:Wren'"
+  },
+  {
+   "local_id": "g5-13",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/C on 'length_m'"
+  },
+  {
+   "local_id": "g5-14",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/C on 'yachts_ahead_of_kestrel'"
+  },
+  {
+   "local_id": "g5-15",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/E on 'vane_start_year'"
+  },
+  {
+   "local_id": "g5-16",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/D on 'crossing_minutes'"
+  },
+  {
+   "local_id": "g5-17",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict A/C on 'trail_km'"
+  },
+  {
+   "local_id": "g5-18",
+   "verified_by": "python function applying the exception rule over section/wing/heads tables"
+  },
+  {
+   "local_id": "g5-19",
+   "verified_by": "python enumeration of all coxswain-boat permutations: unique assignment, then station lookup"
+  },
+  {
+   "local_id": "g5-20",
+   "verified_by": "python dict composition member[crew_after_memo[order_of[customer]]]; reference replayed in sandbox by validator"
+  },
+  {
+   "local_id": "g5-21",
+   "verified_by": "structured facts per document, python pairwise comparison: unique conflict B/E on 'second_day'"
+  }
+ ],
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/synthesis/gen_5.json --family synthesis",
+ "validator_result": "21/21 valid (exit 0)",
+ "model_run_on_tasks": false,
+ "limitations": "Tasks are held-out and were not piloted on the model, so the easy/medium/hard labels are estimates based on the spec's pilot notes. The document texts are hand-written alongside the fact tables; agreement between text and table was checked by reading, not mechanically."
+}

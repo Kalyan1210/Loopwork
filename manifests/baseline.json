@@ -1,0 +1,188 @@
+{
+ "recorded_at": "2026-11-10T00:01:55-0500",
+ "model": {
+  "name": "qwen3:1.7b (Ollama library tag)",
+  "gguf_general_name": "Qwen3 1.7B",
+  "architecture": "qwen3",
+  "parameters_label": "1.7B",
+  "blocks": 28,
+  "hidden_size": 2048,
+  "ffn_size": 6144,
+  "attention_heads": 16,
+  "kv_heads": 8,
+  "context_length": 40960,
+  "license": "Apache-2.0 (license text shipped as an Ollama layer)",
+  "ollama_manifest_digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7"
+ },
+ "files": {
+  "source_blob": "/Users/saikalyan/.ollama/models/blobs/sha256-3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+  "source_blob_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+  "source_blob_bytes": 1359279776,
+  "source_blob_mtime": "2026-10-21T00:11:42",
+  "baseline_reference": "artifacts/baseline.gguf (APFS copy-on-write clone, mode 0444)",
+  "baseline_reference_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+  "ollama_layers": [
+   {
+    "mediaType": "application/vnd.ollama.image.model",
+    "digest": "sha256:3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+    "size": 1359279776
+   },
+   {
+    "mediaType": "application/vnd.ollama.image.template",
+    "digest": "sha256:ae370d884f108d16e7cc8fd5259ebc5773a0afa6e078b11f4ed7e39a27e0dfc4",
+    "size": 1723
+   },
+   {
+    "mediaType": "application/vnd.ollama.image.license",
+    "digest": "sha256:d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12",
+    "size": 11338
+   },
+   {
+    "mediaType": "application/vnd.ollama.image.params",
+    "digest": "sha256:cff3f395ef3756ab63e58b0ad1b32bb6f802905cae1472e6a12034e4246fbbdb",
+    "size": 120
+   },
+   {
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "digest": "sha256:8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+    "size": 859
+   }
+  ]
+ },
+ "quantization": {
+  "file_type": 15,
+  "file_type_name": "Q4_K_M (mostly Q4_K)",
+  "tensor_types": {
+   "Q6_K": 15,
+   "F32": 113,
+   "Q4_K": 155,
+   "F16": 28
+  },
+  "by_module": {
+   "attn_k": {
+    "Q4_K": 28
+   },
+   "attn_k_norm": {
+    "F32": 28
+   },
+   "attn_norm": {
+    "F32": 28
+   },
+   "attn_output": {
+    "Q4_K": 28
+   },
+   "attn_q": {
+    "Q4_K": 28
+   },
+   "attn_q_norm": {
+    "F32": 28
+   },
+   "attn_v": {
+    "F16": 28
+   },
+   "ffn_down": {
+    "Q6_K": 14,
+    "Q4_K": 14
+   },
+   "ffn_gate": {
+    "Q4_K": 28
+   },
+   "ffn_norm": {
+    "F32": 28
+   },
+   "ffn_up": {
+    "Q4_K": 28
+   },
+   "output": {
+    "Q6_K": 1
+   },
+   "output_norm": {
+    "F32": 1
+   },
+   "token_embd": {
+    "Q4_K": 1
+   }
+  },
+  "directly_editable": "F32 tensors (RMSNorm gains: attn_norm, ffn_norm, attn_q_norm, attn_k_norm, output_norm) and F16 attn_v matrices can be edited exactly in place. Q4_K/Q6_K matrices cannot be edited exactly: a change must be de-quantized and re-quantized, which itself perturbs every weight in the block."
+ },
+ "tokenizer": {
+  "model": "gpt2",
+  "pre": "qwen2",
+  "vocab": "<151936 entries>",
+  "eos": 151645,
+  "chat_template": "none embedded in GGUF; the runner builds ChatML prompts itself (lab/core.py chatml)"
+ },
+ "gguf_metadata": {
+  "GGUF.version": 3,
+  "GGUF.tensor_count": 311,
+  "GGUF.kv_count": 27,
+  "general.architecture": "qwen3",
+  "general.type": "model",
+  "general.name": "Qwen3 1.7B",
+  "general.basename": "Qwen3",
+  "general.size_label": "1.7B",
+  "qwen3.block_count": 28,
+  "qwen3.context_length": 40960,
+  "qwen3.embedding_length": 2048,
+  "qwen3.feed_forward_length": 6144,
+  "qwen3.attention.head_count": 16,
+  "qwen3.attention.head_count_kv": 8,
+  "qwen3.rope.freq_base": 1000000.0,
+  "qwen3.attention.layer_norm_rms_epsilon": 9.999999974752427e-07,
+  "qwen3.attention.key_length": 128,
+  "qwen3.attention.value_length": 128,
+  "tokenizer.ggml.model": "gpt2",
+  "tokenizer.ggml.pre": "qwen2",
+  "tokenizer.ggml.tokens": "<151936 entries>",
+  "tokenizer.ggml.token_type": "<151936 entries>",
+  "tokenizer.ggml.merges": "<151387 entries>",
+  "tokenizer.ggml.eos_token_id": 151645,
+  "tokenizer.ggml.padding_token_id": 151643,
+  "tokenizer.ggml.bos_token_id": 151643,
+  "tokenizer.ggml.add_bos_token": false,
+  "tokenizer.chat_template": "{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more f",
+  "general.quantization_version": 2,
+  "general.file_type": 15
+ },
+ "runtime": {
+  "inference": "llama.cpp llama-server",
+  "llama_cpp_version": "version: 0.9.0 (build 12110, commit cd959bae9)\nbuilt with AppleClang 21.0.0.21000401 for Darwin arm64",
+  "ollama_version": "ollama version is 0.40.6",
+  "python": "3.13.5",
+  "gguf_py": "Version: 0.19.0",
+  "numpy": "2.5.4",
+  "server_args": [
+   "-c",
+   "8192",
+   "-np",
+   "1",
+   "-ngl",
+   "99",
+   "--seed",
+   "0",
+   "--no-webui"
+  ],
+  "inference_settings": {
+   "temperature": 0.0,
+   "seed": 0,
+   "top_k": 1,
+   "top_p": 1.0,
+   "repeat_penalty": 1.0,
+   "stop": [
+    "<|im_end|>",
+    "<|im_start|>"
+   ],
+   "cache_prompt": true
+  },
+  "thinking": "disabled for every condition by pre-filling an empty <think></think> block"
+ },
+ "hardware": {
+  "chip": "Apple M3",
+  "cores": "8",
+  "performance_cores": "4",
+  "memory_bytes": 8589934592,
+  "os": "macOS 27.0.1",
+  "machine": "arm64",
+  "disk_free": "15Gi"
+ }
+}

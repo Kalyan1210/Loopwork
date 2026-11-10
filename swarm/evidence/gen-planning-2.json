@@ -1,0 +1,45 @@
+{
+ "actor": "gen-planning-2",
+ "role": "task-generation",
+ "family": "planning",
+ "subtheme": "clock and duration scheduling",
+ "output": "tasks/planning/gen_2.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "subthemes": [
+  "fixed-sequence",
+  "latest-start",
+  "forced-wait",
+  "staggered-parallel",
+  "idle-time",
+  "slack",
+  "non-binding-window",
+  "fixed-break",
+  "window-forced-order",
+  "latest-start-with-gap",
+  "two-parallel-chains",
+  "slots-with-gaps",
+  "deadline-overrun",
+  "common-window",
+  "critical-path",
+  "two-stage-pipeline",
+  "critical-path-clock",
+  "latest-start-parallel",
+  "deadline-forced-order",
+  "hands-on-vs-waiting",
+  "work-rest-cycle"
+ ],
+ "what_i_did": "Read lab/TASKS.md, tasks/planning/spec.md, tasks/planning/dev.json and the checker code in lab/core.py. Wrote 21 single-mode tasks (g2-01..g2-21), each with a different scheduling idea: plain sequence, latest start, relative drying gap, staggered parallel starts, idle time, slack, non-binding window, fixed lunch break, window-forced order, backward plan with passive gap, two parallel chains, repeated slots with gaps, deadline overrun, common free window, critical path, two-machine pipeline, critical path on the clock with an arrival time, latest start over parallel chains, deadline-forced order of four jobs, hands-on vs waiting steps for one cook, work/rest cycle.",
+ "verification": "Every expected answer is computed in Python by the generator script (clock arithmetic in minutes, a longest-chain function for dependency graphs, a loop for the work/rest cycle) and asserted against the value in the reference. Uniqueness claims were brute-forced over all permutations: g2-09 (1 feasible order of 3), g2-19 (1 feasible order of 4), g2-20 (all 3 valid hands-on orders give 120, 140, 145; 120 also equals the bread-chain lower bound). Negatives are the tempting wrong answer (sum of all durations, ignoring a wait or break, taking the constraint time as the start).",
+ "checks": "Clock answers: any of exact_any (HH:MM, H:MM, am/pm and bracketed variants) or an anchored ANSWER regex; minute answers: number check.",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/planning/gen_2.json --family planning",
+  "result": "21/21 valid"
+ },
+ "model_run": "none (held-out; no pilot run)",
+ "not_done": "Difficulty labels are estimates from the spec's baseline observations; they were not measured on the model."
+}

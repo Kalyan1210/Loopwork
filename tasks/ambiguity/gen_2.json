@@ -1,0 +1,598 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined-for-other-item",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Counter of the fictional Whin Street Paint Store.\nStaff note: \"the usual tin\" of varnish holds 2 litres. No other tin sizes are on file.\nCustomer message: \"Five of the usual tins of primer, please.\"\nTask: give the total number of litres of primer in this order.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(tin|usual|size|hold|capacity|per (can|pot)|each (can|pot))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many litres does the usual tin of primer hold?",
+  "negative": "ACTION: ANSWER\nANSWER: 10"
+ },
+ {
+  "local_id": "g2-02",
+  "family": "ambiguity",
+  "subtheme": "same-as-last-week",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Order book of the fictional Sorrel Bridge Bakery. Entries for Finch Cafe:\n- Two weeks ago: 30 rye loaves\n- Last week: no entry was written down\nMessage from Finch Cafe: \"Rye loaves again, same as last week.\"\nTask: give the number of rye loaves to bake for Finch Cafe.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(last week|previous|week before|same as|no entry|missing|not (written|recorded))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many rye loaves did Finch Cafe order last week?",
+  "negative": "ACTION: ANSWER\nANSWER: 30"
+ },
+ {
+  "local_id": "g2-03",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Dispatch board of the fictional Tessel Dairy.\nStaff note: the \"regular day\" for Dunmore Cafe is Wednesday. The \"regular day\" for Pike Hotel is Friday.\nMessage from Dunmore Cafe: \"Six trays of yoghurt on our regular day, please.\"\nTask: give the day on which the yoghurt is delivered.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Wednesday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: Wednesday",
+  "negative": "ACTION: ASK\nQUESTION: On which day should the yoghurt be delivered?"
+ },
+ {
+  "local_id": "g2-04",
+  "family": "ambiguity",
+  "subtheme": "shorthand-undefined",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Workshop of the fictional Emberfold Pottery.\nNotes: the glaze room opens at 08:00. A stoneware firing takes 6 hours.\nMessage from the owner: \"Start the stoneware firing at the normal time tomorrow.\"\nTask: give the time at which the firing finishes.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the finish time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(normal|start|begin|what time (is|does|should).*(kiln|light|switch))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What is the normal start time for the firing?",
+  "negative": "ACTION: ANSWER\nANSWER: 14:00"
+ },
+ {
+  "local_id": "g2-05",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined-for-other-item",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Fitting room of the fictional Aldgrove Tailors. A trouser alteration needs two measurements: the waist and the leg length.\nCustomer card for Mr Ibsen: waist 86 cm. Nothing else is written on the card.\nMessage from Mr Ibsen: \"Please alter the grey trousers to my usual leg length.\"\nTask: give the leg length in cm.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(leg|inseam|inside|usual|how long)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What is Mr Ibsen's usual leg length in cm?",
+  "negative": "ACTION: ANSWER\nANSWER: 86"
+ },
+ {
+  "local_id": "g2-06",
+  "family": "ambiguity",
+  "subtheme": "same-as-last-week",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Order book of the fictional Dovecot Feed Mill. Entries for Pell Farm:\n- Last week: \"same as the week before\"\n- There are no earlier entries for Pell Farm.\nMessage from Pell Farm: \"Oats again, same as last week.\"\nTask: give the number of sacks of oats to load for Pell Farm.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(week before|weeks ago|earlier|previous|before last|original|last week|usual|normally)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many sacks of oats did Pell Farm get the week before last?",
+  "negative": "ACTION: ANSWER\nANSWER: 10"
+ },
+ {
+  "local_id": "g2-07",
+  "family": "ambiguity",
+  "subtheme": "shorthand-undefined",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Till of the fictional Quillon Bookshop.\nPrice rules: members get 10 coins off any atlas. The Northern Atlas costs 50 coins.\nMessage from the manager: \"Sell one Northern Atlas to Ilse and apply the staff discount.\"\nTask: give the price Ilse pays in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(staff|discount)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How much is the staff discount?",
+  "negative": "ACTION: ANSWER\nANSWER: 40"
+ },
+ {
+  "local_id": "g2-08",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined-per-item",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Packing shed of the fictional Hallowmere Orchard.\nStaff note: a \"standard crate\" holds 20 pears. For plums, a \"standard crate\" holds 50 plums.\nOrder from the Wend market stall: \"Three standard crates of plums.\"\nTask: give the number of plums in this order.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 150
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 150",
+  "negative": "ACTION: ANSWER\nANSWER: 60"
+ },
+ {
+  "local_id": "g2-09",
+  "family": "ambiguity",
+  "subtheme": "value-left-out",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Counter of the fictional Tarrow Silver Engravers.\nPrice rule: engraving costs 2 coins per letter on each spoon.\nUnsigned note left on the counter: \"Please engrave my initials on these 3 spoons.\"\nTask: give the total engraving cost in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(initial|letter|name|who (is|are|wrote|left))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What are the initials to engrave?",
+  "negative": "ACTION: ANSWER\nANSWER: 12"
+ },
+ {
+  "local_id": "g2-10",
+  "family": "ambiguity",
+  "subtheme": "two-clause-definition",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Counter of the fictional Harl Cable Yard.\nStaff note: a \"standard roll\" is 25 metres long, except for cable thicker than 4 mm, where a \"standard roll\" is 10 metres long.\nCustomer message: \"Two standard rolls of the 6 mm cable, please.\"\nTask: give the total length of cable in metres.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 20
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 20",
+  "negative": "ACTION: ANSWER\nANSWER: 50"
+ },
+ {
+  "local_id": "g2-11",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Order desk of the fictional Pindle Bakery.\nStaff note: a \"standard box\" always holds 6 cinnamon buns.\nCustomer message: \"Four standard boxes of cinnamon buns for Saturday, please.\"\nTask: give the number of cinnamon buns to bake for this order.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 24
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 24",
+  "negative": "ACTION: ASK\nQUESTION: How many buns are in a standard box?"
+ },
+ {
+  "local_id": "g2-12",
+  "family": "ambiguity",
+  "subtheme": "two-step-definition",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Diary of the fictional Venn Street Vet Clinic.\nNotes: Mr Okoro's \"usual slot\" is the late clinic. The early clinic starts at 09:10. The late clinic starts at 16:30. Every appointment lasts 20 minutes.\nMessage from Mr Okoro: \"Please book my cat in for Thursday, in my usual slot.\"\nTask: give the time at which the appointment ends.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the end time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b0?16[:.]50\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 16:50",
+  "negative": "ACTION: ANSWER\nANSWER: 09:30"
+ },
+ {
+  "local_id": "g2-13",
+  "family": "ambiguity",
+  "subtheme": "shorthand-undefined",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Membership desk of the fictional Ruddock Hill Walking Club.\nStore note: a premium pack contains 3 badges and 1 map.\nSecretary message: \"We have 14 new members. Send each of them the standard welcome pack.\"\nTask: give the total number of badges needed for the 14 new members.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(standard|welcome|per pack|each pack|in (a|the|one|each|that) pack|pack (contain|include|hold|have|has)|contain)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many badges are in a standard welcome pack?",
+  "negative": "ACTION: ANSWER\nANSWER: 42"
+ },
+ {
+  "local_id": "g2-14",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Stock room of the fictional Brackwell Carving School.\nStaff note: one \"full set\" is 4 chisels and 2 mallets.\nTutor message: \"Lay out one full set on the front bench.\"\nTask: give the total number of tools to lay out.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 6",
+  "negative": "ACTION: ASK\nQUESTION: Which tools are in a full set?"
+ },
+ {
+  "local_id": "g2-15",
+  "family": "ambiguity",
+  "subtheme": "shorthand-table-lookup",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Cutting counter of the fictional Selwick Ribbon Shop. Usual lengths on file:\n- Harbour Choir: 4 metres\n- Mrs Idris: 9 metres\n- Dunn Theatre: 15 metres\nMessage from Mrs Idris: \"One roll of green satin, cut to my usual length, please.\"\nTask: give the length to cut in metres.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 9",
+  "negative": "ACTION: ASK\nQUESTION: What length of ribbon does Mrs Idris want?"
+ },
+ {
+  "local_id": "g2-16",
+  "family": "ambiguity",
+  "subtheme": "same-as-last-week",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Order book of the fictional Marrow Lane Grocer. It is now week 16.\n- Week 14, Castellan Inn: 8 crates of leeks\n- Week 15, Castellan Inn: 11 crates of leeks\nMessage from Castellan Inn: \"Leeks again, same as last week.\"\nTask: give the number of crates of leeks for week 16.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 11",
+  "negative": "ACTION: ANSWER\nANSWER: 8"
+ },
+ {
+  "local_id": "g2-17",
+  "family": "ambiguity",
+  "subtheme": "shorthand-undefined",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Hire desk of the fictional Garrow Tool Hire. A hire needs three things: the item, the start day and the number of days.\nCustomer message: \"I would like the cement mixer from Monday for the usual period.\"\nTask: give the day on which the cement mixer comes back.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(how many days|how long|period|usual|duration|number of days|length of)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: How many days is the usual hire period?",
+  "negative": "ACTION: ANSWER\nANSWER: Wednesday"
+ },
+ {
+  "local_id": "g2-18",
+  "family": "ambiguity",
+  "subtheme": "value-set-by-rule",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Reception of the fictional Ostrel Climbing Gym.\nRule: there is only one kind of membership. Every renewal lasts 12 months and costs 30 coins.\nMember message: \"Please renew my membership.\"\nTask: give the cost of the renewal in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 30",
+  "negative": "ACTION: ASK\nQUESTION: For how many months should the membership be renewed?"
+ },
+ {
+  "local_id": "g2-19",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Ticket hut of the fictional Skarn Island Ferry.\nTimetable note: \"the early boat\" leaves at 06:40. The crossing takes 35 minutes.\nPassenger message: \"I will be on the early boat tomorrow. When do I arrive?\"\nTask: give the arrival time.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the arrival time as HH:MM>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b0?7[:.]15\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 07:15",
+  "negative": "ACTION: ASK\nQUESTION: At what time does the early boat leave?"
+ },
+ {
+  "local_id": "g2-20",
+  "family": "ambiguity",
+  "subtheme": "value-set-by-rule",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Front desk of the fictional Lake Orrin Kayak School.\nRule: children under 12 get the 30-minute lesson. Everyone else gets the 60-minute lesson.\nMessage: \"Please book one kayak lesson for my daughter. She is 9 years old.\"\nTask: give the length of the lesson in minutes.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "reference": "ACTION: ANSWER\nANSWER: 30",
+  "negative": "ACTION: ANSWER\nANSWER: 60"
+ },
+ {
+  "local_id": "g2-21",
+  "family": "ambiguity",
+  "subtheme": "shorthand-defined-for-other-item",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Print desk of the fictional Corvale Copy Shop. A print job needs two things: the paper size and the number of copies.\nStaff note: for Tolland School, \"the usual size\" means A4.\nMessage from Brask Garage: \"Print 40 copies of our price list in the usual size.\"\nTask: give the paper size for the Brask Garage job.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the paper size only>",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(size|usual|format|dimension)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "reference": "ACTION: ASK\nQUESTION: What is the usual paper size for Brask Garage?",
+  "negative": "ACTION: ANSWER\nANSWER: A4"
+ }
+]

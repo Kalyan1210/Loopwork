@@ -1,0 +1,368 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "math",
+  "subtheme": "prob-without-replacement",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A cloth bag holds 4 red beads and 6 blue beads. Two beads are taken out one after the other, and the first bead is not put back. What is the probability that both beads are blue? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.33,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "P = 6/10 * 5/9 = 30/90 = 0.3333.\nANSWER: 0.33",
+  "negative": "P = 6/10 * 6/10 = 0.36.\nANSWER: 0.36"
+ },
+ {
+  "local_id": "g4-02",
+  "family": "math",
+  "subtheme": "codes-restricted",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A locker tag is a 3-letter code using the letters A, B, C, D, E with no letter repeated. The first letter must be a vowel (A or E). How many different tags are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   }
+  ],
+  "reference": "First letter: 2 choices. Second: 4 remaining. Third: 3 remaining. 2*4*3 = 24.\nANSWER: 24",
+  "negative": "Arrangements of 3 letters out of 5: 5*4*3 = 60.\nANSWER: 60"
+ },
+ {
+  "local_id": "g4-03",
+  "family": "math",
+  "subtheme": "pigeonhole",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A dark drawer holds a large supply of loose gloves in 4 colours: grey, tan, plum and teal (far more than ten of each). Gloves are pulled out one at a time without looking. What is the smallest number of gloves that must be pulled out to be certain that at least 3 of them have the same colour? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "reference": "Worst case: 2 of each colour = 8 gloves with no colour appearing 3 times. The next glove forces a third.\nANSWER: 9",
+  "negative": "4 colours times 3 gloves each.\nANSWER: 12"
+ },
+ {
+  "local_id": "g4-04",
+  "family": "math",
+  "subtheme": "expected-value",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "At the Brindle fair a game costs 2 tokens to play. The player rolls one fair six-sided die: a 6 pays 9 tokens, a 4 or a 5 pays 3 tokens, and any other number pays nothing. What is the player's expected net gain in tokens per game (expected payout minus the cost)? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.5,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Expected payout = (9 + 3 + 3)/6 = 2.5 tokens. Net = 2.5 - 2 = 0.5.\nANSWER: 0.50",
+  "negative": "Expected payout = (9 + 3 + 3)/6 = 2.5 tokens.\nANSWER: 2.50"
+ },
+ {
+  "local_id": "g4-05",
+  "family": "math",
+  "subtheme": "inclusion-exclusion-two-sets",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A hobby club has 40 members. 22 of them play chess, 17 play go, and 6 play neither game. How many members play both chess and go? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "reference": "Members playing at least one game: 40 - 6 = 34. Both = 22 + 17 - 34 = 5.\nANSWER: 5",
+  "negative": "22 + 17 = 39, and 40 - 39 = 1.\nANSWER: 1"
+ },
+ {
+  "local_id": "g4-06",
+  "family": "math",
+  "subtheme": "selection-exact",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A village council must form a 3-person panel from 5 farmers and 4 weavers. The panel must contain exactly 2 farmers. How many different panels are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   }
+  ],
+  "reference": "Choose 2 farmers: C(5,2) = 10. Choose 1 weaver: 4. 10*4 = 40.\nANSWER: 40",
+  "negative": "Choose any 3 of the 9 people: C(9,3) = 84.\nANSWER: 84"
+ },
+ {
+  "local_id": "g4-07",
+  "family": "math",
+  "subtheme": "coins-at-least",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Four fair coins are tossed. What is the probability that at least 3 of them land heads? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.31,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Exactly 3 heads: C(4,3) = 4 outcomes. Exactly 4 heads: 1 outcome. 5/16 = 0.3125.\nANSWER: 0.31",
+  "negative": "Exactly 3 heads: 4 of 16 outcomes = 0.25.\nANSWER: 0.25"
+ },
+ {
+  "local_id": "g4-08",
+  "family": "math",
+  "subtheme": "grid-paths-through-point",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A courier robot moves on a street grid from corner (0,0) to corner (4,3). Each move goes exactly one block east or one block north. It must pass through the charging post at corner (2,1) on the way. How many different routes are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 18
+   }
+  ],
+  "reference": "(0,0) to (2,1): 3 moves with 1 north = C(3,1) = 3. (2,1) to (4,3): 4 moves with 2 north = C(4,2) = 6. 3*6 = 18.\nANSWER: 18",
+  "negative": "7 moves in total, 3 of them north: C(7,3) = 35.\nANSWER: 35"
+ },
+ {
+  "local_id": "g4-09",
+  "family": "math",
+  "subtheme": "total-probability-two-stage",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Pouch P holds 1 gold token and 2 iron tokens. Pouch Q holds 3 gold tokens and 1 iron token. A fair coin is tossed to choose one of the two pouches, then one token is drawn at random from the chosen pouch. What is the probability that the token is gold? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.54,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "P(gold) = 1/2 * 1/3 + 1/2 * 3/4 = 1/6 + 3/8 = 13/24 = 0.5417.\nANSWER: 0.54",
+  "negative": "There are 4 gold tokens among 7 tokens in total: 4/7 = 0.5714.\nANSWER: 0.57"
+ },
+ {
+  "local_id": "g4-10",
+  "family": "math",
+  "subtheme": "dice-condition-removes-cases",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Two fair six-sided dice are rolled. What is the probability that the two dice show different numbers and their sum is at least 9? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.22,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Sum 9: 4 outcomes, sum 10: 3, sum 11: 2, sum 12: 1, total 10. Remove the doubles (5,5) and (6,6): 8. 8/36 = 0.2222.\nANSWER: 0.22",
+  "negative": "Sum 9: 4 outcomes, sum 10: 3, sum 11: 2, sum 12: 1, total 10. 10/36 = 0.2778.\nANSWER: 0.28"
+ },
+ {
+  "local_id": "g4-11",
+  "family": "math",
+  "subtheme": "cards-parity",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Twelve cards are numbered 1 to 12. Two cards are drawn at random without replacement. What is the probability that the sum of the two numbers is odd? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.55,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "An odd sum needs one odd and one even card: 6*6 = 36 pairs. All pairs: C(12,2) = 66. 36/66 = 0.5455.\nANSWER: 0.55",
+  "negative": "A sum is either odd or even, so the chance is one half.\nANSWER: 0.50"
+ },
+ {
+  "local_id": "g4-12",
+  "family": "math",
+  "subtheme": "expected-value-reroll",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Nell rolls a fair six-sided die. If it shows 1 or 2, she rolls the die one more time and her score is the sum of the two rolls. If the first roll shows 3, 4, 5 or 6, her score is just that roll. What is Nell's expected score? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4.67,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Expected first roll = 3.5. A second roll happens with probability 2/6 and adds 3.5 on average. 3.5 + 3.5/3 = 4.6667.\nANSWER: 4.67",
+  "negative": "Two rolls of average 3.5 each: 3.5 + 3.5 = 7.\nANSWER: 7.00"
+ },
+ {
+  "local_id": "g4-13",
+  "family": "math",
+  "subtheme": "arrangements-repeated-letters",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "How many different 5-letter strings can be made by rearranging all the letters of the word LEVEL, if the string must begin with the letter L? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "reference": "Fix one L in front. Remaining letters E, E, V, L fill 4 places: 4!/2! = 12.\nANSWER: 12",
+  "negative": "Arrangements of LEVEL: 5!/(2!*2!) = 30.\nANSWER: 30"
+ },
+ {
+  "local_id": "g4-14",
+  "family": "math",
+  "subtheme": "codes-exactly-one-condition",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "A door keypad accepts 3-digit codes from 000 to 999 (digits may repeat). How many codes have a 7 as the first digit or a 7 as the last digit, but not both? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 180
+   }
+  ],
+  "reference": "First digit 7: 100 codes. Last digit 7: 100 codes. Both: 10 codes. Exactly one: 100 + 100 - 2*10 = 180.\nANSWER: 180",
+  "negative": "First digit 7: 100 codes. Last digit 7: 100 codes. 100 + 100 - 10 = 190.\nANSWER: 190"
+ },
+ {
+  "local_id": "g4-15",
+  "family": "math",
+  "subtheme": "digits-case-split",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "How many 3-digit positive integers (100 to 999) are even and have three different digits? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 328
+   }
+  ],
+  "reference": "Last digit 0: 9*8 = 72. Last digit 2, 4, 6 or 8: first digit 8 choices (not 0, not the last digit), middle 8 choices: 4*8*8 = 256. 72 + 256 = 328.\nANSWER: 328",
+  "negative": "Last digit 5 choices, first digit 9 choices, middle digit 8 choices: 5*9*8 = 360.\nANSWER: 360"
+ },
+ {
+  "local_id": "g4-16",
+  "family": "math",
+  "subtheme": "seating-two-restrictions",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Five friends (Ada, Bram, Cleo, Dov, Esme) stand in a row for a photo. Ada and Bram must stand next to each other, and Cleo must not stand at either end of the row. How many different orders are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   }
+  ],
+  "reference": "Ada-Bram as a block: 4!*2 = 48 orders. Cleo at an end: 2 ends, then block and 2 others in 3! ways, times 2 = 24. 48 - 24 = 24.\nANSWER: 24",
+  "negative": "Treat Ada and Bram as one block: 4! * 2 = 48.\nANSWER: 48"
+ },
+ {
+  "local_id": "g4-17",
+  "family": "math",
+  "subtheme": "committee-two-restrictions",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A studio has 5 engineers and 4 designers. A team of 4 people must include at least one engineer and at least one designer. The engineer Rovan and the designer Ilsa refuse to be on the same team. How many different teams are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 99
+   }
+  ],
+  "reference": "All teams: C(9,4) = 126. Remove all-engineer 5 and all-designer 1: 120. Teams with both Rovan and Ilsa: C(7,2) = 21. 120 - 21 = 99.\nANSWER: 99",
+  "negative": "All teams: C(9,4) = 126. Remove all-engineer 5 and all-designer 1.\nANSWER: 120"
+ },
+ {
+  "local_id": "g4-18",
+  "family": "math",
+  "subtheme": "marbles-exactly-two-colours",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A jar holds 3 red, 4 blue and 2 green marbles. Three marbles are drawn at random without replacement. What is the probability that exactly two different colours appear among the three marbles drawn? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.65,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Total C(9,3) = 84. All three colours: 3*4*2 = 24. One colour only: C(3,3) + C(4,3) = 1 + 4 = 5. Exactly two colours: 84 - 24 - 5 = 55. 55/84 = 0.6548.\nANSWER: 0.65",
+  "negative": "Total C(9,3) = 84. All three colours: 3*4*2 = 24. Not all different: 60/84 = 0.7143.\nANSWER: 0.71"
+ },
+ {
+  "local_id": "g4-19",
+  "family": "math",
+  "subtheme": "expected-maximum",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "In a board game a player rolls two fair six-sided dice and moves forward a number of squares equal to the larger of the two numbers shown (if both dice show the same number, that number). What is the expected number of squares moved? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4.47,
+    "tol": 0.0051
+   }
+  ],
+  "reference": "Larger = k in 2k-1 of 36 outcomes: 1, 3, 5, 7, 9, 11. Sum of k*(2k-1) = 1 + 6 + 15 + 28 + 45 + 66 = 161. 161/36 = 4.4722.\nANSWER: 4.47",
+  "negative": "The average of one die is 3.5, so the larger die averages 3.5.\nANSWER: 3.50"
+ },
+ {
+  "local_id": "g4-20",
+  "family": "math",
+  "subtheme": "pigeonhole-unequal-supply",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A raffle drum holds 9 red, 7 blue, 3 green and 2 yellow tickets. Tickets are drawn one at a time without looking and are not put back. What is the smallest number of tickets that must be drawn to be certain that at least 4 of the drawn tickets have the same colour? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "reference": "Worst case without 4 alike: 3 red, 3 blue, all 3 green, all 2 yellow = 11 tickets. The next ticket must be red or blue.\nANSWER: 12",
+  "negative": "Worst case is 3 of each of the 4 colours = 12, then one more.\nANSWER: 13"
+ },
+ {
+  "local_id": "g4-21",
+  "family": "math",
+  "subtheme": "strings-adjacent-and-at-least-one",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "A signal is a string of 4 letters, each letter being A, B or C. No two neighbouring letters may be the same, and the letter A must appear at least once. How many different signals are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   }
+  ],
+  "reference": "No equal neighbours: 3*2*2*2 = 24. Of these, strings without A use only B and C alternating: BCBC and CBCB, 2 strings. 24 - 2 = 22.\nANSWER: 22",
+  "negative": "First letter 3 choices, each later letter 2 choices: 3*2*2*2 = 24.\nANSWER: 24"
+ }
+]

@@ -1,0 +1,243 @@
+[
+ {
+  "local_id": "dev-01",
+  "family": "constraints",
+  "subtheme": "strict-json",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Extract the booking from this note into JSON.\nNote: \"Mira Feld reserved table 14 for 6 guests at the Copper Kettle.\"\nReply with ONLY one JSON object with exactly these keys: \"guest\" (string), \"table\" (number), \"party_size\" (number). No other keys, no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "guest",
+     "table",
+     "party_size"
+    ],
+    "equals": {
+     "guest": "Mira Feld",
+     "table": 14,
+     "party_size": 6
+    }
+   }
+  ],
+  "reference": "{\"guest\": \"Mira Feld\", \"table\": 14, \"party_size\": 6}",
+  "negative": "{\"guest\": \"Mira Feld\", \"table\": 14, \"party_size\": 6, \"venue\": \"Copper Kettle\"}"
+ },
+ {
+  "local_id": "dev-02",
+  "family": "constraints",
+  "subtheme": "ordered-list",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Sort these five fictional towns alphabetically (A to Z): Quillby, Aldermoor, Tresk, Hollowmere, Brindle.\nReply with exactly 5 lines, one town per line, numbered like \"1. Name\". No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "is",
+    "pattern": "^\\s*1\\.\\s*Aldermoor\\s*\\n\\s*2\\.\\s*Brindle\\s*\\n\\s*3\\.\\s*Hollowmere\\s*\\n\\s*4\\.\\s*Quillby\\s*\\n\\s*5\\.\\s*Tresk\\s*$"
+   }
+  ],
+  "reference": "1. Aldermoor\n2. Brindle\n3. Hollowmere\n4. Quillby\n5. Tresk",
+  "negative": "1. Aldermoor\n2. Brindle\n3. Quillby\n4. Hollowmere\n5. Tresk"
+ },
+ {
+  "local_id": "dev-03",
+  "family": "constraints",
+  "subtheme": "case-rule",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "A fictional ferry is named Saltwren. Reply with ONLY the ferry's name written entirely in lowercase letters, followed by a single exclamation mark. Nothing else.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*saltwren!\\s*$"
+   }
+  ],
+  "reference": "saltwren!",
+  "negative": "Saltwren!"
+ },
+ {
+  "local_id": "dev-04",
+  "family": "constraints",
+  "subtheme": "transform-format",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Take these words in the given order: river, stone, lantern, moss.\nWrite each word in UPPERCASE and join them with \" | \" (space, vertical bar, space) on a single line. Reply with only that line.",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*RIVER \\| STONE \\| LANTERN \\| MOSS\\s*$"
+   }
+  ],
+  "reference": "RIVER | STONE | LANTERN | MOSS",
+  "negative": "river | stone | lantern | moss"
+ },
+ {
+  "local_id": "dev-05",
+  "family": "constraints",
+  "subtheme": "prefix-lines",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Write exactly 3 tips for visitors to a fictional tea shop called Juniper Lane.\nRules: exactly 3 lines; every line starts with \"TIP: \"; every line ends with an exclamation mark; no numbering, no blank intro or outro text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "flags": "",
+    "pattern": "^TIP: \\S.*!$"
+   }
+  ],
+  "reference": "TIP: Try the smoked oolong first!\nTIP: Ask for the window seat!\nTIP: Bring cash for the pastry cart!",
+  "negative": "Here are 3 tips:\nTIP: Try the smoked oolong first!\nTIP: Ask for the window seat!\nTIP: Bring cash for the pastry cart!"
+ },
+ {
+  "local_id": "dev-06",
+  "family": "constraints",
+  "subtheme": "forbidden-words",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Describe a rainy day in ONE sentence of at most 20 words.\nRules: you must NOT use any of these words: rain, wet, water, umbrella. You MUST use the word \"puddles\". Reply with only the sentence.",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "\\b(rain\\w*|wet\\w*|water\\w*|umbrellas?)\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bpuddles\\b"
+   },
+   {
+    "type": "max_words",
+    "value": 20
+   },
+   {
+    "type": "min_words",
+    "value": 4
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "reference": "Grey clouds drizzle all morning while children jump through puddles on the street.",
+  "negative": "Rain falls all morning while children jump through puddles on the street."
+ },
+ {
+  "local_id": "dev-07",
+  "family": "constraints",
+  "subtheme": "wrapper-reverse",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Here is a list in order: copper, violet, harbor, thistle, ember.\nReply on ONE line that starts with the word BEGIN, then the five items in REVERSED order separated by commas, then ends with the word END. Example of the shape for the list a, b: BEGIN b, a END",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*BEGIN[\\s:]+ember,\\s*thistle,\\s*harbor,\\s*violet,\\s*copper,?\\s+END\\s*$"
+   }
+  ],
+  "reference": "BEGIN ember, thistle, harbor, violet, copper END",
+  "negative": "BEGIN copper, violet, harbor, thistle, ember END"
+ },
+ {
+  "local_id": "dev-08",
+  "family": "constraints",
+  "subtheme": "exact-word-count",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Write one sentence about a lighthouse that contains EXACTLY 7 words. Count carefully. Reply with only the sentence on one line, ending with a period.",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 7
+   },
+   {
+    "type": "max_words",
+    "value": 7
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "lighthouse"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\.\\s*$"
+   }
+  ],
+  "reference": "The old lighthouse guides ships home nightly.",
+  "negative": "The old lighthouse stands tall and guides ships home every night."
+ },
+ {
+  "local_id": "dev-09",
+  "family": "constraints",
+  "subtheme": "filter-sort-format",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Price list (fictional shop):\nkettle 18\nspoon 4\nteapot 31\nnapkin 2\nstrainer 12\ncoaster 9\n\nList ONLY the items that cost more than 10, sorted from most expensive to cheapest. One item per line in the format name=price (lowercase name, no spaces). No other text.",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*teapot=31\\s*\\n\\s*kettle=18\\s*\\n\\s*strainer=12\\s*$"
+   }
+  ],
+  "reference": "teapot=31\nkettle=18\nstrainer=12",
+  "negative": "kettle=18\nteapot=31\nstrainer=12"
+ },
+ {
+  "local_id": "dev-10",
+  "family": "constraints",
+  "subtheme": "combined-json",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Crew of the fictional ship Marrow Gull: Odessa Pike, Tam Rowe, Ilse Varga, Ben Achterberg.\nReply with ONLY one JSON object with exactly these three keys:\n\"count\": the number of crew members (number)\n\"initials\": a list of each member's two-letter initials in UPPERCASE, in the order given\n\"longest_surname\": the longest surname, in lowercase\nNo other keys and no extra text.",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "count",
+     "initials",
+     "longest_surname"
+    ],
+    "equals": {
+     "count": 4,
+     "initials": [
+      "OP",
+      "TR",
+      "IV",
+      "BA"
+     ]
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\\\"longest_surname\\\"\\s*:\\s*\\\"achterberg\\\""
+   }
+  ],
+  "reference": "{\"count\": 4, \"initials\": [\"OP\", \"TR\", \"IV\", \"BA\"], \"longest_surname\": \"achterberg\"}",
+  "negative": "{\"count\": 4, \"initials\": [\"OP\", \"TR\", \"IV\", \"BA\"], \"longest_surname\": \"Achterberg\"}"
+ }
+]

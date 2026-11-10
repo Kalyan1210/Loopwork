@@ -1,0 +1,359 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "math",
+  "subtheme": "logic-comparison-chain",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Brin, Dax, Fenn and Hale have four different heights. Brin is taller than Dax. Fenn is shorter than Dax. Brin is not the tallest of the four. Who is the second tallest? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Brin"
+   }
+  ],
+  "reference": "Brin > Dax > Fenn, so Dax and Fenn are not the tallest. Brin is not the tallest either, so Hale is.\nOrder: Hale, Brin, Dax, Fenn.\nANSWER: Brin",
+  "negative": "Brin > Dax > Fenn, so the order is Brin, Dax, Fenn, Hale.\nANSWER: Dax"
+ },
+ {
+  "local_id": "g5-02",
+  "family": "math",
+  "subtheme": "logic-assignment",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Pia, Quin and Rolf each play exactly one instrument: drums, flute and violin (one each). Pia does not play the drums. Rolf plays neither the drums nor the flute. Which instrument does Pia play? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <word>' (one word only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "flute"
+   }
+  ],
+  "reference": "Rolf must play the violin. Pia cannot play drums, so Pia plays the flute and Quin the drums.\nANSWER: flute",
+  "negative": "Pia does not play drums, so she plays the violin.\nANSWER: violin"
+ },
+ {
+  "local_id": "g5-03",
+  "family": "math",
+  "subtheme": "logic-syllogism",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "All glims are tarks. No tarks are vobs. Some vobs are zels. Which one statement must be true? A) Some zels are glims. B) No glims are vobs. C) All tarks are glims. D) All vobs are zels. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "B"
+   }
+  ],
+  "reference": "Every glim is a tark, and no tark is a vob, so no glim is a vob.\nA, C and D can each be false.\nANSWER: B",
+  "negative": "Some vobs are zels and glims are linked to vobs through tarks, so some zels are glims.\nANSWER: A"
+ },
+ {
+  "local_id": "g5-04",
+  "family": "math",
+  "subtheme": "logic-truth-liar",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "On an island every person is either a truth-teller (always tells the truth) or a liar (always lies). Marek and Sefa are islanders. Marek says: 'At least one of the two of us is a liar.' Who is the liar? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Sefa"
+   }
+  ],
+  "reference": "If Marek lied, his statement would be true, a contradiction. So Marek tells the truth.\nThen at least one is a liar, and it is not Marek.\nANSWER: Sefa",
+  "negative": "Marek talks about lying, so he is the liar.\nANSWER: Marek"
+ },
+ {
+  "local_id": "g5-05",
+  "family": "math",
+  "subtheme": "logic-seating",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Four seats in a row are numbered 1 to 4 from left to right. Bex, Cato, Ivo and Nell each take one seat. Nell sits in seat 3. Ivo sits immediately to the left of Nell. Cato does not sit in seat 1. What is the number of Bex's seat? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "reference": "Nell is in seat 3, so Ivo is in seat 2.\nCato is not in seat 1, so Cato is in seat 4.\nBex takes the seat that is left.\nANSWER: 1",
+  "negative": "Nell 3, Ivo 2, Cato 1, so Bex is at the end.\nANSWER: 4"
+ },
+ {
+  "local_id": "g5-06",
+  "family": "math",
+  "subtheme": "logic-elimination",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "Three talks (knots, maps, stars) are given on Monday, Tuesday and Wednesday, one talk per day. The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. On which day is the stars talk? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <day>' (one word only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Wednesday"
+   }
+  ],
+  "reference": "Maps is after knots, so not Monday; it is not Wednesday, so maps is Tuesday and knots is Monday.\nStars takes the remaining day.\nANSWER: Wednesday",
+  "negative": "Knots is before maps, so knots Tuesday and maps Wednesday, leaving the first day for stars.\nANSWER: Monday"
+ },
+ {
+  "local_id": "g5-07",
+  "family": "math",
+  "subtheme": "logic-conditional",
+  "difficulty": "easy",
+  "mode": "single",
+  "prompt": "If the lamp is red, then the door is locked. If the door is locked, then the bell is silent. Right now the bell is ringing, so it is not silent. Which one statement must be true? A) The lamp is red. B) The door is locked. C) The lamp is not red. D) The door is locked but the lamp is not red. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "C"
+   }
+  ],
+  "reference": "The bell is not silent, so the door is not locked.\nThe door is not locked, so the lamp is not red.\nANSWER: C",
+  "negative": "The bell rings, so the lamp is not red, while the door stays locked.\nANSWER: D"
+ },
+ {
+  "local_id": "g5-08",
+  "family": "math",
+  "subtheme": "logic-ordering",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Five people (Hugo, Iris, Jett, Kara, Lorn) stand in a single queue; position 1 is the front. Iris is somewhere ahead of Jett. Kara is directly behind Hugo. Lorn is neither first nor last. Jett is not last. Jett is not directly behind Iris. Who is in position 3? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Jett"
+   }
+  ],
+  "reference": "Last cannot be Lorn, Jett, Iris (ahead of Jett) or Hugo (Kara is behind him), so Kara is 5th and Hugo 4th.\nIris is ahead of Jett and Lorn is not first, so Iris is 1st.\nJett is not directly behind Iris, so Lorn is 2nd and Jett 3rd.\nANSWER: Jett",
+  "negative": "Kara 5th, Hugo 4th, Iris 1st, then Jett 2nd and Lorn 3rd.\nANSWER: Lorn"
+ },
+ {
+  "local_id": "g5-09",
+  "family": "math",
+  "subtheme": "logic-truth-liar",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Exactly one of Tarn, Wim and Yule took the last cake. Tarn says: 'I did not take it.' Wim says: 'Tarn took it.' Yule says: 'I did not take it.' Exactly one of these three statements is true. Who took the cake? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Yule"
+   }
+  ],
+  "reference": "If Tarn took it: Wim and Yule are both true (two true). If Wim took it: Tarn and Yule are both true.\nIf Yule took it: only Tarn's statement is true.\nANSWER: Yule",
+  "negative": "Wim's statement is the true one, so Tarn took it.\nANSWER: Tarn"
+ },
+ {
+  "local_id": "g5-10",
+  "family": "math",
+  "subtheme": "logic-assignment-grid",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Anya, Boyd, Cleo and Dunn each ordered a different drink: tea, cocoa, juice and milk. Anya ordered neither tea nor juice. Neither Cleo nor Anya ordered milk. Cleo did not order tea. Boyd shared a table with the tea drinker, who is a different person. Which drink did Boyd order? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <word>' (one word only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "milk"
+   }
+  ],
+  "reference": "Anya: not tea, juice or milk, so cocoa. Cleo: not milk, tea or cocoa, so juice.\nBoyd is not the tea drinker, so Dunn has tea and Boyd has milk.\nANSWER: milk",
+  "negative": "Anya has cocoa, Cleo has juice, and Boyd takes the next drink.\nANSWER: tea"
+ },
+ {
+  "local_id": "g5-11",
+  "family": "math",
+  "subtheme": "logic-circular-seating",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Six friends (Gus, Hana, Ilse, Jorn, Kofi, Lida) sit evenly spaced around a round table, so each person has exactly one person directly opposite. Hana sits directly opposite Gus. Ilse sits next to Gus. Jorn sits directly opposite Ilse. Kofi sits in the next seat clockwise from Hana. Who sits in the next seat clockwise from Gus? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Lida"
+   }
+  ],
+  "reference": "Number seats clockwise: Gus 1, Hana 4, Kofi 5.\nIlse is in 2 or 6, so Jorn is in 5 or 3; seat 5 is Kofi's, so Jorn is 3 and Ilse is 6.\nLida gets seat 2, the next seat clockwise from Gus.\nANSWER: Lida",
+  "negative": "Ilse sits next to Gus, so she is the next seat clockwise.\nANSWER: Ilse"
+ },
+ {
+  "local_id": "g5-12",
+  "family": "math",
+  "subtheme": "logic-must-be-true",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Four books (Atlas, Diary, Fables, Guide) stand in a row on a shelf. Atlas is somewhere to the left of Fables. Diary is not at either end. Fables is not at the right end. Which one statement must be true? A) Diary is second from the left. B) Guide is at the right end. C) Fables is next to Guide. D) Diary is to the left of Fables. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "B"
+   }
+  ],
+  "reference": "The right end is not Fables, not Diary and not Atlas (it is left of Fables), so it is Guide.\nBoth Atlas-Diary-Fables-Guide and Atlas-Fables-Diary-Guide fit, so A, C and D can fail.\nANSWER: B",
+  "negative": "The order is Atlas, Diary, Fables, Guide, so Diary is second.\nANSWER: A"
+ },
+ {
+  "local_id": "g5-13",
+  "family": "math",
+  "subtheme": "logic-set-membership",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Club rules: everyone with a blue badge has a key. No one with a key is a trainee. Everyone who is not a trainee has a locker. Facts: Orla has a key. Penn is a trainee. Quill has no locker. Rusk has a locker. Apart from Penn, exactly one of these four people must be a trainee. Who? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Quill"
+   }
+  ],
+  "reference": "Every non-trainee has a locker, so anyone without a locker is a trainee: Quill.\nOrla has a key, so she is not a trainee. Rusk's locker proves nothing either way.\nANSWER: Quill",
+  "negative": "Non-trainees have lockers and Rusk has a locker, which links him to the trainee rule.\nANSWER: Rusk"
+ },
+ {
+  "local_id": "g5-14",
+  "family": "math",
+  "subtheme": "logic-truth-liar",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "On an island every person is either a truth-teller (always tells the truth) or a liar (always lies). Dov says: 'Esme is a liar.' Esme says: 'Finn is a liar.' Finn says: 'Dov and Esme are both liars.' Exactly one of the three is a truth-teller. Who? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Esme"
+   }
+  ],
+  "reference": "If Finn were truthful, Dov and Esme would be liars, but then Dov's claim 'Esme is a liar' would be true. Contradiction.\nSo Finn lies, which makes Esme's statement true and Dov's statement false.\nANSWER: Esme",
+  "negative": "Finn accuses both others, and two liars fits, so Finn is truthful.\nANSWER: Finn"
+ },
+ {
+  "local_id": "g5-15",
+  "family": "math",
+  "subtheme": "logic-assignment-grid",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Four houses in a row are numbered 1 to 4 from left to right. Ines, Joss, Kade and Lux each live in one house, and each owns a different pet: a cat, an owl, a hen and a newt. Joss lives in the house immediately to the right of the owl's house. The cat lives in an end house (1 or 4). Kade lives next door to Ines. Lux owns the hen. Kade does not own the owl. Lux does not live in house 4. Who owns the newt? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Kade"
+   }
+  ],
+  "reference": "The only layout that fits is Lux 1, Kade and Ines in 2 and 3, Joss 4.\nThe owl is in house 3 (left of Joss) and is not Kade's, so Ines is in 3 and Kade in 2.\nLux has the hen, the cat is in end house 4 with Joss, so Kade has the newt.\nANSWER: Kade",
+  "negative": "Lux 1 with the hen, Joss 4 with the cat, Kade 3 with the owl, Ines 2.\nANSWER: Ines"
+ },
+ {
+  "local_id": "g5-16",
+  "family": "math",
+  "subtheme": "logic-conditional-ordering",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Rhea, Sven, Tova and Ugo are four siblings with different ages. Rhea is older than Sven. If Ugo is older than Rhea, then Tova is the oldest of the four. If Ugo is younger than Rhea, then Sven is the oldest of the four. Who is the second oldest? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Ugo"
+   }
+  ],
+  "reference": "Sven cannot be the oldest because Rhea is older, so Ugo is not younger than Rhea.\nSo Ugo is older than Rhea, and then Tova is the oldest.\nOrder: Tova, Ugo, Rhea, Sven.\nANSWER: Ugo",
+  "negative": "Tova is the oldest, then Rhea, who is older than Sven.\nANSWER: Rhea"
+ },
+ {
+  "local_id": "g5-17",
+  "family": "math",
+  "subtheme": "logic-half-truths",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Nico, Odile and Pavel finished a race in places 1, 2 and 3 with no ties. Each made two statements; for each person exactly one statement is true and the other is false. Nico: 'I was first. Odile was second.' Odile: 'I was second. Pavel was third.' Pavel: 'I was second. Nico was third.' Who finished first? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Pavel"
+   }
+  ],
+  "reference": "If Nico was first, Odile was not second, so by Odile's pair Pavel was third and Odile second. Contradiction.\nSo Nico was not first and Odile was second; then Pavel was not third, so Pavel was first and Nico third.\nCheck Pavel: 'I was second' false, 'Nico was third' true.\nANSWER: Pavel",
+  "negative": "Nico's first statement is the true one.\nANSWER: Nico"
+ },
+ {
+  "local_id": "g5-18",
+  "family": "math",
+  "subtheme": "logic-could-be-true",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Five chores (sweep, mop, dust, wash, iron) are done one per day from Monday to Friday. Mopping is done the day right after sweeping. Dusting is done on some day before washing. Ironing is not on Monday or Friday. Washing is not on Friday. Which one statement could be true? A) Dusting is on Tuesday. B) Mopping is on Thursday. C) Washing is on Wednesday. D) Ironing is on Thursday. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "C"
+   }
+  ],
+  "reference": "Friday is not wash, iron, dust (before wash) or sweep (mop follows), so mop is Friday and sweep Thursday.\nMonday is not iron and not wash, so dust is Monday; wash and iron fill Tuesday and Wednesday in either order.\nOnly C fits one of the two schedules.\nANSWER: C",
+  "negative": "Sweep Wednesday, mop Thursday works with the other clues.\nANSWER: B"
+ },
+ {
+  "local_id": "g5-19",
+  "family": "math",
+  "subtheme": "logic-one-liar",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Wren, Xavi, Yann and Zane are four cousins with different ages. Wren says: 'I am the oldest.' Xavi says: 'I am older than Wren.' Yann says: 'Wren is older than me.' Zane says: 'I am the oldest.' Exactly one of the four is lying and the other three tell the truth. Who is the second oldest? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Xavi"
+   }
+  ],
+  "reference": "Wren's claim conflicts with both Xavi's and Zane's, so with only one liar it must be Wren.\nThen Zane is the oldest, Xavi is older than Wren, and Wren is older than Yann.\nOrder: Zane, Xavi, Wren, Yann.\nANSWER: Xavi",
+  "negative": "Zane is the oldest, and Wren, who also claims to be oldest, comes next.\nANSWER: Wren"
+ },
+ {
+  "local_id": "g5-20",
+  "family": "math",
+  "subtheme": "logic-floors",
+  "difficulty": "hard",
+  "mode": "single",
+  "prompt": "Abel, Bryn, Cass, Dory and Egan live on five different floors of a building, numbered 1 (bottom) to 5 (top). Abel lives higher than Bryn. Egan lives exactly two floors above Dory. Bryn does not live on floor 1. Bryn's floor is not next to Dory's floor. On which floor does Cass live? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "reference": "Dory and Egan are on 1 and 3, 2 and 4, or 3 and 5.\nWith 2 and 4 or 3 and 5, Bryn (not on 1, below Abel) always ends up next to Dory.\nSo Dory 1, Egan 3, and Bryn is not on 2: Bryn 4, Abel 5, Cass on the floor left over.\nANSWER: 2",
+  "negative": "Dory 2, Egan 4, Bryn 3, Abel 5, so Cass is at the bottom.\nANSWER: 1"
+ },
+ {
+  "local_id": "g5-21",
+  "family": "math",
+  "subtheme": "logic-mislabelled-boxes",
+  "difficulty": "medium",
+  "mode": "single",
+  "prompt": "Three closed boxes hold two coins each: one holds two gold coins, one holds two silver coins, and one holds one gold and one silver coin. The boxes are labelled 'two gold', 'two silver' and 'one of each', but every label is wrong. A coin drawn from the box labelled 'one of each' is gold. What is in the box labelled 'two silver'? A) Two gold coins. B) Two silver coins. C) One gold and one silver coin. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
+  "max_tokens": 320,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "C"
+   }
+  ],
+  "reference": "The box labelled 'one of each' is not mixed and holds a gold coin, so it holds two gold.\nThe box labelled 'two silver' cannot hold two silver and the two gold are taken, so it is the mixed box.\nANSWER: C",
+  "negative": "Every label is wrong, so the box labelled 'two silver' holds the opposite.\nANSWER: A"
+ }
+]

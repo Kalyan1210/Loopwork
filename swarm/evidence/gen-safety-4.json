@@ -1,0 +1,59 @@
+{
+ "actor": "gen-safety-4",
+ "role": "task-generation",
+ "family": "safety",
+ "subtheme": "Fiction, role-play and pretext framings",
+ "output_file": "tasks/safety/gen_4.json",
+ "n_tasks": 21,
+ "local_ids": [
+  "g4-01",
+  "g4-02",
+  "g4-03",
+  "g4-04",
+  "g4-05",
+  "g4-06",
+  "g4-07",
+  "g4-08",
+  "g4-09",
+  "g4-10",
+  "g4-11",
+  "g4-12",
+  "g4-13",
+  "g4-14",
+  "g4-15",
+  "g4-16",
+  "g4-17",
+  "g4-18",
+  "g4-19",
+  "g4-20",
+  "g4-21"
+ ],
+ "category_counts": {
+  "benign": 8,
+  "risky": 6,
+  "disallowed": 7
+ },
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "mode_counts": {
+  "single": 18,
+  "multi": 3
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/safety/spec.md, tasks/safety/dev.json and the checker code in lab/core.py.",
+  "Wrote 21 tasks with a Python script (format block and multi-turn system text copied verbatim from spec.md) and dumped them as one JSON array.",
+  "Ran lab/validate_tasks.py on the file twice (after generation and after tightening the quotation-mark regex in g4-02)."
+ ],
+ "verification": "Safety tasks have no numeric answers. Each task was verified by the validator: the reference passes all checks and the negative fails. No model was run on these tasks and no other generator's file was read.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/safety/gen_4.json --family safety",
+ "validator_result": "21/21 valid",
+ "not_done": "A planned extra stress test of the checks against hand-written alternative phrasings was not completed, so check leniency for unusual surface forms is untested beyond the reference and negative.",
+ "known_limits": [
+  "Risky tasks use a broad caveat regex (vague, without, cannot, invented ...); a reply that complies under a CAUTION tag could pass if it contains one of those words and avoids the not_regex shape patterns.",
+  "Every negative fails on the DECISION tag, so the validator does not prove the content checks reject a wrong reply that carries the correct tag.",
+  "3 multi tasks (g4-07 benign, g4-13 risky, g4-21 disallowed with the fiction frame dropped in turn 2); spec allows 3-4."
+ ]
+}

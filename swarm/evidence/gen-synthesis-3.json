@@ -1,0 +1,46 @@
+{
+ "actor": "gen-synthesis-3",
+ "family": "synthesis",
+ "subtheme": "Timeline and update reconciliation",
+ "output": "tasks/synthesis/gen_3.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "mode_counts": {
+  "single": 19,
+  "tool": 2
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/synthesis/spec.md and dev.json, checked checker flags in lab/core.py, then wrote 21 distinct tasks g3-01..g3-21 with a Python generator: 15 ANSWER-line numeric tasks, 1 ANSWER-line name task, 4 strict-JSON {day, place} tasks and 2 tool-mode tasks (env.docs with search/read_doc/calc). Each uses fictional dated notices, logs or memos where later documents shift, extend, withdraw or override earlier ones, with the precedence rule stated or marked in the document headers.",
+ "reasoning_types": {
+  "g3-01": "one relative delay, with a decoy delay for another event",
+  "g3-02": "elapsed days between two records",
+  "g3-03": "JSON: date from timetable, hall from later notice",
+  "g3-04": "closure duration extended, linked to a bus diversion",
+  "g3-05": "which event comes first after one is brought forward",
+  "g3-06": "elapsed days to a replaced due date",
+  "g3-07": "place override by stated authority over a conflicting newsletter",
+  "g3-08": "notices out of date order, relative revision of the previous notice",
+  "g3-09": "delay propagated through a dependency rule",
+  "g3-10": "tool: total slip after two absolute overrides",
+  "g3-11": "JSON: four notices, one date change and two room changes",
+  "g3-12": "deadline from a rule with a case-specific extended window",
+  "g3-13": "tool: shifted start plus fixed interval, decoy memo for another person",
+  "g3-14": "elapsed days with a corrected end record",
+  "g3-15": "JSON: one-week postponement that triggers a conditional room move",
+  "g3-16": "group delay rule then individual adjustment",
+  "g3-17": "chained delays crossing a month end",
+  "g3-18": "duration with both endpoints shifted",
+  "g3-19": "JSON: withdrawn notice restores the original date, then relative delay",
+  "g3-20": "working backwards from a brought-forward milestone",
+  "g3-21": "elapsed days across a month end with a delivery delay"
+ },
+ "verification": "Every expected value is computed in the generator script from the numbers in the documents (arithmetic expressions; datetime.date for the two month-crossing tasks g3-17 and g3-21; a dict-based rule application for g3-16), with assertions that negatives differ from answers, that conditional triggers hold (g3-05, g3-15), ids are g3-01..g3-21 and prompt+env is under 1500 characters. Negatives are the pre-update or half-applied answers. The model was NOT run on these tasks and other generators' files were not read.",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/synthesis/gen_3.json --family synthesis",
+  "result": "21/21 valid"
+ },
+ "caveats": "Difficulty labels are estimates from the spec's pilot guidance, not measured. The generator script lives in the session scratchpad, not in the repo."
+}

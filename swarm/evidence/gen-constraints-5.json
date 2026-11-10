@@ -1,0 +1,16 @@
+{
+ "actor": "gen-constraints-5",
+ "role": "task-generation",
+ "family": "constraints",
+ "subtheme": "transform-and-format of given strings",
+ "output_file": "tasks/constraints/gen_5.json",
+ "n_tasks": 21,
+ "difficulty_mix": {"easy": 7, "medium": 7, "hard": 7},
+ "what_was_done": "Read lab/TASKS.md, tasks/constraints/spec.md and dev.json; wrote one Python generator script (kept in the session scratchpad, outside the repo) that builds all 21 single-mode tasks and writes them as one JSON array.",
+ "answer_verification": "Every reference answer is computed in Python from the same source data that is interpolated into the prompt (str.upper/lower/title/replace, join, slicing, len, datetime.strftime/isoformat, dict abbreviation map); none is hand-typed. Each check is one anchored case-sensitive regex built with re.escape from the computed answer (flags '' for one-line answers, 's' plus a line_count check for multi-line answers, with \\s*\\n\\s* between lines). The script asserts that the reference matches, the near-miss negative does not, and that a variant with trailing double spaces and surrounding blank lines still matches.",
+ "validator_command": ".venv/bin/python lab/validate_tasks.py tasks/constraints/gen_5.json --family constraints",
+ "validator_result": "21/21 valid",
+ "model_run_on_tasks": false,
+ "not_done": "No pilot against the model (held-out by instruction), so the easy/medium/hard labels are estimates from the family spec's difficulty guidance, not measured pass rates. Other generators' files were not read, so cross-generator overlap was not checked.",
+ "notes": "Each task carries tags.derivation naming the Python operation used for its answer. No sorting, filtering or JSON output is required by any task."
+}

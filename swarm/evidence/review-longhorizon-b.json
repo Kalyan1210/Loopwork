@@ -1,0 +1,99 @@
+{
+ "actor": "review-longhorizon-b",
+ "family": "longhorizon",
+ "role": "task-review",
+ "method": "Re-derived every expected end state and final answer independently in python (asserts) and by replaying chains over env; replayed each reference with a sentence-form final and with no tool steps through lab/core.py checkers; compared against dev.json and gen_1..gen_3 for duplicates. Model was not run on these tasks.",
+ "files": {
+  "tasks/longhorizon/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 3,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/longhorizon/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 7,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "file": "gen_4.json",
+   "local_id": "g4-16",
+   "issue": "reference used 7 tool calls plus final = 8 steps, zero slack under max_steps 8 and over the spec budget of 6",
+   "action": "reference trimmed to 6 tool calls (one calc); checks unchanged"
+  },
+  {
+   "file": "gen_4.json",
+   "local_id": "g4-17",
+   "issue": "same step-budget issue (7 tool calls)",
+   "action": "reference trimmed to 6 tool calls (calc is optional per prompt); checks unchanged"
+  },
+  {
+   "file": "gen_4.json",
+   "local_id": "g4-20",
+   "issue": "same step-budget issue (7 tool calls)",
+   "action": "reference trimmed to 6 tool calls (calc is optional per prompt); checks unchanged"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-01",
+   "issue": "exact check rejected a correct short sentence such as 'The answer is hale.'",
+   "action": "replaced exact with regex \\bhale\\b plus not_regex on the wrong chain names (wren, ivo, dask, orla)"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-12",
+   "issue": "exact check rejected correct sentence-form answers",
+   "action": "replaced exact with regex \\boskar\\b plus not_regex on the other owners"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-20",
+   "issue": "exact check rejected correct sentence-form answers",
+   "action": "replaced exact with regex \\bpier\\b plus not_regex on mill, weir, ford"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-10",
+   "issue": "prompt forbids touching unmentioned keys but no kv key was checked",
+   "action": "added env_equals on kv.batch and kv.shift"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-14",
+   "issue": "required read of the updates file was not proven",
+   "action": "added tool_called read_file updates (ok_only)"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-18",
+   "issue": "required read of the counted file was not proven",
+   "action": "added tool_called read_file counted (ok_only)"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-09",
+   "issue": "only the middle leg read was proven; last leg could be skipped only by guessing",
+   "action": "added tool_called read_file leg2 (ok_only)"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-15",
+   "issue": "near-duplicate of g4-15: same reasoning (sender pays amount plus fee, report sender balance)",
+   "action": "reworked into a distinct task: fee is kept out of the amount, receiver gains amount minus fee, answer is the receiver balance 93 (amber 60, birch 93); new checks, reference and negative"
+  }
+ ],
+ "notes": [
+  "No wrong expected answers found in either file.",
+  "No duplicates against dev.json or gen_1..gen_3 (those are multi mode with different content).",
+  "All 42 tasks: prompt+env under 900 characters, reference at most 6 tool calls, max_steps 8, fictional content.",
+  "Known residual limitation, not changed: tool_called args_contains is a substring match (e.g. 'sold' also matches a read of 'unsold'); end-state env_equals checks still pin the result.",
+  "A final that puts another number after the answer (e.g. '29 parcels in box_5') fails the number check; prompts ask for just the number, as the spec prescribes."
+ ]
+}

@@ -194,7 +194,7 @@
   "subtheme": "filter-sort",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "Stock count at the fictional Pinfold Haberdashery:\nthimbles 12\nribbon 0\nbuttons 40\nlace 0\nneedles 7\nfelt 0\nzippers 3\n\nList ONLY the items with a stock of 0, in alphabetical order. One item per line, each line starting with \"* \" (asterisk, space), item name only. No other text.",
+  "prompt": "Stock count at the fictional Pinfold Haberdashery:\nthimbles 12\nribbon 0\nbuttons 40\nlace 0\nneedles 7\nfelt 0\nzippers 3\n\nList ONLY the items with a stock of 0, in alphabetical order. One item per line, each line starting with \"* \" (asterisk, space), item name only, in lowercase as written above. No other text.",
   "checks": [
    {
     "type": "line_count",

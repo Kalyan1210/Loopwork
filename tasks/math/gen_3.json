@@ -121,19 +121,19 @@
  {
   "local_id": "g3-08",
   "family": "math",
-  "subtheme": "digit-reversal",
+  "subtheme": "base-from-decimal-digit-sum",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "A two-digit number has digits that add up to 11. When its two digits are swapped, the new number is 27 greater than the original number. What is the original number? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "prompt": "The base-10 number 200 is rewritten in base 7. What is the sum of the digits of that base-7 numeral? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
   "max_tokens": 320,
   "checks": [
    {
     "type": "number",
-    "value": 47
+    "value": 8
    }
   ],
-  "reference": "Digits a (tens), b (units): a + b = 11.\n(10b + a) - (10a + b) = 9(b - a) = 27, so b - a = 3.\na = 4, b = 7.\nANSWER: 47",
-  "negative": "a + b = 11 and the digits differ by 3, so the digits are 7 and 4.\nANSWER: 74"
+  "reference": "200 = 4*49 + 4, so 200 = 4*49 + 0*7 + 4.\nIn base 7 it is 404. Digit sum 4 + 0 + 4 = 8.\nANSWER: 8",
+  "negative": "200 = 4*49 + 0*7 + 4, so in base 7 it is 404.\nANSWER: 404"
  },
  {
   "local_id": "g3-09",
@@ -213,8 +213,18 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "number",
-    "value": 432
+    "type": "any",
+    "checks": [
+     {
+      "type": "number",
+      "value": 432
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*432(?!\\d)(?![.,]\\d)(?:[^\\d\\n]+5)?[^\\d\\n]*$(?![\\s\\S]*^\\W*answer\\s*[:=])",
+      "flags": "im"
+     }
+    ]
    }
   ],
   "reference": "243 in base 5 = 2*25 + 4*5 + 3 = 73. 134 in base 5 = 25 + 15 + 4 = 44.\n73 + 44 = 117 = 4*25 + 3*5 + 2.\nSo the sum is 432 in base 5.\nANSWER: 432",

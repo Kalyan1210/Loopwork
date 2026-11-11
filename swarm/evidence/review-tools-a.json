@@ -1,0 +1,141 @@
+{
+ "actor": "review-tools-a",
+ "family": "tools",
+ "files": {
+  "tasks/tools/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 4,
+   "replaced": 2,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g1-03",
+     "issue": "exact 'teal' rejects correct forms such as 'the teal crate'",
+     "action": "replaced exact with regex \\bteal\\b plus not_regex \\bblue\\b"
+    },
+    {
+     "local_id": "g1-06",
+     "issue": "answer listing every key name would pass the regex",
+     "action": "added not_regex on the three non-matching key names"
+    },
+    {
+     "local_id": "g1-11",
+     "issue": "search also returns recipe-book (mentions saffron); an answer naming both ids would pass",
+     "action": "added not_regex on the other document ids"
+    },
+    {
+     "local_id": "g1-17",
+     "issue": "exact 'read_file' rejects correct forms like 'read_file(path)' or 'the read_file tool'",
+     "action": "replaced exact with regex \\bread_file\\b plus not_regex on the other tool names"
+    },
+    {
+     "local_id": "g1-08",
+     "issue": "near-duplicate of g1-07 (schedule pasted in prompt, look up one row, zero tool calls; also overlaps g1-03 and dev-08)",
+     "action": "replaced with a new distinct task: existence check of an exactly named file among look-alike names via one list_files call (answer NO)"
+    },
+    {
+     "local_id": "g1-20",
+     "issue": "content near-duplicate of g2-19 (same superseded 45 -> 52 fee/fare story)",
+     "action": "re-themed to a mill toll (18 superseded by 23) with new doc ids; structure and checks kept, expected answer now 23"
+    }
+   ]
+  },
+  "tasks/tools/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 1,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g2-21",
+     "issue": "rate wording 'N coins per sack for larger orders' could be read as a marginal tier (500*9+140*7=5480) instead of whole-order rate (4480)",
+     "action": "reworded both depot docs so the lower rate explicitly applies to every sack of a >500 order; expected answer 4480 unchanged"
+    },
+    {
+     "local_id": "g2-01",
+     "issue": "near-duplicate of dev-01 (N boxes of M items, multiply with calc, same wording template)",
+     "action": "replaced with a new distinct easy calc task: remainder after filling trays (2537 % 24 = 17)"
+    }
+   ]
+  },
+  "tasks/tools/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 12,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g3-02",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.guestlist with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-03",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.motto with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-07",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.shopping with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-09",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.playlist with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-11",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.roster with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-12",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.chores with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-13",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.barn_log with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-14",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.archive_notes with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-15",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.timetable with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-18",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.recipe with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-19",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.board with a newline-joined fragment around the edited line to pin the line structure"
+    },
+    {
+     "local_id": "g3-21",
+     "issue": "env_equals is whitespace-normalized, so a file rewritten on a single line (line breaks replaced by spaces) would pass although the task requires one entry per line",
+     "action": "added env_contains on files.prices with a newline-joined fragment around the edited line to pin the line structure"
+    }
+   ]
+  }
+ },
+ "notes": [
+  "All 21 gen_2 expected numbers recomputed in Python and matched; gen_1 lookups and gen_3 final states re-derived by hand and by replaying references through lab/core.py.",
+  "Verified every search-dependent fact (g1-20, g2-14, g2-15, g2-19, g2-21) lies beyond the 160-char search snippet.",
+  "Held-out tasks were not run on the model."
+ ]
+}

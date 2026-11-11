@@ -1,0 +1,835 @@
+[
+ {
+  "local_id": "g1-01",
+  "family": "longhorizon",
+  "subtheme": "fill-to-capacity-echo",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Let's track the fuel of a fictional riverboat. After each of my messages, reply with only one line in the form FUEL: <number> giving the litres of fuel now in the tank. The tank holds at most 80 litres when full and starts with 60 litres.",
+   "The morning trip burns 20 litres.",
+   "At the dock the crew fills the tank until it is completely full.",
+   "The evening trip burns 15 litres."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 65
+   },
+   {
+    "type": "reply_check",
+    "index": 1,
+    "check": {
+     "type": "number",
+     "value": 40
+    }
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 70
+  },
+  "reference": [
+   "FUEL: 60",
+   "FUEL: 40",
+   "FUEL: 80",
+   "FUEL: 65"
+  ],
+  "negative": [
+   "FUEL: 60",
+   "FUEL: 40",
+   "FUEL: 80",
+   "FUEL: 80"
+  ]
+ },
+ {
+  "local_id": "g1-02",
+  "family": "longhorizon",
+  "subtheme": "score-with-penalty",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "I am keeping score for Dario in a fictional darts game. Acknowledge each update in a few words. Dario starts at zero and his first throw scores 20 points.",
+   "His second throw scores 15 points.",
+   "He steps over the line and loses 5 points as a penalty.",
+   "How many points does Dario have now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 35
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 30"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 35"
+  ]
+ },
+ {
+  "local_id": "g1-03",
+  "family": "longhorizon",
+  "subtheme": "doubling-step-echo",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the coins in a fictional piggy bank. After each of my messages, reply with only one line in the form COINS: <number> giving the number of coins now in the bank. The bank starts with 10 coins.",
+   "Nilo drops in 5 more coins.",
+   "His aunt matches everything in the bank, so the number of coins doubles.",
+   "Nilo takes out 8 coins to buy a kite."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 7
+  },
+  "reference": [
+   "COINS: 10",
+   "COINS: 15",
+   "COINS: 30",
+   "COINS: 22"
+  ],
+  "negative": [
+   "COINS: 10",
+   "COINS: 15",
+   "COINS: 30",
+   "COINS: 7"
+  ]
+ },
+ {
+  "local_id": "g1-04",
+  "family": "longhorizon",
+  "subtheme": "two-events-one-turn-echo",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the books on the display shelf of a fictional library. After each of my messages, reply with only one line in the form SHELF: <number> giving the number of books now on the shelf. The shelf starts with 30 books.",
+   "Unrelated: the library building has 3 floors.",
+   "Readers borrow 10 books from the shelf, and 4 other books are returned to it.",
+   "The librarian adds 8 new books to the shelf."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 32
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 28
+  },
+  "reference": [
+   "SHELF: 30",
+   "SHELF: 30",
+   "SHELF: 24",
+   "SHELF: 32"
+  ],
+  "negative": [
+   "SHELF: 30",
+   "SHELF: 30",
+   "SHELF: 24",
+   "SHELF: 28"
+  ]
+ },
+ {
+  "local_id": "g1-05",
+  "family": "longhorizon",
+  "subtheme": "remaining-distance",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "I am following two hikers on a fictional trail that is 50 km long from start to finish. Acknowledge each update in a few words. On day one they walk 10 km.",
+   "On day two they walk 15 km.",
+   "On day three they walk 5 km.",
+   "How many km of the trail do they still have to walk? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 20
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 25
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 20"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 25"
+  ]
+ },
+ {
+  "local_id": "g1-06",
+  "family": "longhorizon",
+  "subtheme": "number-words-echo",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the passengers on a fictional town bus. After each of my messages, reply with only one line in the form RIDERS: <number> giving the number of passengers on the bus, written in digits. The bus leaves the depot with twelve passengers.",
+   "At the market stop, five passengers get on.",
+   "At the school stop, eight passengers get off.",
+   "At the harbour stop, four passengers get on."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 13
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 9
+  },
+  "reference": [
+   "RIDERS: 12",
+   "RIDERS: 17",
+   "RIDERS: 9",
+   "RIDERS: 13"
+  ],
+  "negative": [
+   "RIDERS: 12",
+   "RIDERS: 17",
+   "RIDERS: 9",
+   "RIDERS: 9"
+  ]
+ },
+ {
+  "local_id": "g1-07",
+  "family": "longhorizon",
+  "subtheme": "reset-to-zero",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "I am counting the cars in a fictional car park. Acknowledge each update in a few words. There are 25 cars in the car park.",
+   "10 cars drive out.",
+   "The car park is closed for cleaning and every remaining car leaves, so it is now empty.",
+   "It reopens: 14 cars drive in, and then 3 of them drive out again.",
+   "How many cars are in the car park now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 26
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 11"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 26"
+  ]
+ },
+ {
+  "local_id": "g1-08",
+  "family": "longhorizon",
+  "subtheme": "corrected-sale-echo",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the seed packets in a fictional garden shop. After each of my messages, reply with only one line in the form SEEDS: <number> giving the number of packets now in stock. The shop starts with 45 packets.",
+   "A school buys 12 packets.",
+   "Unrelated: the shop first opened 9 years ago.",
+   "Correction: the school actually bought 15 packets, not 12.",
+   "A delivery brings 20 packets, and 6 packets are handed out as free samples."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 44
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 47
+  },
+  "reference": [
+   "SEEDS: 45",
+   "SEEDS: 33",
+   "SEEDS: 33",
+   "SEEDS: 30",
+   "SEEDS: 44"
+  ],
+  "negative": [
+   "SEEDS: 45",
+   "SEEDS: 33",
+   "SEEDS: 33",
+   "SEEDS: 30",
+   "SEEDS: 47"
+  ]
+ },
+ {
+  "local_id": "g1-09",
+  "family": "longhorizon",
+  "subtheme": "voided-round",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "I am logging points for Mira in a fictional video game. Acknowledge each update in a few words. In level 1 Mira earns 14 points.",
+   "In level 2 she earns 9 points.",
+   "She finds a hidden gem worth 6 bonus points.",
+   "The game glitched during level 2, so the points she earned in level 2 are removed from her total.",
+   "In level 3 she earns 7 points.",
+   "How many points does Mira have now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 27
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 36
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 27"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 36"
+  ]
+ },
+ {
+  "local_id": "g1-10",
+  "family": "longhorizon",
+  "subtheme": "two-items-report-one-echo",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "A fictional fruit stall sells apples and pears. After each of my messages, reply with only one line in the form APPLES: <number> giving the number of apples now on the stall. Do not report the pears. The stall starts with 30 apples and 18 pears.",
+   "7 apples are sold.",
+   "5 pears are sold.",
+   "A delivery brings 12 apples and 10 pears.",
+   "9 apples go bad and are thrown away, and 4 pears are sold."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 26
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 22
+  },
+  "reference": [
+   "APPLES: 30",
+   "APPLES: 23",
+   "APPLES: 23",
+   "APPLES: 35",
+   "APPLES: 26"
+  ],
+  "negative": [
+   "APPLES: 30",
+   "APPLES: 23",
+   "APPLES: 23",
+   "APPLES: 35",
+   "APPLES: 22"
+  ]
+ },
+ {
+  "local_id": "g1-11",
+  "family": "longhorizon",
+  "subtheme": "crates-and-bottles",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "I am counting bottles of juice in a fictional cafe storeroom. A full crate always holds 6 bottles. Acknowledge each update in a few words. The storeroom starts with 4 full crates.",
+   "A delivery brings 2 more full crates.",
+   "The staff drink 5 single bottles.",
+   "1 full crate is given to the cafe next door.",
+   "How many bottles are in the storeroom now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 25
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 31
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 25"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 31"
+  ]
+ },
+ {
+  "local_id": "g1-12",
+  "family": "longhorizon",
+  "subtheme": "halving-then-toll-echo",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the coin purse of Tavi, a fictional merchant. After each of my messages, reply with only one line in the form PURSE: <number> giving the number of coins Tavi has now. Tavi starts with 80 coins.",
+   "Tavi spends exactly half of his coins on a cart.",
+   "He sells cloth and earns 26 coins.",
+   "Unrelated: his cousin Bela owns 500 coins.",
+   "Tavi pays a bridge toll of 11 coins."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 66
+  },
+  "reference": [
+   "PURSE: 80",
+   "PURSE: 40",
+   "PURSE: 66",
+   "PURSE: 66",
+   "PURSE: 55"
+  ],
+  "negative": [
+   "PURSE: 80",
+   "PURSE: 40",
+   "PURSE: 66",
+   "PURSE: 66",
+   "PURSE: 66"
+  ]
+ },
+ {
+  "local_id": "g1-13",
+  "family": "longhorizon",
+  "subtheme": "corrected-start-value",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "I am tracking crates in a fictional warehouse. Acknowledge each update in a few words. The warehouse starts the week with 120 crates.",
+   "A truck takes away 35 crates.",
+   "A ship delivers 40 crates.",
+   "Correction: the starting count was wrong. The week actually started with 110 crates, not 120. The truck and the ship are unchanged.",
+   "A second truck takes away 25 crates.",
+   "How many crates are in the warehouse now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 90
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 100
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 90"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 100"
+  ]
+ },
+ {
+  "local_id": "g1-14",
+  "family": "longhorizon",
+  "subtheme": "score-lead-echo",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Two fictional teams, the Foxes and the Owls, are playing a quiz. After each of my messages, reply with only one line in the form LEAD: <number> giving how many points the Foxes are ahead of the Owls. The Foxes have 12 points and the Owls have 8 points.",
+   "The Foxes score 9 points.",
+   "Unrelated: there are 200 people in the audience.",
+   "The Owls score 6 points.",
+   "The Foxes score 3 points, and the Owls lose 5 points as a penalty."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 10
+  },
+  "reference": [
+   "LEAD: 4",
+   "LEAD: 13",
+   "LEAD: 13",
+   "LEAD: 7",
+   "LEAD: 15"
+  ],
+  "negative": [
+   "LEAD: 4",
+   "LEAD: 13",
+   "LEAD: 13",
+   "LEAD: 7",
+   "LEAD: 10"
+  ]
+ },
+ {
+  "local_id": "g1-15",
+  "family": "longhorizon",
+  "subtheme": "three-accounts-half-transfer",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track tokens for three fictional players. Start: Rosa has 40 tokens, Sven has 25 tokens and Tia has 35 tokens. Reply with only the word NOTED until I ask a question.",
+   "Rosa pays Sven 15 tokens.",
+   "Tia pays Rosa 20 tokens.",
+   "Sven pays Tia exactly half of the tokens he has.",
+   "Rosa pays 6 tokens to Sven and 6 tokens to Tia.",
+   "How many tokens does Tia have now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 41
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 20
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "35 - 20 + 20 + 6 = 41\nANSWER: 41"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "35 - 20 + 20 = 35\nANSWER: 35"
+  ]
+ },
+ {
+  "local_id": "g1-16",
+  "family": "longhorizon",
+  "subtheme": "two-accounts-corrected-loan",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track coins for two fictional friends. Start: Lena has 70 coins and Omar has 20 coins. Reply with only the word NOTED until I ask a question.",
+   "Lena lends Omar 30 coins.",
+   "Omar spends 18 coins at the market.",
+   "Correction: the loan from Lena to Omar was 25 coins, not 30.",
+   "Omar pays 10 coins back to Lena.",
+   "How many coins does Lena have now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 50
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "70 - 25 + 10 = 55\nANSWER: 55"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "70 - 30 + 10 = 50\nANSWER: 50"
+  ]
+ },
+ {
+  "local_id": "g1-17",
+  "family": "longhorizon",
+  "subtheme": "returned-delivery-silent",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the candles in stock at a fictional gift shop. The shop starts with 63 candles. Reply with only the word NOTED until I ask a question.",
+   "17 candles are sold.",
+   "A delivery of 24 candles arrives.",
+   "9 candles are sold. Unrelated: 31 people visited the shop today.",
+   "The whole delivery turns out to be the wrong scent, so all the candles from that delivery are sent back.",
+   "How many candles are in stock now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 37
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 61
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "63 - 17 + 24 - 9 - 24 = 37\nANSWER: 37"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "63 - 17 + 24 - 9 = 61\nANSWER: 61"
+  ]
+ },
+ {
+  "local_id": "g1-18",
+  "family": "longhorizon",
+  "subtheme": "shared-pot-cancelled-win",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Three fictional friends, Jo, Kim and Lev, each have 30 chips, and there is a shared pot that starts empty. Reply with only the word NOTED until I ask a question.",
+   "Each of the three friends puts 10 chips into the pot.",
+   "Kim wins a round and takes exactly half of the chips in the pot.",
+   "Lev pays Jo 8 chips. Then Jo puts 5 more chips into the pot.",
+   "Kim's win is cancelled, so she puts back into the pot all the chips she took from it.",
+   "How many chips are in the pot now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 35
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 20
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "30 - 15 + 5 + 15 = 35\nANSWER: 35"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "30 - 15 + 5 = 20\nANSWER: 20"
+  ]
+ },
+ {
+  "local_id": "g1-19",
+  "family": "longhorizon",
+  "subtheme": "two-accounts-refund-echo",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track coins for two fictional traders, Maya and Noor. After each of my messages, reply with only one line in the form MAYA: <number> giving the number of coins Maya has now. Maya starts with 55 coins and Noor starts with 35 coins.",
+   "Maya pays Noor 20 coins.",
+   "Noor pays Maya 8 coins.",
+   "The payment of 20 coins from Maya to Noor was a mistake, so Noor gives all of it back to Maya.",
+   "Maya pays a market fee of 7 coins, and Noor pays Maya 4 coins."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 60
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 40
+  },
+  "reference": [
+   "MAYA: 55",
+   "MAYA: 35",
+   "MAYA: 43",
+   "MAYA: 63",
+   "MAYA: 60"
+  ],
+  "negative": [
+   "MAYA: 55",
+   "MAYA: 35",
+   "MAYA: 43",
+   "MAYA: 63",
+   "MAYA: 40"
+  ]
+ },
+ {
+  "local_id": "g1-20",
+  "family": "longhorizon",
+  "subtheme": "rate-times-hours-correction",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the fuel of a fictional airship. It starts with 90 units of fuel. Reply with only the word NOTED until I ask a question.",
+   "The airship flies for 5 hours and burns 4 units of fuel every hour.",
+   "It takes on 25 units of fuel at a sky dock.",
+   "Correction: that flight lasted 7 hours, not 5. The burn rate is unchanged.",
+   "It pumps 30 units over to a sister ship, and the sister ship later pumps 12 units back.",
+   "How many units of fuel does the airship have now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 69
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 77
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "90 - 4 * 7 + 25 - 30 + 12 = 69\nANSWER: 69"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "90 - 4 * 5 + 25 - 30 + 12 = 77\nANSWER: 77"
+  ]
+ },
+ {
+  "local_id": "g1-21",
+  "family": "longhorizon",
+  "subtheme": "debt-bounced-repayment",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track a debt between two fictional neighbours. Pip owes Quin 40 coins. Reply with only the word NOTED until I ask a question.",
+   "Pip repays 15 coins to Quin.",
+   "Quin lends Pip another 22 coins. Unrelated: a third neighbour, Rex, owes Quin 60 coins.",
+   "Pip's repayment of 15 coins bounced, so it does not count and that amount is still owed.",
+   "Pip repays 30 coins to Quin, and this payment goes through.",
+   "How many coins does Pip owe Quin now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 32
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 17
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "40 + 22 - 30 = 32\nANSWER: 32"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "40 - 15 + 22 - 30 = 17\nANSWER: 17"
+  ]
+ }
+]

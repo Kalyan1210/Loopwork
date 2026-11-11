@@ -1,0 +1,376 @@
+{
+ "method": {
+  "text": "normalized prompt + scripted turns (lowercase, non-alphanumerics -> space)",
+  "flag_if": "exact match OR token-set Jaccard >= 0.8 OR difflib ratio >= 0.9",
+  "comparisons": "each held-out task vs every dev task and vs every other held-out task, within family"
+ },
+ "families": {
+  "ambiguity": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "calibration": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "coding": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "constraints": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "longhorizon": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "math": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 5,
+   "confirmed": 2,
+   "rewritten": 2,
+   "confirmed_pairs": [
+    {
+     "kind": "heldout-vs-dev",
+     "heldout": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-01"
+     },
+     "other": {
+      "file": "tasks/math/dev.json",
+      "local_id": "dev-03"
+     },
+     "jaccard": 0.9394,
+     "difflib": 0.9675,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ],
+     "verdict": "confirmed",
+     "why": "Same bare 'Solve for x: <linear equation>' template as the dev item; only the equation differs (template with swapped numbers across the dev/held-out boundary)."
+    },
+    {
+     "kind": "heldout-vs-dev",
+     "heldout": {
+      "file": "tasks/math/gen_4.json",
+      "local_id": "g4-10"
+     },
+     "other": {
+      "file": "tasks/math/dev.json",
+      "local_id": "dev-07"
+     },
+     "jaccard": 0.875,
+     "difflib": 0.9096,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ],
+     "verdict": "confirmed",
+     "why": "Same scenario and sample space as the dev item (two fair six-sided dice, probability of an event on the sum, 2-decimal answer); only the event differs."
+    }
+   ],
+   "rewritten_tasks": [
+    {
+     "file": "tasks/math/gen_2.json",
+     "local_id": "g2-01",
+     "old_subtheme": "algebra-linear-fractions",
+     "new_subtheme": "fraction-of-unknown-word",
+     "change": "Replaced the bare 'Solve for x: (2x - 5)/3 = (x + 4)/2' with a word problem that must be translated into n/3 = n/5 + 4 (answer 30). Difficulty kept easy.",
+     "validated": "21/21 valid"
+    },
+    {
+     "file": "tasks/math/gen_4.json",
+     "local_id": "g4-10",
+     "old_subtheme": "dice-condition-removes-cases",
+     "new_subtheme": "spinners-condition-removes-cases",
+     "change": "Replaced the two-dice sum event with two unequal spinners (4 and 6 sections, 24 outcomes) and a product condition with one equal pair to remove (7/24 = 0.29). Difficulty kept medium.",
+     "validated": "21/21 valid"
+    }
+   ],
+   "initial_flagged_pairs": [
+    {
+     "kind": "heldout-vs-dev",
+     "heldout": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-01"
+     },
+     "other": {
+      "file": "tasks/math/dev.json",
+      "local_id": "dev-03"
+     },
+     "jaccard": 0.9394,
+     "difflib": 0.9675,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ],
+     "verdict": "confirmed",
+     "why": "Same bare 'Solve for x: <linear equation>' template as the dev item; only the equation differs (template with swapped numbers across the dev/held-out boundary)."
+    },
+    {
+     "kind": "heldout-vs-dev",
+     "heldout": {
+      "file": "tasks/math/gen_4.json",
+      "local_id": "g4-10"
+     },
+     "other": {
+      "file": "tasks/math/dev.json",
+      "local_id": "dev-07"
+     },
+     "jaccard": 0.875,
+     "difflib": 0.9096,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ],
+     "verdict": "confirmed",
+     "why": "Same scenario and sample space as the dev item (two fair six-sided dice, probability of an event on the sum, 2-decimal answer); only the event differs."
+    },
+    {
+     "kind": "heldout-vs-dev",
+     "heldout": {
+      "file": "tasks/math/gen_3.json",
+      "local_id": "g3-21"
+     },
+     "other": {
+      "file": "tasks/math/dev.json",
+      "local_id": "dev-09"
+     },
+     "jaccard": 0.8462,
+     "difflib": 0.9123,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ],
+     "verdict": "rejected",
+     "why": "Shared second-order-recurrence wording, but a different recurrence and a different question: dev asks for a7 by direct iteration, held-out asks for the sum of 100 terms and needs the period-6 insight. Distinct reasoning."
+    },
+    {
+     "kind": "heldout-vs-heldout",
+     "heldout": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-10"
+     },
+     "other": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-16"
+     },
+     "jaccard": 0.8125,
+     "difflib": 0.9522,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ],
+     "verdict": "rejected",
+     "why": "Linear inequality with sign flip (smallest integer) vs quadratic inequality (largest integer); similarity is the shared '<= means' note and format suffix."
+    },
+    {
+     "kind": "heldout-vs-heldout",
+     "heldout": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-11"
+     },
+     "other": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-21"
+     },
+     "jaccard": 0.6957,
+     "difflib": 0.9078,
+     "reasons": [
+      "difflib"
+     ],
+     "verdict": "rejected",
+     "why": "2x2 linear system vs sum/product identity (a^2+b^2 from a+b and ab); similarity is the format suffix."
+    }
+   ],
+   "flagged_after_rewrite": 3,
+   "flagged_pairs_after_rewrite": [
+    {
+     "kind": "heldout-vs-dev",
+     "a": {
+      "file": "tasks/math/gen_3.json",
+      "local_id": "g3-21",
+      "split": "heldout",
+      "subtheme": "periodic-recurrence-sum"
+     },
+     "b": {
+      "file": "tasks/math/dev.json",
+      "local_id": "dev-09",
+      "split": "dev",
+      "subtheme": "sequences"
+     },
+     "jaccard": 0.8462,
+     "difflib": 0.9123,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ]
+    },
+    {
+     "kind": "heldout-vs-heldout",
+     "a": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-10",
+      "split": "heldout",
+      "subtheme": "inequality-sign-flip"
+     },
+     "b": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-16",
+      "split": "heldout",
+      "subtheme": "quadratic-inequality"
+     },
+     "jaccard": 0.8125,
+     "difflib": 0.9522,
+     "reasons": [
+      "jaccard",
+      "difflib"
+     ]
+    },
+    {
+     "kind": "heldout-vs-heldout",
+     "a": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-11",
+      "split": "heldout",
+      "subtheme": "system-negative-solution"
+     },
+     "b": {
+      "file": "tasks/math/gen_2.json",
+      "local_id": "g2-21",
+      "split": "heldout",
+      "subtheme": "symmetric-identity"
+     },
+     "jaccard": 0.6957,
+     "difflib": 0.9078,
+     "reasons": [
+      "difflib"
+     ]
+    }
+   ],
+   "notes": "Dev file unchanged. Answers of both rewrites computed in python."
+  },
+  "planning": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "safety": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "synthesis": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  },
+  "tools": {
+   "n_dev": 10,
+   "n_heldout": 105,
+   "pairs_compared": 6510,
+   "flagged": 0,
+   "confirmed": 0,
+   "rewritten": 0,
+   "confirmed_pairs": [],
+   "rewritten_tasks": [],
+   "initial_flagged_pairs": [],
+   "flagged_after_rewrite": 0,
+   "flagged_pairs_after_rewrite": [],
+   "notes": ""
+  }
+ },
+ "totals": {
+  "pairs_compared": 65100,
+  "flagged": 5,
+  "confirmed": 2,
+  "rewritten": 2
+ },
+ "audit_summary": "65100 within-family pairs compared (10 families x (105 held-out x 10 dev + C(105,2) held-out pairs)). No exact matches anywhere. 5 pairs crossed the near-duplicate thresholds, all in math, largely because the math format suffix is ~30 of ~35 tokens of a short prompt. 2 held-out-vs-dev pairs were judged real template leaks and the held-out task was rewritten; 3 were judged distinct. After the rewrites a rescan shows only the 3 rejected pairs.",
+ "sub_threshold_observations": [
+  "A supplementary boilerplate-stripped pass (--core) and a watch-level pass (--watch: Jaccard >= 0.6 or difflib >= 0.75) were read for all families; neither is part of the flag criteria and nothing found there was confirmed or rewritten.",
+  "Held-out tasks that share a scenario type with a dev task but differ in content and were left unchanged: longhorizon gen_3 g3-01 and g3-15 vs dev-05 (queue tracking, different queues/operations); calibration gen_2 g2-04 and g2-07 vs dev-04 (race finishing times; the held-out ones are answerable, the dev one is not); calibration gen_3 g3-19 vs dev-08 (tank filling; answerable counterpart of an unanswerable dev item); planning gen_4 g4-16 vs dev-08 (latest-departure timetable, three legs vs two); tools gen_4 g4-08 vs dev-10 (read a key then conditionally delete); synthesis gen_1 g1-11 vs dev-09 (difference of two looked-up capacities); math gen_4 g4-07 vs dev-07 (coins vs dice).",
+  "ambiguity and safety have hundreds of watch-level pairs caused entirely by long shared output-format instructions; with that boilerplate stripped no pair in either family reaches core Jaccard 0.5.",
+  "Limits: the comparison is lexical on prompt/turn text only. It does not compare env/docs of tool tasks and cannot detect paraphrased duplicates with different names and numbers."
+ ]
+}

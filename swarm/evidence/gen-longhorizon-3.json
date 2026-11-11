@@ -1,0 +1,195 @@
+{
+ "actor": "gen-longhorizon-3",
+ "role": "task-generation",
+ "family": "longhorizon",
+ "subtheme": "Ordered lists and sets (multi)",
+ "output_file": "tasks/longhorizon/gen_3.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "reply_policy": {
+  "echo": 9,
+  "echo_count": 1,
+  "ack": 6,
+  "echo_front": 1,
+  "silent": 4
+ },
+ "answer_kind": {
+  "line": 14,
+  "count": 3,
+  "pos": 3,
+  "front": 1
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/longhorizon/spec.md, the multi-mode examples in dev.json and the exact/number/regex checker code in lab/core.py.",
+  "Wrote a generator script (kept in the session scratchpad, not in the repo) that defines each task as a start list plus per-turn list operations and builds turns, checks, reference and negative from a python list simulator.",
+  "Wrote 21 multi-mode tasks (4-6 turns) covering join back/front, leave, serve one or several from the front, neighbour swaps, move to a position, insert next to a named item, name correction, set membership with no-op duplicates, reversal, rotation, overtakes, bulk leave."
+ ],
+ "how_answers_were_verified": [
+  "Every final state and every echoed intermediate reply was computed by the simulator in strict mode (an operation that is invalid on the current list raises).",
+  "For each task the script asserted that the final answer differs from the answer at the start and after every earlier turn (no stale answer passes).",
+  "For each task the script asserted that dropping any single effective update changes the final answer; six first-draft tasks failed this and were redesigned. For the two auto-chosen position questions (g3-13, g3-17) the position was picked from those satisfying both assertions.",
+  "Each negative is the simulated outcome of dropping exactly one update.",
+  "Total turn text is under 900 characters per task (max 611)."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/longhorizon/gen_3.json --family longhorizon",
+  "result": "21/21 valid"
+ },
+ "not_done": [
+  "No model was run on these tasks (held-out), so the easy/medium/hard labels are estimates from the spec's baseline observations, not measurements.",
+  "Did not read other generators' files."
+ ],
+ "task_summary": [
+  {
+   "local_id": "g3-01",
+   "difficulty": "easy",
+   "subtheme": "queue-join-serve",
+   "turns": 4,
+   "final_reply": "QUEUE: Bern, Katya, Lorne, Pim"
+  },
+  {
+   "local_id": "g3-02",
+   "difficulty": "easy",
+   "subtheme": "playlist-remove-add-ends",
+   "turns": 4,
+   "final_reply": "PLAYLIST: Quartz, Harbor, Lanterns, Tidewater, Meadow"
+  },
+  {
+   "local_id": "g3-03",
+   "difficulty": "easy",
+   "subtheme": "guest-list-count",
+   "turns": 4,
+   "final_reply": "GUESTS: 5"
+  },
+  {
+   "local_id": "g3-04",
+   "difficulty": "easy",
+   "subtheme": "shelf-left-end-and-removal",
+   "turns": 4,
+   "final_reply": "SHELF: Almanac, Atlas, Fables, Sonnets"
+  },
+  {
+   "local_id": "g3-05",
+   "difficulty": "easy",
+   "subtheme": "relay-substitution-position",
+   "turns": 4,
+   "final_reply": "ANSWER: Oskar"
+  },
+  {
+   "local_id": "g3-06",
+   "difficulty": "easy",
+   "subtheme": "move-to-front-then-leave",
+   "turns": 4,
+   "final_reply": "ORDER: Wren, Heron, Pike, Gull"
+  },
+  {
+   "local_id": "g3-07",
+   "difficulty": "easy",
+   "subtheme": "front-of-queue-echo",
+   "turns": 4,
+   "final_reply": "NEXT: Sabine"
+  },
+  {
+   "local_id": "g3-08",
+   "difficulty": "medium",
+   "subtheme": "queue-distractor-rejoin",
+   "turns": 5,
+   "final_reply": "QUEUE: Petra, Ugo, Mirit"
+  },
+  {
+   "local_id": "g3-09",
+   "difficulty": "medium",
+   "subtheme": "correction-wrong-name",
+   "turns": 5,
+   "final_reply": "LINE: Lena, Farid, Ilse, Koa"
+  },
+  {
+   "local_id": "g3-10",
+   "difficulty": "medium",
+   "subtheme": "set-membership-no-duplicates",
+   "turns": 6,
+   "final_reply": "ANSWER: 3"
+  },
+  {
+   "local_id": "g3-11",
+   "difficulty": "medium",
+   "subtheme": "todo-insert-at-position",
+   "turns": 5,
+   "final_reply": "TODO: passport, groceries, dentist, recycling"
+  },
+  {
+   "local_id": "g3-12",
+   "difficulty": "medium",
+   "subtheme": "rack-insert-next-to",
+   "turns": 6,
+   "final_reply": "RACK: Thyme, Nutmeg, Saffron, Clove, Fennel"
+  },
+  {
+   "local_id": "g3-13",
+   "difficulty": "medium",
+   "subtheme": "relay-last-to-first-position",
+   "turns": 6,
+   "final_reply": "ANSWER: Dara"
+  },
+  {
+   "local_id": "g3-14",
+   "difficulty": "medium",
+   "subtheme": "batch-serve-from-front",
+   "turns": 6,
+   "final_reply": "LINE: Farah, Galen, Hesper, Idris"
+  },
+  {
+   "local_id": "g3-15",
+   "difficulty": "hard",
+   "subtheme": "silent-queue-swap-rejoin",
+   "turns": 6,
+   "final_reply": "QUEUE: Quill, Yara, Wynn, Zeke, Viggo"
+  },
+  {
+   "local_id": "g3-16",
+   "difficulty": "hard",
+   "subtheme": "setlist-swaps-and-move",
+   "turns": 5,
+   "final_reply": "SETLIST: Ivory, Amber, Cedar, Brook, Flint"
+  },
+  {
+   "local_id": "g3-17",
+   "difficulty": "hard",
+   "subtheme": "silent-reversal-position",
+   "turns": 6,
+   "final_reply": "ANSWER: Moth"
+  },
+  {
+   "local_id": "g3-18",
+   "difficulty": "hard",
+   "subtheme": "silent-departure-and-return",
+   "turns": 6,
+   "final_reply": "LINE: Britt, Delph, Cosmo, Fenna"
+  },
+  {
+   "local_id": "g3-19",
+   "difficulty": "hard",
+   "subtheme": "turn-order-rotation",
+   "turns": 6,
+   "final_reply": "TURNS: Sable, Tarn, Rook, Vesper"
+  },
+  {
+   "local_id": "g3-20",
+   "difficulty": "hard",
+   "subtheme": "race-standings-overtakes",
+   "turns": 6,
+   "final_reply": "RANK: Nyx, Onyx, Kite, Lynx"
+  },
+  {
+   "local_id": "g3-21",
+   "difficulty": "hard",
+   "subtheme": "silent-bulk-leave-count",
+   "turns": 6,
+   "final_reply": "ANSWER: 4"
+  }
+ ]
+}

@@ -19,19 +19,30 @@
  {
   "local_id": "g5-02",
   "family": "math",
-  "subtheme": "logic-assignment",
+  "subtheme": "logic-kinship",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Pia, Quin and Rolf each play exactly one instrument: drums, flute and violin (one each). Pia does not play the drums. Rolf plays neither the drums nor the flute. Which instrument does Pia play? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <word>' (one word only).",
+  "prompt": "Tam is the mother of Rilla. Rilla and Wick are sister and brother with the same two parents. Odo is the son of Wick. What is Tam to Odo? A) His aunt. B) His grandmother. C) His sister. D) His mother. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "flute"
+    "type": "exact_any",
+    "values": [
+     "B",
+     "B)",
+     "(B)",
+     "option B",
+     "B) His grandmother",
+     "(B) His grandmother",
+     "B. His grandmother",
+     "B: His grandmother",
+     "His grandmother",
+     "grandmother"
+    ]
    }
   ],
-  "reference": "Rolf must play the violin. Pia cannot play drums, so Pia plays the flute and Quin the drums.\nANSWER: flute",
-  "negative": "Pia does not play drums, so she plays the violin.\nANSWER: violin"
+  "reference": "Rilla and Wick share both parents, so Tam is also Wick's mother.\nOdo is Wick's son, so Tam is the mother of Odo's father.\nANSWER: B",
+  "negative": "Tam is Rilla's mother and Rilla is the sister of Odo's father, so Tam is his aunt.\nANSWER: A"
  },
  {
   "local_id": "g5-03",
@@ -43,8 +54,18 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "B"
+    "type": "exact_any",
+    "values": [
+     "B",
+     "B)",
+     "(B)",
+     "option B",
+     "B) No glims are vobs",
+     "(B) No glims are vobs",
+     "B. No glims are vobs",
+     "B: No glims are vobs",
+     "No glims are vobs"
+    ]
    }
   ],
   "reference": "Every glim is a tark, and no tark is a vob, so no glim is a vob.\nA, C and D can each be false.\nANSWER: B",
@@ -94,8 +115,12 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "Wednesday"
+    "type": "exact_any",
+    "values": [
+     "Wednesday",
+     "on Wednesday",
+     "Wed"
+    ]
    }
   ],
   "reference": "Maps is after knots, so not Monday; it is not Wednesday, so maps is Tuesday and knots is Monday.\nStars takes the remaining day.\nANSWER: Wednesday",
@@ -111,8 +136,18 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "C"
+    "type": "exact_any",
+    "values": [
+     "C",
+     "C)",
+     "(C)",
+     "option C",
+     "C) The lamp is not red",
+     "(C) The lamp is not red",
+     "C. The lamp is not red",
+     "C: The lamp is not red",
+     "The lamp is not red"
+    ]
    }
   ],
   "reference": "The bell is not silent, so the door is not locked.\nThe door is not locked, so the lamp is not red.\nANSWER: C",
@@ -162,8 +197,11 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "milk"
+    "type": "exact_any",
+    "values": [
+     "milk",
+     "the milk"
+    ]
    }
   ],
   "reference": "Anya: not tea, juice or milk, so cocoa. Cleo: not milk, tea or cocoa, so juice.\nBoyd is not the tea drinker, so Dunn has tea and Boyd has milk.\nANSWER: milk",
@@ -196,8 +234,18 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "B"
+    "type": "exact_any",
+    "values": [
+     "B",
+     "B)",
+     "(B)",
+     "option B",
+     "B) Guide is at the right end",
+     "(B) Guide is at the right end",
+     "B. Guide is at the right end",
+     "B: Guide is at the right end",
+     "Guide is at the right end"
+    ]
    }
   ],
   "reference": "The right end is not Fables, not Diary and not Atlas (it is left of Fables), so it is Guide.\nBoth Atlas-Diary-Fables-Guide and Atlas-Fables-Diary-Guide fit, so A, C and D can fail.\nANSWER: B",
@@ -298,8 +346,18 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "C"
+    "type": "exact_any",
+    "values": [
+     "C",
+     "C)",
+     "(C)",
+     "option C",
+     "C) Washing is on Wednesday",
+     "(C) Washing is on Wednesday",
+     "C. Washing is on Wednesday",
+     "C: Washing is on Wednesday",
+     "Washing is on Wednesday"
+    ]
    }
   ],
   "reference": "Friday is not wash, iron, dust (before wash) or sweep (mop follows), so mop is Friday and sweep Thursday.\nMonday is not iron and not wash, so dust is Monday; wash and iron fill Tuesday and Wednesday in either order.\nOnly C fits one of the two schedules.\nANSWER: C",
@@ -349,8 +407,21 @@
   "max_tokens": 320,
   "checks": [
    {
-    "type": "exact",
-    "value": "C"
+    "type": "exact_any",
+    "values": [
+     "C",
+     "C)",
+     "(C)",
+     "option C",
+     "C) One gold and one silver coin",
+     "(C) One gold and one silver coin",
+     "C. One gold and one silver coin",
+     "C: One gold and one silver coin",
+     "One gold and one silver coin",
+     "one of each",
+     "one gold and one silver",
+     "mixed"
+    ]
    }
   ],
   "reference": "The box labelled 'one of each' is not mixed and holds a gold coin, so it holds two gold.\nThe box labelled 'two silver' cannot hold two silver and the two gold are taken, so it is the mixed box.\nANSWER: C",

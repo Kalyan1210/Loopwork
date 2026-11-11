@@ -237,34 +237,34 @@
   "longhorizon": {
    "files": {
     "gen_1.json": {
-     "valid": 0,
-     "used": 0
+     "valid": 21,
+     "used": 20
     },
     "gen_2.json": {
-     "valid": 0,
-     "used": 0
+     "valid": 21,
+     "used": 20
     },
     "gen_3.json": {
-     "valid": 0,
-     "used": 0
+     "valid": 21,
+     "used": 20
     },
     "gen_4.json": {
-     "valid": 0,
-     "used": 0
+     "valid": 21,
+     "used": 20
     },
     "gen_5.json": {
-     "valid": 0,
-     "used": 0
+     "valid": 21,
+     "used": 20
     }
    },
-   "eval": 0,
+   "eval": 100,
    "dev": 10
   }
  },
  "dropped": [],
  "suite_eval.jsonl": {
-  "n": 900,
-  "sha256": "fbb74d65864cda103e2c4ac60262197f0fb660758f3fed719839f26b87c7a65e"
+  "n": 1000,
+  "sha256": "79216d5dae890b641f77d84c4477f4ef81fc2df891fa8c362e44aae31b81cfac"
  },
  "suite_dev.jsonl": {
   "n": 100,

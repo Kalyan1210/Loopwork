@@ -48,16 +48,20 @@
       "type": "exact_any",
       "values": [
        "09:30",
+       "09:30 a.m",
        "09:30 am",
        "09:30am",
-       "<09:30>",
        "9:30",
+       "9:30 a.m",
+       "9:30 am",
+       "9:30am",
+       "<09:30>",
        "<9:30>"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*0?9:30\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:30(?:\\s*a\\.?m\\.?)?\\W*$",
       "flags": "im"
      }
     ]
@@ -70,32 +74,19 @@
  {
   "local_id": "g4-04",
   "family": "planning",
-  "subtheme": "enumerated-routes-via-town",
+  "subtheme": "out-and-back-total",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "A cyclist rides from Kettle to Wren. Every route goes through exactly one town on the way:\n- through Lumen: Kettle to Lumen 7 km, Lumen to Wren 12 km\n- through Moss: Kettle to Moss 10 km, Moss to Wren 6 km\n- through Nettle: Kettle to Nettle 5 km, Nettle to Wren 13 km\nWhich town does the shortest route go through?\nKeep any working under 60 words. Then end with a final line: ANSWER: followed by just the town name.",
+  "max_tokens": 300,
+  "prompt": "Odile delivers post by van. She leaves the sorting office in Harrowby, drives 14 km to Pine Cove, then drives 9 km on to Saltby, where her round ends. She then drives back to the sorting office along the same two roads.\nHow many km does Odile drive in total, counting both the way out and the way back?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
   "checks": [
    {
-    "type": "any",
-    "checks": [
-     {
-      "type": "exact_any",
-      "values": [
-       "Moss",
-       "<Moss>"
-      ]
-     },
-     {
-      "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*moss\\W*$",
-      "flags": "im"
-     }
-    ]
+    "type": "number",
+    "value": 46
    }
   ],
-  "reference": "Lumen 19 km, Moss 16 km, Nettle 18 km.\nANSWER: Moss",
-  "negative": "Nettle is the closest town to Kettle.\nANSWER: Nettle",
-  "max_tokens": 300
+  "reference": "Out: 14 + 9 = 23 km. Back the same way: 23 km.\nANSWER: 46",
+  "negative": "14 + 9 = 23 km.\nANSWER: 23"
  },
  {
   "local_id": "g4-05",
@@ -151,17 +142,19 @@
      {
       "type": "exact_any",
       "values": [
+       "01:10 pm",
        "13:10",
-       "13:10 am",
-       "13:10am",
-       "<13:10>",
        "13:10 pm",
-       "13:10pm"
+       "13:10pm",
+       "1:10 p.m",
+       "1:10 pm",
+       "1:10pm",
+       "<13:10>"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*13:10\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*(?:13:10(?:\\s*p\\.?m\\.?)?|0?1:10\\s*p\\.?m\\.?)\\W*$",
       "flags": "im"
      }
     ]
@@ -220,6 +213,7 @@
       "type": "exact_any",
       "values": [
        "10:00",
+       "10:00 a.m",
        "10:00 am",
        "10:00am",
        "<10:00>"
@@ -227,7 +221,7 @@
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*10:00\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?10:00(?:\\s*a\\.?m\\.?)?\\W*$",
       "flags": "im"
      }
     ]
@@ -290,14 +284,14 @@
   "subtheme": "distance-speed-routes",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "A van can go from Pellham to Rookford by exactly three roads, each driven at a steady speed:\n- the motorway: 30 km at 60 km per hour\n- the town road: 24 km at 40 km per hour\n- the lane: 20 km at 30 km per hour\nWork out the driving time of each road in minutes. How many minutes does the quickest road take?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "prompt": "A van can go from Pellham to Rookford by exactly three roads, each driven at a steady speed:\n- the motorway: 33 km at 90 km per hour\n- the town road: 24 km at 40 km per hour\n- the lane: 20 km at 30 km per hour\nWork out the driving time of each road in minutes. How many minutes does the quickest road take?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
   "checks": [
    {
     "type": "number",
-    "value": 30
+    "value": 22
    }
   ],
-  "reference": "Motorway 30 minutes, town road 36 minutes, lane 40 minutes.\nANSWER: 30",
+  "reference": "Motorway 33/90 hour = 22 minutes, town road 36 minutes, lane 40 minutes.\nANSWER: 22",
   "negative": "The lane is the shortest road: 20 km at 30 km per hour.\nANSWER: 40",
   "max_tokens": 300
  },
@@ -316,6 +310,7 @@
       "type": "exact_any",
       "values": [
        "11:15",
+       "11:15 a.m",
        "11:15 am",
        "11:15am",
        "<11:15>"
@@ -323,7 +318,7 @@
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*11:15\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?11:15(?:\\s*a\\.?m\\.?)?\\W*$",
       "flags": "im"
      }
     ]
@@ -364,17 +359,19 @@
      {
       "type": "exact_any",
       "values": [
+       "01:40 pm",
        "13:40",
-       "13:40 am",
-       "13:40am",
-       "<13:40>",
        "13:40 pm",
-       "13:40pm"
+       "13:40pm",
+       "1:40 p.m",
+       "1:40 pm",
+       "1:40pm",
+       "<13:40>"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*13:40\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*(?:13:40(?:\\s*p\\.?m\\.?)?|0?1:40\\s*p\\.?m\\.?)\\W*$",
       "flags": "im"
      }
     ]
@@ -429,16 +426,20 @@
       "type": "exact_any",
       "values": [
        "09:55",
+       "09:55 a.m",
        "09:55 am",
        "09:55am",
-       "<09:55>",
        "9:55",
+       "9:55 a.m",
+       "9:55 am",
+       "9:55am",
+       "<09:55>",
        "<9:55>"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*0?9:55\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?9:55(?:\\s*a\\.?m\\.?)?\\W*$",
       "flags": "im"
      }
     ]
@@ -479,17 +480,19 @@
      {
       "type": "exact_any",
       "values": [
+       "06:33 pm",
        "18:33",
-       "18:33 am",
-       "18:33am",
-       "<18:33>",
        "18:33 pm",
-       "18:33pm"
+       "18:33pm",
+       "6:33 p.m",
+       "6:33 pm",
+       "6:33pm",
+       "<18:33>"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*18:33\\W*$",
+      "pattern": "answer\\s*[:=]\\s*\\W*(?:18:33(?:\\s*p\\.?m\\.?)?|0?6:33\\s*p\\.?m\\.?)\\W*$",
       "flags": "im"
      }
     ]

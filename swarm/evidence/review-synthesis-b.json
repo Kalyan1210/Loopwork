@@ -1,0 +1,200 @@
+{
+ "actor": "review-synthesis-b",
+ "family": "synthesis",
+ "role": "task-review",
+ "method": "Re-derived every expected answer by hand/python (sums, differences, weekday of 4 June 2041 = Tuesday); read lab/core.py checker semantics; ran a 30-case surface-form battery through core.score_episode; compared against dev.json and gen_1..gen_3 by text similarity, shared proper nouns and question/reasoning type. Model was not run on these tasks.",
+ "files": {
+  "tasks/synthesis/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 19,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "other_changes": 1,
+   "changes": [
+    {
+     "local_id": "g4-01",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-02",
+     "issue": "exact match on verdict rejected correct replies with trailing words on the ANSWER line (e.g. 'REFUTED by the ledger')",
+     "action": "wrapped in any[] with an ANSWER-line regex that requires the verdict first and forbids the opposite label"
+    },
+    {
+     "local_id": "g4-03",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-04",
+     "issue": "exact match on verdict rejected correct replies with trailing words on the ANSWER line (e.g. 'REFUTED by the ledger')",
+     "action": "wrapped in any[] with an ANSWER-line regex that requires the verdict first and forbids the opposite label"
+    },
+    {
+     "local_id": "g4-05",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-06",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-07",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-08",
+     "issue": "exact match on verdict rejected correct replies with trailing words on the ANSWER line (e.g. 'REFUTED by the ledger')",
+     "action": "wrapped in any[] with an ANSWER-line regex that requires the verdict first and forbids the opposite label"
+    },
+    {
+     "local_id": "g4-09",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-10",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-11",
+     "issue": "JSON check rejected \"doc\": \"Doc C\"",
+     "action": "added any[] alternative accepting 'Doc C' for the doc field"
+    },
+    {
+     "local_id": "g4-12",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-13",
+     "issue": "default step cap 6 left zero slack: 4 read_doc + calc + final = 6 replies",
+     "action": "set max_steps to 8 (answer and checks unchanged)"
+    },
+    {
+     "local_id": "g4-14",
+     "issue": "exact match on verdict rejected correct replies with trailing words on the ANSWER line (e.g. 'REFUTED by the ledger')",
+     "action": "wrapped in any[] with an ANSWER-line regex that requires the verdict first and forbids the opposite label"
+    },
+    {
+     "local_id": "g4-15",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-16",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-17",
+     "issue": "JSON check rejected \"doc\": \"Doc C\"",
+     "action": "added any[] alternative accepting 'Doc C' for the doc field"
+    },
+    {
+     "local_id": "g4-18",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-20",
+     "issue": "letter check rejected 'Document X' and 'X (source name)' forms",
+     "action": "added 'Document X' value and an anchored ANSWER-line regex alternative (single letter, optional parenthetical)"
+    },
+    {
+     "local_id": "g4-21",
+     "issue": "exact match on verdict rejected correct replies with trailing words on the ANSWER line (e.g. 'REFUTED by the ledger')",
+     "action": "wrapped in any[] with an ANSWER-line regex that requires the verdict first and forbids the opposite label"
+    }
+   ]
+  },
+  "tasks/synthesis/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 13,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g5-01",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-02",
+     "issue": "exact match rejected 'founder (Marsh vs Perrin)' style answers",
+     "action": "added ANSWER-line regex alternative that forbids the other two options"
+    },
+    {
+     "local_id": "g5-03",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-08",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-09",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-12",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-13",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-14",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-15",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-16",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-17",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    },
+    {
+     "local_id": "g5-19",
+     "issue": "name check missed natural forms",
+     "action": "added 'Tolsay' and 'Tolsay Point lifeboat station' to exact_any"
+    },
+    {
+     "local_id": "g5-21",
+     "issue": "pair regex rejected '[Doc A] and [Doc C]' and 'Document A and Document C'",
+     "action": "replaced with a more tolerant anchored pair regex (still both orders only, rejects three letters)"
+    }
+   ]
+  }
+ },
+ "notes": [
+  "All 42 expected answers were re-derived and found correct; no answer changed.",
+  "No duplicates found. Closest structural neighbours kept as distinct: g4-16 vs dev-04 (quarterly ledger, but asks for the one false claim of three different kinds), g5-01 vs dev-05 (explicit height conflict vs implicit centenary), g5-20 vs dev-06 (memo override in a lookup chain, but tool mode and a different link is reassigned).",
+  "All checker changes are loosenings for correct surface forms; each task's negative still fails and wrong forms (template echo, both labels, three letters, wrong letter) were verified to fail.",
+  "Tool-mode checks in g4-13, g4-19, g5-11, g5-20 left as written; they require the bare id/label/name the prompt asks for."
+ ]
+}

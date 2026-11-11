@@ -23,15 +23,15 @@
   "difficulty": "easy",
   "mode": "single",
   "max_tokens": 300,
-  "prompt": "Sela has 95 coins for the night market. She must first pay a stall fee of 28 coins. With the money that remains she buys paper lanterns to sell, at 8 coins per lantern. Lanterns are sold whole only.\nWhat is the largest number of lanterns Sela can buy? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "prompt": "Sela has 95 coins for the night market. She must first pay a stall fee of 28 coins. With the money that remains she buys paper lanterns to sell, at 9 coins per lantern. Lanterns are sold whole only.\nWhat is the largest number of lanterns Sela can buy? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
   "checks": [
    {
     "type": "number",
-    "value": 8
+    "value": 7
    }
   ],
-  "reference": "95 - 28 = 67 coins left. 8 lanterns cost 64, 9 would cost 72.\nANSWER: 8",
-  "negative": "95 / 8 = 11.9, so 11 lanterns.\nANSWER: 11"
+  "reference": "95 - 28 = 67 coins left. 7 lanterns cost 63, 8 would cost 72.\nANSWER: 7",
+  "negative": "95 / 9 = 10.6, so 10 lanterns.\nANSWER: 10"
  },
  {
   "local_id": "g5-03",
@@ -77,16 +77,33 @@
   "prompt": "A group of 6 friends wants to hire one boat for a lake trip. The boat must have at least 6 seats and must cost 60 coins or less.\nBoats:\n- Wren: 4 seats, 35 coins\n- Heron: 6 seats, 72 coins\n- Swift: 7 seats, 58 coins\n- Pike: 5 seats, 44 coins\nOnly one boat meets both conditions. First write one plain-text line per boat saying whether it has enough seats and whether it is cheap enough. Then end with a final line that is only a JSON object with exactly the keys \"boat\" and \"cost\" for the boat they should hire (cost is its price in coins, as a number).",
   "checks": [
    {
-    "type": "json",
-    "is": "object",
-    "keys": [
-     "boat",
-     "cost"
-    ],
-    "equals": {
-     "boat": "Swift",
-     "cost": 58
-    }
+    "type": "any",
+    "checks": [
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "boat",
+       "cost"
+      ],
+      "equals": {
+       "boat": "Swift",
+       "cost": 58
+      }
+     },
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "boat",
+       "cost"
+      ],
+      "equals": {
+       "boat": "Swift",
+       "cost": "58"
+      }
+     }
+    ]
    }
   ],
   "reference": "Wren: too few seats, cheap enough\nHeron: enough seats, too expensive\nSwift: enough seats, cheap enough\nPike: too few seats, cheap enough\n{\"boat\":\"Swift\",\"cost\":58}",
@@ -136,18 +153,37 @@
   "prompt": "A travelling musician must buy exactly one drum and exactly one flute. The two together must weigh 9 kg or less, and she wants to spend as little as possible.\nDrums: Tarn (30 coins, 7 kg), Vale (36 coins, 5 kg).\nFlutes: Lark (12 coins, 3 kg), Finch (20 coins, 2 kg).\nFirst write the four possible pairs with their total cost and total weight, one pair per line, in plain text. Then end with a final line that is only a JSON object with exactly the keys \"drum\", \"flute\", \"cost\" for the cheapest pair that is light enough (cost is that pair's total in coins, as a number).",
   "checks": [
    {
-    "type": "json",
-    "is": "object",
-    "keys": [
-     "drum",
-     "flute",
-     "cost"
-    ],
-    "equals": {
-     "drum": "Vale",
-     "flute": "Lark",
-     "cost": 48
-    }
+    "type": "any",
+    "checks": [
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "drum",
+       "flute",
+       "cost"
+      ],
+      "equals": {
+       "drum": "Vale",
+       "flute": "Lark",
+       "cost": 48
+      }
+     },
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "drum",
+       "flute",
+       "cost"
+      ],
+      "equals": {
+       "drum": "Vale",
+       "flute": "Lark",
+       "cost": "48"
+      }
+     }
+    ]
    }
   ],
   "reference": "Tarn + Lark: 42 coins, 10 kg\nTarn + Finch: 50 coins, 9 kg\nVale + Lark: 48 coins, 8 kg\nVale + Finch: 56 coins, 7 kg\n{\"drum\":\"Vale\",\"flute\":\"Lark\",\"cost\":48}",
@@ -160,15 +196,15 @@
   "difficulty": "medium",
   "mode": "single",
   "max_tokens": 300,
-  "prompt": "A miller has 90 coins. He must pay 18 coins for a market permit, and spends the rest on sacks of grain at 7 coins per sack. Each sack weighs 8 kg, and his cart can carry at most 60 kg in total. He makes only one trip, and sacks are sold whole.\nWhat is the largest number of sacks he can buy and carry home on the cart? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "prompt": "A miller has 90 coins. He must pay 18 coins for a market permit, and spends the rest on sacks of grain at 6 coins per sack. Each sack weighs 8 kg, and his cart can carry at most 60 kg in total. He makes only one trip, and sacks are sold whole.\nWhat is the largest number of sacks he can buy and carry home on the cart? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
   "checks": [
    {
     "type": "number",
     "value": 7
    }
   ],
-  "reference": "Money: 90 - 18 = 72, enough for 10 sacks. Cart: 7 sacks weigh 56 kg, 8 would weigh 64 kg. The cart is the limit.\nANSWER: 7",
-  "negative": "90 - 18 = 72 coins, and 72 / 7 gives 10 sacks.\nANSWER: 10"
+  "reference": "Money: 90 - 18 = 72, enough for 12 sacks. Cart: 7 sacks weigh 56 kg, 8 would weigh 64 kg. The cart is the limit.\nANSWER: 7",
+  "negative": "90 - 18 = 72 coins, and 72 / 6 gives 12 sacks.\nANSWER: 12"
  },
  {
   "local_id": "g5-10",

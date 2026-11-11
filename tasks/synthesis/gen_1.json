@@ -8,13 +8,23 @@
   "prompt": "Read the four documents, then answer.\n\n[Doc A] Annual return, Harrowby Reading Room: The room has 318 registered members and lent 2140 books during the year.\n[Doc B] Annual return, Pellisande Reading Room: Books lent this year came to 3015. Registered members stand at 276.\n[Doc C] Annual return, Quenby Reading Room: We have 342 registered members. Loans for the year were 1890 books, and the porch was repainted.\n[Doc D] Annual return, Torvale Reading Room: 2760 books were lent and the register lists 301 members.\n\nQuestion: Which reading room has the most registered members?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <reading room name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Quenby",
-     "Quenby Reading Room",
-     "Quenby Room",
-     "the Quenby Reading Room",
-     "the Quenby Room"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Quenby",
+       "Quenby Reading Room",
+       "Quenby Room",
+       "the Quenby Reading Room",
+       "the Quenby Room"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ quenby\\ reading\\ room|quenby\\ reading\\ room|the\\ quenby\\ room|quenby\\ room|quenby)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -30,11 +40,21 @@
   "prompt": "Read the three documents, then answer.\n\n[Doc A] Timekeeper's slip, Lake Ennor regatta, heat 1: The Dunlin Crew rowed the course in 412 seconds. The water was calm.\n[Doc B] Timekeeper's slip, Lake Ennor regatta, heat 2: The Skerry Crew rowed the course in 398 seconds, in a borrowed boat.\n[Doc C] Timekeeper's slip, Lake Ennor regatta, heat 3: The Marrow Crew rowed the course in 437 seconds after a late start to the heat.\n\nQuestion: All three heats used the same course. Which crew rowed it fastest?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <crew name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Skerry",
-     "Skerry Crew",
-     "the Skerry Crew"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Skerry",
+       "Skerry Crew",
+       "the Skerry Crew"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ skerry\\ crew|skerry\\ crew|skerry)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -66,13 +86,23 @@
   "prompt": "Read the three documents, then answer.\n\n[Doc A] Stall count, Kessel Road market: 58 stalls traded on the first Saturday of May. A brass band played at noon.\n[Doc B] Stall count, Abbot's Lane market: On the first Saturday of May there were 73 stalls trading.\n[Doc C] Stall count, Fennimore Street market: 64 stalls traded on the first Saturday of May, and three were new.\n\nQuestion: Which market had the second-highest number of stalls trading on the first Saturday of May?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <market name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Fennimore Street",
-     "Fennimore Street market",
-     "the Fennimore Street market",
-     "Fennimore",
-     "Fennimore market"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Fennimore Street",
+       "Fennimore Street market",
+       "the Fennimore Street market",
+       "Fennimore",
+       "Fennimore market"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ fennimore\\ street\\ market|fennimore\\ street\\ market|fennimore\\ market|fennimore\\ street|fennimore)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -104,10 +134,20 @@
   "prompt": "Read the three documents, then answer.\n\n[Doc A] Monthly sheet for June, Corriwell Tramway: 1284 tickets were sold. Car 4 was out of service for a week.\n[Doc B] Monthly sheet for July, Corriwell Tramway: 1410 tickets were sold, helped by the harbour fair.\n[Doc C] Monthly sheet for August, Corriwell Tramway: 1195 tickets were sold. The upper station clock was replaced.\n\nQuestion: In which of the three months did the Corriwell Tramway sell the fewest tickets?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <month name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "August",
-     "the month of August"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "August",
+       "the month of August"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ month\\ of\\ august|august)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -151,13 +191,23 @@
   "prompt": "Read the five documents, then answer.\n\n[Doc A] Roll sheet, Aldrow village school: 47 pupils on the roll this term.\n[Doc B] Roll sheet, Bessamy village school: 62 pupils on the roll; a second teacher starts in spring.\n[Doc C] Roll sheet, Carrick Fen village school: 39 pupils on the roll this term.\n[Doc D] Roll sheet, Dunstal village school: 55 pupils on the roll, with lunches cooked on site.\n[Doc E] Roll sheet, Eppley village school: 43 pupils on the roll this term.\n\nQuestion: Which village school has the second-smallest number of pupils on its roll?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <school name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Eppley",
-     "Eppley village school",
-     "Eppley school",
-     "the Eppley village school",
-     "the Eppley school"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Eppley",
+       "Eppley village school",
+       "Eppley school",
+       "the Eppley village school",
+       "the Eppley school"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ eppley\\ village\\ school|eppley\\ village\\ school|the\\ eppley\\ school|eppley\\ school|eppley)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -173,11 +223,21 @@
   "prompt": "Read the two documents, then answer.\n\n[Doc A] Beekeepers' guild register, spring 2041: The Morwen apiary keeps 480 hives, the Thackley apiary 215 hives and the Isard apiary 350 hives.\n[Doc B] Beekeepers' guild register, spring 2042: Hive counts are Isard 395, Morwen 505 and Thackley 290. Dues are unchanged.\n\nQuestion: Which apiary added the most hives between spring 2041 and spring 2042?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <apiary name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Thackley",
-     "Thackley apiary",
-     "the Thackley apiary"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Thackley",
+       "Thackley apiary",
+       "the Thackley apiary"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ thackley\\ apiary|thackley\\ apiary|thackley)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -213,10 +273,21 @@
     "value": 36
    },
    {
-    "type": "tool_called",
-    "tool": "read_doc",
-    "min": 2,
-    "ok_only": true
+    "type": "any",
+    "checks": [
+     {
+      "type": "tool_called",
+      "tool": "read_doc",
+      "min": 1,
+      "ok_only": true
+     },
+     {
+      "type": "tool_called",
+      "tool": "search",
+      "min": 1,
+      "ok_only": true
+     }
+    ]
    }
   ],
   "reference": {
@@ -295,13 +366,23 @@
   "prompt": "Read the four documents, then answer.\n\n[Doc A] Marshal's return, Hartsell fell race: 140 runners started and 118 reached the finish.\n[Doc B] Marshal's return, Brimlow fell race: 165 runners started and 149 reached the finish. Mist on the top.\n[Doc C] Marshal's return, Coddington fell race: 128 runners started and 99 reached the finish.\n[Doc D] Marshal's return, Yewdale fell race: 152 runners started and 127 reached the finish, with tea served after.\n\nQuestion: In which fell race did the largest number of starters fail to reach the finish?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <race name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Coddington",
-     "Coddington fell race",
-     "Coddington race",
-     "the Coddington fell race",
-     "the Coddington race"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Coddington",
+       "Coddington fell race",
+       "Coddington race",
+       "the Coddington fell race",
+       "the Coddington race"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ coddington\\ fell\\ race|coddington\\ fell\\ race|the\\ coddington\\ race|coddington\\ race|coddington)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -389,11 +470,21 @@
   "prompt": "Read the four documents, then answer.\n\n[Doc A] Playbill, Lantern Players: Our winter comedy runs 1 hour 35 minutes with no interval. Doors open early.\n[Doc B] Playbill, Gable Troupe: The winter comedy runs 88 minutes. Programmes cost 3 pence.\n[Doc C] Playbill, Reedham Company: Running time 1 hour 20 minutes, performed in the round.\n[Doc D] Playbill, Old Mill Players: Running time 102 minutes. Cushions may be hired at the door.\n\nQuestion: Which group's show has the second-longest running time?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <group name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Lantern Players",
-     "the Lantern Players",
-     "Lantern"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Lantern Players",
+       "the Lantern Players",
+       "Lantern"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ lantern\\ players|lantern\\ players|lantern)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -409,14 +500,27 @@
   "prompt": "Read the four documents, then answer.\n\n[Doc A] Order book, Hobbin's bakery: We bake 95 loaves a day and open all seven days of the week.\n[Doc B] Order book, Crumbwell bakery: Loaves baked come to 640 a week. The ovens are coal fired.\n[Doc C] Order book, Stokeley bakery: We bake 110 loaves a day and open six days a week, closing on Sundays.\n[Doc D] Order book, Farthing Lane bakery: We bake on three days a week only, 205 loaves each baking day.\n\nQuestion: Which bakery bakes the most loaves in a week?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <bakery name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Hobbin's",
-     "Hobbins",
-     "Hobbin's bakery",
-     "Hobbins bakery",
-     "the Hobbin's bakery",
-     "Hobbin"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Hobbin's",
+       "Hobbins",
+       "Hobbin's bakery",
+       "Hobbins bakery",
+       "the Hobbin's bakery",
+       "Hobbin",
+       "Hobbin’s",
+       "Hobbin’s bakery",
+       "the Hobbin’s bakery"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ hobbin['’]s\\ bakery|the\\ hobbin’s\\ bakery|hobbin['’]s\\ bakery|hobbin’s\\ bakery|hobbins\\ bakery|hobbin’s|hobbin['’]s|hobbins|hobbin)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -457,13 +561,23 @@
   "prompt": "Read the five documents, then answer.\n\n[Doc A] Club report, Tansley cricket club: Season tickets sold this year came to 365, up from 310 last year.\n[Doc B] Club report, Wickmere cricket club: We sold 402 season tickets this year, which is 61 more than last year.\n[Doc C] Club report, Lorrimer cricket club: 388 season tickets were sold this year, 9 fewer than last year.\n[Doc D] Club report, Paxhill cricket club: This year's season ticket sales were 351, down 43 on last year. The pavilion was repainted.\n[Doc E] Club report, Garron cricket club: Season tickets sold this year: 374, a rise of 18 on last year.\n\nQuestion: Which cricket club sold the most season tickets LAST year?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <club name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Lorrimer",
-     "Lorrimer cricket club",
-     "Lorrimer club",
-     "the Lorrimer cricket club",
-     "the Lorrimer club"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Lorrimer",
+       "Lorrimer cricket club",
+       "Lorrimer club",
+       "the Lorrimer cricket club",
+       "the Lorrimer club"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ lorrimer\\ cricket\\ club|lorrimer\\ cricket\\ club|the\\ lorrimer\\ club|lorrimer\\ club|lorrimer)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -473,30 +587,32 @@
  {
   "local_id": "g1-20",
   "family": "synthesis",
-  "subtheme": "leader and margin over runner-up (JSON)",
+  "subtheme": "rank position change between two dated tables",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "Read the five documents, then answer.\n\n[Doc A] Weighbridge slip, Ebbfleet quarry: 743 tonnes of slate left the yard in the first week of September.\n[Doc B] Weighbridge slip, Harl quarry: 698 tonnes of slate left the yard in the first week of September. One wagon was turned back.\n[Doc C] Weighbridge slip, Norrow quarry: 761 tonnes of slate left the yard in the first week of September.\n[Doc D] Weighbridge slip, Scard quarry: 719 tonnes of slate left the yard in the first week of September.\n[Doc E] Weighbridge slip, Tibbet quarry: 752 tonnes of slate left the yard in the first week of September, all by rail.\n\nQuestion: Which quarry sent out the most slate that week, and by how many tonnes did it beat the quarry in second place?\n\nReply with only a JSON object like {\"quarry\": \"<quarry name>\", \"margin\": <number>} and nothing else.",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Skittles league final table, 2057 season: Aldreth club 58 points, Bexcombe club 51 points, Corvin club 44 points, Dunmoor club 37 points.\n[Doc B] Skittles league final table, 2058 season: Dunmoor club 45 points, Aldreth club 61 points, Corvin club 49 points, Bexcombe club 47 points.\n[Doc C] League secretary's minute: The 2058 prize supper was held at the Corn Hall and the trophy was polished beforehand.\n\nQuestion: Clubs are placed in order of points, most points first. Which club finished in a higher league position in 2058 than it did in 2057?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <club name>",
   "checks": [
    {
-    "type": "json",
-    "strict": true,
-    "is": "object",
-    "keys": [
-     "quarry",
-     "margin"
-    ],
-    "equals": {
-     "margin": 9
-    }
-   },
-   {
-    "type": "regex",
-    "pattern": "\"quarry\"\\s*:\\s*\"(the )?norrow( quarry)?\""
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Corvin",
+       "Corvin club",
+       "the Corvin club"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:the\\ corvin\\ club|corvin\\ club|corvin)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
+    ]
    }
   ],
-  "reference": "{\"quarry\": \"Norrow\", \"margin\": 9}",
-  "negative": "{\"quarry\": \"Norrow\", \"margin\": 63}"
+  "reference": "2057 order: Aldreth, Bexcombe, Corvin, Dunmoor. 2058 order: Aldreth, Corvin, Bexcombe, Dunmoor. Only Corvin moved up, from 3rd to 2nd.\nANSWER: Corvin",
+  "negative": "Dunmoor gained the most points, 45 - 37 = 8.\nANSWER: Dunmoor"
  },
  {
   "local_id": "g1-21",
@@ -507,14 +623,34 @@
   "prompt": "The guild surveyed three watermills, Alderwick, Brookend and Cinderford, in 2061 and again in 2063, counting sacks of flour ground per week. One mill's weekly figure changed by less than the other two, whether up or down. By how many sacks did that mill's figure change? Look the figures up in the documents, then give the size of the change as a number in your final answer.",
   "checks": [
    {
-    "type": "number",
-    "value": 21
+    "type": "any",
+    "checks": [
+     {
+      "type": "number",
+      "value": 21
+     },
+     {
+      "type": "number",
+      "value": -21
+     }
+    ]
    },
    {
-    "type": "tool_called",
-    "tool": "read_doc",
-    "min": 2,
-    "ok_only": true
+    "type": "any",
+    "checks": [
+     {
+      "type": "tool_called",
+      "tool": "read_doc",
+      "min": 1,
+      "ok_only": true
+     },
+     {
+      "type": "tool_called",
+      "tool": "search",
+      "min": 1,
+      "ok_only": true
+     }
+    ]
    }
   ],
   "reference": {

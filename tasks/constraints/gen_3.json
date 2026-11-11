@@ -9,7 +9,7 @@
   "checks": [
    {
     "type": "min_words",
-    "value": 4
+    "value": 2
    },
    {
     "type": "max_words",
@@ -49,6 +49,11 @@
     "type": "regex",
     "pattern": "\\b(Ostrel|river)\\b",
     "flags": "i"
+   },
+   {
+    "type": "lines_regex",
+    "flags": "",
+    "pattern": "^(?!(\\d+\\s*[.):]|[-*•#]\\s))"
    }
   ],
   "reference": "The Ostrel river runs cold in spring.\nThree old mills stand along its banks.\nChildren fish there on quiet evenings.",
@@ -165,7 +170,7 @@
    },
    {
     "type": "min_words",
-    "value": 4
+    "value": 2
    }
   ],
   "reference": "Windtail kites love the wind.\nCome fly one today!",
@@ -211,7 +216,7 @@
    },
    {
     "type": "min_words",
-    "value": 9
+    "value": 6
    }
   ],
   "reference": "Tobbin rolls through the greenhouse at dawn.\nEvery fern gets a drink from Tobbin.\nAt night Tobbin rests beside the tomato vines.",
@@ -380,6 +385,11 @@
     "type": "regex",
     "pattern": "\\btrain\\b",
     "flags": "i"
+   },
+   {
+    "type": "lines_regex",
+    "flags": "",
+    "pattern": "^(?!(\\d+\\s*[.):]|[-*•#]\\s))"
    }
   ],
   "reference": "The night train leaves the station at dusk.\nSand drifts past the windows for many hours.\nPassengers sleep while the engine hums along.",
@@ -506,7 +516,7 @@
    },
    {
     "type": "lines_regex",
-    "pattern": "\\w\\.$",
+    "pattern": "^[^.!?]*\\w\\.$",
     "flags": "i"
    },
    {

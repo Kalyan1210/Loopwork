@@ -144,6 +144,11 @@
    },
    {
     "type": "env_contains",
+    "path": "files.guestlist",
+    "value": "Teodor\nOdile"
+   },
+   {
+    "type": "env_contains",
     "path": "files.seating",
     "value": "by the window"
    },
@@ -224,6 +229,11 @@
     "type": "env_equals",
     "path": "files.motto",
     "value": "Brew boldly, sip slowly.\nFounded by the Quill family."
+   },
+   {
+    "type": "env_contains",
+    "path": "files.motto",
+    "value": "slowly.\nFounded"
    },
    {
     "type": "env_contains",
@@ -596,6 +606,11 @@
     "value": "soap\ntwine\ncandles"
    },
    {
+    "type": "env_contains",
+    "path": "files.shopping",
+    "value": "soap\ntwine\ncandles"
+   },
+   {
     "type": "tool_not_called",
     "tool": "delete_file"
    },
@@ -801,6 +816,11 @@
     "type": "env_equals",
     "path": "files.playlist",
     "value": "Amber Road\nTidewater\nCopper Sky\nGlass Harbor"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.playlist",
+    "value": "Amber Road\nTidewater\nCopper Sky"
    },
    {
     "type": "tool_not_called",
@@ -1034,6 +1054,11 @@
     "value": "captain: Senna\nnavigator: Tobin\ncook: Marlo"
    },
    {
+    "type": "env_contains",
+    "path": "files.roster",
+    "value": "captain: Senna\nnavigator: Tobin"
+   },
+   {
     "type": "env_equals",
     "path": "kv.new_captain",
     "value": "Senna"
@@ -1140,6 +1165,11 @@
     "value": "[x] water ferns\n[x] oil hinges\n[ ] sharpen shears"
    },
    {
+    "type": "env_contains",
+    "path": "files.chores",
+    "value": "[x] oil hinges\n[ ] sharpen shears"
+   },
+   {
     "type": "tool_not_called",
     "tool": "delete_file"
    },
@@ -1224,6 +1254,11 @@
     "value": "1. gate opened\n2. feed delivered\n3. trough cleaned\n4. gate locked"
    },
    {
+    "type": "env_contains",
+    "path": "files.barn_log",
+    "value": "3. trough cleaned\n4. gate locked"
+   },
+   {
     "type": "tool_not_called",
     "tool": "delete_file"
    },
@@ -1302,6 +1337,11 @@
     "type": "env_equals",
     "path": "files.archive_notes",
     "value": "pay the cooper\nsweep the loft\nreturn the ladder"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.archive_notes",
+    "value": "sweep the loft\nreturn the ladder"
    },
    {
     "type": "env_equals",
@@ -1398,6 +1438,11 @@
     "type": "env_equals",
     "path": "files.timetable",
     "value": "08:15 Mill Road\n09:55 Harbour\n19:40 Harbour\n21:05 Depot"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.timetable",
+    "value": "09:55 Harbour\n19:40 Harbour"
    },
    {
     "type": "env_equals",
@@ -1705,6 +1750,11 @@
    {
     "type": "env_contains",
     "path": "files.recipe",
+    "value": "oven: 200\ntime: 35"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.recipe",
     "value": "note: this file is outdated"
    },
    {
@@ -1788,6 +1838,11 @@
     "type": "env_equals",
     "path": "files.board",
     "value": "TODO\n- paint fence\nDONE\n- mow lawn\n- fix gate"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.board",
+    "value": "- mow lawn\n- fix gate"
    },
    {
     "type": "tool_not_called",
@@ -2002,6 +2057,11 @@
     "type": "env_equals",
     "path": "files.prices",
     "value": "tea=4\ncoffee=8\ncocoa=5"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.prices",
+    "value": "coffee=8\ncocoa=5"
    },
    {
     "type": "env_equals",

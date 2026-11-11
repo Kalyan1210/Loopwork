@@ -1,0 +1,184 @@
+{
+ "actor": "gen-longhorizon-1",
+ "role": "task-generation",
+ "family": "longhorizon",
+ "subtheme": "Numeric tallies and ledgers (multi)",
+ "output_file": "tasks/longhorizon/gen_1.json",
+ "n_tasks": 21,
+ "difficulty": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "reply_policies": {
+  "echo": 9,
+  "ack": 6,
+  "silent": 6
+ },
+ "what_was_done": [
+  "Read lab/TASKS.md, tasks/longhorizon/spec.md and the dev.json multi examples",
+  "Wrote 21 multi-mode tasks (4-6 turns), each ending in a single number scored by a number check",
+  "Built the file with a Python script that simulates every update sequence and derives reference replies from the simulated states"
+ ],
+ "verification": [
+  "Every expected state and final answer is computed by Python simulation code, not by hand",
+  "Script asserts: final answer differs from every intermediate and start value; final answer does not equal any number in the turn text; 4-6 turns; total turn text under 900 characters",
+  "Multi-account tasks assert conservation of the total; silent-task working expressions are eval-checked against the answer",
+  "Each negative is the answer from one specific tracking mistake (lost correction, reversal or last update), recorded in tags.single_mistake_answer",
+  "Limit: the turn text and the simulation were written by the same author and not independently cross-checked by a second reader"
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/longhorizon/gen_1.json --family longhorizon",
+  "result": "21/21 valid"
+ },
+ "model_run_on_tasks": false,
+ "tasks": [
+  {
+   "local_id": "g1-01",
+   "difficulty": "easy",
+   "subtheme": "fuel-counter-echo",
+   "answer": 55,
+   "negative_answer": 70
+  },
+  {
+   "local_id": "g1-02",
+   "difficulty": "easy",
+   "subtheme": "score-with-penalty",
+   "answer": 30,
+   "negative_answer": 35
+  },
+  {
+   "local_id": "g1-03",
+   "difficulty": "easy",
+   "subtheme": "doubling-step-echo",
+   "answer": 22,
+   "negative_answer": 7
+  },
+  {
+   "local_id": "g1-04",
+   "difficulty": "easy",
+   "subtheme": "two-events-one-turn-echo",
+   "answer": 32,
+   "negative_answer": 28
+  },
+  {
+   "local_id": "g1-05",
+   "difficulty": "easy",
+   "subtheme": "remaining-distance",
+   "answer": 20,
+   "negative_answer": 25
+  },
+  {
+   "local_id": "g1-06",
+   "difficulty": "easy",
+   "subtheme": "number-words-echo",
+   "answer": 13,
+   "negative_answer": 9
+  },
+  {
+   "local_id": "g1-07",
+   "difficulty": "easy",
+   "subtheme": "reset-to-zero",
+   "answer": 11,
+   "negative_answer": 26
+  },
+  {
+   "local_id": "g1-08",
+   "difficulty": "medium",
+   "subtheme": "corrected-sale-echo",
+   "answer": 44,
+   "negative_answer": 47
+  },
+  {
+   "local_id": "g1-09",
+   "difficulty": "medium",
+   "subtheme": "voided-round",
+   "answer": 27,
+   "negative_answer": 36
+  },
+  {
+   "local_id": "g1-10",
+   "difficulty": "medium",
+   "subtheme": "two-items-report-one-echo",
+   "answer": 26,
+   "negative_answer": 22
+  },
+  {
+   "local_id": "g1-11",
+   "difficulty": "medium",
+   "subtheme": "crates-and-bottles",
+   "answer": 25,
+   "negative_answer": 31
+  },
+  {
+   "local_id": "g1-12",
+   "difficulty": "medium",
+   "subtheme": "halving-then-toll-echo",
+   "answer": 55,
+   "negative_answer": 66
+  },
+  {
+   "local_id": "g1-13",
+   "difficulty": "medium",
+   "subtheme": "corrected-start-value",
+   "answer": 90,
+   "negative_answer": 100
+  },
+  {
+   "local_id": "g1-14",
+   "difficulty": "medium",
+   "subtheme": "score-lead-echo",
+   "answer": 15,
+   "negative_answer": 10
+  },
+  {
+   "local_id": "g1-15",
+   "difficulty": "hard",
+   "subtheme": "three-accounts-half-transfer",
+   "answer": 26,
+   "negative_answer": 20
+  },
+  {
+   "local_id": "g1-16",
+   "difficulty": "hard",
+   "subtheme": "two-accounts-corrected-loan",
+   "answer": 55,
+   "negative_answer": 50
+  },
+  {
+   "local_id": "g1-17",
+   "difficulty": "hard",
+   "subtheme": "returned-delivery-silent",
+   "answer": 37,
+   "negative_answer": 61
+  },
+  {
+   "local_id": "g1-18",
+   "difficulty": "hard",
+   "subtheme": "shared-pot-cancelled-win",
+   "answer": 35,
+   "negative_answer": 20
+  },
+  {
+   "local_id": "g1-19",
+   "difficulty": "hard",
+   "subtheme": "two-accounts-refund-echo",
+   "answer": 60,
+   "negative_answer": 40
+  },
+  {
+   "local_id": "g1-20",
+   "difficulty": "hard",
+   "subtheme": "rate-times-hours-correction",
+   "answer": 69,
+   "negative_answer": 77
+  },
+  {
+   "local_id": "g1-21",
+   "difficulty": "hard",
+   "subtheme": "debt-bounced-repayment",
+   "answer": 32,
+   "negative_answer": 17
+  }
+ ]
+}

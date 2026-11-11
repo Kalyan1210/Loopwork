@@ -298,7 +298,7 @@
   "subtheme": "mixture-replace",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "A 40-litre cask holds a drink that is 25% syrup and 75% water, well mixed. A cook draws off 10 litres of the mixed drink and then pours in 10 litres of pure syrup. What percent of the drink in the cask is syrup now? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "prompt": "A 40-litre cask holds a drink that is 25% syrup and 75% water, well mixed. A cook draws off 10 litres of the mixed drink and then pours in 10 litres of pure syrup. What percent of the drink in the cask is syrup now? State the percent as a number between 0 and 100 (so one half would be 50.00, not 0.50). Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
   "max_tokens": 320,
   "checks": [
    {

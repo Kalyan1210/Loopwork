@@ -6,15 +6,15 @@
   "difficulty": "easy",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Complete this function. `clamp_all(xs, lo, hi)` returns a new list in which every number below lo is replaced by lo, every number above hi is replaced by hi, and all other numbers are unchanged, e.g. clamp_all([5, -2, 12], 0, 10) returns [5, 0, 10] and clamp_all([], 0, 1) returns []. Keep the given lines and replace the `...` parts.\n\ndef clamp_all(xs, lo, hi):\n    out = []\n    for x in xs:\n        if ...:\n            out.append(lo)\n        elif ...:\n            out.append(hi)\n        else:\n            out.append(x)\n    return out\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Complete this function. `sign_counts(xs)` takes a list of numbers and returns a list of three counts [negatives, zeros, positives]: how many numbers are below 0, how many are equal to 0 and how many are above 0, e.g. sign_counts([3, -1, 0, 8, 0]) returns [1, 2, 2] and sign_counts([]) returns [0, 0, 0]. Keep the given lines and replace the `...` parts.\n\ndef sign_counts(xs):\n    neg, zero, pos = 0, 0, 0\n    for x in xs:\n        if ...:\n            neg += 1\n        elif ...:\n            zero += 1\n        else:\n            ...\n    return [neg, zero, pos]\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert clamp_all([5, -2, 12], 0, 10) == [5, 0, 10]\nassert clamp_all([], 0, 1) == []\nassert clamp_all([0, 10], 0, 10) == [0, 10]\nassert clamp_all([-7, -1, 4], -3, -2) == [-3, -2, -2]\nassert clamp_all([3, 3, 99], 3, 3) == [3, 3, 3]"
+    "tests": "assert sign_counts([3, -1, 0, 8, 0]) == [1, 2, 2]\nassert sign_counts([]) == [0, 0, 0]\nassert sign_counts([0]) == [0, 1, 0]\nassert sign_counts([-5, -6, -7]) == [3, 0, 0]\nassert sign_counts([2, 9]) == [0, 0, 2]\nassert sign_counts([1, -1, 1, -1, 0]) == [2, 1, 2]"
    }
   ],
-  "reference": "```python\ndef clamp_all(xs, lo, hi):\n    out = []\n    for x in xs:\n        if x < lo:\n            out.append(lo)\n        elif x > hi:\n            out.append(hi)\n        else:\n            out.append(x)\n    return out\n```",
-  "negative": "```python\ndef clamp_all(xs, lo, hi):\n    out = []\n    for x in xs:\n        if x > hi:\n            out.append(lo)\n        elif x < lo:\n            out.append(hi)\n        else:\n            out.append(x)\n    return out\n```"
+  "reference": "```python\ndef sign_counts(xs):\n    neg, zero, pos = 0, 0, 0\n    for x in xs:\n        if x < 0:\n            neg += 1\n        elif x == 0:\n            zero += 1\n        else:\n            pos += 1\n    return [neg, zero, pos]\n```",
+  "negative": "```python\ndef sign_counts(xs):\n    neg, zero, pos = 0, 0, 0\n    for x in xs:\n        if x < 0:\n            neg += 1\n        elif x == 0:\n            zero += 1\n        else:\n            pos = 1\n    return [neg, zero, pos]\n```"
  },
  {
   "local_id": "g3-02",
@@ -91,15 +91,15 @@
   "difficulty": "easy",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Complete this function. `last_index(xs, target)` returns the index of the LAST occurrence of target in the list xs, or -1 if target is not in the list, e.g. last_index([4, 7, 4, 9], 4) returns 2 and last_index([], 1) returns -1. Keep the given lines and replace the `...` parts.\n\ndef last_index(xs, target):\n    i = len(xs) - 1\n    while i >= 0:\n        if ...:\n            return i\n        ...\n    return -1\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Complete this function. `halving_steps(n)` takes a positive integer and returns how many steps it takes to reach 1 when each step replaces n by n // 2 if n is even and by n - 1 if n is odd, e.g. halving_steps(6) returns 3 (6, 3, 2, 1), halving_steps(8) returns 3 and halving_steps(1) returns 0. Keep the given lines and replace the `...` parts.\n\ndef halving_steps(n):\n    steps = 0\n    while n > 1:\n        if ...:\n            n = n // 2\n        else:\n            ...\n        steps += 1\n    return steps\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert last_index([4, 7, 4, 9], 4) == 2\nassert last_index([], 1) == -1\nassert last_index([5], 5) == 0\nassert last_index([1, 2, 3], 8) == -1\nassert last_index(['a', 'b', 'a', 'a'], 'a') == 3\nassert last_index([0, 0, 1], 1) == 2"
+    "tests": "assert halving_steps(6) == 3\nassert halving_steps(8) == 3\nassert halving_steps(1) == 0\nassert halving_steps(2) == 1\nassert halving_steps(7) == 4\nassert halving_steps(15) == 6\nassert halving_steps(100) == 8"
    }
   ],
-  "reference": "```python\ndef last_index(xs, target):\n    i = len(xs) - 1\n    while i >= 0:\n        if xs[i] == target:\n            return i\n        i -= 1\n    return -1\n```",
-  "negative": "```python\ndef last_index(xs, target):\n    i = 0\n    while i < len(xs):\n        if xs[i] == target:\n            return i\n        i += 1\n    return -1\n```"
+  "reference": "```python\ndef halving_steps(n):\n    steps = 0\n    while n > 1:\n        if n % 2 == 0:\n            n = n // 2\n        else:\n            n = n - 1\n        steps += 1\n    return steps\n```",
+  "negative": "```python\ndef halving_steps(n):\n    steps = 0\n    while n > 1:\n        if n % 2 == 1:\n            n = n // 2\n        else:\n            n = n - 1\n        steps += 1\n    return steps\n```"
  },
  {
   "local_id": "g3-07",
@@ -159,15 +159,15 @@
   "difficulty": "medium",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Complete this generator function. `chunks(xs, n)` yields consecutive pieces of the list xs as separate lists of exactly n items each; if items are left over at the end they are yielded as one shorter final list, and no empty list is ever yielded. Examples: list(chunks([1, 2, 3, 4, 5], 2)) returns [[1, 2], [3, 4], [5]], list(chunks([1, 2, 3, 4], 2)) returns [[1, 2], [3, 4]] and list(chunks([], 3)) returns []. Keep the given lines and replace the `...` parts.\n\ndef chunks(xs, n):\n    buf = []\n    for x in xs:\n        buf.append(x)\n        if ...:\n            yield buf\n            ...  # start a fresh list\n    if ...:\n        yield buf\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Complete this generator function. `interleave(a, b)` takes two lists and yields their items alternately: a[0], b[0], a[1], b[1] and so on. When one list runs out, the remaining items of the other list are yielded in order. Examples: list(interleave([1, 2, 3], ['x', 'y'])) returns [1, 'x', 2, 'y', 3], list(interleave([], [7, 8])) returns [7, 8] and list(interleave([], [])) returns []. Keep the given lines and replace the `...` parts.\n\ndef interleave(a, b):\n    i = 0\n    while ...:  # at least one list still has an item at index i\n        if i < len(a):\n            yield a[i]\n        if ...:\n            yield b[i]\n        ...\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert list(chunks([1, 2, 3, 4, 5], 2)) == [[1, 2], [3, 4], [5]]\nassert list(chunks([1, 2, 3, 4], 2)) == [[1, 2], [3, 4]]\nassert list(chunks([], 3)) == []\nassert list(chunks(['a', 'b'], 5)) == [['a', 'b']]\nassert list(chunks([7, 8, 9], 1)) == [[7], [8], [9]]\nassert list(chunks([1, 2, 3, 4, 5, 6, 7], 3)) == [[1, 2, 3], [4, 5, 6], [7]]"
+    "tests": "assert list(interleave([1, 2, 3], ['x', 'y'])) == [1, 'x', 2, 'y', 3]\nassert list(interleave([], [7, 8])) == [7, 8]\nassert list(interleave([], [])) == []\nassert list(interleave([1], [2])) == [1, 2]\nassert list(interleave([1], [2, 3, 4, 5])) == [1, 2, 3, 4, 5]\nassert list(interleave(['a', 'b', 'c', 'd'], ['z'])) == ['a', 'z', 'b', 'c', 'd']\nassert list(interleave([5, 6], [])) == [5, 6]"
    }
   ],
-  "reference": "```python\ndef chunks(xs, n):\n    buf = []\n    for x in xs:\n        buf.append(x)\n        if len(buf) == n:\n            yield buf\n            buf = []\n    if buf:\n        yield buf\n```",
-  "negative": "```python\ndef chunks(xs, n):\n    buf = []\n    for x in xs:\n        buf.append(x)\n        if len(buf) == n:\n            yield buf\n            buf = []\n    if len(buf) < n:\n        yield buf\n```"
+  "reference": "```python\ndef interleave(a, b):\n    i = 0\n    while i < len(a) or i < len(b):\n        if i < len(a):\n            yield a[i]\n        if i < len(b):\n            yield b[i]\n        i += 1\n```",
+  "negative": "```python\ndef interleave(a, b):\n    i = 0\n    while i < len(a) and i < len(b):\n        if i < len(a):\n            yield a[i]\n        if i < len(b):\n            yield b[i]\n        i += 1\n```"
  },
  {
   "local_id": "g3-11",
@@ -329,15 +329,15 @@
   "difficulty": "hard",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Complete this function. `wrap_words(words, width)` packs a list of words into lines, in order. Words on the same line are joined by one space, and a word is added to the current line only if the line, including that space and the word, is still at most `width` characters long; otherwise the current line is finished and the word starts a new line. A word longer than `width` simply gets a line of its own. It returns the list of lines. Examples: wrap_words(['the', 'quick', 'brown', 'fox'], 9) returns ['the quick', 'brown fox'], wrap_words(['a', 'b', 'c'], 3) returns ['a b', 'c'] and wrap_words([], 5) returns []. Keep the given lines and replace the `...` parts.\n\ndef wrap_words(words, width):\n    lines = []\n    line = ''\n    for w in words:\n        if line == '':\n            line = w\n        elif ...:  # w still fits on the current line\n            line = line + ' ' + w\n        else:\n            ...  # finish the current line, then start a new line with w\n    if line:\n        lines.append(line)\n    return lines\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Complete this class. A `MinStack` is a stack of numbers that can also report its smallest stored value. `push(x)` puts x on top; `pop()` removes and returns the top value (it is only called when the stack is not empty); `smallest()` returns the smallest value currently in the stack, or None when the stack is empty. The list `self.mins` must be kept so that its last item is always the smallest value in `self.items`; equal values may be stored several times and each copy counts. Example: s = MinStack(); s.push(5); s.push(2); s.push(2); s.pop() leaves s.smallest() == 2; a second s.pop() leaves s.smallest() == 5. Keep the given lines and replace the `...` parts.\n\nclass MinStack:\n    def __init__(self):\n        self.items = []\n        self.mins = []\n\n    def push(self, x):\n        self.items.append(x)\n        if ...:  # x is at most the current smallest, or there is none yet\n            self.mins.append(x)\n\n    def pop(self):\n        x = self.items.pop()\n        if ...:  # x is the current smallest\n            ...\n        return x\n\n    def smallest(self):\n        return self.mins[-1] if self.mins else None\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert wrap_words(['the', 'quick', 'brown', 'fox'], 9) == ['the quick', 'brown fox']\nassert wrap_words(['a', 'b', 'c'], 3) == ['a b', 'c']\nassert wrap_words([], 5) == []\nassert wrap_words(['solo'], 10) == ['solo']\nassert wrap_words(['hi', 'enormous', 'ox', 'ox'], 5) == ['hi', 'enormous', 'ox ox']\nassert wrap_words(['ab', 'cd', 'ef', 'gh'], 8) == ['ab cd ef', 'gh']\nassert wrap_words(['ab', 'cd', 'ef', 'gh'], 100) == ['ab cd ef gh']\nassert wrap_words(['one', 'two'], 6) == ['one', 'two']"
+    "tests": "s = MinStack()\nassert s.smallest() is None\ns.push(5); s.push(2); s.push(2)\nassert s.smallest() == 2\nassert s.pop() == 2\nassert s.smallest() == 2\nassert s.pop() == 2\nassert s.smallest() == 5\ns.push(7); s.push(1); s.push(9)\nassert s.smallest() == 1\nassert s.pop() == 9\nassert s.smallest() == 1\nassert s.pop() == 1\nassert s.smallest() == 5\nassert s.pop() == 7 and s.pop() == 5\nassert s.smallest() is None\nt = MinStack()\nt.push(-3); t.push(4)\nassert t.smallest() == -3 and s.smallest() is None"
    }
   ],
-  "reference": "```python\ndef wrap_words(words, width):\n    lines = []\n    line = ''\n    for w in words:\n        if line == '':\n            line = w\n        elif len(line) + 1 + len(w) <= width:\n            line = line + ' ' + w\n        else:\n            lines.append(line)\n            line = w\n    if line:\n        lines.append(line)\n    return lines\n```",
-  "negative": "```python\ndef wrap_words(words, width):\n    lines = []\n    line = ''\n    for w in words:\n        if line == '':\n            line = w\n        elif len(line) + len(w) <= width:\n            line = line + ' ' + w\n        else:\n            lines.append(line)\n            line = w\n    if line:\n        lines.append(line)\n    return lines\n```"
+  "reference": "```python\nclass MinStack:\n    def __init__(self):\n        self.items = []\n        self.mins = []\n\n    def push(self, x):\n        self.items.append(x)\n        if not self.mins or x <= self.mins[-1]:\n            self.mins.append(x)\n\n    def pop(self):\n        x = self.items.pop()\n        if x == self.mins[-1]:\n            self.mins.pop()\n        return x\n\n    def smallest(self):\n        return self.mins[-1] if self.mins else None\n```",
+  "negative": "```python\nclass MinStack:\n    def __init__(self):\n        self.items = []\n        self.mins = []\n\n    def push(self, x):\n        self.items.append(x)\n        if not self.mins or x < self.mins[-1]:\n            self.mins.append(x)\n\n    def pop(self):\n        x = self.items.pop()\n        if x == self.mins[-1]:\n            self.mins.pop()\n        return x\n\n    def smallest(self):\n        return self.mins[-1] if self.mins else None\n```"
  },
  {
   "local_id": "g3-21",

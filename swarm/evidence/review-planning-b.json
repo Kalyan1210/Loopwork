@@ -1,0 +1,106 @@
+{
+ "actor": "review-planning-b",
+ "role": "task-review",
+ "family": "planning",
+ "method": "Read lab/TASKS.md, tasks/planning/spec.md, dev.json, gen_1..gen_3 and the checker code in lab/core.py. Re-derived every expected answer independently (python brute force for shortest paths, visiting-order permutations, timetable simulations, subset/knapsack/kit enumeration, tiered pricing; direct arithmetic for the rest). Probed edited checkers with 25 correct and wrong surface forms. Model was not run (held-out).",
+ "files": {
+  "tasks/planning/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 7,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21,
+   "prompts_adjusted": 1,
+   "changes": [
+    {
+     "local_id": "g4-03",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-07",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-10",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-14",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-16",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-18",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-20",
+     "issue": "clock checker rejected correct 12-hour surface forms (e.g. '9:30 am', '1:10 pm')",
+     "action": "extended exact_any values and the anchored ANSWER regex to accept am/pm variants of the same time; expected time unchanged"
+    },
+    {
+     "local_id": "g4-13",
+     "issue": "expected answer 30 was also printed twice in the prompt (30 km, 30 km per hour), so echoing a prompt number passed; answer itself was correct",
+     "action": "changed motorway to 33 km at 90 km/h; expected answer recomputed to 22 minutes (36 and 40 for the others); negative stays 40"
+    },
+    {
+     "local_id": "g4-04",
+     "issue": "near-duplicate: same 'three two-leg routes, pick the shortest' task as dev-07, and a template twin of g4-12 (which keeps the closed-road twist)",
+     "action": "replaced with a new easy out-and-back itinerary total (answer 46 km, tempting wrong 23)"
+    }
+   ]
+  },
+  "tasks/planning/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 2,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "prompts_adjusted": 2,
+   "changes": [
+    {
+     "local_id": "g5-02",
+     "issue": "expected answer 8 equalled the unit price printed in the prompt (8 coins), so echoing it passed; answer itself was correct",
+     "action": "lantern price changed to 9 coins; expected answer recomputed to 7, negative to 10"
+    },
+    {
+     "local_id": "g5-09",
+     "issue": "expected answer 7 equalled the sack price printed in the prompt (7 coins), so echoing it passed",
+     "action": "sack price changed to 6 coins (money now allows 12); expected answer stays 7 from the cart limit, negative changed to 12"
+    },
+    {
+     "local_id": "g5-05",
+     "issue": "json check rejected the correct object when cost is written as a quoted number",
+     "action": "wrapped in 'any' with an alternative that accepts the same cost as a string; names and key set still enforced"
+    },
+    {
+     "local_id": "g5-08",
+     "issue": "json check rejected the correct object when cost is written as a quoted number",
+     "action": "wrapped in 'any' with an alternative that accepts the same cost as a string; names and key set still enforced"
+    }
+   ]
+  }
+ },
+ "notes": [
+  "No original expected answer was wrong: all 42 matched my independent derivation.",
+  "prompts_adjusted counts tasks whose numbers were changed because the correct answer also appeared verbatim in the prompt (g4-13, g5-02, g5-09); their expected values/negatives were recomputed, they are not counted under answers_fixed.",
+  "Kept as acceptable overlap with dev.json: g4-10/g4-16 (timetable with transfer buffer, like dev-08 but earliest-arrival and three-leg variants) and g5-08 (pair selection with JSON answer, like dev-09 but with a weight limit and a cheapest-valid choice).",
+  "Not changed: difficulty split is 7/7/7 in both files, slightly fewer easy tasks than the 40% the spec suggests.",
+  "Known residual strictness: number checks read the last number on the ANSWER line, so extra numbers after the answer on that line would fail (the prompts ask for the number only)."
+ ],
+ "validator": {
+  "tasks/planning/gen_4.json": "21/21 valid",
+  "tasks/planning/gen_5.json": "21/21 valid"
+ }
+}

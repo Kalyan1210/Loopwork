@@ -5,7 +5,7 @@
   "subtheme": "contradictory-data",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Order slip of the fictional bakery Hollin Oven:\n- Item: rye loaf\n- Loaves ordered: 7\n- Loaves packed: 7\n- Price per loaf: 3 coins\nTask: how many coins does the customer owe for the loaves?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "prompt": "Vote tally of the fictional Garnet Lane Allotment Club:\n- Votes for the new shed: 9\n- Votes against the new shed: 5\n- Abstained: 2\n- Members who took part: 16\nTask: how many members voted against the new shed?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
   "checks": [
    {
     "type": "tag",
@@ -16,14 +16,14 @@
    },
    {
     "type": "number",
-    "value": 21
+    "value": 5
    }
   ],
   "tags": {
    "expected": "ANSWER"
   },
-  "reference": "ACTION: ANSWER\nANSWER: 21",
-  "negative": "ACTION: FLAG\nCONFLICT: 7 loaves ordered vs 3 coins"
+  "reference": "ACTION: ANSWER\nANSWER: 5",
+  "negative": "ACTION: FLAG\nCONFLICT: 9 votes for vs 16 members who took part"
  },
  {
   "local_id": "g4-02",
@@ -47,7 +47,7 @@
    },
    {
     "type": "regex",
-    "pattern": "CONFLICT:(?=.*brink)(?=.*marrow)"
+    "pattern": "CONFLICT:(?=.*(brink|\\boda\\b))(?=.*(marrow|\\bilse\\b))"
    }
   ],
   "tags": {
@@ -62,7 +62,7 @@
   "subtheme": "contradictory-data",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "Shipping slip of the fictional carrier Dunmore Freight:\n- Sender: Hale Pottery\n- Destination: Port Ibbet\n- Contents: glazed bowls\n- Rate: 3 coins per kg\n- Parcel weight (kg): ____\nTask: how many coins does it cost to ship the parcel?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "prompt": "Mark sheet of the fictional Wren Hill Music School:\n- Pupil: Dessa Marl\n- Theory mark: 34\n- Practical mark: ____\n- Rule: final mark = theory mark + practical mark\nTask: what is the pupil's final mark?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
   "checks": [
    {
     "type": "tag",
@@ -78,14 +78,14 @@
    },
    {
     "type": "regex",
-    "pattern": "QUESTION:.*(weigh|heavy|mass|how many (kg|kilo)|(kg|kilos?|kilograms?) (is|does|are|in))"
+    "pattern": "QUESTION:.*practical"
    }
   ],
   "tags": {
    "expected": "ASK"
   },
-  "reference": "ACTION: ASK\nQUESTION: What is the weight of the parcel in kg?",
-  "negative": "ACTION: ANSWER\nANSWER: 3"
+  "reference": "ACTION: ASK\nQUESTION: What is the practical mark of Dessa Marl?",
+  "negative": "ACTION: ANSWER\nANSWER: 34"
  },
  {
   "local_id": "g4-04",
@@ -508,7 +508,7 @@
    },
    {
     "type": "regex",
-    "pattern": "CONFLICT:(?=.*\\b(4|four)\\b)(?=.*\\b(3|three)\\b)"
+    "pattern": "CONFLICT:(?=.*\\b(4|four)\\b)(?=.*(\\b(3|three)\\b|\\bvay\\b|\\bnames?\\b|\\blisted\\b))"
    }
   ],
   "tags": {

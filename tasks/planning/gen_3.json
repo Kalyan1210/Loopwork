@@ -60,12 +60,13 @@
       "type": "exact_any",
       "values": [
        "Ivo",
-       "<Ivo>"
+       "<Ivo>",
+       "the Ivo"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*ivo\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?ivo\\W*$",
       "flags": "im"
      }
     ]
@@ -153,12 +154,14 @@
       "values": [
        "Monday",
        "<Monday>",
-       "Mon"
+       "the Monday",
+       "Mon",
+       "on Monday"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*monday\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?monday\\W*$",
       "flags": "im"
      }
     ]
@@ -183,12 +186,13 @@
       "type": "exact_any",
       "values": [
        "Coel",
-       "<Coel>"
+       "<Coel>",
+       "the Coel"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*coel\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?coel\\W*$",
       "flags": "im"
      }
     ]
@@ -247,12 +251,13 @@
       "type": "exact_any",
       "values": [
        "Ben",
-       "<Ben>"
+       "<Ben>",
+       "the Ben"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*ben\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?ben\\W*$",
       "flags": "im"
      }
     ]
@@ -314,15 +319,15 @@
   "difficulty": "medium",
   "mode": "single",
   "max_tokens": 300,
-  "prompt": "Ten children must cross a lake in rowing boats, all at the same time. Each boat seats at most 4 people in total, and every boat must have exactly one adult rower on board, who takes up one of the seats. Five adult rowers are available.\nWhat is the minimum number of boats needed to carry all ten children? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "prompt": "Thirteen children must cross a lake in rowing boats, all at the same time. Each boat seats at most 5 people in total, and every boat must have exactly one adult rower on board, who takes up one of the seats. Five adult rowers are available.\nWhat is the minimum number of boats needed to carry all thirteen children? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
   "checks": [
    {
     "type": "number",
     "value": 4
    }
   ],
-  "reference": "The rower uses one seat, so each boat carries 3 children. 3 boats carry 9, so a fourth boat is needed.\nANSWER: 4",
-  "negative": "10 children at 4 per boat rounds up to 3.\nANSWER: 3"
+  "reference": "The rower uses one seat, so each boat carries 4 children. 3 boats carry 12, so a fourth boat is needed.\nANSWER: 4",
+  "negative": "13 children at 5 per boat rounds up to 3.\nANSWER: 3"
  },
  {
   "local_id": "g3-15",
@@ -340,12 +345,13 @@
       "type": "exact_any",
       "values": [
        "Hal",
-       "<Hal>"
+       "<Hal>",
+       "the Hal"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*hal\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?hal\\W*$",
       "flags": "im"
      }
     ]
@@ -357,19 +363,36 @@
  {
   "local_id": "g3-16",
   "family": "planning",
-  "subtheme": "capacity-waste",
+  "subtheme": "capacity-room-fit",
   "difficulty": "hard",
   "mode": "single",
   "max_tokens": 300,
-  "prompt": "A cargo drone can lift at most 10 kg per flight. Five sealed parcels must be flown to an island, and each parcel weighs exactly 4 kg. A parcel cannot be split, and several parcels may share a flight if their total weight is at most 10 kg.\nWhat is the minimum number of flights needed to deliver all five parcels? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "prompt": "A hall has three rooms: Elm seats at most 8 people, Fir seats at most 6 and Oak seats at most 4. Four clubs meet at the same time: the weavers (6 people), the singers (5 people), the potters (4 people) and the readers (3 people). A club must stay together in one room, and clubs may share a room if they all fit.\nOnly one arrangement seats everyone. In it, which room do the weavers use? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the room name.",
   "checks": [
    {
-    "type": "number",
-    "value": 3
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Fir",
+       "<Fir>",
+       "the Fir",
+       "Fir room",
+       "the Fir room",
+       "room Fir"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:room\\s+)?fir(?:\\s+room)?\\W*$",
+      "flags": "im"
+     }
+    ]
    }
   ],
-  "reference": "Three parcels weigh 12 kg, too much, so a flight takes at most 2 parcels. Five parcels need 3 flights.\nANSWER: 3",
-  "negative": "Total weight is 20 kg and 20 / 10 = 2.\nANSWER: 2"
+  "reference": "18 people for 18 seats, so every room is exactly full. Oak (4) takes the potters, Fir (6) takes the weavers, and Elm (8) takes the singers and readers.\nANSWER: Fir",
+  "negative": "The biggest club takes the biggest room.\nANSWER: Elm"
  },
  {
   "local_id": "g3-17",
@@ -387,12 +410,13 @@
       "type": "exact_any",
       "values": [
        "Rae",
-       "<Rae>"
+       "<Rae>",
+       "the Rae"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*rae\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?rae\\W*$",
       "flags": "im"
      }
     ]

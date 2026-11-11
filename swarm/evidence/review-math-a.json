@@ -1,0 +1,62 @@
+{
+ "actor": "review-math-a",
+ "family": "math",
+ "files": {
+  "tasks/math/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "prompts_clarified": 1,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/math/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/math/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 1,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "method": "All 63 expected answers independently recomputed in Python (brute force where possible); all matched. Compared against dev.json for duplicates; none found. Model not run.",
+ "changes": [
+  {
+   "local_id": "g1-18",
+   "file": "gen_1.json",
+   "issue": "Asks for a percent while the mandatory decimal format sentence shows 'ANSWER: 0.25' and forbids the percent sign, so a correct solver could answer 0.44 and fail the 43.75 check",
+   "action": "Added a sentence to the prompt stating the percent must be a number between 0 and 100; expected answer unchanged"
+  },
+  {
+   "local_id": "g2-20",
+   "file": "gen_2.json",
+   "issue": "Near-duplicate scenario of g1-18 (40-litre vessel, 25% concentrate, drain and replace with pure) and second mixture task in the same file (g2-09)",
+   "action": "Replaced with a new hard function-composition equation task (f(x)=2x+3, f(f(x))=f(x)+30, answer 12, verified by brute force)"
+  },
+  {
+   "local_id": "g3-08",
+   "file": "gen_3.json",
+   "issue": "Exact duplicate of g2-12 (two-digit number, digit sum 11, swap adds 27)",
+   "action": "Replaced with a new medium task: digit sum of 200 written in base 7 (answer 8, verified)"
+  },
+  {
+   "local_id": "g3-13",
+   "file": "gen_3.json",
+   "issue": "Base-5 answer: a correct 'ANSWER: 432 (base 5)' or '432_5' is read by the number checker as 5 and fails",
+   "action": "Wrapped in 'any': number 432 OR a regex accepting a last ANSWER line of 432 with an optional base-5 suffix; tested that 4325, 432.5, 1432, 377 and 'base 6' still fail"
+  }
+ ],
+ "notes": [
+  "Difficulty mix is unchanged; gen_1 and gen_2 have 6-7 easy tasks each, more than the spec's roughly 2-in-10 target, and several are standard textbook items the spec says are near ceiling for the baseline. Not altered in this review.",
+  "g3-13 with no ANSWER line at all (truncated reply ending '... in base 5') still fails via the number fallback; left as is to avoid false positives."
+ ]
+}

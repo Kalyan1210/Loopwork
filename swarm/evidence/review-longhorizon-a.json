@@ -1,0 +1,68 @@
+{
+ "actor": "review-longhorizon-a",
+ "family": "longhorizon",
+ "files": {
+  "tasks/longhorizon/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 1,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/longhorizon/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 2,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/longhorizon/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 1,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-01",
+   "issue": "near-duplicate of dev-02 (4-turn labelled echo counter: subtract, add, subtract with swapped numbers)",
+   "action": "replaced with a fill-to-capacity variant (tank capacity stated in turn 1, refilled to full later); answer 65, negative 80"
+  },
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-15",
+   "issue": "asked balance (Sven) did not depend on turn 3 (Tia pays Rosa), so a lost update could still score",
+   "action": "final question now asks for Tia (41), which depends on every turn; check, reference and negative updated"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-16",
+   "issue": "JSON equals rejected the correct surface form 'south locker' / 'west locker'",
+   "action": "wrapped in any with an alternative accepting the '<dir> locker' form"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-20",
+   "issue": "JSON equals rejected correct surface forms 'yellow bowl' / 'the tray'",
+   "action": "wrapped in any with alternatives for those forms"
+  },
+  {
+   "file": "gen_3.json",
+   "local_id": "g3-14",
+   "issue": "expected line was exactly the four names listed verbatim in turn 3, so echoing that turn passed without tracking",
+   "action": "last update now serves one person; expected line Eamon, Farah, Galen, Hesper, Idris; regex, reference and negative updated"
+  }
+ ],
+ "notes": [
+  "All 63 expected answers re-derived independently; none were wrong.",
+  "g1-16 (Omar spends 18) and g1-18 (Lev pays Jo 8) contain updates that do not affect the asked quantity; left as in-task distractors, same pattern as dev-06.",
+  "g3-15 uses the same operation types as dev-05 but in silent mode with a rejoin and a front join; judged distinct, kept.",
+  "Model was not run on these held-out tasks."
+ ]
+}

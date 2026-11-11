@@ -1,0 +1,177 @@
+{
+ "actor": "gen-longhorizon-2",
+ "family": "longhorizon",
+ "subtheme": "Entity and attribute state (multi)",
+ "output": "tasks/longhorizon/gen_2.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "reply_policies": {
+  "echo": 2,
+  "ack": 15,
+  "silent": 4
+ },
+ "what_i_did": "Read lab/TASKS.md, tasks/longhorizon/spec.md, dev.json and the checker code in lab/core.py; wrote 21 distinct multi-mode tasks (4-6 turns) on categorical state: hand-offs, holder swaps, open/closed and on/off flips, object locations, bulk moves, swaps of container contents, device settings, corrections, conditional recolouring, role rotation, room bookings. Answers are a name/colour on an ANSWER line (exact_any), a labelled echo line (anchored regex) or a non-strict JSON object of 2-3 slots (keys + equals). No sums, no ordering questions, no tool mode.",
+ "verification": "Each task is defined in a Python generator as an initial state plus one state-update function per turn; the expected answer is produced by simulating the updates, not typed by hand. The generator asserts for every task: (a) dropping any single state-changing update changes the final answer (three overwritten-by-design turns are exempt: g2-01 turn 2, which is instead checked by a reply_check on reply 2, and the turns later replaced by an explicit correction in g2-06 and g2-11); (b) the final answer differs from the start state and from every intermediate state; (c) the negative is the answer obtained by dropping exactly one named update (tags.negative_drops_turn) and differs from the reference; (d) turns stay under 900 characters. Final states of the medium and hard tasks were also re-traced by hand against the turn text. The model was NOT run on these tasks.",
+ "caveats": [
+  "Difficulty labels are estimates from the spec's baseline observations, not measured (held-out, no pilot).",
+  "JSON slot values must be the bare word (e.g. 'blue', not 'blue bowl'); prompts state the allowed values, but a verbose correct answer would be scored wrong.",
+  "g2-01, g2-06, g2-11 each contain one update that is overwritten later by design, so losing that one update alone does not change the final answer (g2-01 covers it with a reply_check)."
+ ],
+ "tasks": {
+  "g2-01": {
+   "difficulty": "easy",
+   "subtheme": "setting-overwrite-echo",
+   "expected": "LAMP: violet",
+   "negative": "LAMP: amber",
+   "negative_drops_turn": 4
+  },
+  "g2-02": {
+   "difficulty": "easy",
+   "subtheme": "ownership-handoff",
+   "expected": "ANSWER: Oto",
+   "negative": "ANSWER: Pell",
+   "negative_drops_turn": 3
+  },
+  "g2-03": {
+   "difficulty": "easy",
+   "subtheme": "status-flip",
+   "expected": "ANSWER: East",
+   "negative": "ANSWER: South",
+   "negative_drops_turn": 3
+  },
+  "g2-04": {
+   "difficulty": "easy",
+   "subtheme": "object-locations",
+   "expected": "{\"map\": \"cooler\", \"flask\": \"backpack\"}",
+   "negative": "{\"map\": \"basket\", \"flask\": \"backpack\"}",
+   "negative_drops_turn": 3
+  },
+  "g2-05": {
+   "difficulty": "easy",
+   "subtheme": "device-settings",
+   "expected": "{\"mode\": \"bake\", \"door\": \"open\"}",
+   "negative": "{\"mode\": \"dry\", \"door\": \"open\"}",
+   "negative_drops_turn": 2
+  },
+  "g2-06": {
+   "difficulty": "easy",
+   "subtheme": "overwrite-with-correction",
+   "expected": "ANSWER: Pelham",
+   "negative": "ANSWER: Halloway",
+   "negative_drops_turn": 3
+  },
+  "g2-07": {
+   "difficulty": "easy",
+   "subtheme": "assignment-overwrite",
+   "expected": "{\"dishes\": \"emil\", \"laundry\": \"katya\"}",
+   "negative": "{\"dishes\": \"noor\", \"laundry\": \"katya\"}",
+   "negative_drops_turn": 3
+  },
+  "g2-08": {
+   "difficulty": "medium",
+   "subtheme": "role-swap-echo",
+   "expected": "DAY: Bao, NIGHT: Ilse",
+   "negative": "DAY: Corin, NIGHT: Ilse",
+   "negative_drops_turn": 3
+  },
+  "g2-09": {
+   "difficulty": "medium",
+   "subtheme": "empty-container-inference",
+   "expected": "ANSWER: Glass",
+   "negative": "ANSWER: Clay",
+   "negative_drops_turn": 3
+  },
+  "g2-10": {
+   "difficulty": "medium",
+   "subtheme": "bulk-moves",
+   "expected": "{\"scarf\": \"satchel\", \"hat\": \"trunk\"}",
+   "negative": "{\"scarf\": \"crate\", \"hat\": \"trunk\"}",
+   "negative_drops_turn": 5
+  },
+  "g2-11": {
+   "difficulty": "medium",
+   "subtheme": "ownership-correction",
+   "expected": "{\"ladder\": \"soren\", \"wheelbarrow\": \"wren\"}",
+   "negative": "{\"ladder\": \"tavi\", \"wheelbarrow\": \"wren\"}",
+   "negative_drops_turn": 4
+  },
+  "g2-12": {
+   "difficulty": "medium",
+   "subtheme": "device-settings-distractor",
+   "expected": "{\"band\": \"shortwave\", \"volume\": \"high\", \"light\": \"green\"}",
+   "negative": "{\"band\": \"am\", \"volume\": \"high\", \"light\": \"green\"}",
+   "negative_drops_turn": 3
+  },
+  "g2-13": {
+   "difficulty": "medium",
+   "subtheme": "bulk-reassignment",
+   "expected": "{\"invoice\": \"jun\", \"printer\": \"ravi\", \"badge\": \"jun\"}",
+   "negative": "{\"invoice\": \"jun\", \"printer\": \"jun\", \"badge\": \"jun\"}",
+   "negative_drops_turn": 2
+  },
+  "g2-14": {
+   "difficulty": "medium",
+   "subtheme": "conditional-recolour",
+   "expected": "{\"front\": \"blue\", \"back\": \"red\", \"cellar\": \"yellow\"}",
+   "negative": "{\"front\": \"green\", \"back\": \"red\", \"cellar\": \"yellow\"}",
+   "negative_drops_turn": 5
+  },
+  "g2-15": {
+   "difficulty": "hard",
+   "subtheme": "status-invert",
+   "expected": "{\"red\": \"on\", \"white\": \"off\", \"green\": \"on\"}",
+   "negative": "{\"red\": \"on\", \"white\": \"on\", \"green\": \"off\"}",
+   "negative_drops_turn": 3
+  },
+  "g2-16": {
+   "difficulty": "hard",
+   "subtheme": "silent-bulk-and-swap",
+   "expected": "{\"helmet\": \"south\", \"rope\": \"south\", \"torch\": \"west\"}",
+   "negative": "{\"helmet\": \"west\", \"rope\": \"west\", \"torch\": \"south\"}",
+   "negative_drops_turn": 5
+  },
+  "g2-17": {
+   "difficulty": "hard",
+   "subtheme": "silent-holder-transfers",
+   "expected": "{\"kite\": \"cato\", \"drum\": \"bree\", \"whistle\": \"bree\"}",
+   "negative": "{\"kite\": \"bree\", \"drum\": \"bree\", \"whistle\": \"bree\"}",
+   "negative_drops_turn": 4
+  },
+  "g2-18": {
+   "difficulty": "hard",
+   "subtheme": "role-rotation",
+   "expected": "{\"pilot\": \"yara\", \"navigator\": \"odette\", \"cook\": \"finn\"}",
+   "negative": "{\"pilot\": \"odette\", \"navigator\": \"yara\", \"cook\": \"finn\"}",
+   "negative_drops_turn": 2
+  },
+  "g2-19": {
+   "difficulty": "hard",
+   "subtheme": "silent-room-bookings",
+   "expected": "{\"birch\": \"heron\", \"cedar\": \"otter\", \"alder\": \"falcon\"}",
+   "negative": "{\"birch\": \"otter\", \"cedar\": \"heron\", \"alder\": \"falcon\"}",
+   "negative_drops_turn": 4
+  },
+  "g2-20": {
+   "difficulty": "hard",
+   "subtheme": "container-content-swaps",
+   "expected": "{\"plum\": \"yellow\", \"fig\": \"tray\", \"walnut\": \"tray\"}",
+   "negative": "{\"plum\": \"yellow\", \"fig\": \"blue\", \"walnut\": \"blue\"}",
+   "negative_drops_turn": 4
+  },
+  "g2-21": {
+   "difficulty": "hard",
+   "subtheme": "silent-pairwise-swaps",
+   "expected": "{\"lio\": \"green\", \"nia\": \"red\"}",
+   "negative": "{\"lio\": \"green\", \"nia\": \"blue\"}",
+   "negative_drops_turn": 4
+  }
+ },
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/longhorizon/gen_2.json --family longhorizon",
+  "result": "21/21 valid"
+ }
+}

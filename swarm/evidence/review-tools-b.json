@@ -1,0 +1,95 @@
+{
+ "actor": "review-tools-b",
+ "role": "task-review",
+ "family": "tools",
+ "method": "Re-derived every expected answer by hand and with Python (sums, products, threshold comparisons, prefix counts, search ranking and 160-char snippet offsets replayed through lab/core.py). Read checker semantics in lab/core.py. Compared all 42 tasks against dev.json and gen_1..gen_3 for duplicates. Probed changed checkers with alternative correct surface forms and wrong answers. Model was not run on these tasks.",
+ "files": {
+  "tasks/tools/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 1,
+   "prompts_fixed": 3,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/tools/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "prompts_fixed": 0,
+   "replaced": 3,
+   "reworked": 3,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "local_id": "g4-05",
+   "issue": "contains_all required the literal '9:00' in a free-text sentence; a correct reminder saying '9 am' or '09:00' would fail",
+   "action": "checker loosened to 'Tovin' plus regex \\b0?9(:00|\\.00)?\\b; 10:00 and 19:00 still rejected"
+  },
+  {
+   "local_id": "g4-11",
+   "issue": "final-answer format did not say 'just the number'; number check reads the last number, so '3 remain after deleting 2' would fail",
+   "action": "prompt now ends 'just the number of keys that remain in the store'"
+  },
+  {
+   "local_id": "g4-16",
+   "issue": "same format gap",
+   "action": "prompt now says 'just the number of files you deleted'"
+  },
+  {
+   "local_id": "g4-20",
+   "issue": "same format gap",
+   "action": "prompt now says 'just the number of keys you deleted'"
+  },
+  {
+   "local_id": "g4-15",
+   "issue": "near-duplicate of gen_2 g2-17 (sum the amounts in a file that carries an embedded 'send the total' note)",
+   "action": "replaced with new hard task: delete 'ledger_copy' only if identical to 'ledger' (they differ in one line, expected KEPT, no delete, both files read)"
+  },
+  {
+   "local_id": "g5-02",
+   "issue": "near-duplicate of gen_2 g2-08 (crate weight from kv times crate count via calc, same wording)",
+   "action": "replaced with new easy pipeline: calc 36*45 = 1620 then exactly one message to 'foreman' containing the result"
+  },
+  {
+   "local_id": "g5-04",
+   "issue": "near-duplicate of gen_3 g3-05 (read a number from a file, store it under a kv key)",
+   "action": "replaced with new easy pipeline: calc 14*235 = 3290 then write it to new file 'fence_length' without touching 'fence_notes'"
+  },
+  {
+   "local_id": "g5-10",
+   "issue": "near-duplicate of g5-17 in the same file (mistyped file name, list_files, read the right budget/expense file)",
+   "action": "replaced with new medium recovery task of a different error type: calc rejects '486 x 27', retry with '*', answer 13122"
+  },
+  {
+   "local_id": "g5-08",
+   "issue": "content overlap with gen_2 g2-09 (file 'tally' of daily counts summed with calc)",
+   "action": "reworked content to file 'crossings' / 'crossings_sum' (ferry crossings); answer 358 unchanged, the extra write step keeps it distinct"
+  },
+  {
+   "local_id": "g5-15",
+   "issue": "same content as gen_3 g3-04 (visitor_count / visitor_limit increment)",
+   "action": "reworked to loan counter: guessed key 'loans' fails, real key 'loan_count' 767 + 58 = 825; checks, reference, negative updated"
+  },
+  {
+   "local_id": "g5-18",
+   "issue": "arithmetic template identical to dev-06 (n nights times rate plus one-time fee from a searched document)",
+   "action": "reworked question to 2 dormitory nights plus 3 private-room nights (2*29+3*74 = 280), removed the linen fee from the doc; expected number 98 -> 280, negative now swaps the two rates (235)"
+  }
+ ],
+ "verified_unchanged": "All other tasks: expected answers re-derived and correct (g4: 415, 3, KEPT x4, 6284, 3, EXISTS, QUIET, 2, 7, quill, 396 <= 400 KEPT, 2; g5: 27, 412, 73, 1849, 10, 401, 227, 5150, 30, 938, 2315, 58, 450, NONE). Negatives are realistic discipline failures. No no_tool_errors, no dotted checked names, all content fictional and harmless.",
+ "residual_notes": [
+  "g4-08 and g4-14 share the 'get key, act only above/below a threshold' skeleton with dev-10, but differ in action type (file delete vs message) and use numeric conditions; kept.",
+  "g5-13 (key names a file) mirrors gen_1 g1-18 (file names a key); kept as a different direction and sub-theme.",
+  "tool_called args_contains is a substring match, so e.g. path 'expense_mar' also matches 'expense_mar_draft'; in every such task the number check rejects the wrong file's value."
+ ],
+ "validator": {
+  "tasks/tools/gen_4.json": "21/21 valid",
+  "tasks/tools/gen_5.json": "21/21 valid"
+ },
+ "model_pilot_run": false
+}

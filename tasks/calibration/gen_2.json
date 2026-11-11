@@ -185,6 +185,7 @@
       "values": [
        "Brok Unnel",
        "Unnel",
+       "Brok",
        "<Brok Unnel>"
       ]
      },
@@ -391,12 +392,15 @@
       "type": "exact_any",
       "values": [
        "Glimmerwake",
+       "the Glimmerwake",
+       "boat Glimmerwake",
+       "the boat Glimmerwake",
        "<Glimmerwake>"
       ]
      },
      {
       "type": "regex",
-      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*glimmerwake\\W*$",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(the\\s+)?(boat\\s+)?glimmerwake\\W*$",
       "flags": "im"
      }
     ]
@@ -532,6 +536,7 @@
       "values": [
        "Rusk Hallen",
        "Hallen",
+       "Rusk",
        "<Rusk Hallen>"
       ]
      },
@@ -600,8 +605,18 @@
   "max_tokens": 80,
   "checks": [
    {
-    "type": "number",
-    "value": 3
+    "type": "any",
+    "checks": [
+     {
+      "type": "number",
+      "value": 3
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(third|three)(\\s+place)?\\W*$",
+      "flags": "im"
+     }
+    ]
    },
    {
     "type": "not_regex",

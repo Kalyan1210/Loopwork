@@ -1,0 +1,189 @@
+{
+ "data": "results/dev_tuning (100 dev tasks; held-out tasks were not used)",
+ "sweep": [
+  {
+   "candidate": "baseline",
+   "label": "unchanged model",
+   "spec": null,
+   "dev_tasks": 100,
+   "dev_pass": 62,
+   "regressed_vs_baseline": 0,
+   "improved_vs_baseline": 0,
+   "outputs_changed": 0
+  },
+  {
+   "candidate": "tune_attn_m15",
+   "label": "attn_norm gain x0.85, blocks 10-17",
+   "spec": {
+    "module": "attn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.15
+   },
+   "dev_tasks": 100,
+   "dev_pass": 58,
+   "regressed_vs_baseline": 8,
+   "improved_vs_baseline": 4,
+   "outputs_changed": 60
+  },
+  {
+   "candidate": "tune_attn_m30",
+   "label": "attn_norm gain x0.70, blocks 10-17",
+   "spec": {
+    "module": "attn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.3
+   },
+   "dev_tasks": 100,
+   "dev_pass": 47,
+   "regressed_vs_baseline": 17,
+   "improved_vs_baseline": 2,
+   "outputs_changed": 81
+  },
+  {
+   "candidate": "tune_attn_m50",
+   "label": "attn_norm gain x0.50, blocks 10-17",
+   "spec": {
+    "module": "attn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.5
+   },
+   "dev_tasks": 100,
+   "dev_pass": 27,
+   "regressed_vs_baseline": 36,
+   "improved_vs_baseline": 1,
+   "outputs_changed": 95
+  },
+  {
+   "candidate": "tune_ffn_m15",
+   "label": "ffn_norm gain x0.85, blocks 10-17",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.15
+   },
+   "dev_tasks": 100,
+   "dev_pass": 57,
+   "regressed_vs_baseline": 13,
+   "improved_vs_baseline": 8,
+   "outputs_changed": 79
+  },
+  {
+   "candidate": "tune_ffn_m30",
+   "label": "ffn_norm gain x0.70, blocks 10-17",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.3
+   },
+   "dev_tasks": 100,
+   "dev_pass": 30,
+   "regressed_vs_baseline": 38,
+   "improved_vs_baseline": 6,
+   "outputs_changed": 95
+  },
+  {
+   "candidate": "tune_ffn_m50",
+   "label": "ffn_norm gain x0.50, blocks 10-17",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.5
+   },
+   "dev_tasks": 100,
+   "dev_pass": 5,
+   "regressed_vs_baseline": 58,
+   "improved_vs_baseline": 1,
+   "outputs_changed": 100
+  },
+  {
+   "candidate": "tune_ffn_p30",
+   "label": "ffn_norm gain x1.30, blocks 10-17",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": 0.3
+   },
+   "dev_tasks": 100,
+   "dev_pass": 3,
+   "regressed_vs_baseline": 60,
+   "improved_vs_baseline": 1,
+   "outputs_changed": 100
+  }
+ ],
+ "selection": {
+  "low": "eps 0.15: dev pass 57-58 vs 62 at baseline (small effect)",
+  "medium": "eps 0.30: dev pass 30 (ffn) and 47 (attn), clear effect without collapse",
+  "rejected": "eps 0.50 (5/100 for ffn: collapse) and ffn amplification +0.30 (3/100: collapse)",
+  "not_dev_tuned": "ffn_up_low (+0.15) was not in the sweep; chosen as the mirror image of ffn_low. Random controls reuse the medium magnitude by construction."
+ }
+}

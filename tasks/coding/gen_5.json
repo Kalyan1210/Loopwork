@@ -37,18 +37,18 @@
   "local_id": "g5-03",
   "family": "coding",
   "subtheme": "algorithms",
-  "difficulty": "easy",
+  "difficulty": "medium",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Write a Python function `lower_bound(nums, target)` that takes a list of integers sorted in ascending order (duplicates allowed) and returns the smallest index i such that nums[i] >= target. If every element is smaller than target, or the list is empty, return len(nums). Examples: lower_bound([1, 3, 3, 7], 3) returns 1, lower_bound([1, 3, 3, 7], 4) returns 3, lower_bound([1, 3, 3, 7], 9) returns 4.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Write a Python function `closest_value(nums, target)` that takes a list of integers in any order and an integer target, and returns the element of nums whose distance to target (the absolute difference) is smallest. If two different elements are equally close, return the SMALLER one. An empty list returns None. Examples: closest_value([9, 1, 4], 5) returns 4, closest_value([6, 2], 4) returns 2 (both are 2 away), closest_value([], 3) returns None.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert lower_bound([1, 3, 3, 7], 3) == 1\nassert lower_bound([1, 3, 3, 7], 4) == 3\nassert lower_bound([1, 3, 3, 7], 9) == 4\nassert lower_bound([], 5) == 0\nassert lower_bound([2], 2) == 0\nassert lower_bound([2], -1) == 0\nassert lower_bound([5, 5, 5], 5) == 0\nassert lower_bound([-4, -2, 0], -1) == 2"
+    "tests": "assert closest_value([9, 1, 4], 5) == 4\nassert closest_value([6, 2], 4) == 2\nassert closest_value([], 3) is None\nassert closest_value([7], -100) == 7\nassert closest_value([-1, -5, 3], -3) == -5\nassert closest_value([10, 10, 8], 9) == 8\nassert closest_value([2, 6], 4) == 2\nassert closest_value([0, 20, 13], 13) == 13"
    }
   ],
-  "reference": "```python\ndef lower_bound(nums, target):\n    lo, hi = 0, len(nums)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n```",
-  "negative": "```python\ndef lower_bound(nums, target):\n    lo, hi = 0, len(nums)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] <= target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n```"
+  "reference": "```python\ndef closest_value(nums, target):\n    best = None\n    for n in nums:\n        if best is None or (abs(n - target), n) < (abs(best - target), best):\n            best = n\n    return best\n```",
+  "negative": "```python\ndef closest_value(nums, target):\n    best = None\n    for n in nums:\n        if best is None or abs(n - target) < abs(best - target):\n            best = n\n    return best\n```"
  },
  {
   "local_id": "g5-04",
@@ -57,15 +57,15 @@
   "difficulty": "easy",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Write a Python function `longest_true_streak(flags)` that takes a list of booleans and returns the length of the longest run of consecutive True values as an int. An empty list, or a list with no True, returns 0. Examples: longest_true_streak([True, True, False, True]) returns 2 and longest_true_streak([False]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Write a Python function `collatz_steps(n)` that counts how many steps the following process needs to reach 1, starting from the integer n: if the current number is even, halve it; if it is odd, multiply it by 3 and add 1. Starting at 1 needs 0 steps. If n is less than 1, return -1. Return an int. Examples: collatz_steps(6) returns 8 (6, 3, 10, 5, 16, 8, 4, 2, 1), collatz_steps(1) returns 0, collatz_steps(0) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert longest_true_streak([True, True, False, True]) == 2\nassert longest_true_streak([False]) == 0\nassert longest_true_streak([]) == 0\nassert longest_true_streak([True]) == 1\nassert longest_true_streak([True, False, True, True, True]) == 3\nassert longest_true_streak([True, True, True, True]) == 4\nassert longest_true_streak([False, True, False, True, False]) == 1"
+    "tests": "assert collatz_steps(6) == 8\nassert collatz_steps(1) == 0\nassert collatz_steps(0) == -1\nassert collatz_steps(-7) == -1\nassert collatz_steps(2) == 1\nassert collatz_steps(16) == 4\nassert collatz_steps(7) == 16\nassert collatz_steps(27) == 111"
    }
   ],
-  "reference": "```python\ndef longest_true_streak(flags):\n    best = cur = 0\n    for f in flags:\n        cur = cur + 1 if f else 0\n        best = max(best, cur)\n    return best\n```",
-  "negative": "```python\ndef longest_true_streak(flags):\n    best = cur = 0\n    for f in flags:\n        if f:\n            cur += 1\n        else:\n            best = max(best, cur)\n            cur = 0\n    return best\n```"
+  "reference": "```python\ndef collatz_steps(n):\n    if n < 1:\n        return -1\n    steps = 0\n    while n != 1:\n        n = n // 2 if n % 2 == 0 else 3 * n + 1\n        steps += 1\n    return steps\n```",
+  "negative": "```python\ndef collatz_steps(n):\n    if n < 1:\n        return -1\n    steps = 1\n    while n != 1:\n        n = n // 2 if n % 2 == 0 else 3 * n + 1\n        steps += 1\n    return steps\n```"
  },
  {
   "local_id": "g5-05",
@@ -74,15 +74,15 @@
   "difficulty": "easy",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Write a Python function `to_digits(n, base)` that converts a non-negative integer n to the given base (an integer from 2 to 36) and returns its digits as a list of ints, most significant digit first. Zero is represented as [0]. Examples: to_digits(10, 2) returns [1, 0, 1, 0], to_digits(255, 16) returns [15, 15], to_digits(0, 7) returns [0].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Write a Python function `from_digits(digits, base)` that takes a list of digit values (ints from 0 to base - 1, most significant digit first; leading zeros are allowed) and a base (an integer from 2 to 36), and returns the non-negative integer they represent as an int. An empty list returns 0. Examples: from_digits([1, 0, 1, 0], 2) returns 10, from_digits([15, 15], 16) returns 255, from_digits([], 5) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert to_digits(10, 2) == [1, 0, 1, 0]\nassert to_digits(255, 16) == [15, 15]\nassert to_digits(0, 7) == [0]\nassert to_digits(7, 7) == [1, 0]\nassert to_digits(6, 7) == [6]\nassert to_digits(1000, 36) == [27, 28]\nassert to_digits(81, 3) == [1, 0, 0, 0, 0]"
+    "tests": "assert from_digits([1, 0, 1, 0], 2) == 10\nassert from_digits([15, 15], 16) == 255\nassert from_digits([], 5) == 0\nassert from_digits([0], 7) == 0\nassert from_digits([0, 0, 7], 10) == 7\nassert from_digits([27, 28], 36) == 1000\nassert from_digits([1, 2, 3], 4) == 27\nassert from_digits([6], 7) == 6"
    }
   ],
-  "reference": "```python\ndef to_digits(n, base):\n    if n == 0:\n        return [0]\n    out = []\n    while n > 0:\n        out.append(n % base)\n        n //= base\n    return out[::-1]\n```",
-  "negative": "```python\ndef to_digits(n, base):\n    out = []\n    while n > 0:\n        out.append(n % base)\n        n //= base\n    return out\n```"
+  "reference": "```python\ndef from_digits(digits, base):\n    n = 0\n    for d in digits:\n        n = n * base + d\n    return n\n```",
+  "negative": "```python\ndef from_digits(digits, base):\n    n = 0\n    for i, d in enumerate(digits):\n        n += d * base ** i\n    return n\n```"
  },
  {
   "local_id": "g5-06",
@@ -210,7 +210,7 @@
   "difficulty": "medium",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Write a Python function `int_sqrt(n)` that returns the largest integer r such that r * r <= n, for a non-negative integer n. Use only integer arithmetic (no floats, no math module) so that the result is exact for very large n. If n is negative, return -1. Examples: int_sqrt(17) returns 4, int_sqrt(16) returns 4, int_sqrt(0) returns 0, int_sqrt(-3) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Write a Python function `int_sqrt(n)` that returns the largest integer r such that r * r <= n, for a non-negative integer n. Use only integer arithmetic (no floats, no math module) so that the result is exact for very large n, and it must also be fast for huge n such as 10**30 (do not count up one number at a time). If n is negative, return -1. Examples: int_sqrt(17) returns 4, int_sqrt(16) returns 4, int_sqrt(0) returns 0, int_sqrt(-3) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
@@ -244,7 +244,7 @@
   "difficulty": "hard",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "In the fictional land of Quill, coins come in the denominations given by the list coins (distinct positive integers, in any order), and there is an unlimited supply of each. Write a Python function `fewest_coins(amount, coins)` that returns the smallest number of coins that add up to exactly amount (a non-negative integer), or -1 if the amount cannot be made. Always taking the largest coin first does not always give the smallest count. Examples: fewest_coins(10, [1, 5, 8]) returns 2 (5 + 5), fewest_coins(0, [3]) returns 0, fewest_coins(7, [2, 4]) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "In the fictional land of Quill, coins come in the denominations given by the list coins (distinct positive integers, in any order; the list may be empty, in which case only amount 0 can be made), and there is an unlimited supply of each. Write a Python function `fewest_coins(amount, coins)` that returns the smallest number of coins that add up to exactly amount (a non-negative integer), or -1 if the amount cannot be made. Always taking the largest coin first does not always give the smallest count. Examples: fewest_coins(10, [1, 5, 8]) returns 2 (5 + 5), fewest_coins(0, [3]) returns 0, fewest_coins(7, [2, 4]) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",

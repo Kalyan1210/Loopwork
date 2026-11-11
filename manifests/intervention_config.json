@@ -1,8 +1,203 @@
-{"_note":"TEST config for pipeline check; final magnitudes are chosen on DEV tasks only",
- "conditions":[
- {"id":"baseline","type":"baseline","label":"unchanged model","method":"unchanged"},
- {"id":"noop","type":"control","label":"edit pipeline with x1.0 (no-op)","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"noop"}},
- {"id":"t_ffn","type":"intervention","label":"test","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.3}},
- {"id":"t_rand","type":"control","label":"test","method":"edit","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"random_sign","eps":0.3,"seed":1234}},
- {"id":"t_rb","type":"control","label":"test","method":"edit_then_rollback","spec":{"module":"ffn_norm","layers":[10,11,12,13,14,15,16,17],"method":"scale","eps":-0.3}}
-]}
+{
+ "_note": "FINAL frozen conditions. Modules and layers (mid-depth blocks 10-17 of 28) were fixed before any run; strengths 0.15 (low) and 0.30 (medium) were chosen from the DEV sweep only (manifests/tuning.json). Every edit is applied to an isolated copy-on-write clone of the baseline.",
+ "conditions": [
+  {
+   "id": "baseline",
+   "type": "baseline",
+   "label": "unchanged model",
+   "method": "unchanged"
+  },
+  {
+   "id": "noop",
+   "type": "control",
+   "label": "no-op: edit pipeline writes gains x1.00 (ffn_norm, blocks 10-17)",
+   "method": "edit",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "noop"
+   }
+  },
+  {
+   "id": "ffn_low",
+   "type": "intervention",
+   "label": "ffn_norm gain x0.85, blocks 10-17 (MLP input attenuated 15%)",
+   "method": "edit",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.15
+   }
+  },
+  {
+   "id": "ffn_med",
+   "type": "intervention",
+   "label": "ffn_norm gain x0.70, blocks 10-17 (MLP input attenuated 30%)",
+   "method": "edit",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.3
+   }
+  },
+  {
+   "id": "ffn_up_low",
+   "type": "intervention",
+   "label": "ffn_norm gain x1.15, blocks 10-17 (MLP input amplified 15%)",
+   "method": "edit",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": 0.15
+   }
+  },
+  {
+   "id": "attn_low",
+   "type": "intervention",
+   "label": "attn_norm gain x0.85, blocks 10-17 (attention input attenuated 15%)",
+   "method": "edit",
+   "spec": {
+    "module": "attn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.15
+   }
+  },
+  {
+   "id": "attn_med",
+   "type": "intervention",
+   "label": "attn_norm gain x0.70, blocks 10-17 (attention input attenuated 30%)",
+   "method": "edit",
+   "spec": {
+    "module": "attn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.3
+   }
+  },
+  {
+   "id": "rand_ffn_med",
+   "type": "control",
+   "label": "matched random control for ffn_med: each ffn_norm gain x(1 +/- 0.30), random sign per element, seed 1234",
+   "method": "edit",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "random_sign",
+    "eps": 0.3,
+    "seed": 1234
+   },
+   "matched_control_for": "ffn_med"
+  },
+  {
+   "id": "rand_attn_med",
+   "type": "control",
+   "label": "matched random control for attn_med: each attn_norm gain x(1 +/- 0.30), random sign per element, seed 1234",
+   "method": "edit",
+   "spec": {
+    "module": "attn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "random_sign",
+    "eps": 0.3,
+    "seed": 1234
+   },
+   "matched_control_for": "attn_med"
+  },
+  {
+   "id": "rollback",
+   "type": "control",
+   "label": "rollback: ffn_med edit applied, then original bytes restored",
+   "method": "edit_then_rollback",
+   "spec": {
+    "module": "ffn_norm",
+    "layers": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "method": "scale",
+    "eps": -0.3
+   }
+  }
+ ]
+}

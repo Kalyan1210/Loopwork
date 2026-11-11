@@ -122,22 +122,22 @@
  {
   "local_id": "g5-07",
   "family": "constraints",
-  "subtheme": "replace-spaces",
+  "subtheme": "time-zero-pad",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Label on a fictional warehouse door: north gate storage room\nRewrite the label with every space replaced by an underscore. Do not change any letters. Reply with ONLY the new label. No other text.",
+  "prompt": "A fictional tram leaves Cindermoor depot at 7:05 in the morning.\nRewrite the time in the format HHhMM: a two-digit hour (add a leading zero if needed), the lowercase letter h, then the two-digit minutes. Shape example for 9:30: 09h30\nReply with ONLY the reformatted time. No other text.",
   "checks": [
    {
     "type": "regex",
     "flags": "",
-    "pattern": "^\\s*north_gate_storage_room\\s*$"
+    "pattern": "^\\s*07h05\\s*$"
    }
   ],
   "tags": {
-   "derivation": "str.replace(' ', '_')"
+   "derivation": "'%02dh%02d' % (7, 5)"
   },
-  "reference": "north_gate_storage_room",
-  "negative": "north-gate-storage-room"
+  "reference": "07h05",
+  "negative": "7h05"
  },
  {
   "local_id": "g5-08",
@@ -397,19 +397,19 @@
   "subtheme": "csv-to-mixed-case-fields",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "One record from a fictional census, as name,age,town: Halvard,52,Mistlethorpe\nRewrite it on one line in exactly this format: NAME=<name in UPPERCASE>; AGE=<age>; TOWN=<town in lowercase>\nThe three labels are uppercase and the parts are separated by \"; \" (semicolon, space). Shape example for Ines,7,Corby: NAME=INES; AGE=7; TOWN=corby\nReply with ONLY that line. No other text.",
+  "prompt": "One record from a fictional census, as name,age,town: Sigrun,48,Mistlethorpe\nRewrite it on one line in exactly this format: NAME=<name in UPPERCASE>; AGE=<age>; TOWN=<town in lowercase>\nThe three labels are uppercase and the parts are separated by \"; \" (semicolon, space). Shape example for Ines,7,Corby: NAME=INES; AGE=7; TOWN=corby\nReply with ONLY that line. No other text.",
   "checks": [
    {
     "type": "regex",
     "flags": "",
-    "pattern": "^\\s*NAME=HALVARD; AGE=52; TOWN=mistlethorpe\\s*$"
+    "pattern": "^\\s*NAME=SIGRUN; AGE=48; TOWN=mistlethorpe\\s*$"
    }
   ],
   "tags": {
    "derivation": "upper()/lower() per field"
   },
-  "reference": "NAME=HALVARD; AGE=52; TOWN=mistlethorpe",
-  "negative": "NAME=HALVARD; AGE=52; TOWN=MISTLETHORPE"
+  "reference": "NAME=SIGRUN; AGE=48; TOWN=mistlethorpe",
+  "negative": "NAME=SIGRUN; AGE=48; TOWN=MISTLETHORPE"
  },
  {
   "local_id": "g5-21",

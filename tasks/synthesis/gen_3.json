@@ -84,12 +84,22 @@
   "prompt": "Read the three documents, then answer.\n\n[Doc A] Festival programme, Corrowby: The Lantern Parade is on 18 August and the Boat Race is on 22 August. Programmes cost 2 crowns.\n[Doc B] Harbour notice (issued after the programme was printed): Because of the tides, the Boat Race is brought forward by 6 days.\n[Doc C] Stewards' rota: Stewards are needed at both events. The Lantern Parade date in the programme has not changed.\n\nQuestion: Following the harbour notice, which of the two events takes place first?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <event name>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "Boat Race",
-     "the Boat Race",
-     "Boat Race event",
-     "The Boat Race."
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Boat Race",
+       "the Boat Race",
+       "Boat Race event",
+       "The Boat Race."
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=][ \\t*`'\\\"]*(?:boat\\ race\\ event|the\\ boat\\ race|boat\\ race)[ \\t.*`'\\\"]*(?:\\([^)\\n]*\\)[ \\t.*`'\\\"]*)?$(?![\\s\\S]*^\\W*answer\\s*[:=])"
+     }
     ]
    }
   ],
@@ -187,10 +197,21 @@
     "value": 13
    },
    {
-    "type": "tool_called",
-    "tool": "read_doc",
-    "min": 1,
-    "ok_only": true
+    "type": "any",
+    "checks": [
+     {
+      "type": "tool_called",
+      "tool": "read_doc",
+      "min": 1,
+      "ok_only": true
+     },
+     {
+      "type": "tool_called",
+      "tool": "search",
+      "min": 1,
+      "ok_only": true
+     }
+    ]
    }
   ],
   "reference": {
@@ -317,10 +338,21 @@
     "value": 23
    },
    {
-    "type": "tool_called",
-    "tool": "read_doc",
-    "min": 1,
-    "ok_only": true
+    "type": "any",
+    "checks": [
+     {
+      "type": "tool_called",
+      "tool": "read_doc",
+      "min": 1,
+      "ok_only": true
+     },
+     {
+      "type": "tool_called",
+      "tool": "search",
+      "min": 1,
+      "ok_only": true
+     }
+    ]
    }
   ],
   "reference": {
@@ -436,7 +468,7 @@
   "subtheme": "chained delays across a month end",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "Read the four documents, then answer.\n\n[Doc A] Mill ledger, Thornaby: The new waterwheel is to be fitted on 24 June.\n[Doc B] Carpenter's letter (written after the ledger entry): The oak is not yet seasoned. Fitting will be 5 days later than the date in the ledger.\n[Doc C] Miller's diary: The carpenter kept to his new date until the river flooded, which cost a further 4 days. The wheel was fitted straight after that.\n[Doc D] Almanac page: June has 30 days and is followed by July.\n\nQuestion: On which day of July was the waterwheel fitted?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
+  "prompt": "Read the four documents, then answer.\n\n[Doc A] Mill ledger, Thornaby: The new waterwheel is to be fitted on 24 June.\n[Doc B] Carpenter's letter (written after the ledger entry): The oak is not yet seasoned. Fitting will be 5 days later than the date in the ledger.\n[Doc C] Miller's diary: The carpenter was ready on his new date, but the river flooded and the fitting was put back a further 4 days. The wheel was fitted on that later date.\n[Doc D] Almanac page: June has 30 days and is followed by July.\n\nQuestion: On which day of July was the waterwheel fitted?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <day number>",
   "checks": [
    {
     "type": "number",

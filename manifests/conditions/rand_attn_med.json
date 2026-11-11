@@ -1,7 +1,7 @@
 {
- "id": "tune_attn_m50",
- "type": "intervention",
- "label": "attn_norm gain x0.50, blocks 10-17",
+ "id": "rand_attn_med",
+ "type": "control",
+ "label": "matched random control for attn_med: each attn_norm gain x(1 +/- 0.30), random sign per element, seed 1234",
  "built_from": "artifacts/baseline.gguf",
  "baseline_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
  "method": "edit",
@@ -17,8 +17,9 @@
    16,
    17
   ],
-  "method": "scale",
-  "eps": -0.5
+  "method": "random_sign",
+  "eps": 0.3,
+  "seed": 1234
  },
  "tensors": [
   {
@@ -30,11 +31,11 @@
    "n_elements": 2048,
    "data_offset": 767078560,
    "sha256_before": "bcd5a10e34ebc686b844b381efdc0c77d62682adc153fbad2d68d21c3cdabf14",
-   "sha256_after": "7df0fa0cb9997c8a32c8bd72ea045f735cd1576eb4e17ab577a6d890db1bab0a",
-   "delta_l2": 18.36614294460926,
+   "sha256_after": "2da4e46c25e93bca0c3b789cbc5e3030a2d93c9a95239e67cebc7acb0c74c342",
+   "delta_l2": 11.019685023613324,
    "weight_l2_before": 36.73228588921852,
    "mean_before": 0.7777942419052124,
-   "mean_after": 0.3888971209526062
+   "mean_after": 0.7798353433609009
   },
   {
    "tensor": "blk.11.attn_norm.weight",
@@ -45,11 +46,11 @@
    "n_elements": 2048,
    "data_offset": 798422176,
    "sha256_before": "f70b9be60e4dee7f41251020486f692375b7678022e52ed12fa48e8a7abecbac",
-   "sha256_after": "7b4b2d90861d199a57fc43e16872a0da3ffaa42ec2e3fa78aa803c4e8928e8ca",
-   "delta_l2": 24.859825664873405,
+   "sha256_after": "53bd7561dedffbdfa11d7882cfe808f05bef0b5e86e42bd59702b7cc8cb6408b",
+   "delta_l2": 14.915894546603104,
    "weight_l2_before": 49.71965132974681,
    "mean_before": 1.0137839317321777,
-   "mean_after": 0.5068919658660889
+   "mean_after": 1.0156989097595215
   },
   {
    "tensor": "blk.12.attn_norm.weight",
@@ -60,11 +61,11 @@
    "n_elements": 2048,
    "data_offset": 833009824,
    "sha256_before": "bab9d9c93b4e082ec208c077796c0f8ea8ac5d647ca54cdd7429ef5cec9619c5",
-   "sha256_after": "4494e4fab61860abbf6325703911bafd21df490d4cdf43e46d6ddc0bab65ffe8",
-   "delta_l2": 29.687600159730334,
+   "sha256_after": "256d7bb79b6b6d24d94edb633abed9c4b17e4cb3c19eabef9f650d829fe9dd0c",
+   "delta_l2": 17.812559111517125,
    "weight_l2_before": 59.37520031946067,
    "mean_before": 1.2041921615600586,
-   "mean_after": 0.6020960807800293
+   "mean_after": 1.189321756362915
   },
   {
    "tensor": "blk.13.attn_norm.weight",
@@ -75,11 +76,11 @@
    "n_elements": 2048,
    "data_offset": 864353440,
    "sha256_before": "10725e7938822df5c81a07ceebb6f122a357e49b2a7b099e532c24dd14863960",
-   "sha256_after": "2e1fe7aa4148a1df0a14983a02f7fc42ce1887d500e05b9749fb318ea72571f7",
-   "delta_l2": 32.92399000700839,
+   "sha256_after": "2ec6496ceb344bee4e7fd0e64018574ce4c7a26d17f4c87e5503b4e94a5c30be",
+   "delta_l2": 19.7543929124146,
    "weight_l2_before": 65.84798001401678,
    "mean_before": 1.3235735893249512,
-   "mean_after": 0.6617867946624756
+   "mean_after": 1.315489649772644
   },
   {
    "tensor": "blk.14.attn_norm.weight",
@@ -90,11 +91,11 @@
    "n_elements": 2048,
    "data_offset": 895697056,
    "sha256_before": "2564e38434c6b5f105b3f5cdd771c424c683d5efa73f3703a88e260374b8426c",
-   "sha256_after": "5d85158c4ffe27a1c24992a17e8ae77d940d2b6515d450a8a4935bc374c8c62a",
-   "delta_l2": 42.31234040505567,
+   "sha256_after": "d429c91eeadfbb1cba32b0c374657912b2d43c68c396afc71925d7a5bce50fb6",
+   "delta_l2": 25.387402417318505,
    "weight_l2_before": 84.62468081011134,
    "mean_before": 1.690366268157959,
-   "mean_after": 0.8451831340789795
+   "mean_after": 1.7062453031539917
   },
   {
    "tensor": "blk.15.attn_norm.weight",
@@ -105,11 +106,11 @@
    "n_elements": 2048,
    "data_offset": 930284704,
    "sha256_before": "3f2eaa3c74c9c806e421deff33ea8c994b6c3e5878cec408116cc3cd7712f4fb",
-   "sha256_after": "3c7a3eb88cb1bbd915c8c5941f9e814267ba2b273945d12d4fcfd46d43c1c5a5",
-   "delta_l2": 58.37776814663399,
+   "sha256_after": "f58bb90c5f31d9ce4cba95739f8bd4f85e5e69ded7ad19f70ef66c1a505c1f9c",
+   "delta_l2": 35.02665883233232,
    "weight_l2_before": 116.75553629326798,
    "mean_before": 2.3835105895996094,
-   "mean_after": 1.1917552947998047
+   "mean_after": 2.3833165168762207
   },
   {
    "tensor": "blk.16.attn_norm.weight",
@@ -120,11 +121,11 @@
    "n_elements": 2048,
    "data_offset": 961628320,
    "sha256_before": "09ae8ca299fa17a0160329dfd05dfae5689599a8be80816f6dd2254b5fe5e76f",
-   "sha256_after": "45a7160e3deb51d8e27f8e318f1d97467caa264b3bbf645f458315e03d92a7ea",
-   "delta_l2": 55.70075457693676,
+   "sha256_after": "e76254599a64d577c99bf3491d60aa055d8549ce4e69800fe37b0791a76fc6d2",
+   "delta_l2": 33.42045076038663,
    "weight_l2_before": 111.40150915387352,
    "mean_before": 2.2990283966064453,
-   "mean_after": 1.1495141983032227
+   "mean_after": 2.2910799980163574
   },
   {
    "tensor": "blk.17.attn_norm.weight",
@@ -135,22 +136,22 @@
    "n_elements": 2048,
    "data_offset": 992971936,
    "sha256_before": "5d9ad992382e74731515475b099359b400d0150e1daceeb9ca9b914e0ee5cee2",
-   "sha256_after": "8ed4ec297042fb7ffbb426d46684c39f9ff410c38d17b29937a9a2f5d8f1268f",
-   "delta_l2": 97.76536053510297,
+   "sha256_after": "8d4bc8d984234842d3a3ae65b8de5f286e3b5cf86b4bc89ff9b81a13b8acc197",
+   "delta_l2": 58.65921314961386,
    "weight_l2_before": 195.53072107020594,
    "mean_before": 4.073002815246582,
-   "mean_after": 2.036501407623291
+   "mean_after": 4.067647933959961
   }
  ],
  "steps": [
-  "in-place edit: scale on 8 tensors"
+  "in-place edit: random_sign on 8 tensors"
  ],
- "total_delta_l2": 144.1513323050106,
- "relative_delta_l2": 0.5,
+ "total_delta_l2": 86.49079440263635,
+ "relative_delta_l2": 0.29999998272520295,
  "n_elements_edited": 16384,
- "artifact": "artifacts/tune_attn_m50.gguf",
- "artifact_sha256": "177ec36071e742e430b6bcafa2180ce84f0988b329c5e34ce17c784d84458a16",
+ "artifact": "artifacts/rand_attn_med.gguf",
+ "artifact_sha256": "cf8186f06dc144082c40df696662924bed352eb2704b527ba0efa031f9fe0cf7",
  "artifact_bytes": 1359279776,
  "identical_to_baseline": false,
- "built_at": "2026-11-10T00:09:10-0500"
+ "built_at": "2026-11-10T19:29:16-0500"
 }

@@ -1,0 +1,85 @@
+{
+ "actor": "review-ambiguity-a",
+ "family": "ambiguity",
+ "files": {
+  "tasks/ambiguity/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 3,
+   "replaced": 2,
+   "dropped": 0,
+   "final_valid": 21,
+   "ask_expected": 10,
+   "answer_expected": 11
+  },
+  "tasks/ambiguity/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 2,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "ask_expected": 10,
+   "answer_expected": 11
+  },
+  "tasks/ambiguity/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "ask_expected": 10,
+   "answer_expected": 11
+  }
+ },
+ "changes": [
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-01",
+   "issue": "near-duplicate of dev-01 (booking needs three listed things, one absent, Task 'confirm the booking details'); only the setting was swapped",
+   "action": "replaced with a new ASK task (Pellwater Tide Mill: morning or afternoon tour not stated, start time requested)"
+  },
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-12",
+   "issue": "near-duplicate inside the file (plain rate x quantity, same reasoning as g1-04)",
+   "action": "replaced with a new ANSWER task using a weight threshold rule (Marlpit Post Office, 140 g letter -> 5 coins)"
+  },
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-02",
+   "issue": "content regex rejected correct questions such as 'Which afternoon coach are you taking?' or ones naming the timetable",
+   "action": "added alternatives (timetable, schedule, which coach, time of the coach); questions about arrival time or ride length still fail"
+  },
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-07",
+   "issue": "time regex accepted only 15:45, not the correct 12-hour form 3:45",
+   "action": "pattern now accepts 15:45 or 3:45"
+  },
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-08",
+   "issue": "bare 'how many' let a question about a stated price ('How many coins does a glaze firing cost?') pass",
+   "action": "regex now needs shelf/shelves, 'how many do/will/would/are' or space/room"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-01",
+   "issue": "bare 'tin' let a question about the stated quantity ('How many tins of primer do you want?') pass",
+   "action": "regex now needs a size/capacity/litres-per-tin/usual wording"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-12",
+   "issue": "time regex '0?16:50' rejected the correct 12-hour form 4:50",
+   "action": "pattern now accepts 16:50 or 4:50"
+  }
+ ],
+ "verification": "All 63 expected answers re-derived by hand (single arithmetic step or rule application each); none wrong. Every prompt contains the round-3 two-way format block verbatim. 21 probe replies (correct alternates and wrong moves) scored through lab/core.py behaved as intended. All three files pass lab/validate_tasks.py. Model not run on these tasks.",
+ "notes": [
+  "gen_3 reviewed with no changes: each ANSWER task has exactly one winner under its stated rule and each ASK task has a gap the rule does not cover.",
+  "Residual leniency left as is: g2-13 regex would accept a question about the premium pack's contents because it contains 'contain'."
+ ]
+}

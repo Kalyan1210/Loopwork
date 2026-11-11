@@ -96,7 +96,7 @@
      },
      {
       "type": "regex",
-      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+)?(the\\s+)?(town\\s+of\\s+)?(granary\\s+hall\\s+(in|at|of)\\s+)?vennick\\W*$",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+)?(the\\s+)?(town\\s+of\\s+)?(granary\\s+hall\\s*(in|at|of|,)\\s+)?(the\\s+)?(town\\s+of\\s+)?vennick('s)?(\\s*,?\\s*(in\\s+)?(its\\s+|the\\s+)?granary\\s+hall)?\\W*$",
       "flags": "im"
      }
     ]
@@ -454,7 +454,7 @@
      },
      {
       "type": "regex",
-      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+|at\\s+|on\\s+)?(the\\s+)?(chapel\\s+(on|at)\\s+)?gull\\s+rock(\\s+chapel)?\\W*$",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+|at\\s+|on\\s+)?(the\\s+)?(chapel\\s*(on|at|,)\\s+)?gull\\s+rock(\\s+chapel)?\\W*$",
       "flags": "im"
      }
     ]
@@ -670,7 +670,7 @@
      },
      {
       "type": "regex",
-      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*maela(\\s+vent)?\\W*$",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*((his|arlo(\\s+vent)?'s)\\s+sister,?\\s+)?maela(\\s+vent)?(,?\\s+(his|arlo(\\s+vent)?'s)\\s+sister)?\\W*$",
       "flags": "im"
      }
     ]

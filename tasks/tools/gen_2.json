@@ -2,10 +2,12 @@
  {
   "local_id": "g2-01",
   "family": "tools",
-  "subtheme": "calc-product",
+  "subtheme": "calc-remainder",
   "difficulty": "easy",
   "mode": "tool",
-  "prompt": "A print shop in the fictional town of Orrin prints 648 booklets of 57 pages each. How many pages is that in total? Do the multiplication with the calc tool, not in your head. Final answer: just the number.",
+  "max_tokens": 200,
+  "max_steps": 6,
+  "prompt": "A bakery in the fictional town of Orrin has 2537 buns and fills trays of 24 buns each. After filling as many full trays as possible, how many buns are left over? Work it out with the calc tool, not in your head (calc understands % for the remainder). Final answer: just the number.",
   "tools": [
    "calc",
    "kv_get",
@@ -13,15 +15,13 @@
   ],
   "env": {
    "kv": {
-    "booklets": 0
+    "trays": 0
    }
   },
-  "max_tokens": 200,
-  "max_steps": 6,
   "checks": [
    {
     "type": "number",
-    "value": 36936
+    "value": 17
    },
    {
     "type": "tool_called",
@@ -29,7 +29,7 @@
     "min": 1,
     "ok_only": true,
     "args_contains": {
-     "expr": "57"
+     "expr": "2537"
     }
    },
    {
@@ -46,15 +46,22 @@
     {
      "tool": "calc",
      "args": {
-      "expr": "648*57"
+      "expr": "2537%24"
      }
     }
    ],
-   "final": "36936"
+   "final": "17"
   },
   "negative": {
-   "steps": [],
-   "final": "36936"
+   "steps": [
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "2537//24"
+     }
+    }
+   ],
+   "final": "105"
   }
  },
  {
@@ -1761,8 +1768,8 @@
   ],
   "env": {
    "docs": {
-    "south-depot-rates": "South depot grain rates for the Varn valley. Sacks are weighed at the gate and stacked by the depot hands, and buyers must bring their own carts and tarpaulins. The south depot charges 9 coins per sack for orders of up to 500 sacks and 7 coins per sack for larger orders.",
-    "north-depot-rates": "North depot grain rates for the Varn valley. Sacks are weighed at the gate and stacked by the depot hands, and buyers must bring their own carts and tarpaulins. The north depot charges 8 coins per sack for orders of up to 500 sacks and 6 coins per sack for larger orders.",
+    "south-depot-rates": "South depot grain rates for the Varn valley. Sacks are weighed at the gate and stacked by the depot hands, and buyers must bring their own carts and tarpaulins. The south depot charges 9 coins per sack for orders of up to 500 sacks. For an order of more than 500 sacks, every sack in the order costs 7 coins.",
+    "north-depot-rates": "North depot grain rates for the Varn valley. Sacks are weighed at the gate and stacked by the depot hands, and buyers must bring their own carts and tarpaulins. The north depot charges 8 coins per sack for orders of up to 500 sacks. For an order of more than 500 sacks, every sack in the order costs 6 coins.",
     "depot-map": "The south depot stands by the mill bridge. The north depot stands by the quarry road."
    }
   },

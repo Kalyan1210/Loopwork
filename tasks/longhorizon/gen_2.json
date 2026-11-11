@@ -1,0 +1,1066 @@
+[
+ {
+  "local_id": "g2-01",
+  "family": "longhorizon",
+  "subtheme": "setting-overwrite-echo",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the colour of the spotlight in a fictional theatre. After each of my messages, reply with only one line in the form LAMP: <colour> giving the spotlight's current colour. The spotlight starts white.",
+   "The spotlight is switched to amber.",
+   "The stage curtain is dyed green. The spotlight is not touched.",
+   "The spotlight is switched to violet."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(lamp\\W+)?violet\\W*$",
+    "flags": "i"
+   },
+   {
+    "type": "reply_check",
+    "index": 1,
+    "check": {
+     "type": "regex",
+     "pattern": "^\\W*(lamp\\W+)?amber\\W*$",
+     "flags": "i"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "echo",
+   "negative_drops_turn": 4,
+   "note": "latest value; curtain colour is a distractor; turn-2 value is checked on reply 2"
+  },
+  "reference": [
+   "LAMP: white",
+   "LAMP: amber",
+   "LAMP: amber",
+   "LAMP: violet"
+  ],
+  "negative": [
+   "LAMP: white",
+   "LAMP: amber",
+   "LAMP: amber",
+   "LAMP: amber"
+  ]
+ },
+ {
+  "local_id": "g2-02",
+  "family": "longhorizon",
+  "subtheme": "ownership-handoff",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track who holds what in a fictional hiking club. Mina holds the atlas and Oto holds the compass. Acknowledge each update in a few words.",
+   "Mina hands the atlas to Pell.",
+   "Pell and Oto swap everything they hold with each other.",
+   "Who holds the atlas now? Reply with one line in exactly this form: ANSWER: <name>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "oto"
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "hand-off, then a swap between two holders"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Oto"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Pell"
+  ]
+ },
+ {
+  "local_id": "g2-03",
+  "family": "longhorizon",
+  "subtheme": "status-flip",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track three gates of a fictional castle: the north gate, the south gate and the east gate. Right now the north gate is open and the other two are closed. Acknowledge each update in a few words.",
+   "The north gate is closed and the south gate is opened.",
+   "The south gate is closed and the east gate is opened.",
+   "Exactly one gate is open now. Which one? Reply with one line in exactly this form: ANSWER: <north, south or east>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "east",
+     "east gate",
+     "the east gate"
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "open/closed flips; exactly one open"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: East"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: South"
+  ]
+ },
+ {
+  "local_id": "g2-04",
+  "family": "longhorizon",
+  "subtheme": "object-locations",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track where things are on a fictional picnic. There are three containers: the basket, the backpack and the cooler. The map is in the basket and the flask is in the cooler. Acknowledge each update in a few words.",
+   "I move the flask into the backpack.",
+   "I move the map into the cooler.",
+   "Where is the map now, and where is the flask now? Reply with only a JSON object with exactly the keys \"map\" and \"flask\"; each value is one of basket, backpack or cooler."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "map",
+     "flask"
+    ],
+    "equals": {
+     "map": "cooler",
+     "flask": "backpack"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "two single moves; map goes to the place the flask left"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"map\": \"cooler\", \"flask\": \"backpack\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"map\": \"basket\", \"flask\": \"backpack\"}"
+  ]
+ },
+ {
+  "local_id": "g2-05",
+  "family": "longhorizon",
+  "subtheme": "device-settings",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the settings of a fictional pottery kiln. The mode is dry, the door is shut and the alarm is off. Acknowledge each update in a few words.",
+   "The mode is changed to bake.",
+   "The door is opened, so the door is now open.",
+   "What are the mode and the door state now? Reply with only a JSON object with exactly the keys \"mode\" and \"door\"; each value is a single word."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "mode",
+     "door"
+    ],
+    "equals": {
+     "mode": "bake",
+     "door": "open"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "two independent overwrites; alarm never changes"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"mode\": \"bake\", \"door\": \"open\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"mode\": \"dry\", \"door\": \"open\"}"
+  ]
+ },
+ {
+  "local_id": "g2-06",
+  "family": "longhorizon",
+  "subtheme": "overwrite-with-correction",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track parcel destinations for a fictional courier. Parcel A is going to Dunmere and parcel B is going to Orrin. Acknowledge each update in a few words.",
+   "Parcel A is redirected to Halloway.",
+   "Correction: I misspoke. Parcel A is redirected to Pelham, not Halloway.",
+   "Which town is parcel A going to now? Reply with one line in exactly this form: ANSWER: <town>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "pelham"
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "redirect then correction of the redirect (the corrected turn is overwritten by design)"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Pelham"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Halloway"
+  ]
+ },
+ {
+  "local_id": "g2-07",
+  "family": "longhorizon",
+  "subtheme": "assignment-overwrite",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track who does which chore in a fictional shared flat. Noor does the dishes and Emil does the laundry. Acknowledge each update in a few words.",
+   "The laundry is reassigned to Katya.",
+   "The dishes are reassigned to Emil.",
+   "Who does each chore now? Reply with only a JSON object with exactly the keys \"dishes\" and \"laundry\"; each value is a name."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "dishes",
+     "laundry"
+    ],
+    "equals": {
+     "dishes": "emil",
+     "laundry": "katya"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "Emil changes from laundry to dishes"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"dishes\": \"emil\", \"laundry\": \"katya\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"dishes\": \"noor\", \"laundry\": \"katya\"}"
+  ]
+ },
+ {
+  "local_id": "g2-08",
+  "family": "longhorizon",
+  "subtheme": "role-swap-echo",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the guards of a fictional museum. After each of my messages, reply with only one line in the form DAY: <name>, NIGHT: <name> giving the current day guard and night guard. Corin is the day guard and Ilse is the night guard.",
+   "Bao replaces Ilse as the night guard.",
+   "The day guard and the night guard swap shifts.",
+   "Ilse comes back and takes over the night shift from whoever has it."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*day\\W+bao\\W+night\\W+ilse\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "policy": "echo",
+   "negative_drops_turn": 3,
+   "note": "replace, swap of two roles, replace"
+  },
+  "reference": [
+   "DAY: Corin, NIGHT: Ilse",
+   "DAY: Corin, NIGHT: Bao",
+   "DAY: Bao, NIGHT: Corin",
+   "DAY: Bao, NIGHT: Ilse"
+  ],
+  "negative": [
+   "DAY: Corin, NIGHT: Ilse",
+   "DAY: Corin, NIGHT: Bao",
+   "DAY: Corin, NIGHT: Bao",
+   "DAY: Corin, NIGHT: Ilse"
+  ]
+ },
+ {
+  "local_id": "g2-09",
+  "family": "longhorizon",
+  "subtheme": "empty-container-inference",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track three jars in a fictional sewing room: the clay jar, the glass jar and the tin jar. The bead is in the clay jar, the button is in the glass jar and the tin jar is empty. Acknowledge each update in a few words.",
+   "I move the bead into the tin jar.",
+   "I move the button into the clay jar.",
+   "Unrelated: a thimble is lying on the table, not in any jar.",
+   "Exactly one jar is empty now. Which one? Reply with one line in exactly this form: ANSWER: <clay, glass or tin>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "glass",
+     "glass jar",
+     "the glass jar"
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "answer is the container nothing is in; thimble is a distractor"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Glass"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Clay"
+  ]
+ },
+ {
+  "local_id": "g2-10",
+  "family": "longhorizon",
+  "subtheme": "bulk-moves",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track luggage on a fictional train. There is a trunk, a satchel and a crate. The scarf is in the trunk, the hat is in the satchel and the gloves are in the crate. Acknowledge each update in a few words.",
+   "Everything that is in the satchel is moved into the trunk.",
+   "I move the scarf from the trunk into the crate.",
+   "Unrelated: an umbrella is leaning by the door.",
+   "Everything that is in the crate is moved into the satchel.",
+   "Where is the scarf now, and where is the hat now? Reply with only a JSON object with exactly the keys \"scarf\" and \"hat\"; each value is one of trunk, satchel or crate."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "scarf",
+     "hat"
+    ],
+    "equals": {
+     "scarf": "satchel",
+     "hat": "trunk"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 5,
+   "note": "bulk move, single move, bulk move that carries the scarf along"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"scarf\": \"satchel\", \"hat\": \"trunk\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"scarf\": \"crate\", \"hat\": \"trunk\"}"
+  ]
+ },
+ {
+  "local_id": "g2-11",
+  "family": "longhorizon",
+  "subtheme": "ownership-correction",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track who has which tool among three fictional neighbours: Wren, Soren and Tavi. Wren has the ladder and Soren has the wheelbarrow. Acknowledge each update in a few words.",
+   "Wren lends the ladder to Tavi.",
+   "Soren gives the wheelbarrow to Wren.",
+   "Correction: the ladder did not go to Tavi. Wren lent it to Soren instead.",
+   "Who has each tool now? Reply with only a JSON object with exactly the keys \"ladder\" and \"wheelbarrow\"; each value is a name."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "ladder",
+     "wheelbarrow"
+    ],
+    "equals": {
+     "ladder": "soren",
+     "wheelbarrow": "wren"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 4,
+   "note": "correction changes the recipient of an earlier hand-over; the two tools end up crossed (the corrected turn is overwritten by design)"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"ladder\": \"soren\", \"wheelbarrow\": \"wren\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"ladder\": \"tavi\", \"wheelbarrow\": \"wren\"}"
+  ]
+ },
+ {
+  "local_id": "g2-12",
+  "family": "longhorizon",
+  "subtheme": "device-settings-distractor",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the settings of my fictional radio. The band is AM, the volume is low and the dial light is amber. Acknowledge each update in a few words.",
+   "I turn the volume to high.",
+   "I switch the band to shortwave.",
+   "Unrelated: my neighbour's radio is on FM with the volume at medium and a red dial light.",
+   "I change the dial light to green.",
+   "What are my radio's settings now? Reply with only a JSON object with exactly the keys \"band\", \"volume\" and \"light\"; each value is a single word."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "band",
+     "volume",
+     "light"
+    ],
+    "equals": {
+     "band": "shortwave",
+     "volume": "high",
+     "light": "green"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "another device's settings are a distractor"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"band\": \"shortwave\", \"volume\": \"high\", \"light\": \"green\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"band\": \"am\", \"volume\": \"high\", \"light\": \"green\"}"
+  ]
+ },
+ {
+  "local_id": "g2-13",
+  "family": "longhorizon",
+  "subtheme": "bulk-reassignment",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track who handles which ticket at a fictional help desk. Alba handles the invoice ticket and the printer ticket. Ravi handles the badge ticket. Acknowledge each update in a few words.",
+   "The printer ticket is handed to Ravi.",
+   "Alba goes on leave. Every ticket Alba still handles passes to Jun.",
+   "Unrelated: the office kettle is broken, but there is no ticket for it.",
+   "Ravi hands the badge ticket to Jun.",
+   "Who handles each ticket now? Reply with only a JSON object with exactly the keys \"invoice\", \"printer\" and \"badge\"; each value is a name."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "invoice",
+     "printer",
+     "badge"
+    ],
+    "equals": {
+     "invoice": "jun",
+     "printer": "ravi",
+     "badge": "jun"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "a ticket handed away before the bulk hand-over must not follow it"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"invoice\": \"jun\", \"printer\": \"ravi\", \"badge\": \"jun\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"invoice\": \"jun\", \"printer\": \"jun\", \"badge\": \"jun\"}"
+  ]
+ },
+ {
+  "local_id": "g2-14",
+  "family": "longhorizon",
+  "subtheme": "conditional-recolour",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the colours of three doors in a fictional house. The front door is red, the back door is blue and the cellar door is red. Acknowledge each update in a few words.",
+   "Every red door is repainted green.",
+   "The back door is repainted red.",
+   "The cellar door is repainted yellow.",
+   "Every green door is repainted blue.",
+   "What colour is each door now? Reply with only a JSON object with exactly the keys \"front\", \"back\" and \"cellar\"; each value is a colour."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "front",
+     "back",
+     "cellar"
+    ],
+    "equals": {
+     "front": "blue",
+     "back": "red",
+     "cellar": "yellow"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 5,
+   "note": "repaint-by-colour rules apply only to doors that have that colour at that moment"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"front\": \"blue\", \"back\": \"red\", \"cellar\": \"yellow\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"front\": \"green\", \"back\": \"red\", \"cellar\": \"yellow\"}"
+  ]
+ },
+ {
+  "local_id": "g2-15",
+  "family": "longhorizon",
+  "subtheme": "status-invert",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track three lamps in a fictional lighthouse: red, white and green. The red lamp is on, the white lamp is off and the green lamp is off. Acknowledge each update in a few words.",
+   "The white lamp is switched on.",
+   "Every lamp is flipped: each lamp that is on goes off, and each lamp that is off goes on.",
+   "The red lamp is switched on.",
+   "What is the state of each lamp now? Reply with only a JSON object with exactly the keys \"red\", \"white\" and \"green\"; each value is on or off."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "red",
+     "white",
+     "green"
+    ],
+    "equals": {
+     "red": "on",
+     "white": "off",
+     "green": "on"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "flip-all depends on the state built so far"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"red\": \"on\", \"white\": \"off\", \"green\": \"on\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"red\": \"on\", \"white\": \"on\", \"green\": \"off\"}"
+  ]
+ },
+ {
+  "local_id": "g2-16",
+  "family": "longhorizon",
+  "subtheme": "silent-bulk-and-swap",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track three lockers in a fictional climbing gym: north, south and west. The helmet is in the north locker, the rope is in the south locker and the torch is in the west locker. Reply with only the word NOTED until I ask a question.",
+   "I move the rope into the north locker.",
+   "Everything in the north locker is moved into the west locker.",
+   "I move the torch into the south locker.",
+   "I swap the entire contents of the west locker and the south locker.",
+   "Which locker is each item in now? Reply with only a JSON object with exactly the keys \"helmet\", \"rope\" and \"torch\"; each value is north, south or west."
+  ],
+  "max_tokens": 200,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "helmet",
+       "rope",
+       "torch"
+      ],
+      "equals": {
+       "helmet": "south",
+       "rope": "south",
+       "torch": "west"
+      }
+     },
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "helmet",
+       "rope",
+       "torch"
+      ],
+      "equals": {
+       "helmet": "south locker",
+       "rope": "south locker",
+       "torch": "west locker"
+      }
+     }
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "silent",
+   "negative_drops_turn": 5,
+   "note": "silent tracking; move, bulk move, move, swap of contents"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"helmet\": \"south\", \"rope\": \"south\", \"torch\": \"west\"}"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"helmet\": \"west\", \"rope\": \"west\", \"torch\": \"south\"}"
+  ]
+ },
+ {
+  "local_id": "g2-17",
+  "family": "longhorizon",
+  "subtheme": "silent-holder-transfers",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track who holds which toy among three fictional children. Ansel holds the kite, Bree holds the drum and Cato holds the whistle. Reply with only the word NOTED until I ask a question.",
+   "Ansel and Bree swap their toys.",
+   "Cato gives the toy he holds to Ansel.",
+   "Bree gives the toy she holds to Cato.",
+   "Ansel gives every toy he holds to Bree.",
+   "Who holds each toy now? Reply with only a JSON object with exactly the keys \"kite\", \"drum\" and \"whistle\"; each value is a name."
+  ],
+  "max_tokens": 200,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "kite",
+     "drum",
+     "whistle"
+    ],
+    "equals": {
+     "kite": "cato",
+     "drum": "bree",
+     "whistle": "bree"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "silent",
+   "negative_drops_turn": 4,
+   "note": "silent tracking; each transfer is named by giver, so the toy involved depends on earlier state"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"kite\": \"cato\", \"drum\": \"bree\", \"whistle\": \"bree\"}"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"kite\": \"bree\", \"drum\": \"bree\", \"whistle\": \"bree\"}"
+  ]
+ },
+ {
+  "local_id": "g2-18",
+  "family": "longhorizon",
+  "subtheme": "role-rotation",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the crew roles on a fictional riverboat. Yara is the pilot, Milo is the navigator and Odette is the cook. Acknowledge each update in a few words.",
+   "Yara and Odette swap roles.",
+   "Everyone rotates: the pilot becomes the navigator, the navigator becomes the cook and the cook becomes the pilot.",
+   "Milo leaves the boat. Finn takes over the role Milo had.",
+   "Who has each role now? Reply with only a JSON object with exactly the keys \"pilot\", \"navigator\" and \"cook\"; each value is a name."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "pilot",
+     "navigator",
+     "cook"
+    ],
+    "equals": {
+     "pilot": "yara",
+     "navigator": "odette",
+     "cook": "finn"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "swap, three-way rotation, then replacement by role held"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"pilot\": \"yara\", \"navigator\": \"odette\", \"cook\": \"finn\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"pilot\": \"odette\", \"navigator\": \"yara\", \"cook\": \"finn\"}"
+  ]
+ },
+ {
+  "local_id": "g2-19",
+  "family": "longhorizon",
+  "subtheme": "silent-room-bookings",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track which team uses which meeting room in a fictional office. Room Birch is used by team Falcon, room Cedar by team Heron, and room Alder is free. Reply with only the word NOTED until I ask a question.",
+   "Team Falcon moves out of Birch and into Alder.",
+   "Team Otter takes the room that just became free.",
+   "Team Heron and team Otter exchange rooms.",
+   "Unrelated: team Wolf asked for Alder and was turned down. Nothing changes.",
+   "Which team uses each room now? Reply with only a JSON object with exactly the keys \"birch\", \"cedar\" and \"alder\"; each value is just one word, the team's name."
+  ],
+  "max_tokens": 200,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "birch",
+     "cedar",
+     "alder"
+    ],
+    "equals": {
+     "birch": "heron",
+     "cedar": "otter",
+     "alder": "falcon"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "silent",
+   "negative_drops_turn": 4,
+   "note": "silent tracking; 'the room that just became free' must be resolved from state"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"birch\": \"heron\", \"cedar\": \"otter\", \"alder\": \"falcon\"}"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"birch\": \"otter\", \"cedar\": \"heron\", \"alder\": \"falcon\"}"
+  ]
+ },
+ {
+  "local_id": "g2-20",
+  "family": "longhorizon",
+  "subtheme": "container-content-swaps",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track fruit on a fictional kitchen counter. There is a blue bowl, a yellow bowl and a tray. The plum is in the blue bowl, the fig is in the yellow bowl and the walnut is on the tray. Acknowledge each update in a few words.",
+   "I swap the contents of the blue bowl and the yellow bowl.",
+   "I move the walnut into the blue bowl.",
+   "I swap the contents of the blue bowl and the tray.",
+   "Where is each item now? Reply with only a JSON object with exactly the keys \"plum\", \"fig\" and \"walnut\"; each value is one of blue, yellow or tray."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "plum",
+       "fig",
+       "walnut"
+      ],
+      "equals": {
+       "plum": "yellow",
+       "fig": "tray",
+       "walnut": "tray"
+      }
+     },
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "plum",
+       "fig",
+       "walnut"
+      ],
+      "equals": {
+       "plum": "yellow bowl",
+       "fig": "tray",
+       "walnut": "tray"
+      }
+     },
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "plum",
+       "fig",
+       "walnut"
+      ],
+      "equals": {
+       "plum": "yellow bowl",
+       "fig": "the tray",
+       "walnut": "the tray"
+      }
+     },
+     {
+      "type": "json",
+      "is": "object",
+      "keys": [
+       "plum",
+       "fig",
+       "walnut"
+      ],
+      "equals": {
+       "plum": "yellow",
+       "fig": "the tray",
+       "walnut": "the tray"
+      }
+     }
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 4,
+   "note": "second swap carries two items and leaves the blue bowl empty"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"plum\": \"yellow\", \"fig\": \"tray\", \"walnut\": \"tray\"}"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "{\"plum\": \"yellow\", \"fig\": \"blue\", \"walnut\": \"blue\"}"
+  ]
+ },
+ {
+  "local_id": "g2-21",
+  "family": "longhorizon",
+  "subtheme": "silent-pairwise-swaps",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track cap colours for three fictional children. Lio wears the red cap, Mags wears the blue cap and Nia wears the green cap. Reply with only the word NOTED until I ask a question.",
+   "Lio and Mags swap caps.",
+   "Nia and Lio swap caps.",
+   "Mags and Nia swap caps.",
+   "What colour cap is Lio wearing now, and what colour cap is Nia wearing now? Reply with only a JSON object with exactly the keys \"lio\" and \"nia\"; each value is a colour."
+  ],
+  "max_tokens": 200,
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "lio",
+     "nia"
+    ],
+    "equals": {
+     "lio": "green",
+     "nia": "red"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "silent",
+   "negative_drops_turn": 4,
+   "note": "silent tracking; three swaps in sequence"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"lio\": \"green\", \"nia\": \"red\"}"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "{\"lio\": \"green\", \"nia\": \"blue\"}"
+  ]
+ }
+]

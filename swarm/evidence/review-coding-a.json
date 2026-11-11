@@ -1,0 +1,69 @@
+{
+ "actor": "review-coding-a",
+ "family": "coding",
+ "role": "task-review",
+ "method": "Read every prompt, test block, reference and negative; hand-traced expected values; executed the buggy code of each gen_2 task to confirm the Symptom line and that the reference gives the stated correct value; checked format invariants (final format line, max_tokens 320, single code_tests check, 5-9 asserts); compared function names and algorithms across gen_1-3 and dev.json; ran lab/validate_tasks.py on each file. Model was not run on these tasks.",
+ "files": {
+  "tasks/coding/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/coding/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/coding/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 4,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "file": "tasks/coding/gen_2.json",
+   "local_id": "g2-07",
+   "issue": "longest_run bug-fix was a near-duplicate of g3-15 longest_streak (same run-tracking loop)",
+   "action": "replaced with row_sums bug-fix (accumulator not reset per row), same bug class and difficulty; symptom verified by running the buggy code"
+  },
+  {
+   "file": "tasks/coding/gen_3.json",
+   "local_id": "g3-01",
+   "issue": "clamp_all repeated the clamp logic of g2-01",
+   "action": "replaced with sign_counts skeleton (easy)"
+  },
+  {
+   "file": "tasks/coding/gen_3.json",
+   "local_id": "g3-06",
+   "issue": "last_index was the same function and loop as g2-05 last_index_of",
+   "action": "replaced with halving_steps while-loop skeleton (easy)"
+  },
+  {
+   "file": "tasks/coding/gen_3.json",
+   "local_id": "g3-10",
+   "issue": "chunks generator used the same buffer logic as g2-12 chunk",
+   "action": "replaced with interleave generator skeleton (medium)"
+  },
+  {
+   "file": "tasks/coding/gen_3.json",
+   "local_id": "g3-20",
+   "issue": "wrap_words reused the name and greedy-wrap algorithm of g1-14",
+   "action": "replaced with MinStack class skeleton where two blanks must agree (hard)"
+  }
+ ],
+ "notes": [
+  "No wrong expected answers and no over-strict or over-lenient tests were found in the 58 retained tasks; no dev.json function is reused.",
+  "Not changed, outside this reviewer's files: thematic overlap between gen_3 and gen_4/gen_5 (g3-07 find_first vs g5 lower_bound, g3-13 grid_paths vs g5 count_routes, g3-14 to_base vs g5 to_digits, g3-12 unique_names vs g4 unique_in_order). The gen_3 versions are fill-in-the-skeleton tasks rather than write-from-spec; the gen_4/5 reviewer or a merge step may want to look.",
+  "Mild thematic closeness kept inside these files: g1-03/g1-07/g3-19 all format durations (different formats and logic); g2-17 and g3-07 are both binary search (classic bug-fix vs first-occurrence skeleton)."
+ ]
+}

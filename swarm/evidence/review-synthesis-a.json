@@ -1,0 +1,151 @@
+{
+ "actor": "review-synthesis-a",
+ "family": "synthesis",
+ "files": {
+  "tasks/synthesis/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 12,
+   "prompts_fixed": 0,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g1-01",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-02",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-04",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-06",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-08",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-09",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-11",
+     "issue": "required read_doc min 2, but search returns 160-char snippets that contain the whole of these short docs, so a correct answer found via search alone would be failed",
+     "action": "evidence check loosened to any[read_doc>=1 ok, search>=1 ok]; number check unchanged"
+    },
+    {
+     "local_id": "g1-12",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-16",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-17",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-19",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g1-21",
+     "issue": "required read_doc min 2, but search returns 160-char snippets that contain the whole of these short docs, so a correct answer found via search alone would be failed",
+     "action": "evidence check loosened to any[read_doc>=1 ok, search>=1 ok]; number check unchanged"
+    },
+    {
+     "local_id": "g1-21",
+     "issue": "the smallest change is a fall (310 to 289); a signed final '-21' is a correct reading but failed",
+     "action": "number check accepts 21 or -21"
+    },
+    {
+     "local_id": "g1-20",
+     "issue": "near-duplicate of g1-10 (find the top two figures and subtract; only adds the leader's name)",
+     "action": "replaced with a new hard task: which club rose in league position between two dated tables (answer Corvin; negative is the club with the largest points gain)"
+    }
+   ]
+  },
+  "tasks/synthesis/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 2,
+   "prompts_fixed": 1,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g2-14",
+     "issue": "required read_doc min 1, but search returns 160-char snippets that contain the whole of these short docs, so a correct answer found via search alone would be failed",
+     "action": "evidence check loosened to any[read_doc>=1 ok, search>=1 ok]; number check unchanged"
+    },
+    {
+     "local_id": "g2-19",
+     "issue": "required read_doc min 1, but search returns 160-char snippets that contain the whole of these short docs, so a correct answer found via search alone would be failed",
+     "action": "evidence check loosened to any[read_doc>=1 ok, search>=1 ok]; number check unchanged"
+    },
+    {
+     "local_id": "g2-06",
+     "issue": "ambiguous: roll dated 1 January with no statement about January changes or February joiners, so the end-of-March headcount was not fully determined",
+     "action": "roll re-dated to 1 February and February letter now says nobody joined; answer 91 unchanged"
+    }
+   ]
+  },
+  "tasks/synthesis/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 3,
+   "prompts_fixed": 1,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g3-05",
+     "issue": "exact_any rejected a correct name followed by a parenthetical figure, e.g. 'ANSWER: X (342)'",
+     "action": "wrapped in any[] with an ANSWER-line-anchored regex that also allows a trailing parenthetical; wrong names still fail"
+    },
+    {
+     "local_id": "g3-10",
+     "issue": "required read_doc min 1, but search returns 160-char snippets that contain the whole of these short docs, so a correct answer found via search alone would be failed",
+     "action": "evidence check loosened to any[read_doc>=1 ok, search>=1 ok]; number check unchanged"
+    },
+    {
+     "local_id": "g3-13",
+     "issue": "required read_doc min 1, but search returns 160-char snippets that contain the whole of these short docs, so a correct answer found via search alone would be failed",
+     "action": "evidence check loosened to any[read_doc>=1 ok, search>=1 ok]; number check unchanged"
+    },
+    {
+     "local_id": "g3-17",
+     "issue": "'cost a further 4 days ... fitted straight after that' could be read as the day after the delay (4 July)",
+     "action": "reworded so the wheel is fitted exactly on the date 4 days later; answer 3 unchanged"
+    }
+   ]
+  }
+ },
+ "notes": [
+  "All 63 expected answers re-derived independently (numeric ones asserted in python, name/letter/JSON ones by hand); none were wrong.",
+  "Model was not run on these held-out tasks.",
+  "Kept as distinct enough, no change: g2-01 vs dev-02 (sum of three, but with a distractor column), g2-10 vs dev-07 (relative correction then rate), g3-11 vs dev-10 (four notices, two room changes), g2-02 vs g2-14 (same netting, single vs tool mode).",
+  "Some invented names coincide with small real place names (e.g. Ebbfleet, Hadlow, Wickmere); entities themselves are fictional, left unchanged.",
+  "Known harness limit, not changed: in tool mode the number check reads the last number of the final answer, so a final that restates dates after the result would fail."
+ ]
+}

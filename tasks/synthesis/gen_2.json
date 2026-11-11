@@ -85,7 +85,7 @@
   "subtheme": "running headcount",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Read the three documents, then answer.\n\n[Doc A] Membership roll, Wendle Rowing Club, 1 January 2032: The club has 86 members.\n[Doc B] Secretary's letter, February: 7 members resigned from the club this month. The boathouse lease was renewed.\n[Doc C] Joining forms file, March: 12 new members joined the club this month. Nobody resigned in March.\n\nQuestion: How many members did the Wendle Rowing Club have at the end of March?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
+  "prompt": "Read the three documents, then answer.\n\n[Doc A] Membership roll, Wendle Rowing Club, 1 February 2032: The club has 86 members.\n[Doc B] Secretary's letter, end of February: 7 members resigned from the club this month and nobody joined. The boathouse lease was renewed.\n[Doc C] Joining forms file, March: 12 new members joined the club this month. Nobody resigned in March.\n\nQuestion: How many members did the Wendle Rowing Club have at the end of March?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <number>",
   "checks": [
    {
     "type": "number",
@@ -234,10 +234,21 @@
     "value": 315
    },
    {
-    "type": "tool_called",
-    "tool": "read_doc",
-    "min": 1,
-    "ok_only": true
+    "type": "any",
+    "checks": [
+     {
+      "type": "tool_called",
+      "tool": "read_doc",
+      "min": 1,
+      "ok_only": true
+     },
+     {
+      "type": "tool_called",
+      "tool": "search",
+      "min": 1,
+      "ok_only": true
+     }
+    ]
    }
   ],
   "reference": {
@@ -400,10 +411,21 @@
     "value": 300
    },
    {
-    "type": "tool_called",
-    "tool": "read_doc",
-    "min": 1,
-    "ok_only": true
+    "type": "any",
+    "checks": [
+     {
+      "type": "tool_called",
+      "tool": "read_doc",
+      "min": 1,
+      "ok_only": true
+     },
+     {
+      "type": "tool_called",
+      "tool": "search",
+      "min": 1,
+      "ok_only": true
+     }
+    ]
    }
   ],
   "reference": {

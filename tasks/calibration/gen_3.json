@@ -244,7 +244,7 @@
   "tags": {
    "answerable": true
   },
-  "prompt": "EVIDENCE:\nCoach log. The Aldry coach carried 28 passengers to Venn. It kept a steady 40 kilometres per hour for the whole trip, which took exactly 3 hours.\n\nQUESTION: How many kilometres did the coach travel from Aldry to Venn?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "prompt": "EVIDENCE:\nCoach log. The coach left Aldry with 28 passengers and drove to Venn without stopping. It kept a steady 40 kilometres per hour for the whole trip, which took exactly 3 hours.\n\nQUESTION: How many kilometres did the coach travel from Aldry to Venn?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
   "checks": [
    {
     "type": "number",

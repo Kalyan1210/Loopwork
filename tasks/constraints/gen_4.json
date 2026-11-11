@@ -5,7 +5,7 @@
   "subtheme": "all-uppercase",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Plumrow is a fictional bakery. Write one short sentence about Plumrow in which EVERY letter is an UPPERCASE letter, including the name (PLUMROW). Reply with ONLY the sentence on one line. No other text.",
+  "prompt": "Tavrick is a fictional clock shop. Write one short sentence about Tavrick in which EVERY letter is an UPPERCASE letter, including the name (TAVRICK). Reply with ONLY the sentence on one line. No other text.",
   "checks": [
    {
     "type": "not_regex",
@@ -14,7 +14,7 @@
    },
    {
     "type": "regex",
-    "pattern": "\\bPLUMROW\\b",
+    "pattern": "\\bTAVRICK\\b",
     "flags": ""
    },
    {
@@ -26,8 +26,8 @@
     "value": 1
    }
   ],
-  "reference": "PLUMROW SELLS WARM BUNS EVERY MORNING.",
-  "negative": "Plumrow sells warm buns every morning."
+  "reference": "TAVRICK REPAIRS OLD CLOCKS EVERY MORNING.",
+  "negative": "Tavrick repairs old clocks every morning."
  },
  {
   "local_id": "g4-02",
@@ -35,7 +35,7 @@
   "subtheme": "all-lowercase",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Marta runs a fictional inn. Write a friendly greeting to Marta of at least five words using ONLY lowercase letters: no capital letter anywhere, not even at the start or in her name (write it as marta). Reply with ONLY the greeting on one line.",
+  "prompt": "Odile runs a fictional inn. Write a friendly greeting to Odile of at least five words using ONLY lowercase letters: no capital letter anywhere, not even at the start or in her name (write it as odile). Reply with ONLY the greeting on one line.",
   "checks": [
    {
     "type": "not_regex",
@@ -44,7 +44,7 @@
    },
    {
     "type": "regex",
-    "pattern": "\\bmarta\\b",
+    "pattern": "\\bodile\\b",
     "flags": ""
    },
    {
@@ -56,8 +56,8 @@
     "value": 1
    }
   ],
-  "reference": "good evening marta, your inn looks lovely tonight!",
-  "negative": "Good evening Marta, your inn looks lovely tonight!"
+  "reference": "good evening odile, your inn looks lovely tonight!",
+  "negative": "Good evening Odile, your inn looks lovely tonight!"
  },
  {
   "local_id": "g4-03",
@@ -123,7 +123,7 @@
   "subtheme": "no-digits",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Fact: the fictional Dunmere Library has 3 floors and 7 reading rooms.\nRestate this fact in one sentence that contains NO digits: write both numbers as words (three, seven) and keep the name Dunmere. Reply with ONLY the sentence on one line. No other text.",
+  "prompt": "Fact: the fictional Brennet Library has 3 floors and 7 reading rooms.\nRestate this fact in one sentence that contains NO digits: write both numbers as words (three, seven) and keep the name Brennet. Reply with ONLY the sentence on one line. No other text.",
   "checks": [
    {
     "type": "not_regex",
@@ -138,8 +138,12 @@
     "pattern": "\\bseven\\b"
    },
    {
+    "type": "not_regex",
+    "pattern": "\\bseven\\s+floors?\\b|\\bthree\\s+(reading\\s+)?rooms?\\b"
+   },
+   {
     "type": "regex",
-    "pattern": "\\bDunmere\\b"
+    "pattern": "\\bBrennet\\b"
    },
    {
     "type": "min_words",
@@ -150,8 +154,8 @@
     "value": 1
    }
   ],
-  "reference": "The Dunmere Library has three floors and seven reading rooms.",
-  "negative": "The Dunmere Library has 3 floors and seven reading rooms."
+  "reference": "The Brennet Library has three floors and seven reading rooms.",
+  "negative": "The Brennet Library has 3 floors and seven reading rooms."
  },
  {
   "local_id": "g4-06",
@@ -259,7 +263,7 @@
    },
    {
     "type": "lines_regex",
-    "pattern": "^WARNING: [^a-z]*[A-Z]{2,}[^a-z]*$",
+    "pattern": "^WARNING: (?=[^a-z]*[A-Z])[^a-z\\s]+(\\s+[^a-z\\s]+)+$",
     "flags": ""
    },
    {
@@ -492,7 +496,7 @@
    },
    {
     "type": "regex",
-    "pattern": "^\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*\\n\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*$",
+    "pattern": "^\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*\\n\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*\\s*$",
     "flags": ""
    },
    {
@@ -548,7 +552,7 @@
    },
    {
     "type": "lines_regex",
-    "pattern": "^RULE: .*\\bmust\\b.*\\.$",
+    "pattern": "^RULE: .*\\b[Mm]ust\\b.*\\.$",
     "flags": ""
    },
    {
@@ -607,7 +611,7 @@
   "checks": [
    {
     "type": "regex",
-    "pattern": "^\\s*[A-Z]{2,}( [a-z]+){4,} [A-Z]{2,}\\.?\\s*$",
+    "pattern": "^\\s*[A-Z]+( [a-z]+){4,} [A-Z]+\\.?\\s*$",
     "flags": ""
    },
    {

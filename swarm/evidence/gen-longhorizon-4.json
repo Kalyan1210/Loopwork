@@ -1,0 +1,38 @@
+{
+ "actor": "gen-longhorizon-4",
+ "role": "task-generation",
+ "family": "longhorizon",
+ "subtheme": "KV inventory and ledger updates (tool)",
+ "output_file": "tasks/longhorizon/gen_4.json",
+ "n_tasks": 21,
+ "difficulty_split": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/longhorizon/spec.md, the tool-mode examples in tasks/longhorizon/dev.json, and the sandbox/checker code in lab/core.py and lab/validate_tasks.py.",
+  "Wrote 21 tool-mode tasks (g4-01..g4-21), tools limited to kv_get/kv_set/kv_list/kv_delete/calc, max_steps 8, no files or docs, each with a distinct subtheme label and distinct operation.",
+  "Easy (01-07): read and consolidate into one new key (difference, sum plus stated amount, product, income minus two costs, equal share, sum then scale, closing balance).",
+  "Medium (08-14): one computed write to an existing key or one twist (sale+delivery, kv_list prefix sum, percentage fee, duplicate-entry correction, merge+kv_delete, rate x count charge, earn then redeem).",
+  "Hard (15-21): two or three dependent keys (transfer with fee, sale updating stock and till, chain of two payments, empty one key into another, equalise two keys, production run on three keys, undo a transfer then delivery)."
+ ],
+ "verification": [
+  "All expected values are computed by Python formulas over the env kv dict in a generator script (not by hand).",
+  "The script simulates each reference step list independently and asserts the end state equals the Python-computed expectations, that the final answer is produced by a calc step, that the answer differs from every initial kv value, that the distractor key is unchanged, and that the reference uses at most 7 tool calls (leaving the 8th step for the final).",
+  "Reference and negative were also replayed through core.reference_episode/score_episode: reference scores 1, negative scores 0, for all 21.",
+  "Each negative is a single lost or wrong update (dropped movement, missing second kv_set, missing kv_delete, distractor included)."
+ ],
+ "checks_per_task": "number on final + env_equals on every key that must change + env_equals on an untouched distractor key (and on unchanged source keys where relevant) + tool_called kv_get (ok_only) on a required read; env_absent for the kv_delete task. No no_tool_errors or max_tool_calls.",
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/longhorizon/gen_4.json --family longhorizon",
+  "result": "21/21 valid",
+  "exit_code": 0
+ },
+ "model_runs": "none (held-out; no pilot run)",
+ "notes": [
+  "The three-key hard tasks g4-17 and g4-20 need 3 reads + 3 writes, so only one calc call fits within max_steps 8; their prompts say 'use the calc tool if you need it' and use small round numbers.",
+  "In g4-12, g4-16, g4-18 and g4-19 the negative reports the correct number but leaves one key un-updated or un-deleted, so it fails on the end-state check rather than on the answer.",
+  "Longest prompt+env is 528 characters."
+ ]
+}

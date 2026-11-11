@@ -1,0 +1,227 @@
+{
+ "actor": "review-planning-a",
+ "family": "planning",
+ "method": "every expected answer re-derived by brute force in Python (permutation/topological enumeration, timeline simulation, assignment and bin-packing search, BFS); checkers exercised with extra correct and wrong surface forms via lab/core.run_check; model not run",
+ "files": {
+  "tasks/planning/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 14,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g1-01",
+     "issue": "near-duplicate of dev-01 (same 4-step 'X comes before Y' chain template with swapped words; g1-06 also covers it)",
+     "action": "replaced with a distinct easy task (fixed position + adjacency + exclusion); unique order brute-forced"
+    },
+    {
+     "local_id": "g1-04",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the green flag' or '**ANSWER**: green'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-05",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the Tower quest' or '**ANSWER**: Tower'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-06",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the cast step' or '**ANSWER**: cast'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-08",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the jade crate' or '**ANSWER**: jade'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-09",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the roof step' or '**ANSWER**: roof'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-11",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the Anchor song' or '**ANSWER**: Anchor'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-12",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the paint step' or '**ANSWER**: paint'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-14",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the brass key' or '**ANSWER**: brass'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-15",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the rake chore' or '**ANSWER**: rake'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-16",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the sink job' or '**ANSWER**: sink'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-17",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the Goodbye scene' or '**ANSWER**: Goodbye'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-18",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the Ibis ship' or '**ANSWER**: Ibis'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-19",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the dress action' or '**ANSWER**: dress'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    },
+    {
+     "local_id": "g1-20",
+     "issue": "word-answer checker rejected correct surface forms such as 'ANSWER: the banner item' or '**ANSWER**: banner'",
+     "action": "widened exact_any values and anchored regex (optional 'the', optional noun, punctuation between ANSWER and colon)"
+    }
+   ]
+  },
+  "tasks/planning/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 14,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g2-01",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-02",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...', 12-hour form of an afternoon time)",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-03",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-04",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-07",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-08",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...', 12-hour form of an afternoon time)",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-09",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-10",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...', 12-hour form of an afternoon time)",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-12",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-16",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-17",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-18",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...', 12-hour form of an afternoon time)",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-19",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    },
+    {
+     "local_id": "g2-21",
+     "issue": "clock checker listed impossible am/pm variants (accepting a wrong half-day) and rejected correct forms ('ANSWER: 09:10 a.m.', '**ANSWER**: ...')",
+     "action": "removed wrong-half-day variants, added correct 12-hour/am-pm variants, relaxed anchored regex"
+    }
+   ]
+  },
+  "tasks/planning/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 6,
+   "replaced": 2,
+   "dropped": 0,
+   "final_valid": 21,
+   "changes": [
+    {
+     "local_id": "g3-03",
+     "issue": "name checker rejected '**ANSWER**: Ivo' style replies",
+     "action": "relaxed anchored regex (punctuation between ANSWER and colon) and added 'the' variant"
+    },
+    {
+     "local_id": "g3-07",
+     "issue": "name checker rejected '**ANSWER**: Monday' style replies",
+     "action": "relaxed anchored regex (punctuation between ANSWER and colon) and added 'the' variant"
+    },
+    {
+     "local_id": "g3-08",
+     "issue": "name checker rejected '**ANSWER**: Coel' style replies",
+     "action": "relaxed anchored regex (punctuation between ANSWER and colon) and added 'the' variant"
+    },
+    {
+     "local_id": "g3-11",
+     "issue": "name checker rejected '**ANSWER**: Ben' style replies",
+     "action": "relaxed anchored regex (punctuation between ANSWER and colon) and added 'the' variant"
+    },
+    {
+     "local_id": "g3-14",
+     "issue": "same arithmetic as g3-12 (10 items, 3 per trip, answer 4): template with identical numbers",
+     "action": "re-parameterised (13 children, 5 seats incl. rower, 4 children per boat, answer 4 vs naive 3); recomputed"
+    },
+    {
+     "local_id": "g3-15",
+     "issue": "name checker rejected '**ANSWER**: Hal' style replies",
+     "action": "relaxed anchored regex (punctuation between ANSWER and colon) and added 'the' variant"
+    },
+    {
+     "local_id": "g3-16",
+     "issue": "near-duplicate of dev-06 (same weight-limit trips wording) and of g3-12 reasoning (floor(cap/weight) then ceil)",
+     "action": "replaced with a distinct room-fit allocation task; unique arrangement brute-forced (weavers->Fir)"
+    },
+    {
+     "local_id": "g3-17",
+     "issue": "name checker rejected '**ANSWER**: Rae' style replies",
+     "action": "relaxed anchored regex (punctuation between ANSWER and colon) and added 'the' variant"
+    }
+   ]
+  }
+ },
+ "notes": [
+  "No wrong expected answers found in any of the 63 tasks.",
+  "g3-14 is counted under 'replaced' although it is a re-parameterisation of the same scenario, not a new scenario.",
+  "g2-15 shares the critical-path format of dev-04 but has different content and graph shape; kept."
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "actor": "review-constraints-b",
+ "family": "constraints",
+ "role": "task-review",
+ "method": "Re-derived all 20 deterministic gen_5 answers in Python (plus the replacement), read lab/core.py checker semantics, ran 40 hand-written probe replies (correct alternative surface forms and near-miss wrong replies) through core.score_episode, compared against dev.json and gen_1..gen_3 for duplicates. Model was not run.",
+ "files": {
+  "tasks/constraints/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 5,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/constraints/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "local_id": "g4-01",
+   "issue": "Subject 'Plumrow bakery' nearly collides with gen_3 g3-01 'Plumwick bakery'; bakery theme used four times in the file",
+   "action": "Renamed subject to Tavrick clock shop; prompt, check, reference and negative updated (constraint unchanged)"
+  },
+  {
+   "local_id": "g4-02",
+   "issue": "Name Marta also used in gen_3 g3-03",
+   "action": "Renamed to Odile; check, reference, negative updated"
+  },
+  {
+   "local_id": "g4-05",
+   "issue": "Checker accepted a restatement with the numbers swapped (seven floors, three reading rooms); name Dunmere also used in gen_3 g3-10",
+   "action": "Added not_regex rejecting swapped number/noun pairs; renamed library to Brennet"
+  },
+  {
+   "local_id": "g4-09",
+   "issue": "Rule 'at least two words after the prefix' was not enforced per line (only a total min_words)",
+   "action": "lines_regex tightened to require two or more whitespace-separated tokens after 'WARNING: ' with at least one capital letter and no lowercase"
+  },
+  {
+   "local_id": "g4-16",
+   "issue": "Whole-reply regex ended in a bare $ and would reject a correct reply followed by blank lines",
+   "action": "Pattern now ends with \\s*$"
+  },
+  {
+   "local_id": "g4-18",
+   "issue": "Case-sensitive lines_regex rejected a line with capitalised 'Must', which the prompt does not forbid",
+   "action": "Pattern accepts [Mm]ust; RULE: prefix stays case-sensitive"
+  },
+  {
+   "local_id": "g4-20",
+   "issue": "Regex required 2+ letters for the first and last word, rejecting compliant one-letter capitals such as 'A'",
+   "action": "[A-Z]{2,} relaxed to [A-Z]+ for first and last word"
+  },
+  {
+   "local_id": "g5-07",
+   "issue": "Near-duplicate of g5-02 (both replace spaces with one separator character in a short phrase)",
+   "action": "Replaced with a new distinct easy task: reformat the time 7:05 as 07h05 (zero-padded HHhMM), answer computed in Python"
+  },
+  {
+   "local_id": "g5-20",
+   "issue": "Data 'Halvard, 52' coincides with gen_1 g1-17 (Halvard 52)",
+   "action": "Record changed to Sigrun,48,Mistlethorpe; expected answer recomputed, check/reference/negative updated"
+  }
+ ],
+ "notes": [
+  "No wrong expected answers found in either file.",
+  "No harmful or non-fictional content found; all tasks fit sub-themes 4 (gen_4) and 5 (gen_5).",
+  "Left as is: three date-reformat tasks in gen_5 (g5-01, g5-11, g5-17) use different transforms; g4-10 shares the forbidden+required+length shape with dev-06 but different content and an added opening rule."
+ ],
+ "validator": {
+  "gen_4": "21/21 valid",
+  "gen_5": "21/21 valid"
+ }
+}

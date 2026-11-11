@@ -35,7 +35,7 @@
     "index": 0,
     "check": {
      "type": "regex",
-     "pattern": "QUESTION:.*(which|10[:.]00|18[:.]00|morning|evening|what time|\\b10\\b|\\b18\\b|\\bash\\b|\\belm\\b)",
+     "pattern": "QUESTION:.*(which (pottery|class|one|session|time|of)|10[:.]00|18[:.]00|morning|evening|what time|\\b10\\b|\\b18\\b|\\bash\\b|\\belm\\b)",
      "flags": "i"
     }
    },
@@ -369,12 +369,12 @@
  {
   "local_id": "g5-12",
   "family": "ambiguity",
-  "subtheme": "clarify-name-by-department",
+  "subtheme": "clarify-role-by-shift",
   "difficulty": "medium",
   "mode": "multi",
   "turns": [
-   "Staff of the fictional Quillby Press:\n- Rafi Dume, print room\n- Hana Dume, print room\n- Rafi Solen, dispatch\n- Odo Brill, dispatch\nRequest: \"Give the spare van key to Rafi.\"\nTask: give the full name of the person who must get the key.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
-   "Reply to your question: \"I mean the Rafi who works in dispatch.\"\nUse the same two-line reply format."
+   "Staff of the fictional Quillby Press:\n- Rafi Dume, driver, day shift\n- Hana Voss, packer, day shift\n- Odo Brill, driver, night shift\n- Mira Solen, packer, night shift\nRequest: \"Give the spare van key to the driver.\"\nTask: give the full name of the person who must get the key.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+   "Reply to your question: \"I mean the driver on the night shift.\"\nUse the same two-line reply format."
   ],
   "checks": [
    {
@@ -402,7 +402,7 @@
     "index": 0,
     "check": {
      "type": "regex",
-     "pattern": "QUESTION:.*(which|dume|solen|surname|last name|print room|dispatch)",
+     "pattern": "QUESTION:.*(which|dume|brill|\\brafi\\b|\\bodo\\b|\\bday\\b|night|shift)",
      "flags": "i"
     }
    },
@@ -416,17 +416,17 @@
    {
     "type": "exact_any",
     "values": [
-     "Rafi Solen"
+     "Odo Brill"
     ]
    }
   ],
   "reference": [
-   "ACTION: ASK\nQUESTION: Which Rafi do you mean, Rafi Dume or Rafi Solen?",
-   "ACTION: ANSWER\nANSWER: Rafi Solen"
+   "ACTION: ASK\nQUESTION: Which driver do you mean, Rafi Dume on the day shift or Odo Brill on the night shift?",
+   "ACTION: ANSWER\nANSWER: Odo Brill"
   ],
   "negative": [
    "ACTION: ANSWER\nANSWER: Rafi Dume",
-   "ACTION: ANSWER\nANSWER: Rafi Solen"
+   "ACTION: ANSWER\nANSWER: Odo Brill"
   ]
  },
  {
@@ -602,7 +602,7 @@
   "subtheme": "shared-colour",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "Files on the desk of the fictional Sorrel Harbour office:\n- F1: blue cover, labelled \"harbour fees\"\n- F2: yellow cover, labelled \"harbour fees\"\n- F3: blue cover, labelled \"crew rota\"\nRequest: \"Take the blue file up to the harbour master.\"\nTask: give the id of the file to take.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the file id only>",
+  "prompt": "Files on the desk of the fictional Sorrel Harbour office:\n- F1: blue cover, labelled \"harbour fees\"\n- F2: yellow cover, labelled \"harbour fees\"\n- F3: blue cover, labelled \"crew rota\"\nRequest: \"Take the blue file up to Mr Dace.\"\nTask: give the id of the file to take.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the file id only>",
   "checks": [
    {
     "type": "tag",

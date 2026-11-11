@@ -5,7 +5,7 @@
   "subtheme": "missing-parameter",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "You sell tickets for the fictional Tidewell Ferries. A ticket booking needs three things: the sailing day, the number of passengers and the vehicle type.\nCustomer message: \"Please book the crossing to Skerry Isle for two passengers with one van.\"\nTask: confirm the booking details.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the sailing day, number of passengers and vehicle type>",
+  "prompt": "You sell tour tickets at the fictional Pellwater Tide Mill. A ticket needs two things: which tour and the number of visitors. The morning tour starts at 10:00 and the afternoon tour starts at 14:00.\nVisitor message: \"Four tickets for tomorrow, please.\"\nTask: give the start time of the tour printed on these tickets.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the start time as HH:MM>",
   "checks": [
    {
     "type": "tag",
@@ -21,14 +21,14 @@
    },
    {
     "type": "regex",
-    "pattern": "QUESTION:.*(\\bdays?\\b|\\bdates?\\b|\\bwhen\\b)"
+    "pattern": "QUESTION:.*(morning|afternoon|(which|what) (tour|one|of the|time)|tour (do|would|did|does|should|are|is)|\\b10[:.]00\\b|\\b14[:.]00\\b)"
    }
   ],
   "tags": {
    "expected": "ASK"
   },
-  "reference": "ACTION: ASK\nQUESTION: On which day do you want to sail?",
-  "negative": "ACTION: ANSWER\nANSWER: Saturday, 2 passengers, one van"
+  "reference": "ACTION: ASK\nQUESTION: Which tour do you want, the morning tour or the afternoon tour?",
+  "negative": "ACTION: ANSWER\nANSWER: 10:00"
  },
  {
   "local_id": "g1-02",
@@ -52,7 +52,7 @@
    },
    {
     "type": "regex",
-    "pattern": "QUESTION:.*(depart|leav|set(s|ting)? off|\\bstart)"
+    "pattern": "QUESTION:.*(depart|leav|set(s|ting)? off|\\bstart|timetable|schedule|(what|which) time (is|does|will) the (afternoon )?coach (go|run|is\\b|at\\b)|time of the (afternoon )?coach|which (afternoon )?coach)"
    }
   ],
   "tags": {
@@ -182,7 +182,7 @@
    },
    {
     "type": "regex",
-    "pattern": "ANSWER:.*\\b15[:.]45\\b"
+    "pattern": "ANSWER:.*\\b(15|0?3)[:.]45\\b"
    }
   ],
   "tags": {
@@ -213,7 +213,7 @@
    },
    {
     "type": "regex",
-    "pattern": "QUESTION:.*(how many|shelf|shelves)"
+    "pattern": "QUESTION:.*(shelf|shelves|how many (do|will|would|are)|how much (space|room))"
    }
   ],
   "tags": {
@@ -316,7 +316,7 @@
   "subtheme": "fully-specified",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "At the fictional Odalie Fairground, one brass token buys exactly 4 ride tickets.\nVisitor message: \"I have 15 brass tokens and I want to spend all of them on ride tickets. How many tickets will I get?\"\nTask: give the number of ride tickets.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "prompt": "The fictional Marlpit Post Office charges 2 coins for a letter that weighs 100 grams or less and 5 coins for any heavier letter.\nCustomer message: \"My letter to the town of Osk weighs 140 grams. What is the postage?\"\nTask: give the postage in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
   "checks": [
    {
     "type": "tag",
@@ -326,15 +326,18 @@
     ]
    },
    {
-    "type": "number",
-    "value": 60
+    "type": "exact_any",
+    "values": [
+     "5",
+     "5 coins"
+    ]
    }
   ],
   "tags": {
    "expected": "ANSWER"
   },
-  "reference": "ACTION: ANSWER\nANSWER: 60",
-  "negative": "ACTION: ASK\nQUESTION: How many ride tickets does one brass token buy?"
+  "reference": "ACTION: ANSWER\nANSWER: 5",
+  "negative": "ACTION: ASK\nQUESTION: How much does the letter weigh?"
  },
  {
   "local_id": "g1-13",

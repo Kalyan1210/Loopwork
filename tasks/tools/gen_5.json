@@ -83,35 +83,27 @@
   "subtheme": "dependent-pipeline",
   "difficulty": "easy",
   "mode": "tool",
-  "prompt": "A truck carries 18 crates. The weight of one crate in kilograms is in the key-value store under the key 'crate_weight'. First get that key, then use calc to multiply the weight by 18. Final answer: just the number.",
+  "max_tokens": 200,
+  "max_steps": 5,
+  "prompt": "A paving crew laid 36 rows of 45 stones each. Step 1: use calc to work out how many stones that is. Step 2: send exactly one message to 'foreman' whose text contains that number. Final answer: just the number.",
   "tools": [
-   "kv_get",
    "calc",
+   "send_message",
    "kv_set",
-   "send_message"
+   "delete_file"
   ],
   "env": {
    "kv": {
-    "crate_weight": 46,
-    "crate_count": 30,
-    "truck_id": "T-9"
+    "rows_planned": 40
+   },
+   "files": {
+    "paving_plan": "Rows run east to west along the quay."
    }
   },
-  "max_tokens": 200,
-  "max_steps": 5,
   "checks": [
    {
     "type": "number",
-    "value": 828
-   },
-   {
-    "type": "tool_called",
-    "tool": "kv_get",
-    "min": 1,
-    "args_contains": {
-     "key": "crate_weight"
-    },
-    "ok_only": true
+    "value": 1620
    },
    {
     "type": "tool_called",
@@ -122,18 +114,36 @@
    {
     "type": "tool_order",
     "order": [
-     "kv_get",
-     "calc"
+     "calc",
+     "send_message"
     ]
    },
    {
     "type": "outbox_count",
-    "value": 0
+    "value": 1
+   },
+   {
+    "type": "tool_called",
+    "tool": "send_message",
+    "min": 1,
+    "max": 1,
+    "args_contains": {
+     "to": "foreman",
+     "text": "1620"
+    }
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "kv_set"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
    },
    {
     "type": "env_equals",
-    "path": "kv.crate_weight",
-    "value": 46
+    "path": "kv.rows_planned",
+    "value": 40
    },
    {
     "type": "max_tool_calls",
@@ -143,42 +153,32 @@
   "reference": {
    "steps": [
     {
-     "tool": "kv_get",
+     "tool": "calc",
      "args": {
-      "key": "crate_weight"
+      "expr": "36*45"
      }
     },
     {
-     "tool": "calc",
+     "tool": "send_message",
      "args": {
-      "expr": "46*18"
+      "to": "foreman",
+      "text": "The crew laid 1620 stones."
      }
     }
    ],
-   "final": "828"
+   "final": "1620"
   },
   "negative": {
    "steps": [
     {
-     "tool": "kv_get",
+     "tool": "send_message",
      "args": {
-      "key": "crate_weight"
-     }
-    },
-    {
-     "tool": "kv_get",
-     "args": {
-      "key": "crate_count"
-     }
-    },
-    {
-     "tool": "calc",
-     "args": {
-      "expr": "46*30"
+      "to": "foreman",
+      "text": "The crew laid 1620 stones."
      }
     }
    ],
-   "final": "1380"
+   "final": "1620"
   }
  },
  {
@@ -278,49 +278,55 @@
   "subtheme": "dependent-pipeline",
   "difficulty": "easy",
   "mode": "tool",
-  "prompt": "Read the file 'reading', which contains one gauge reading. Then store that number in the key-value store under the key 'gauge'. Final answer: just the number you stored.",
-  "tools": [
-   "read_file",
-   "kv_set",
-   "kv_get",
-   "kv_delete"
-  ],
-  "env": {
-   "kv": {
-    "gauge": 41,
-    "gauge_max": 95
-   },
-   "files": {
-    "reading": "Gauge reading taken at dawn by the night shift: 58"
-   }
-  },
   "max_tokens": 200,
   "max_steps": 5,
+  "prompt": "A fence needs 14 panels and each panel is 235 cm long. Step 1: use calc to work out the total length in cm. Step 2: write just that number into a new file named 'fence_length'. Leave the file 'fence_notes' unchanged. Final answer: just the number.",
+  "tools": [
+   "calc",
+   "write_file",
+   "delete_file",
+   "send_message"
+  ],
+  "env": {
+   "files": {
+    "fence_notes": "Panels are delivered on Friday by the Tarn Valley sawmill."
+   }
+  },
   "checks": [
    {
     "type": "number",
-    "value": 58
+    "value": 3290
+   },
+   {
+    "type": "tool_called",
+    "tool": "calc",
+    "min": 1,
+    "ok_only": true
    },
    {
     "type": "tool_order",
     "order": [
-     "read_file",
-     "kv_set"
+     "calc",
+     "write_file"
     ]
    },
    {
-    "type": "env_equals",
-    "path": "kv.gauge",
-    "value": 58
+    "type": "env_contains",
+    "path": "files.fence_length",
+    "value": "3290"
    },
    {
     "type": "env_equals",
-    "path": "kv.gauge_max",
-    "value": 95
+    "path": "files.fence_notes",
+    "value": "Panels are delivered on Friday by the Tarn Valley sawmill."
    },
    {
     "type": "tool_not_called",
-    "tool": "kv_delete"
+    "tool": "delete_file"
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
    },
    {
     "type": "max_tool_calls",
@@ -330,31 +336,38 @@
   "reference": {
    "steps": [
     {
-     "tool": "read_file",
+     "tool": "calc",
      "args": {
-      "path": "reading"
+      "expr": "14*235"
      }
     },
     {
-     "tool": "kv_set",
+     "tool": "write_file",
      "args": {
-      "key": "gauge",
-      "value": 58
+      "path": "fence_length",
+      "content": "3290"
      }
     }
    ],
-   "final": "58"
+   "final": "3290"
   },
   "negative": {
    "steps": [
     {
-     "tool": "kv_get",
+     "tool": "calc",
      "args": {
-      "key": "gauge"
+      "expr": "14*235"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "fence_notes",
+      "content": "3290"
      }
     }
    ],
-   "final": "41"
+   "final": "3290"
   }
  },
  {
@@ -588,7 +601,7 @@
   "subtheme": "dependent-pipeline",
   "difficulty": "medium",
   "mode": "tool",
-  "prompt": "The file 'tally' has three lines in the form day=count. Step 1: read the file. Step 2: add the three counts with calc. Step 3: write just the sum into a new file named 'tally_sum'. Leave the file 'tally' unchanged. Final answer: just the sum.",
+  "prompt": "The file 'crossings' has three lines in the form day=count, giving the ferry crossings counted on three days. Step 1: read the file. Step 2: add the three counts with calc. Step 3: write just the sum into a new file named 'crossings_sum'. Leave the file 'crossings' unchanged. Final answer: just the sum.",
   "tools": [
    "read_file",
    "calc",
@@ -597,8 +610,8 @@
   ],
   "env": {
    "files": {
-    "tally": "mon=118\ntue=97\nwed=143",
-    "readme": "Daily parcel counts for the sorting desk."
+    "crossings": "mon=118\ntue=97\nwed=143",
+    "readme": "Ferry crossings counted at the east landing."
    }
   },
   "max_tokens": 200,
@@ -618,12 +631,12 @@
    },
    {
     "type": "env_contains",
-    "path": "files.tally_sum",
+    "path": "files.crossings_sum",
     "value": "358"
    },
    {
     "type": "env_equals",
-    "path": "files.tally",
+    "path": "files.crossings",
     "value": "mon=118\ntue=97\nwed=143"
    },
    {
@@ -640,7 +653,7 @@
     {
      "tool": "read_file",
      "args": {
-      "path": "tally"
+      "path": "crossings"
      }
     },
     {
@@ -652,7 +665,7 @@
     {
      "tool": "write_file",
      "args": {
-      "path": "tally_sum",
+      "path": "crossings_sum",
       "content": "358"
      }
     }
@@ -664,7 +677,7 @@
     {
      "tool": "read_file",
      "args": {
-      "path": "tally"
+      "path": "crossings"
      }
     },
     {
@@ -676,7 +689,7 @@
     {
      "tool": "write_file",
      "args": {
-      "path": "tally",
+      "path": "crossings",
       "content": "358"
      }
     }
@@ -786,81 +799,78 @@
   "subtheme": "error-recovery",
   "difficulty": "medium",
   "mode": "tool",
-  "prompt": "How much is set aside for travel in the budget file? Try to read the file 'budget_2031'. If that returns an error, the name was mistyped: call list_files and read the only file whose name starts with 'budget'. Final answer: just the number.",
+  "max_tokens": 200,
+  "max_steps": 5,
+  "prompt": "A delivery slip says the load is 486 x 27 sacks. Call calc with the expression exactly as it is written on the slip: 486 x 27. If calc returns an error, it does not understand the letter x: call calc again with * in place of the x. Final answer: just the number.",
   "tools": [
-   "read_file",
-   "list_files",
-   "write_file"
+   "calc",
+   "kv_set",
+   "send_message"
   ],
   "env": {
-   "files": {
-    "budget_2013": "travel=730\nprinting=245\nvenue=1900",
-    "minutes_2031": "Minutes: the committee approved the budget and asked for 2 quotes for printing.",
-    "readme": "Club paperwork of the fictional Marrow Lane chess club."
+   "kv": {
+    "last_load": 0
    }
   },
-  "max_tokens": 200,
-  "max_steps": 6,
   "checks": [
    {
     "type": "number",
-    "value": 730
+    "value": 13122
    },
    {
     "type": "tool_called",
-    "tool": "read_file",
+    "tool": "calc",
     "min": 1,
+    "ok_only": true,
     "args_contains": {
-     "path": "budget_2013"
-    },
-    "ok_only": true
+     "expr": "486"
+    }
    },
    {
     "type": "tool_not_called",
-    "tool": "write_file"
+    "tool": "kv_set"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.last_load",
+    "value": 0
+   },
+   {
+    "type": "outbox_count",
+    "value": 0
    },
    {
     "type": "max_tool_calls",
-    "value": 5
+    "value": 4
    }
   ],
   "reference": {
    "steps": [
     {
-     "tool": "read_file",
+     "tool": "calc",
      "args": {
-      "path": "budget_2031"
+      "expr": "486 x 27"
      }
     },
     {
-     "tool": "list_files",
-     "args": {}
-    },
-    {
-     "tool": "read_file",
+     "tool": "calc",
      "args": {
-      "path": "budget_2013"
+      "expr": "486*27"
      }
     }
    ],
-   "final": "730"
+   "final": "13122"
   },
   "negative": {
    "steps": [
     {
-     "tool": "read_file",
+     "tool": "calc",
      "args": {
-      "path": "budget_2031"
-     }
-    },
-    {
-     "tool": "read_file",
-     "args": {
-      "path": "minutes_2031"
+      "expr": "486 x 27"
      }
     }
    ],
-   "final": "2"
+   "final": "13022"
   }
  },
  {
@@ -1277,7 +1287,7 @@
   "subtheme": "error-recovery",
   "difficulty": "hard",
   "mode": "tool",
-  "prompt": "36 more visitors came in. Add 36 to the visitor counter in the key-value store and save the new value under the same key the counter already uses. I think the key is called 'visitors', but check if that fails. Do not create any new key. Final answer: just the new counter value.",
+  "prompt": "58 more books were lent out today. Add 58 to the loan counter in the key-value store and save the new value under the same key the counter already uses. I think the key is called 'loans', but check if that fails. Do not create any new key. Final answer: just the new counter value.",
   "tools": [
    "kv_get",
    "kv_list",
@@ -1287,9 +1297,9 @@
   ],
   "env": {
    "kv": {
-    "visitor_count": 1284,
-    "visitor_limit": 2000,
-    "staff_count": 17
+    "loan_count": 767,
+    "loan_limit": 1500,
+    "member_count": 212
    }
   },
   "max_tokens": 200,
@@ -1297,26 +1307,26 @@
   "checks": [
    {
     "type": "number",
-    "value": 1320
+    "value": 825
    },
    {
     "type": "env_equals",
-    "path": "kv.visitor_count",
-    "value": 1320
+    "path": "kv.loan_count",
+    "value": 825
    },
    {
     "type": "env_absent",
-    "path": "kv.visitors"
+    "path": "kv.loans"
    },
    {
     "type": "env_equals",
-    "path": "kv.visitor_limit",
-    "value": 2000
+    "path": "kv.loan_limit",
+    "value": 1500
    },
    {
     "type": "env_equals",
-    "path": "kv.staff_count",
-    "value": 17
+    "path": "kv.member_count",
+    "value": 212
    },
    {
     "type": "tool_not_called",
@@ -1332,7 +1342,7 @@
     {
      "tool": "kv_get",
      "args": {
-      "key": "visitors"
+      "key": "loans"
      }
     },
     {
@@ -1342,42 +1352,42 @@
     {
      "tool": "kv_get",
      "args": {
-      "key": "visitor_count"
+      "key": "loan_count"
      }
     },
     {
      "tool": "calc",
      "args": {
-      "expr": "1284+36"
+      "expr": "767+58"
      }
     },
     {
      "tool": "kv_set",
      "args": {
-      "key": "visitor_count",
-      "value": 1320
+      "key": "loan_count",
+      "value": 825
      }
     }
    ],
-   "final": "1320"
+   "final": "825"
   },
   "negative": {
    "steps": [
     {
      "tool": "kv_get",
      "args": {
-      "key": "visitors"
+      "key": "loans"
      }
     },
     {
      "tool": "kv_set",
      "args": {
-      "key": "visitors",
-      "value": 36
+      "key": "loans",
+      "value": 58
      }
     }
    ],
-   "final": "36"
+   "final": "58"
   }
  },
  {
@@ -1615,7 +1625,7 @@
   "subtheme": "error-recovery",
   "difficulty": "hard",
   "mode": "tool",
-  "prompt": "Using the Hostel Brannock documents, what does a stay of 3 nights in a dormitory bed cost, including the linen fee? The rates should be in the document 'rates'. Use calc for the arithmetic. Final answer: just the number of crowns.",
+  "prompt": "Using the Hostel Brannock documents, what is the total cost in crowns for one walker who stays 2 nights in a dormitory bed and then 3 nights in a private room? The rates should be in the document 'rates'. Use calc for the arithmetic. Final answer: just the number of crowns.",
   "tools": [
    "read_doc",
    "search",
@@ -1624,7 +1634,7 @@
   ],
   "env": {
    "docs": {
-    "brannock-rate-sheet": "Hostel Brannock rate sheet for the current season. This sheet replaces the one pinned in the hallway and applies to walkers, cyclists and anyone arriving by the valley bus alike. Dormitory bed: 29 crowns per night. Private room: 74 crowns per night. Linen fee: 11 crowns, charged once per stay.",
+    "brannock-rate-sheet": "Hostel Brannock rate sheet for the current season. This sheet replaces the one pinned in the hallway and applies to walkers, cyclists and anyone arriving by the valley bus alike. Dormitory bed: 29 crowns per night. Private room: 74 crowns per night. Linen is included in every rate.",
     "brannock-house-rules": "Hostel Brannock house rules. Quiet after 22. Boots stay in the porch. Breakfast is served from 7 and costs 6 crowns.",
     "brannock-history": "Hostel Brannock was a shepherd's bothy before the valley road was built. It has 24 beds."
    }
@@ -1634,7 +1644,7 @@
   "checks": [
    {
     "type": "number",
-    "value": 98
+    "value": 280
    },
    {
     "type": "tool_called",
@@ -1683,11 +1693,11 @@
     {
      "tool": "calc",
      "args": {
-      "expr": "3*29+11"
+      "expr": "2*29+3*74"
      }
     }
    ],
-   "final": "98"
+   "final": "280"
   },
   "negative": {
    "steps": [
@@ -1712,11 +1722,11 @@
     {
      "tool": "calc",
      "args": {
-      "expr": "3*(29+11)"
+      "expr": "2*74+3*29"
      }
     }
    ],
-   "final": "120"
+   "final": "235"
   }
  },
  {

@@ -1,0 +1,71 @@
+{
+ "actor": "review-math-b",
+ "family": "math",
+ "files": {
+  "tasks/math/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/math/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 7,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "local_id": "g5-03",
+   "issue": "exact 'B' rejects correct surface forms such as 'ANSWER: B)' or 'ANSWER: B) No glims are vobs' (norm does not strip parentheses or option text)",
+   "action": "checker changed to exact_any with the letter, bracketed letter, 'option X' and letter+option-text forms; wrong letters still fail"
+  },
+  {
+   "local_id": "g5-07",
+   "issue": "exact 'C' rejects correct surface forms such as 'ANSWER: C)' or 'ANSWER: C) The lamp is not red' (norm does not strip parentheses or option text)",
+   "action": "checker changed to exact_any with the letter, bracketed letter, 'option X' and letter+option-text forms; wrong letters still fail"
+  },
+  {
+   "local_id": "g5-12",
+   "issue": "exact 'B' rejects correct surface forms such as 'ANSWER: B)' or 'ANSWER: B) Guide is at the right end' (norm does not strip parentheses or option text)",
+   "action": "checker changed to exact_any with the letter, bracketed letter, 'option X' and letter+option-text forms; wrong letters still fail"
+  },
+  {
+   "local_id": "g5-18",
+   "issue": "exact 'C' rejects correct surface forms such as 'ANSWER: C)' or 'ANSWER: C) Washing is on Wednesday' (norm does not strip parentheses or option text)",
+   "action": "checker changed to exact_any with the letter, bracketed letter, 'option X' and letter+option-text forms; wrong letters still fail"
+  },
+  {
+   "local_id": "g5-21",
+   "issue": "exact 'C' rejects correct surface forms such as 'ANSWER: C)' or 'ANSWER: C) One gold and one silver coin' (norm does not strip parentheses or option text)",
+   "action": "checker changed to exact_any with the letter, bracketed letter, 'option X' and letter+option-text forms; wrong letters still fail"
+  },
+  {
+   "local_id": "g5-10",
+   "issue": "exact 'milk' rejects 'ANSWER: the milk'",
+   "action": "checker changed to exact_any [milk, the milk]"
+  },
+  {
+   "local_id": "g5-06",
+   "issue": "exact 'Wednesday' rejects 'ANSWER: on Wednesday' / 'Wed'",
+   "action": "checker changed to exact_any [Wednesday, on Wednesday, Wed]"
+  },
+  {
+   "local_id": "g5-02",
+   "issue": "near-duplicate of dev-08 (three people, three items one each, one 'does not' clue plus one fixing clue; same template with swapped names)",
+   "action": "replaced with a distinct easy kinship-deduction task (answer B, grandmother), lettered options with tolerant exact_any checker"
+  }
+ ],
+ "notes": [
+  "All 21 gen_4 answers recomputed by enumeration/exact fractions in python; all matched.",
+  "All gen_5 puzzles brute-forced over permutations/truth assignments; each has exactly one solution (g5-12 and g5-18 have two consistent layouts by design and the lettered option is the unique must/could-be-true choice).",
+  "g4-10 and g4-19 share the two-dice setting with dev-07 but ask for different events (distinct-and-sum>=9, expected maximum); kept as distinct reasoning.",
+  "Out of scope, not edited: g2-12 and g3-08 are the same digit-swap problem (sum 11, +27).",
+  "No model runs were made on these held-out tasks."
+ ]
+}

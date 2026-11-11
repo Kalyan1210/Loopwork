@@ -2,25 +2,25 @@
  {
   "local_id": "g1-01",
   "family": "planning",
-  "subtheme": "dependency-ordering",
+  "subtheme": "dependency-ordering-adjacency",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "A gardener does four steps on one flower bed, one at a time: water, dig, plant, mulch.\nRules:\n- plant comes before water\n- dig comes before plant\n- water comes before mulch\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "prompt": "A dyer treats one batch of wool in four steps, one at a time: rinse, soak, boil, strain.\nRules:\n- soak is the first step\n- strain happens immediately after boil\n- rinse is not the last step\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
   "checks": [
    {
     "type": "json",
     "strict": true,
     "is": "array",
     "value": [
-     "dig",
-     "plant",
-     "water",
-     "mulch"
+     "soak",
+     "rinse",
+     "boil",
+     "strain"
     ]
    }
   ],
-  "reference": "[\"dig\", \"plant\", \"water\", \"mulch\"]",
-  "negative": "[\"dig\", \"plant\", \"mulch\", \"water\"]"
+  "reference": "[\"soak\", \"rinse\", \"boil\", \"strain\"]",
+  "negative": "[\"soak\", \"boil\", \"strain\", \"rinse\"]"
  },
  {
   "local_id": "g1-02",
@@ -84,12 +84,16 @@
       "type": "exact_any",
       "values": [
        "green",
-       "<green>"
+       "<green>",
+       "the green",
+       "green flag",
+       "the green flag",
+       "flag green"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*green\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:flag\\s+)?green(?:\\s+flag)?\\W*$",
       "flags": "im"
      }
     ]
@@ -114,12 +118,16 @@
       "type": "exact_any",
       "values": [
        "Tower",
-       "<Tower>"
+       "<Tower>",
+       "the Tower",
+       "Tower quest",
+       "the Tower quest",
+       "quest Tower"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*tower\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:quest\\s+)?tower(?:\\s+quest)?\\W*$",
       "flags": "im"
      }
     ]
@@ -144,12 +152,16 @@
       "type": "exact_any",
       "values": [
        "cast",
-       "<cast>"
+       "<cast>",
+       "the cast",
+       "cast step",
+       "the cast step",
+       "step cast"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*cast\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:step\\s+)?cast(?:\\s+step)?\\W*$",
       "flags": "im"
      }
     ]
@@ -197,12 +209,16 @@
       "type": "exact_any",
       "values": [
        "jade",
-       "<jade>"
+       "<jade>",
+       "the jade",
+       "jade crate",
+       "the jade crate",
+       "crate jade"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*jade\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:crate\\s+)?jade(?:\\s+crate)?\\W*$",
       "flags": "im"
      }
     ]
@@ -227,12 +243,16 @@
       "type": "exact_any",
       "values": [
        "roof",
-       "<roof>"
+       "<roof>",
+       "the roof",
+       "roof step",
+       "the roof step",
+       "step roof"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*roof\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:step\\s+)?roof(?:\\s+step)?\\W*$",
       "flags": "im"
      }
     ]
@@ -274,12 +294,16 @@
       "type": "exact_any",
       "values": [
        "Anchor",
-       "<Anchor>"
+       "<Anchor>",
+       "the Anchor",
+       "Anchor song",
+       "the Anchor song",
+       "song Anchor"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*anchor\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:song\\s+)?anchor(?:\\s+song)?\\W*$",
       "flags": "im"
      }
     ]
@@ -304,12 +328,16 @@
       "type": "exact_any",
       "values": [
        "paint",
-       "<paint>"
+       "<paint>",
+       "the paint",
+       "paint step",
+       "the paint step",
+       "step paint"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*paint\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:step\\s+)?paint(?:\\s+step)?\\W*$",
       "flags": "im"
      }
     ]
@@ -351,12 +379,16 @@
       "type": "exact_any",
       "values": [
        "brass",
-       "<brass>"
+       "<brass>",
+       "the brass",
+       "brass key",
+       "the brass key",
+       "key brass"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*brass\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:key\\s+)?brass(?:\\s+key)?\\W*$",
       "flags": "im"
      }
     ]
@@ -381,12 +413,16 @@
       "type": "exact_any",
       "values": [
        "rake",
-       "<rake>"
+       "<rake>",
+       "the rake",
+       "rake chore",
+       "the rake chore",
+       "chore rake"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*rake\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:chore\\s+)?rake(?:\\s+chore)?\\W*$",
       "flags": "im"
      }
     ]
@@ -411,12 +447,16 @@
       "type": "exact_any",
       "values": [
        "sink",
-       "<sink>"
+       "<sink>",
+       "the sink",
+       "sink job",
+       "the sink job",
+       "job sink"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*sink\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:job\\s+)?sink(?:\\s+job)?\\W*$",
       "flags": "im"
      }
     ]
@@ -441,12 +481,16 @@
       "type": "exact_any",
       "values": [
        "Goodbye",
-       "<Goodbye>"
+       "<Goodbye>",
+       "the Goodbye",
+       "Goodbye scene",
+       "the Goodbye scene",
+       "scene Goodbye"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*goodbye\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:scene\\s+)?goodbye(?:\\s+scene)?\\W*$",
       "flags": "im"
      }
     ]
@@ -471,12 +515,16 @@
       "type": "exact_any",
       "values": [
        "Ibis",
-       "<Ibis>"
+       "<Ibis>",
+       "the Ibis",
+       "Ibis ship",
+       "the Ibis ship",
+       "ship Ibis"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*ibis\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:ship\\s+)?ibis(?:\\s+ship)?\\W*$",
       "flags": "im"
      }
     ]
@@ -501,12 +549,16 @@
       "type": "exact_any",
       "values": [
        "dress",
-       "<dress>"
+       "<dress>",
+       "the dress",
+       "dress action",
+       "the dress action",
+       "action dress"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*dress\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:action\\s+)?dress(?:\\s+action)?\\W*$",
       "flags": "im"
      }
     ]
@@ -531,12 +583,16 @@
       "type": "exact_any",
       "values": [
        "banner",
-       "<banner>"
+       "<banner>",
+       "the banner",
+       "banner item",
+       "the banner item",
+       "item banner"
       ]
      },
      {
       "type": "regex",
-      "pattern": "answer\\s*[:=]\\s*\\W*banner\\W*$",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:item\\s+)?banner(?:\\s+item)?\\W*$",
       "flags": "im"
      }
     ]

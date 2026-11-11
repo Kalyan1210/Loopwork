@@ -1,0 +1,86 @@
+{
+ "actor": "review-calibration-a",
+ "family": "calibration",
+ "files": {
+  "tasks/calibration/gen_1.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 1,
+   "dropped": 0,
+   "final_valid": 21,
+   "prompts_fixed": 1
+  },
+  "tasks/calibration/gen_2.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 4,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/calibration/gen_3.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 0,
+   "dropped": 0,
+   "final_valid": 21,
+   "prompts_fixed": 1
+  }
+ },
+ "totals": {
+  "tasks_checked": 63,
+  "answers_fixed": 0,
+  "checkers_fixed": 4,
+  "prompts_fixed": 2,
+  "replaced": 1,
+  "dropped": 0,
+  "final_valid": 63
+ },
+ "notes": "All 63 expected answers re-derived (arithmetic checked in Python); none were wrong. Answerable/unanswerable split 11/10, 10/11, 10/11; difficulty 7/7/7 per file. No duplicates against dev.json. Model not run (held-out).",
+ "changes": [
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-13",
+   "issue": "Answer 120 assumed apprentices are not shared between masters; passage did not exclude sharing",
+   "action": "prompt tightened (no apprentice serves two masters); answer 120 unchanged"
+  },
+  {
+   "file": "gen_1.json",
+   "local_id": "g1-21",
+   "issue": "Near-duplicate reasoning of g2-21 (remainder of a three-part total, same template with swapped nouns/numbers)",
+   "action": "replaced with a distinct hard answerable two-hop record lookup (case number 7)"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-12",
+   "issue": "Checker rejected correct forms 'the Glimmerwake' / 'boat Glimmerwake'",
+   "action": "checker loosened to accept optional 'the'/'boat' prefix"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-18",
+   "issue": "Rank answer spelled as a word ('third') is correct but failed the number check",
+   "action": "added 'any' alternative accepting third/three on the ANSWER line"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-06",
+   "issue": "First name alone (unique in passage) was rejected, inconsistent with gen_1 name checks",
+   "action": "added 'Brok' to exact_any"
+  },
+  {
+   "file": "gen_2.json",
+   "local_id": "g2-16",
+   "issue": "First name alone (unique in passage) was rejected, inconsistent with gen_1 name checks",
+   "action": "added 'Rusk' to exact_any"
+  },
+  {
+   "file": "gen_3.json",
+   "local_id": "g3-08",
+   "issue": "Question asks distance 'from Aldry to Venn' but passage never said the trip started at Aldry (only 'the Aldry coach'); an abstention was defensible",
+   "action": "evidence reworded so the trip explicitly runs Aldry to Venn non-stop; answer 120 unchanged"
+  }
+ ]
+}

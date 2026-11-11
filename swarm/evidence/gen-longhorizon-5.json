@@ -1,0 +1,182 @@
+{
+ "actor": "gen-longhorizon-5",
+ "role": "task-generation",
+ "family": "longhorizon",
+ "subtheme": "chained lookups and file workflows (tool)",
+ "output": "tasks/longhorizon/gen_5.json",
+ "n_tasks": 21,
+ "difficulty_counts": {
+  "easy": 7,
+  "medium": 7,
+  "hard": 7
+ },
+ "tasks": [
+  {
+   "local_id": "g5-01",
+   "subtheme": "manager-chain",
+   "difficulty": "easy",
+   "reference_tool_calls": 4,
+   "answer": "hale"
+  },
+  {
+   "local_id": "g5-02",
+   "subtheme": "file-pointer-chain",
+   "difficulty": "easy",
+   "reference_tool_calls": 4,
+   "answer": "47"
+  },
+  {
+   "local_id": "g5-03",
+   "subtheme": "ticket-locker-shelf-box",
+   "difficulty": "easy",
+   "reference_tool_calls": 4,
+   "answer": "29"
+  },
+  {
+   "local_id": "g5-04",
+   "subtheme": "route-file-toll-sum",
+   "difficulty": "easy",
+   "reference_tool_calls": 5,
+   "answer": "24"
+  },
+  {
+   "local_id": "g5-05",
+   "subtheme": "two-level-index",
+   "difficulty": "easy",
+   "reference_tool_calls": 4,
+   "answer": "19"
+  },
+  {
+   "local_id": "g5-06",
+   "subtheme": "latest-reading-to-kv",
+   "difficulty": "easy",
+   "reference_tool_calls": 4,
+   "answer": "318"
+  },
+  {
+   "local_id": "g5-07",
+   "subtheme": "redirect-until-number",
+   "difficulty": "easy",
+   "reference_tool_calls": 4,
+   "answer": "64"
+  },
+  {
+   "local_id": "g5-08",
+   "subtheme": "slip-directed-deposit",
+   "difficulty": "medium",
+   "reference_tool_calls": 4,
+   "answer": "175"
+  },
+  {
+   "local_id": "g5-09",
+   "subtheme": "leg-files-distance",
+   "difficulty": "medium",
+   "reference_tool_calls": 5,
+   "answer": "34"
+  },
+  {
+   "local_id": "g5-10",
+   "subtheme": "todo-file-steps",
+   "difficulty": "medium",
+   "reference_tool_calls": 4,
+   "answer": "583"
+  },
+  {
+   "local_id": "g5-11",
+   "subtheme": "tariff-rate-charge",
+   "difficulty": "medium",
+   "reference_tool_calls": 5,
+   "answer": "138"
+  },
+  {
+   "local_id": "g5-12",
+   "subtheme": "advance-queue-pointer",
+   "difficulty": "medium",
+   "reference_tool_calls": 4,
+   "answer": "Oskar"
+  },
+  {
+   "local_id": "g5-13",
+   "subtheme": "manifest-crate-summary",
+   "difficulty": "medium",
+   "reference_tool_calls": 4,
+   "answer": "23"
+  },
+  {
+   "local_id": "g5-14",
+   "subtheme": "updates-file-correction",
+   "difficulty": "hard",
+   "reference_tool_calls": 5,
+   "answer": "45"
+  },
+  {
+   "local_id": "g5-15",
+   "subtheme": "wire-file-with-fee",
+   "difficulty": "hard",
+   "reference_tool_calls": 6,
+   "answer": "58"
+  },
+  {
+   "local_id": "g5-16",
+   "subtheme": "inbox-job-log-cleanup",
+   "difficulty": "hard",
+   "reference_tool_calls": 6,
+   "answer": "42"
+  },
+  {
+   "local_id": "g5-17",
+   "subtheme": "operation-chain",
+   "difficulty": "hard",
+   "reference_tool_calls": 5,
+   "answer": "22"
+  },
+  {
+   "local_id": "g5-18",
+   "subtheme": "count-file-reconcile",
+   "difficulty": "hard",
+   "reference_tool_calls": 6,
+   "answer": "9"
+  },
+  {
+   "local_id": "g5-19",
+   "subtheme": "balance-file-pending",
+   "difficulty": "medium",
+   "reference_tool_calls": 5,
+   "answer": "75"
+  },
+  {
+   "local_id": "g5-20",
+   "subtheme": "unlink-chain-entry",
+   "difficulty": "hard",
+   "reference_tool_calls": 6,
+   "answer": "pier"
+  },
+  {
+   "local_id": "g5-21",
+   "subtheme": "recipe-file-usage",
+   "difficulty": "hard",
+   "reference_tool_calls": 6,
+   "answer": "18"
+  }
+ ],
+ "what_i_did": [
+  "Read lab/TASKS.md, tasks/longhorizon/spec.md, tasks/longhorizon/dev.json (examples only, none reused) and the tool/checker code in lab/core.py and lab/validate_tasks.py.",
+  "Wrote 21 tool-mode tasks (max_steps 8, reference 4-6 tool calls plus final) with a generator script: kv pointer chains, file pointer chains, file-to-kv-to-kv lookups, instruction and movement files that drive kv or file updates, result files and deletion of processed files.",
+  "Each negative drops or mishandles one step (stops the chain one hop early, follows an off-chain entry, omits the kv_set, omits the delete, ignores a correction line, forgets the fee, skips a chained operation).",
+  "Did not run the model on any task (held-out), did not read other generators' files, did not edit lab/ or artifacts/, did not use git."
+ ],
+ "verification": [
+  "Every expected answer and end state is computed in the generator script by simulating the chain or movements in Python (with asserts), independently of the reference steps.",
+  "Each reference and negative is replayed through core.reference_episode: reference scores 1 with zero tool errors, negative scores 0.",
+  "Extra asserts: every reference uses only the task's tools, has 4-6 tool calls, includes a read_file or at least 3 kv_get hops; all 21 subthemes are distinct; prompt plus env is 367-646 characters.",
+  "Every task checks the end state (env_equals / env_absent) for each key or file that must change plus at least one untouched distractor, or tool_called with ok_only for the required chain reads on read-only tasks."
+ ],
+ "validator": {
+  "command": ".venv/bin/python lab/validate_tasks.py tasks/longhorizon/gen_5.json --family longhorizon",
+  "result": "21/21 valid",
+  "exit_code": 0
+ },
+ "not_done": [
+  "No model pilot was run (held-out by design), so the easy/medium/hard labels are estimates from the spec's baseline observations, not measured."
+ ]
+}

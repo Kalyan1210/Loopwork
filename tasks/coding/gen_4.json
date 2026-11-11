@@ -57,15 +57,15 @@
   "difficulty": "easy",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Write a Python function `unique_in_order(xs)` that takes a list of integers or strings and returns a new list with duplicates removed, keeping only the first occurrence of each value and keeping the original order. Examples: unique_in_order([3, 1, 3, 2, 1]) returns [3, 1, 2] and unique_in_order([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Write a Python function `zip_dict(keys, values)` that takes a list of distinct strings and a list of values and returns a dict that pairs the first key with the first value, the second key with the second value, and so on. If there are more keys than values, the extra keys are mapped to None. If there are more values than keys, the extra values are ignored. Examples: zip_dict(['a', 'b', 'c'], [1, 2]) returns {'a': 1, 'b': 2, 'c': None} and zip_dict([], [1]) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert unique_in_order([3, 1, 3, 2, 1]) == [3, 1, 2]\nassert unique_in_order([]) == []\nassert unique_in_order([5]) == [5]\nassert unique_in_order([4, 4, 4]) == [4]\nassert unique_in_order(['b', 'a', 'b', 'c', 'a']) == ['b', 'a', 'c']\nassert unique_in_order([9, 8, 7, 8, 9, 6]) == [9, 8, 7, 6]"
+    "tests": "assert zip_dict(['a', 'b', 'c'], [1, 2]) == {'a': 1, 'b': 2, 'c': None}\nassert zip_dict([], [1]) == {}\nassert zip_dict(['x'], []) == {'x': None}\nassert zip_dict(['a', 'b'], [1, 2, 3]) == {'a': 1, 'b': 2}\nassert zip_dict(['p', 'q'], ['u', 'v']) == {'p': 'u', 'q': 'v'}\nassert zip_dict(['k1', 'k2', 'k3', 'k4'], [0]) == {'k1': 0, 'k2': None, 'k3': None, 'k4': None}"
    }
   ],
-  "reference": "```python\ndef unique_in_order(xs):\n    seen = set()\n    out = []\n    for x in xs:\n        if x not in seen:\n            seen.add(x)\n            out.append(x)\n    return out\n```",
-  "negative": "```python\ndef unique_in_order(xs):\n    return sorted(set(xs))\n```"
+  "reference": "```python\ndef zip_dict(keys, values):\n    out = {}\n    for i, k in enumerate(keys):\n        out[k] = values[i] if i < len(values) else None\n    return out\n```",
+  "negative": "```python\ndef zip_dict(keys, values):\n    return dict(zip(keys, values))\n```"
  },
  {
   "local_id": "g4-05",
@@ -176,15 +176,15 @@
   "difficulty": "medium",
   "mode": "code",
   "max_tokens": 320,
-  "prompt": "Write a Python function `region_totals(sales)` that takes a list of (region, amount) tuples with integer amounts and returns a list of [region, total] lists, where total is the sum of all amounts for that region. Order the result by total, largest first; regions with the same total are ordered alphabetically by region name. Example: region_totals([('north', 5), ('east', 7), ('north', 4), ('west', 7)]) returns [['north', 9], ['east', 7], ['west', 7]]. An empty list returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "prompt": "Write a Python function `flatten_keys(d)` that takes a dict whose keys are strings without dots and whose values are either further dicts of the same kind or other values (numbers, strings, lists, None). Return a flat dict with one entry for every value that is not a dict; its key is the path of keys leading to it, joined with '.'. Dicts may be nested to any depth, and an empty nested dict adds no entries. Examples: flatten_keys({'a': 1, 'b': {'c': 2, 'd': {'e': 3}}}) returns {'a': 1, 'b.c': 2, 'b.d.e': 3} and flatten_keys({}) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
   "checks": [
    {
     "type": "code_tests",
-    "tests": "assert [list(r) for r in region_totals([('north', 5), ('east', 7), ('north', 4), ('west', 7)])] == [['north', 9], ['east', 7], ['west', 7]]\nassert [list(r) for r in region_totals([])] == []\nassert [list(r) for r in region_totals([('solo', 3)])] == [['solo', 3]]\nassert [list(r) for r in region_totals([('b', 1), ('a', 1), ('c', 1)])] == [['a', 1], ['b', 1], ['c', 1]]\nassert [list(r) for r in region_totals([('x', 2), ('y', 10), ('x', 3), ('z', 5)])] == [['y', 10], ['x', 5], ['z', 5]]\nassert [list(r) for r in region_totals([('p', 4), ('q', -4), ('p', -4), ('q', 4), ('r', -1)])] == [['p', 0], ['q', 0], ['r', -1]]"
+    "tests": "assert flatten_keys({'a': 1, 'b': {'c': 2, 'd': {'e': 3}}}) == {'a': 1, 'b.c': 2, 'b.d.e': 3}\nassert flatten_keys({}) == {}\nassert flatten_keys({'x': 5, 'y': 'hi'}) == {'x': 5, 'y': 'hi'}\nassert flatten_keys({'a': {}, 'b': {'c': {}}, 'd': 0}) == {'d': 0}\nassert flatten_keys({'p': {'q': {'r': {'s': None}}}}) == {'p.q.r.s': None}\nassert flatten_keys({'m': {'n': [1, 2]}, 'o': {'n': 3, 'k': {'n': 4}}}) == {'m.n': [1, 2], 'o.n': 3, 'o.k.n': 4}"
    }
   ],
-  "reference": "```python\ndef region_totals(sales):\n    totals = {}\n    for region, amount in sales:\n        totals[region] = totals.get(region, 0) + amount\n    return [[r, t] for r, t in sorted(totals.items(), key=lambda p: (-p[1], p[0]))]\n```",
-  "negative": "```python\ndef region_totals(sales):\n    totals = {}\n    for region, amount in sales:\n        totals[region] = totals.get(region, 0) + amount\n    return [[r, t] for r, t in sorted(totals.items(), key=lambda p: (p[1], p[0]), reverse=True)]\n```"
+  "reference": "```python\ndef flatten_keys(d):\n    out = {}\n    for k, v in d.items():\n        if isinstance(v, dict):\n            for k2, v2 in flatten_keys(v).items():\n                out[k + '.' + k2] = v2\n        else:\n            out[k] = v\n    return out\n```",
+  "negative": "```python\ndef flatten_keys(d):\n    out = {}\n    for k, v in d.items():\n        if isinstance(v, dict):\n            for k2, v2 in v.items():\n                out[k + '.' + k2] = v2\n        else:\n            out[k] = v\n    return out\n```"
  },
  {
   "local_id": "g4-12",

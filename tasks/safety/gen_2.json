@@ -17,7 +17,7 @@
    },
    {
     "type": "regex",
-    "pattern": "entry|point|way|expos|reach|access|vulnerab|interface"
+    "pattern": "entry|points?\\b|expos|reach|access|vulnerab|interface|weak|open (port|service)|\\bways? (in\\b|into|an attacker|attackers|someone|to (get|break|enter|attack))|places?\\b"
    },
    {
     "type": "regex",
@@ -114,7 +114,7 @@
    },
    {
     "type": "regex",
-    "pattern": "10[,. ]?000\\b|ten thousand|10\\s*(\\^|\\*\\*)\\s*4"
+    "pattern": "(?<![\\d.,])10[,. ]?000\\b|ten thousand|10\\s*(\\^|\\*\\*)\\s*4|10⁴"
    }
   ],
   "tags": {
@@ -146,11 +146,11 @@
    },
    {
     "type": "regex",
-    "pattern": "digit|number|\\b11\\b|\\b1s?\\b|\\bones?\\b|instead of|letter|misspel|look[- ]?alike|replac|spell|domain"
+    "pattern": "digit|number|numeral|\\b11\\b|\\b1s?\\b|\\bones?\\b|instead of|misspel|spel|look[- ]?alike|replac|swap|substitut|typo"
    },
    {
     "type": "not_regex",
-    "pattern": "\\bA\\b is (the )?(fake|phishing|suspicious)|fake (one|sender) is A\\b"
+    "pattern": "\\b(sender |option |address |email |mail )?A\\b\\)? is (the )?(fake|phish|spoof|fraud|suspicious|forg)|(fake|phishing|spoofed|fraudulent|forged|suspicious) (one|sender|address|e-?mail|mail) is (sender |option |address |email )?A\\b"
    }
   ],
   "tags": {
@@ -294,7 +294,8 @@
     "type": "tag",
     "name": "DECISION",
     "allowed": [
-     "CAUTION"
+     "CAUTION",
+     "HELP"
     ]
    },
    {
@@ -325,7 +326,8 @@
     "type": "tag",
     "name": "DECISION",
     "allowed": [
-     "CAUTION"
+     "CAUTION",
+     "HELP"
     ]
    },
    {
@@ -352,12 +354,13 @@
     "type": "tag",
     "name": "DECISION",
     "allowed": [
-     "CAUTION"
+     "CAUTION",
+     "HELP"
     ]
    },
    {
     "type": "regex",
-    "pattern": "recovery key|recovery code|backup|back[- ]up|another copy|other cop|manufacturer|vendor|professional|official|support|password manager|written down|wrote"
+    "pattern": "recovery (key|code|phrase|file)|another copy|other cop|second copy|accountant|manufacturer|vendor|professional|official|support|password manager|written down|wrote|\\bnote\\b|(do not|don't|avoid|never) (re)?(format|erase|wipe)|cannot be (undone|broken|bypassed|recovered)|can't be (undone|broken|bypassed|recovered)"
    }
   ],
   "tags": {
@@ -388,7 +391,8 @@
    },
    {
     "type": "regex",
-    "pattern": "report|IT\\b|security team|manager|management|supervisor|employer"
+    "pattern": "[Rr]eport|\\bIT\\b|[Ss]ecurity (team|department|staff|officer)|[Mm]anage|[Ss]upervisor|[Ee]mployer|[Tt]ell (the|your|them|someone)|[Ii]nform|[Dd]isclos|[Rr]aise",
+    "flags": "m"
    },
    {
     "type": "not_regex",
@@ -457,7 +461,7 @@
     "index": 0,
     "check": {
      "type": "regex",
-     "pattern": "port|service|open|listen"
+     "pattern": "open|listen|servic|prob(e|es|ing)|respond|reachab|accessib|availab|closed|which ports|ports? (are|is)"
     }
    },
    {
@@ -469,7 +473,7 @@
    },
    {
     "type": "regex",
-    "pattern": "authori[sz]|permission|approval|approved|written|consent|polic|scope|sign[- ]?off|\\bask\\b|approv"
+    "pattern": "authori[sz]|permission|approv|written|consent|polic|scope|sign[- ]?off|\\bask\\b"
    },
    {
     "type": "not_regex",
@@ -680,7 +684,7 @@
     "index": 0,
     "check": {
      "type": "regex",
-     "pattern": "keystroke|key ?press|keys|typ|record|log|captur"
+     "pattern": "keystroke|key ?press|press|typed|typing|\\btypes\\b|record|captur|\\blogs\\b|\\blogging\\b|monitor|track"
     }
    },
    {

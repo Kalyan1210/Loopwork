@@ -1,0 +1,26 @@
+{
+ "actor": "review-constraints-a",
+ "family": "constraints",
+ "method": "Read every task; re-derived 25 computable expected answers in Python (all agreed with the authors), hand-verified the remaining extraction tasks, probed edited checkers with extra correct and wrong replies via lab/core.run_check, checked for duplicates within the three files and against dev.json (none found). Model was not run on these tasks.",
+ "files": {
+  "tasks/constraints/gen_1.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 1, "prompts_clarified": 1, "replaced": 0, "dropped": 0, "final_valid": 21},
+  "tasks/constraints/gen_2.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 0, "prompts_clarified": 1, "replaced": 0, "dropped": 0, "final_valid": 21},
+  "tasks/constraints/gen_3.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 6, "prompts_clarified": 0, "replaced": 0, "dropped": 0, "final_valid": 21}
+ },
+ "changes": [
+  {"file": "gen_1.json", "local_id": "g1-02", "issue": "Lowercase regex tolerated a ```json fence but not a bare ``` fence, although the json checker accepts both, so a correct fenced reply could fail.", "action": "Regex prefix widened to accept either fence form."},
+  {"file": "gen_1.json", "local_id": "g1-14", "issue": "\"the committee's name\" could defensibly be answered \"Orchard\" while the checker requires \"Orchard Committee\".", "action": "Prompt now asks for the full two-word name as written in the memo; checks unchanged."},
+  {"file": "gen_2.json", "local_id": "g2-10", "issue": "Case-sensitive regex requires lowercase item names but the prompt did not state the case.", "action": "Prompt now says item name in lowercase as written above; checks unchanged."},
+  {"file": "gen_3.json", "local_id": "g3-01", "issue": "min_words 4 was an unstated constraint; a valid 2-3 word sentence containing Plumwick would fail.", "action": "min_words lowered to 2."},
+  {"file": "gen_3.json", "local_id": "g3-06", "issue": "min_words 4 was unstated; a valid advert of two very short lines would fail.", "action": "min_words lowered to 2 (line_count 2 and the kite regex still guard against empty replies)."},
+  {"file": "gen_3.json", "local_id": "g3-08", "issue": "min_words 9 was unstated; three valid two-word sentences containing Tobbin would fail.", "action": "min_words lowered to 6."},
+  {"file": "gen_3.json", "local_id": "g3-02", "issue": "Prompt forbids numbering but a numbered 3-line reply passed all checks.", "action": "Added lines_regex rejecting lines that start with a number marker or bullet."},
+  {"file": "gen_3.json", "local_id": "g3-14", "issue": "Prompt forbids numbering but numbered or bulleted lines inside the 6-9 word range passed.", "action": "Added lines_regex rejecting lines that start with a number marker or bullet."},
+  {"file": "gen_3.json", "local_id": "g3-18", "issue": "A line holding two sentences (e.g. \"Frogs sing. After every rain.\") passed the one-sentence-per-line rule.", "action": "Period regex tightened to ^[^.!?]*\\w\\.$ so each line has exactly one terminal period."}
+ ],
+ "notes": [
+  "No wrong expected answers found in any of the 63 tasks.",
+  "No duplicates or near-duplicates found within the files or against dev.json; invented names Wexcombe and Pim recur across files with unrelated content and were left as is.",
+  "All content is fictional and harmless; all tasks fit their sub-theme (gen_1 strict JSON, gen_2 ordered/filtered lists, gen_3 counts in free writing)."
+ ]
+}

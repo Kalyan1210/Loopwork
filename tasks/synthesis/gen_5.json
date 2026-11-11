@@ -10,7 +10,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?C|C\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "Doc A gives a height of 31 metres but Doc C gives 36 metres.\nANSWER: A and C",
@@ -25,11 +25,21 @@
   "prompt": "Read the four documents, then answer.\n\n[Doc A] Shop sign, Tolwyn Bakery: Founded by Edda Marsh. Open six days a week on Canal Street.\n[Doc B] Local history pamphlet: Tolwyn Bakery opened in 2041 and has always stood on Canal Street.\n[Doc C] Newspaper feature: Tolwyn Bakery, which opened in 2041, was founded by Joss Perrin and still sells its rye loaf.\n[Doc D] Customer newsletter: Call in at Tolwyn Bakery on Canal Street for the rye loaf, baked every morning.\n\nQuestion: The documents disagree about exactly one detail of Tolwyn Bakery. Which detail is it: the founder, the street or the opening year?\n\nReply with one short line of working, then end with a final line in exactly this form:\nANSWER: <founder, street or opening year>",
   "checks": [
    {
-    "type": "exact_any",
-    "values": [
-     "founder",
-     "the founder",
-     "its founder"
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "founder",
+       "the founder",
+       "its founder"
+      ]
+     },
+     {
+      "type": "regex",
+      "flags": "im",
+      "pattern": "^\\W*answer\\s*[:=]\\W*(?:the\\s+|its\\s+)?founder\\b(?![^\\n]*\\b(?:street|year)\\b)[^\\n]*$"
+     }
     ]
    }
   ],
@@ -47,7 +57,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?C|C\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "Doc A says entry is free for everyone, but Doc C says every visitor pays 4 crowns.\nANSWER: A and C",
@@ -144,7 +154,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?C|C\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "Two dozen is 24, so A and B agree; but A says Tuesday and C says only Thursday.\nANSWER: A and C",
@@ -161,7 +171,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:B\\W+(?:and\\s+)?(?:doc\\s*)?D|D\\W+(?:and\\s+)?(?:doc\\s*)?B)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:B\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?D|D\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?B)\\W*$"
    }
   ],
   "reference": "If the mill is upstream of the bridge, a paddler going downstream reaches the mill first, which Doc D denies.\nANSWER: B and D",
@@ -280,7 +290,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:B\\W+(?:and\\s+)?(?:doc\\s*)?D|D\\W+(?:and\\s+)?(?:doc\\s*)?B)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:B\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?D|D\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?B)\\W*$"
    }
   ],
   "reference": "The flagship is the Wren, so Doc B gives it 80 seats while Doc D gives it 95.\nANSWER: B and D",
@@ -297,7 +307,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?C|C\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "2 kilometres is 2000 metres, but the sign in Doc C says 1,400 metres.\nANSWER: A and C",
@@ -314,7 +324,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?C|C\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "Third place means two yachts finished ahead, but Doc C says exactly one did.\nANSWER: A and C",
@@ -331,7 +341,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?E|E\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?E|E\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "Retiring in 2058 after exactly 15 years means she started in 2043, not 2040 as Doc A says.\nANSWER: A and E",
@@ -348,7 +358,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?D|D\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?D|D\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "07:40 to 08:15 is 35 minutes, but Doc D says every crossing takes exactly 45 minutes.\nANSWER: A and D",
@@ -365,7 +375,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:A\\W+(?:and\\s+)?(?:doc\\s*)?C|C\\W+(?:and\\s+)?(?:doc\\s*)?A)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:A\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?C|C\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?A)\\W*$"
    }
   ],
   "reference": "The three stages add up to 6 + 9 + 5 = 20 km, but Doc C says the full trail is 23 km.\nANSWER: A and C",
@@ -404,7 +414,9 @@
     "values": [
      "Tolsay Point",
      "Tolsay Point station",
-     "the Tolsay Point station"
+     "the Tolsay Point station",
+     "Tolsay",
+     "Tolsay Point lifeboat station"
     ]
    }
   ],
@@ -525,7 +537,7 @@
    {
     "type": "regex",
     "flags": "im",
-    "pattern": "^\\W*answer\\s*[:=]\\W*(?:docs?\\s*)?(?:B\\W+(?:and\\s+)?(?:doc\\s*)?E|E\\W+(?:and\\s+)?(?:doc\\s*)?B)\\W*$"
+    "pattern": "^\\W*answer\\s*[:=]\\W*(?:doc(?:ument)?s?\\W*)?(?:B\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?E|E\\W+(?:and\\W+)?(?:doc(?:ument)?\\W*)?B)\\W*$"
    }
   ],
   "reference": "If the fair opens on Tuesday 4 June, its second day is Wednesday 5 June, not Thursday 6 June.\nANSWER: B and E",

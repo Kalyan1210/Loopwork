@@ -162,8 +162,12 @@
   },
   "checks": [
    {
-    "type": "exact",
-    "value": "teal"
+    "type": "regex",
+    "pattern": "\\bteal\\b"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\bblue\\b"
    },
    {
     "type": "max_tool_calls",
@@ -349,6 +353,10 @@
     "pattern": "\\bvault_east\\b"
    },
    {
+    "type": "not_regex",
+    "pattern": "\\b(gate_north|gate_south|cellar_key)\\b"
+   },
+   {
     "type": "tool_called",
     "tool": "kv_list",
     "min": 1,
@@ -441,48 +449,73 @@
  {
   "local_id": "g1-08",
   "family": "tools",
-  "subtheme": "no-tool-pasted-file",
+  "subtheme": "existence-check-by-listing",
   "difficulty": "medium",
   "mode": "tool",
-  "prompt": "I pasted the whole file 'roster' here:\nMon night: Ilse\nTue night: Bram\nWed night: Oona\nThu night: Ilse\nWho has the night shift on Wed? Use as few tool calls as possible. Final answer: just the name.",
+  "prompt": "Is there a file named exactly 'ledger_march' in the sandbox? One call to list_files is enough to tell. Do not try to open any file. Final answer: exactly one word, YES or NO.",
   "tools": [
+   "list_files",
    "read_file",
-   "list_files"
+   "write_file",
+   "delete_file"
   ],
   "env": {
    "files": {
-    "roster": "Mon night: Ilse\nTue night: Bram\nWed night: Oona\nThu night: Ilse",
-    "holidays": "none this week"
+    "ledger_april": "April entries: 14",
+    "ledger_may": "May entries: 9",
+    "ledger_march_draft": "Unfinished copy, do not use.",
+    "ledger_index": "Ledgers are filed by month."
    }
   },
   "checks": [
    {
-    "type": "regex",
-    "pattern": "\\boona\\b"
+    "type": "exact",
+    "value": "NO"
    },
    {
-    "type": "not_regex",
-    "pattern": "\\b(ilse|bram)\\b"
+    "type": "tool_called",
+    "tool": "list_files",
+    "min": 1,
+    "ok_only": true
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "read_file"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "write_file"
+   },
+   {
+    "type": "tool_not_called",
+    "tool": "delete_file"
    },
    {
     "type": "max_tool_calls",
-    "value": 0
+    "value": 1
+   },
+   {
+    "type": "env_absent",
+    "path": "files.ledger_march"
    }
   ],
   "reference": {
-   "steps": [],
-   "final": "Oona"
+   "steps": [
+    {
+     "tool": "list_files",
+     "args": {}
+    }
+   ],
+   "final": "NO"
   },
   "negative": {
    "steps": [
     {
-     "tool": "read_file",
-     "args": {
-      "path": "roster"
-     }
+     "tool": "list_files",
+     "args": {}
     }
    ],
-   "final": "Oona"
+   "final": "YES"
   }
  },
  {
@@ -677,6 +710,10 @@
    {
     "type": "regex",
     "pattern": "\\bledger-7\\b"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(recipe-book|ledger-2|harbor-notes)\\b"
    },
    {
     "type": "tool_called",
@@ -1086,8 +1123,12 @@
   },
   "checks": [
    {
-    "type": "exact",
-    "value": "read_file"
+    "type": "regex",
+    "pattern": "\\bread_file\\b"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(list_files|write_file|kv_get)\\b"
    },
    {
     "type": "max_tool_calls",
@@ -1291,7 +1332,7 @@
   "subtheme": "full-doc-not-search-snippet",
   "difficulty": "hard",
   "mode": "tool",
-  "prompt": "What is the current daily dock fee according to the document with id 'dock-fees'? Use one tool call. Final answer: just the number.",
+  "prompt": "What is the current toll for grinding one sack at the mill, according to the document with id 'mill-toll'? Use one tool call. Final answer: just the number.",
   "tools": [
    "search",
    "read_doc",
@@ -1300,14 +1341,14 @@
   ],
   "env": {
    "docs": {
-    "dock-fees": "Dock fee notice of the Port Velden wardens. Last season the daily dock fee was 45 crowns and many skippers complained that the notice was posted far too late. After the autumn vote the fee changed. The current daily dock fee is 52 crowns.",
-    "dock-history": "The docks were rebuilt after the great storm and widened twice."
+    "mill-toll": "Toll notice of the Port Velden mill wardens. Last season the toll for grinding one sack was 18 pence and many farmers complained that the notice was nailed up far too late. After the autumn vote the toll changed. The current toll for grinding one sack is 23 pence.",
+    "mill-history": "The mill was rebuilt after the great storm and its wheel was replaced twice."
    }
   },
   "checks": [
    {
     "type": "number",
-    "value": 52
+    "value": 23
    },
    {
     "type": "tool_called",
@@ -1315,7 +1356,7 @@
     "min": 1,
     "ok_only": true,
     "args_contains": {
-     "id": "dock-fees"
+     "id": "mill-toll"
     }
    },
    {
@@ -1336,22 +1377,22 @@
     {
      "tool": "read_doc",
      "args": {
-      "id": "dock-fees"
+      "id": "mill-toll"
      }
     }
    ],
-   "final": "52"
+   "final": "23"
   },
   "negative": {
    "steps": [
     {
      "tool": "search",
      "args": {
-      "query": "daily dock fee"
+      "query": "mill toll"
      }
     }
    ],
-   "final": "45"
+   "final": "18"
   }
  },
  {

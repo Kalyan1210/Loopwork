@@ -1,0 +1,74 @@
+{
+ "actor": "review-coding-b",
+ "family": "coding",
+ "role": "task-review",
+ "method": "Read every task; reasoned through each reference against its prompt; hand-checked expected values; validator confirms reference passes and negative fails; ran independent alternative correct solutions and plausible wrong variants against the tests of the new/changed tasks; compared function contracts against dev.json and gen_1..gen_3 for near-duplicates. Model was not run.",
+ "files": {
+  "tasks/coding/gen_4.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 0,
+   "replaced": 2,
+   "dropped": 0,
+   "final_valid": 21
+  },
+  "tasks/coding/gen_5.json": {
+   "tasks_checked": 21,
+   "answers_fixed": 0,
+   "checkers_fixed": 2,
+   "replaced": 3,
+   "dropped": 0,
+   "final_valid": 21
+  }
+ },
+ "changes": [
+  {
+   "file": "gen_4.json",
+   "local_id": "g4-04",
+   "issue": "unique_in_order is the same seen-set order-preserving dedupe loop as gen_3 g3-12 unique_names (minus the lower-casing); near-duplicate and at ceiling",
+   "action": "replaced with zip_dict(keys, values) (pad missing values with None, ignore extra values), easy"
+  },
+  {
+   "file": "gen_4.json",
+   "local_id": "g4-11",
+   "issue": "region_totals (aggregate then sort by (-total, name)) repeats the reasoning of dev top_words and of g4-16 league_table in the same file",
+   "action": "replaced with flatten_keys(d) (nested dict to dotted-path keys, recursive, empty nested dicts add nothing), medium"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-03",
+   "issue": "lower_bound is the identical binary-search loop to gen_3 g3-07 find_first and is the building block of g5-18 find_span in the same file",
+   "action": "replaced with closest_value(nums, target) (unsorted list, tie goes to the smaller element, empty returns None), medium"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-04",
+   "issue": "longest_true_streak is the same run-length accumulator as g5-10 longest_climb, gen_2 g2-07 longest_run and gen_3 g3-15 longest_streak",
+   "action": "replaced with collatz_steps(n) (step count, 0 for n=1, -1 for n<1), easy"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-05",
+   "issue": "to_digits is the same repeated divide/mod base-conversion loop as gen_3 g3-14 to_base",
+   "action": "replaced with the inverse from_digits(digits, base) (Horner evaluation, empty list returns 0, leading zeros allowed), easy"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-13",
+   "issue": "tests call int_sqrt(10**30); a correct count-up-by-one solution satisfies the prompt as written but hits the 8 s timeout, so the tests checked an unstated speed requirement",
+   "action": "prompt now states the function must be fast for huge n such as 10**30 and must not count up one at a time; tests unchanged"
+  },
+  {
+   "file": "gen_5.json",
+   "local_id": "g5-15",
+   "issue": "test fewest_coins(5, []) == -1 exercised an empty coin list that the prompt did not mention",
+   "action": "prompt now states the coin list may be empty (then only amount 0 can be made); tests unchanged"
+  }
+ ],
+ "notes": [
+  "No wrong expected answers found in either file (all 42 originals re-derived).",
+  "Reviewed and kept as sufficiently distinct: g5-16 count_routes (blocked cells, bottom-up DP) vs gen_3 g3-13 grid_paths; g5-01 gcd_all vs gen_3 g3-11 lcm_all; g5-07 best_window vs dev moving_avg / gen_2 best_slice_sum; g4-01 count_by_status vs gen_2 g2-14 count_words (bug-fix).",
+  "gen_5 tests for walk, find_span and free_gaps compare against lists exactly; the prompts explicitly promise lists, so left strict.",
+  "Difficulty mix after review: 5 easy / 8 medium / 8 hard in each file."
+ ]
+}

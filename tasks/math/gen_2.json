@@ -2,19 +2,19 @@
  {
   "local_id": "g2-01",
   "family": "math",
-  "subtheme": "algebra-linear-fractions",
+  "subtheme": "fraction-of-unknown-word",
   "difficulty": "easy",
   "mode": "single",
-  "prompt": "Solve for x: (2x - 5)/3 = (x + 4)/2. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "prompt": "A herder says: 'One third of my flock is exactly 4 sheep more than one fifth of my flock.' How many sheep are in the flock? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
   "max_tokens": 320,
   "checks": [
    {
     "type": "number",
-    "value": 22
+    "value": 30
    }
   ],
-  "reference": "Cross-multiply: 2(2x-5) = 3(x+4), so 4x-10 = 3x+12.\nx = 22.\nANSWER: 22",
-  "negative": "4x-10 = 3x+12, so x = 2.\nANSWER: 2"
+  "reference": "Let the flock be n: n/3 = n/5 + 4.\nMultiply by 15: 5n = 3n + 60, so 2n = 60.\nn = 30.\nANSWER: 30",
+  "negative": "n/3 - n/5 = 4, so n/2 = 4 and n = 8.\nANSWER: 8"
  },
  {
   "local_id": "g2-02",
@@ -325,19 +325,19 @@
  {
   "local_id": "g2-20",
   "family": "math",
-  "subtheme": "mixture-replacement",
+  "subtheme": "function-composition-equation",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "A 40-litre tank is full of a drink that is 25% juice. Some of the drink is drained off and replaced with the same volume of pure juice, so the tank is full again and is now 40% juice. How many litres were drained? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "prompt": "A function is defined by f(x) = 2x + 3. For which value of x is f(f(x)) equal to f(x) + 30? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
   "max_tokens": 320,
   "checks": [
    {
     "type": "number",
-    "value": 8
+    "value": 12
    }
   ],
-  "reference": "Juice after: 0.25(40 - d) + d = 0.40*40 = 16.\n10 + 0.75d = 16, so d = 8.\nANSWER: 8",
-  "negative": "Need 16 litres of juice, have 10, so add 6.\nANSWER: 6"
+  "reference": "f(f(x)) = 2(2x + 3) + 3 = 4x + 9. Set 4x + 9 = 2x + 3 + 30 = 2x + 33.\n2x = 24, so x = 12. (Check: f(12) = 27, f(27) = 57 = 27 + 30.)\nANSWER: 12",
+  "negative": "4x + 9 = 2x + 33 gives x = 12, so f(x) = 27.\nANSWER: 27"
  },
  {
   "local_id": "g2-21",

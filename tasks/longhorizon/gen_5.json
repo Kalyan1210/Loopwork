@@ -1,0 +1,2568 @@
+[
+ {
+  "local_id": "g5-01",
+  "family": "longhorizon",
+  "subtheme": "manager-chain",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "Each key in the kv store is a staff member of a fictional observatory, and its value is the name of that person's manager. Start at the key pell and look up the manager, then look up that manager's manager, and keep going up in the same way until you have made four lookups in total. Final answer: the name returned by the fourth lookup, just the name.",
+  "tools": [
+   "kv_get"
+  ],
+  "env": {
+   "kv": {
+    "pell": "orla",
+    "orla": "dask",
+    "dask": "wren",
+    "wren": "hale",
+    "hale": "ivo",
+    "nim": "juno",
+    "juno": "sorrel"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bhale\\b",
+    "flags": "i"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(wren|ivo|dask|orla)\\b",
+    "flags": "i"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "wren"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "dask"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "pell"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "orla"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "dask"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "wren"
+     }
+    }
+   ],
+   "final": "hale"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "pell"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "orla"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "dask"
+     }
+    }
+   ],
+   "final": "wren"
+  }
+ },
+ {
+  "local_id": "g5-02",
+  "family": "longhorizon",
+  "subtheme": "file-pointer-chain",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A fictional museum hides a vault code in a chain of files. Read the file named start. Each file either tells you which file to read next or gives the vault code. Keep following the chain until you find the code. Do not read files that are not on the chain. Final answer: the vault code, just the number.",
+  "tools": [
+   "read_file",
+   "list_files"
+  ],
+  "env": {
+   "files": {
+    "start": "Go to the file named cedar.",
+    "cedar": "Go to the file named slate.",
+    "slate": "Go to the file named onyx.",
+    "onyx": "The vault code is 47.",
+    "amber": "Go to the file named flint.",
+    "flint": "The vault code is 82."
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 47
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "onyx"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "slate"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "start"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "cedar"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "slate"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "onyx"
+     }
+    }
+   ],
+   "final": "47"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "start"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "cedar"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "flint"
+     }
+    }
+   ],
+   "final": "82"
+  }
+ },
+ {
+  "local_id": "g5-03",
+  "family": "longhorizon",
+  "subtheme": "ticket-locker-shelf-box",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A fictional left-luggage office works like this: the file named ticket gives a locker code. In the kv store each locker code holds the name of a shelf key, each shelf key holds the name of a box key, and each box key holds a number of parcels. Read the ticket, look up its locker, look up the shelf that the locker names, then look up the box that the shelf names. Final answer: the number of parcels in that box, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get"
+  ],
+  "env": {
+   "kv": {
+    "L3": "shelf_red",
+    "L7": "shelf_blue",
+    "L9": "shelf_green",
+    "shelf_red": "box_2",
+    "shelf_blue": "box_5",
+    "shelf_green": "box_8",
+    "box_2": 16,
+    "box_5": 29,
+    "box_8": 41
+   },
+   "files": {
+    "ticket": "locker: L7"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 29
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "ticket"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "shelf_blue"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "box_5"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "ticket"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "L7"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_blue"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_5"
+     }
+    }
+   ],
+   "final": "29"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "ticket"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "L3"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "shelf_red"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_2"
+     }
+    }
+   ],
+   "final": "16"
+  }
+ },
+ {
+  "local_id": "g5-04",
+  "family": "longhorizon",
+  "subtheme": "route-file-toll-sum",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The file named route lists the stops of a fictional ferry trip, one per line. The kv store holds the toll charged at every stop of the river, keyed by stop name. Read the route, read the toll of each stop on the route with kv_get, and use the calc tool to add them. Stops that are not on the route do not count. Final answer: the total toll for the trip, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "ash": 7,
+    "birch": 12,
+    "elm": 5,
+    "oak": 9,
+    "yew": 15
+   },
+   "files": {
+    "route": "ash\nbirch\nelm\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "route"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "elm"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "birch"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "route"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ash"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "birch"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "elm"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "7+12+5"
+     }
+    }
+   ],
+   "final": "24"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "route"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ash"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "birch"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "7+12"
+     }
+    }
+   ],
+   "final": "19"
+  }
+ },
+ {
+  "local_id": "g5-05",
+  "family": "longhorizon",
+  "subtheme": "two-level-index",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The file named index of a fictional village shed says which file holds each category of records. Read index and open the file it gives for tools. That file says which file holds the hand tools; read that one too. It lists two kinds of hand tool with a count each: use the calc tool to add the two counts. Final answer: the total number of hand tools, just the number.",
+  "tools": [
+   "read_file",
+   "calc"
+  ],
+  "env": {
+   "files": {
+    "index": "recipes: file r2\ntools: file t5\nseeds: file s1\n",
+    "r2": "soups 8\nstews 3\n",
+    "t5": "power tools: file p3\nhand tools: file h9\n",
+    "h9": "saws 6\nhammers 13\n",
+    "p3": "drills 4\nsanders 2\n",
+    "s1": "packets 30\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 19
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "index"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "t5"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "h9"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "index"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "t5"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "h9"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "6+13"
+     }
+    }
+   ],
+   "final": "19"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "index"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "t5"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "p3"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "4+2"
+     }
+    }
+   ],
+   "final": "6"
+  }
+ },
+ {
+  "local_id": "g5-06",
+  "family": "longhorizon",
+  "subtheme": "latest-reading-to-kv",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A fictional water company keeps meter readings in files. The file named latest says which file holds the newest reading. Read latest, read the file it names, and store the number in that file under the kv key meter_latest, replacing the old value. Do not change any other key. Final answer: the number you stored, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set"
+  ],
+  "env": {
+   "kv": {
+    "meter_latest": 291,
+    "meter_id": 77
+   },
+   "files": {
+    "latest": "the newest reading is in the file reading_c",
+    "reading_a": "meter 291",
+    "reading_b": "meter 305",
+    "reading_c": "meter 318"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 318
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.meter_latest",
+    "value": 318
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.meter_id",
+    "value": 77
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "latest"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "reading_c"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "latest"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "reading_c"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "meter_latest"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "meter_latest",
+      "value": 318
+     }
+    }
+   ],
+   "final": "318"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "latest"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "reading_c"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "meter_latest"
+     }
+    }
+   ],
+   "final": "318"
+  }
+ },
+ {
+  "local_id": "g5-07",
+  "family": "longhorizon",
+  "subtheme": "redirect-until-number",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "In this fictional parcel system every kv value is either a number of parcels or the name of another key that you must read instead. Start at the key depot and keep following the names until a lookup returns a number. Final answer: that number, just the number.",
+  "tools": [
+   "kv_get"
+  ],
+  "env": {
+   "kv": {
+    "depot": "harbor",
+    "harbor": "quarry",
+    "quarry": "mill",
+    "mill": 64,
+    "yard": "forge",
+    "forge": 38
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 64
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "mill"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "quarry"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "depot"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "harbor"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "quarry"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "mill"
+     }
+    }
+   ],
+   "final": "64"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "depot"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "harbor"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "forge"
+     }
+    }
+   ],
+   "final": "38"
+  }
+ },
+ {
+  "local_id": "g5-08",
+  "family": "longhorizon",
+  "subtheme": "slip-directed-deposit",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv store holds coin balances of three members of a fictional savings club. The file named slip records one deposit: it names the member and the amount. Read the slip, read that member's balance with kv_get, use the calc tool to add the deposit, and store the new balance with kv_set. Do not change the other members. Final answer: that member's new balance, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "reed": 140,
+    "moss": 90,
+    "fern": 60
+   },
+   "files": {
+    "slip": "member: reed\ndeposit: 35\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 175
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.reed",
+    "value": 175
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.moss",
+    "value": 90
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.fern",
+    "value": 60
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "slip"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "slip"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "reed"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "140+35"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "reed",
+      "value": 175
+     }
+    }
+   ],
+   "final": "175"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "slip"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "reed"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "reed",
+      "value": 140
+     }
+    }
+   ],
+   "final": "140"
+  }
+ },
+ {
+  "local_id": "g5-09",
+  "family": "longhorizon",
+  "subtheme": "leg-files-distance",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional hiking trip is described by leg files. Each leg file gives a distance and the name of the next leg file, or none after the last leg. Start with the file named leg1 and follow the legs in the order the files say, not in number order. Use the calc tool to add the distances and store the sum under the kv key trip_total. Final answer: the total distance, just the number.",
+  "tools": [
+   "read_file",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "trip_total": 0,
+    "fuel": 50
+   },
+   "files": {
+    "leg1": "distance 12, next file leg4",
+    "leg4": "distance 7, next file leg2",
+    "leg2": "distance 15, next file none",
+    "leg3": "distance 30, next file none"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 34
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.trip_total",
+    "value": 34
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.fuel",
+    "value": 50
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "leg4"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "leg2"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "leg1"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "leg4"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "leg2"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "12+7+15"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "trip_total",
+      "value": 34
+     }
+    }
+   ],
+   "final": "34"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "leg1"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "leg2"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "12+15"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "trip_total",
+      "value": 27
+     }
+    }
+   ],
+   "final": "27"
+  }
+ },
+ {
+  "local_id": "g5-10",
+  "family": "longhorizon",
+  "subtheme": "todo-file-steps",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The file named todo holds three steps for a fictional print shop. Read it and carry out the three steps in order. Do not touch any file or key that the steps do not mention. Final answer: the batch number, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "write_file",
+   "delete_file"
+  ],
+  "env": {
+   "kv": {
+    "batch": 583,
+    "shift": 2
+   },
+   "files": {
+    "todo": "Step 1: read the kv key batch.\nStep 2: write a file named label whose content is just that batch number.\nStep 3: delete the file named draft.\n",
+    "draft": "old label 512",
+    "keep": "do not delete"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 583
+   },
+   {
+    "type": "env_equals",
+    "path": "files.label",
+    "value": "583"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.draft"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.keep",
+    "value": "do not delete"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "todo"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "batch"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.batch",
+    "value": 583
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.shift",
+    "value": 2
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "todo"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "batch"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "label",
+      "content": "583"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "draft"
+     }
+    }
+   ],
+   "final": "583"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "todo"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "batch"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "label",
+      "content": "583"
+     }
+    }
+   ],
+   "final": "583"
+  }
+ },
+ {
+  "local_id": "g5-11",
+  "family": "longhorizon",
+  "subtheme": "tariff-rate-charge",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional boat-hire desk works out a charge. The kv key tariff names the tariff in use and the kv key hours holds the hours hired. The file named rates lists the price per hour of every tariff. Read tariff, read the rates file to find the price of that tariff, read hours, use the calc tool to multiply the price by the hours, and store the result under the kv key charge. Final answer: the charge, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "tariff": "night",
+    "hours": 6,
+    "charge": 0,
+    "deposit": 50
+   },
+   "files": {
+    "rates": "day: 14\nnight: 23\nweekend: 31\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 138
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.charge",
+    "value": 138
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.deposit",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.hours",
+    "value": 6
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "rates"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "tariff"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tariff"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "rates"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "hours"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "23*6"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "charge",
+      "value": 138
+     }
+    }
+   ],
+   "final": "138"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tariff"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "rates"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "hours"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "14*6"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "charge",
+      "value": 84
+     }
+    }
+   ],
+   "final": "84"
+  }
+ },
+ {
+  "local_id": "g5-12",
+  "family": "longhorizon",
+  "subtheme": "advance-queue-pointer",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional repair desk keeps tickets in the kv store. The key current holds the key of the ticket being served. Every ticket entry holds an owner and the key of the next ticket. The ticket being served is now finished: read current, read that ticket to find its next ticket, and set current to that next ticket key. Then read the new current ticket. Final answer: the owner of the new current ticket, just the name.",
+  "tools": [
+   "kv_get",
+   "kv_set"
+  ],
+  "env": {
+   "kv": {
+    "current": "t14",
+    "t14": {
+     "owner": "Mira",
+     "next": "t22"
+    },
+    "t22": {
+     "owner": "Oskar",
+     "next": "t17"
+    },
+    "t17": {
+     "owner": "Lene",
+     "next": "none"
+    },
+    "t15": {
+     "owner": "Bram",
+     "next": "t22"
+    }
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\boskar\\b",
+    "flags": "i"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(mira|lene|bram)\\b",
+    "flags": "i"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.current",
+    "value": "t22"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.t17.next",
+    "value": "none"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "t22"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "current"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "t14"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "current",
+      "value": "t22"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "t22"
+     }
+    }
+   ],
+   "final": "Oskar"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "current"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "t14"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "t22"
+     }
+    }
+   ],
+   "final": "Oskar"
+  }
+ },
+ {
+  "local_id": "g5-13",
+  "family": "longhorizon",
+  "subtheme": "manifest-crate-summary",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional fruit stall has several crate files. The file named manifest says which crate file is the source for today's summary. Read manifest, read the crate file it names, and use the calc tool to add the apples and pears in that crate. Write a file named summary whose content is just that total. Do not change the other files. Final answer: the total, just the number.",
+  "tools": [
+   "read_file",
+   "write_file",
+   "calc"
+  ],
+  "env": {
+   "files": {
+    "manifest": "source: crate_b",
+    "crate_a": "apples 20\npears 11\n",
+    "crate_b": "apples 14\npears 9\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 23
+   },
+   {
+    "type": "env_equals",
+    "path": "files.summary",
+    "value": "23"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "manifest"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "crate_b"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "env_contains",
+    "path": "files.crate_a",
+    "value": "apples 20"
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "manifest"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "crate_b"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "14+9"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "summary",
+      "content": "23"
+     }
+    }
+   ],
+   "final": "23"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "manifest"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "crate_a"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "20+11"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "summary",
+      "content": "31"
+     }
+    }
+   ],
+   "final": "31"
+  }
+ },
+ {
+  "local_id": "g5-14",
+  "family": "longhorizon",
+  "subtheme": "updates-file-correction",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv key score holds the points of a fictional darts team. The file named updates lists changes to apply in order, one per line; a line may correct the line above it, and then only the corrected amount counts. Read the file, read score with kv_get, use the calc tool to apply the changes, and store the new value under score with kv_set. Then delete the file named updates. Do not change any other key. Final answer: the new score, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "delete_file",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "score": 40,
+    "bonus_pool": 100
+   },
+   "files": {
+    "updates": "add 15\ncorrection: the line above should be add 12, not add 15\nsubtract 7\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.score",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.bonus_pool",
+    "value": 100
+   },
+   {
+    "type": "env_absent",
+    "path": "files.updates"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "updates"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "updates"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "score"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "40+12-7"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "score",
+      "value": 45
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "updates"
+     }
+    }
+   ],
+   "final": "45"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "updates"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "score"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "40+15-7"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "score",
+      "value": 48
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "updates"
+     }
+    }
+   ],
+   "final": "48"
+  }
+ },
+ {
+  "local_id": "g5-15",
+  "family": "longhorizon",
+  "subtheme": "wire-file-fee-deducted-from-receipt",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv store holds coin balances of three fictional guild accounts. The file named wire describes one transfer and its fee. Read it, then read both accounts involved, use the calc tool, and update both kv keys: the sender loses the full amount, and the receiver gains the amount minus the fee. Leave the third account alone. Final answer: the receiver's new balance, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "amber": 100,
+    "birch": 55,
+    "cedar": 70
+   },
+   "files": {
+    "wire": "from: amber\nto: birch\namount: 40\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 93
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.amber",
+    "value": 60
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.birch",
+    "value": 93
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.cedar",
+    "value": 70
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "wire"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "wire"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "amber"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "birch"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "55+40-2"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "amber",
+      "value": 60
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "birch",
+      "value": 93
+     }
+    }
+   ],
+   "final": "93"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "wire"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "amber"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "birch"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "55+40"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "amber",
+      "value": 60
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "birch",
+      "value": 95
+     }
+    }
+   ],
+   "final": "95"
+  }
+ },
+ {
+  "local_id": "g5-16",
+  "family": "longhorizon",
+  "subtheme": "inbox-job-log-cleanup",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "A fictional job runner works from files. The file named inbox names exactly one job file. Read inbox, read the job file it names, and carry out that job's instruction on the kv store: read the key, use the calc tool, and write the new value back. Then write a file named log whose content is just the new value of that key, and delete the job file you processed. Do not touch any other file or key. Final answer: the new value, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "write_file",
+   "delete_file",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "counter": 25,
+    "limit": 90
+   },
+   "files": {
+    "inbox": "process the file named job_k",
+    "job_k": "add 17 to the kv key counter",
+    "job_m": "add 30 to the kv key counter"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 42
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.counter",
+    "value": 42
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.limit",
+    "value": 90
+   },
+   {
+    "type": "env_equals",
+    "path": "files.log",
+    "value": "42"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.job_k"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.job_m",
+    "value": "add 30"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.inbox",
+    "value": "job_k"
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "inbox"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "job_k"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "counter"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "counter",
+      "value": 42
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "log",
+      "content": "42"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "job_k"
+     }
+    }
+   ],
+   "final": "42"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "inbox"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "job_k"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "counter"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "log",
+      "content": "42"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "job_k"
+     }
+    }
+   ],
+   "final": "42"
+  }
+ },
+ {
+  "local_id": "g5-17",
+  "family": "longhorizon",
+  "subtheme": "operation-chain",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv store holds a fictional recipe for a number. Each step entry holds one operation and the key of the next step. Begin with the number 4 and the key step_a. Apply each step's operation to the running number in the order the chain gives, until a step's next is \"end\". Use the calc tool. Do not use steps that are not on the chain. Store the finished number under the kv key result. Final answer: the finished number, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "step_a": {
+     "op": "add 6",
+     "next": "step_d"
+    },
+    "step_b": {
+     "op": "subtract 8",
+     "next": "end"
+    },
+    "step_c": {
+     "op": "add 50",
+     "next": "end"
+    },
+    "step_d": {
+     "op": "multiply by 3",
+     "next": "step_b"
+    },
+    "result": 0
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.result",
+    "value": 22
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.step_c.op",
+    "value": "add 50"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "step_d"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "step_b"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "step_a"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "step_d"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "step_b"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "(4+6)*3-8"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "result",
+      "value": 22
+     }
+    }
+   ],
+   "final": "22"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "step_a"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "step_b"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "4+6-8"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "result",
+      "value": 2
+     }
+    }
+   ],
+   "final": "2"
+  }
+ },
+ {
+  "local_id": "g5-18",
+  "family": "longhorizon",
+  "subtheme": "count-file-reconcile",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv store holds the book stock of a fictional ironmonger. The file named counted holds today's physical count for some items, one per line. For each item in the file, read its kv value; where the two numbers differ, set the kv key to the counted number. Write a file named shortfall whose content is just the total number of units missing (book stock minus counted, use the calc tool), then delete the file named counted. Final answer: the total number of units missing, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "write_file",
+   "delete_file",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "nails": 53,
+    "screws": 61,
+    "tacks": 12
+   },
+   "files": {
+    "counted": "nails 44\nscrews 61\n"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.nails",
+    "value": 44
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.screws",
+    "value": 61
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tacks",
+    "value": 12
+   },
+   {
+    "type": "env_equals",
+    "path": "files.shortfall",
+    "value": "9"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.counted"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "counted"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "counted"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "nails"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "screws"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "nails",
+      "value": 44
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "shortfall",
+      "content": "9"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "counted"
+     }
+    }
+   ],
+   "final": "9"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "counted"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "nails"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "screws"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "53-44"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "shortfall",
+      "content": "9"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "counted"
+     }
+    }
+   ],
+   "final": "9"
+  }
+ },
+ {
+  "local_id": "g5-19",
+  "family": "longhorizon",
+  "subtheme": "balance-file-pending",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional chess club keeps its money in files. The file named balance holds the current balance as one number. The file named pending lists movements that are not yet applied, one per line: a pay out lowers the balance and a refund received raises it. Read both files, use the calc tool to apply every pending line to the balance, overwrite the file named balance so that its content is just the new number, and delete the file named pending. Final answer: the new balance, just the number.",
+  "tools": [
+   "read_file",
+   "write_file",
+   "delete_file",
+   "calc"
+  ],
+  "env": {
+   "files": {
+    "balance": "120",
+    "pending": "pay out 35\npay out 20\nrefund received 10\n",
+    "archive": "300"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 75
+   },
+   {
+    "type": "env_equals",
+    "path": "files.balance",
+    "value": "75"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.pending"
+   },
+   {
+    "type": "env_equals",
+    "path": "files.archive",
+    "value": "300"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "pending"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "balance"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "pending"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "120-35-20+10"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "balance",
+      "content": "75"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "pending"
+     }
+    }
+   ],
+   "final": "75"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "balance"
+     }
+    },
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "pending"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "120-35-20"
+     }
+    },
+    {
+     "tool": "write_file",
+     "args": {
+      "path": "balance",
+      "content": "65"
+     }
+    },
+    {
+     "tool": "delete_file",
+     "args": {
+      "path": "pending"
+     }
+    }
+   ],
+   "final": "65"
+  }
+ },
+ {
+  "local_id": "g5-20",
+  "family": "longhorizon",
+  "subtheme": "unlink-chain-entry",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv store holds a fictional courier route as a chain. The key first holds the name of the first stop; each stop key holds the name of the next stop, and the last stop holds \"end\". The stop quay has closed and must be taken out of the route. Follow the route from first to find the stop whose value is quay, read quay to see which stop comes after it, set the earlier stop to point to that later stop, and delete the key quay. Final answer: the name of the stop that used to point to quay, just the name.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "kv_delete"
+  ],
+  "env": {
+   "kv": {
+    "first": "mill",
+    "mill": "pier",
+    "pier": "quay",
+    "quay": "weir",
+    "weir": "end",
+    "ford": "weir"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bpier\\b",
+    "flags": "i"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(mill|weir|ford)\\b",
+    "flags": "i"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.pier",
+    "value": "weir"
+   },
+   {
+    "type": "env_absent",
+    "path": "kv.quay"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.mill",
+    "value": "pier"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ford",
+    "value": "weir"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.first",
+    "value": "mill"
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "first"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "mill"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "pier"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "quay"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "pier",
+      "value": "weir"
+     }
+    },
+    {
+     "tool": "kv_delete",
+     "args": {
+      "key": "quay"
+     }
+    }
+   ],
+   "final": "pier"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "first"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "mill"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "pier"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "quay"
+     }
+    },
+    {
+     "tool": "kv_delete",
+     "args": {
+      "key": "quay"
+     }
+    }
+   ],
+   "final": "pier"
+  }
+ },
+ {
+  "local_id": "g5-21",
+  "family": "longhorizon",
+  "subtheme": "recipe-file-usage",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "A fictional bakery bakes one order. The file named recipe says how much flour and how many eggs one loaf needs. The kv key loaves_ordered holds the number of loaves to bake, and the kv keys flour and eggs hold the stock. Read the recipe and the three keys, use the calc tool to work out what the whole order uses, and set flour and eggs to the stock left after baking. Do not change any other key. Final answer: the flour left, just the number.",
+  "tools": [
+   "read_file",
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "loaves_ordered": 4,
+    "flour": 30,
+    "eggs": 23,
+    "butter": 9
+   },
+   "files": {
+    "recipe": "each loaf needs 3 cups of flour and 2 eggs"
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 18
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.flour",
+    "value": 18
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.eggs",
+    "value": 15
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.butter",
+    "value": 9
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.loaves_ordered",
+    "value": 4
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "recipe"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "recipe"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "loaves_ordered"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "flour"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "eggs"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "flour",
+      "value": 18
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "eggs",
+      "value": 15
+     }
+    }
+   ],
+   "final": "18"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "read_file",
+     "args": {
+      "path": "recipe"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "loaves_ordered"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "flour"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "eggs"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "flour",
+      "value": 18
+     }
+    }
+   ],
+   "final": "18"
+  }
+ }
+]

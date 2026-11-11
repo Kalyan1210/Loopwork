@@ -1,0 +1,23 @@
+{
+ "actor": "review-calibration-b",
+ "family": "calibration",
+ "files": {
+  "tasks/calibration/gen_4.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 3, "replaced": 0, "dropped": 0, "final_valid": 21, "answerable": 10, "unanswerable": 11},
+  "tasks/calibration/gen_5.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 1, "prompts_fixed": 1, "replaced": 0, "dropped": 0, "final_valid": 21, "answerable": 11, "unanswerable": 10}
+ },
+ "changes": [
+  {"local_id": "g4-03", "issue": "Name regex rejected correct forms such as 'Granary hall, Vennick' and 'Vennick, in its granary hall'.", "action": "Widened the answer regex; verified Sorrow Ford and INSUFFICIENT still fail."},
+  {"local_id": "g4-13", "issue": "Regex rejected 'Chapel, Gull Rock'.", "action": "Allowed a comma between chapel and Gull Rock; Pennow forms still fail."},
+  {"local_id": "g4-19", "issue": "Regex rejected 'his sister, Maela Vent' / 'Maela Vent, his sister' / 'Arlo's sister Maela Vent'.", "action": "Added optional sister phrase before or after the name; 'Arlo Vent' and bare 'Vent' still fail."},
+  {"local_id": "g5-03", "issue": "Label not airtight: evidence said the cellar 'received no score', so 'none/0' was defensible as an answer to 'how many points did it receive'.", "action": "Reworded evidence: the cellar was scored on a later visit but that card is missing. Expected answer stays INSUFFICIENT."},
+  {"local_id": "g5-19", "issue": "number check reads the last number on the ANSWER line, so the correct '15 strips at 40 degrees' (unit phrase taken from the question) would fail.", "action": "Wrapped in any: number 15 OR regex requiring 15 as the first number on the ANSWER line; 18, 3, 40, 150, 1.5, INSUFFICIENT still fail."}
+ ],
+ "notes": [
+  "All 42 expected answers re-derived independently (arithmetic: g4-09 213, g4-17 15, g5-04 11, g5-10 43, g5-19 15, g5-21 22); none were wrong.",
+  "Every answerable task verified to fail on 'ANSWER: INSUFFICIENT' and on a reply lacking the CONFIDENCE line; every reference passes and every negative fails.",
+  "No duplicates or near-duplicates found within the two files or against dev.json and gen_1..gen_3. Closest pair: g4-08 (kite contest, decision not announced, judge as distractor) vs g2-11 (spelling final postponed); kept as distinct content and distractor.",
+  "Label balance across the two files is 21 answerable / 21 unanswerable; each file has 21 tasks so a per-file split is 10/11 and 11/10. Difficulty is 7/7/7 in each file.",
+  "g4-07 uses real month names (July, October) rather than an invented calendar; the answer is still determined only by the passage, left unchanged.",
+  "Model was not run on these tasks."
+ ]
+}

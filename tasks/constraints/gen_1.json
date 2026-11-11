@@ -50,7 +50,7 @@
    {
     "type": "regex",
     "flags": "",
-    "pattern": "^\\s*(```json)?\\s*\\[\\s*\"fiddle\""
+    "pattern": "^\\s*(```(json)?)?\\s*\\[\\s*\"fiddle\""
    }
   ],
   "reference": "[\"fiddle\", \"ocarina\", \"tambour\"]",
@@ -401,7 +401,7 @@
   "subtheme": "json-apply-correction",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "Memo (fictional): \"Orchard Committee: room 4, time 09:30. Correction: the room is now room 9; the time is unchanged.\"\nReply with ONLY one JSON object describing the meeting AFTER the correction, with exactly these keys: \"committee\" (string, the committee's name), \"room\" (number), \"time\" (string in the form HH:MM). No other keys and no extra text.",
+  "prompt": "Memo (fictional): \"Orchard Committee: room 4, time 09:30. Correction: the room is now room 9; the time is unchanged.\"\nReply with ONLY one JSON object describing the meeting AFTER the correction, with exactly these keys: \"committee\" (string, the committee's full two-word name as written in the memo), \"room\" (number), \"time\" (string in the form HH:MM). No other keys and no extra text.",
   "checks": [
    {
     "type": "json",

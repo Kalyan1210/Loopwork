@@ -21,7 +21,7 @@
    },
    {
     "type": "regex",
-    "pattern": "QUESTION:.*(tin|usual|size|hold|capacity|per (can|pot)|each (can|pot))"
+    "pattern": "QUESTION:.*(usual|size|hold|capacity|volume|how (big|large)|(litres?|liters?) (is|are|in|per|does|do|for)|per (tin|can|pot)|each (tin|can|pot)|a tin of primer|primer tin)"
    }
   ],
   "tags": {
@@ -337,7 +337,7 @@
    },
    {
     "type": "regex",
-    "pattern": "ANSWER:.*\\b0?16[:.]50\\b"
+    "pattern": "ANSWER:.*\\b(16|0?4)[:.]50\\b"
    }
   ],
   "tags": {

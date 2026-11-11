@@ -71,7 +71,7 @@
   "subtheme": "different-place",
   "difficulty": "medium",
   "mode": "single",
-  "prompt": "EVIDENCE:\nInspection card, Orchard Dairy. On the 9th of Larkmonth inspector Sela Brand visited the milking shed and gave it 82 points. The cheese cellar was locked that day and received no score.\n\nQUESTION: How many points did the cheese cellar at Orchard Dairy receive?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "prompt": "EVIDENCE:\nInspection card, Orchard Dairy. On the 9th of Larkmonth inspector Sela Brand visited the milking shed and gave it 82 points. The cheese cellar was locked that day; it was scored on a later visit, but that card is missing.\n\nQUESTION: How many points did the cheese cellar at Orchard Dairy receive?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
   "max_tokens": 80,
   "checks": [
    {
@@ -643,8 +643,18 @@
   "max_tokens": 80,
   "checks": [
    {
-    "type": "number",
-    "value": 15
+    "type": "any",
+    "checks": [
+     {
+      "type": "number",
+      "value": 15
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\D*\\b15\\b(?![.,]?\\d)",
+      "flags": "im"
+     }
+    ]
    },
    {
     "type": "not_regex",

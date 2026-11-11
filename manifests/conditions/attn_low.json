@@ -1,7 +1,7 @@
 {
- "id": "tune_attn_m15",
+ "id": "attn_low",
  "type": "intervention",
- "label": "attn_norm gain x0.85, blocks 10-17",
+ "label": "attn_norm gain x0.85, blocks 10-17 (attention input attenuated 15%)",
  "built_from": "artifacts/baseline.gguf",
  "baseline_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
  "method": "edit",
@@ -148,9 +148,9 @@
  "total_delta_l2": 43.24539330105272,
  "relative_delta_l2": 0.14999997783423033,
  "n_elements_edited": 16384,
- "artifact": "artifacts/tune_attn_m15.gguf",
+ "artifact": "artifacts/attn_low.gguf",
  "artifact_sha256": "e85298a936e43cf533aeb5ca4b67f434cd17e3b396ebcda19da328ac1ef50140",
  "artifact_bytes": 1359279776,
  "identical_to_baseline": false,
- "built_at": "2026-11-10T00:08:34-0500"
+ "built_at": "2026-11-10T19:28:23-0500"
 }

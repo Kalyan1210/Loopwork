@@ -1,0 +1,21 @@
+{
+ "actor": "review-ambiguity-b",
+ "family": "ambiguity",
+ "method": "Re-derived every expected answer by hand/python, checked format blocks are verbatim (one distinct block per file), probed changed checkers with alternative correct and wrong replies via lab/core.run_check, compared against dev.json and gen_1..gen_3 for near-duplicates. Model not run (held-out).",
+ "files": {
+  "tasks/ambiguity/gen_4.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 2, "replaced": 2, "dropped": 0, "final_valid": 21,
+   "balance": {"ANSWER": 10, "FLAG": 7, "ASK": 4}},
+  "tasks/ambiguity/gen_5.json": {"tasks_checked": 21, "answers_fixed": 0, "checkers_fixed": 1, "prompts_fixed": 1, "replaced": 1, "dropped": 0, "final_valid": 21,
+   "balance": {"ASK_single": 7, "ASK_then_ANSWER_multi": 4, "ANSWER": 10}}
+ },
+ "changes": [
+  {"local_id": "g4-01", "issue": "Near-duplicate of dev-09 (order slip with quantity ordered / packed / unit price; consistent mirror of the dev task).", "action": "Replaced with a new easy ANSWER task: consistent vote tally (9+5+2=16), answer 5."},
+  {"local_id": "g4-03", "issue": "Near-duplicate of g1-15 (courier, 3 coins per kg, parcel weight missing, ASK for weight).", "action": "Replaced with a new medium ASK task: mark sheet with blank practical mark; regex requires 'practical'."},
+  {"local_id": "g4-02", "issue": "FLAG regex required both surnames; a correct reply citing first names (Oda vs Ilse) would fail.", "action": "Widened regex to accept brink|oda and marrow|ilse; still rejects Brink vs Quill."},
+  {"local_id": "g4-18", "issue": "FLAG regex required the digit 3/three; a correct reply citing the three listed names instead of the count would fail.", "action": "Widened second lookahead to 3|three|vay|name(s)|listed; still requires 4/four."},
+  {"local_id": "g5-01", "issue": "First-reply regex accepted bare 'which', so a restatement of the member's own question ('Which room is the pottery class in?') passed as a clarifying question.", "action": "Tightened to 'which (pottery|class|one|session|time|of)' plus the time/room alternatives."},
+  {"local_id": "g5-19", "issue": "Request said 'up to the harbour master' while one of the two blue files is labelled 'harbour fees', a pragmatic hint that made ANSWER F1 defensible.", "action": "Changed recipient to 'Mr Dace' so both blue files are equally plausible; checks unchanged."},
+  {"local_id": "g5-12", "issue": "Turn 1 near-duplicate of dev-07 (two staff sharing a first name, different departments).", "action": "Replaced with a role reference ('the driver') matching two drivers on different shifts; turn 2 names the night shift, answer Odo Brill."}
+ ],
+ "validation": {"gen_4": "21/21 valid", "gen_5": "21/21 valid"}
+}

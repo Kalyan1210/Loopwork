@@ -1,0 +1,156 @@
+{
+ "actor": "safety-review-2",
+ "role": "safety-review",
+ "scope": "tasks/*/dev.json and tasks/*/gen_*.json, all families except safety",
+ "files_scanned": 54,
+ "tasks_scanned": 1035,
+ "tasks_per_file": {
+  "tasks/ambiguity/dev.json": 10,
+  "tasks/ambiguity/gen_1.json": 21,
+  "tasks/ambiguity/gen_2.json": 21,
+  "tasks/ambiguity/gen_3.json": 21,
+  "tasks/ambiguity/gen_4.json": 21,
+  "tasks/ambiguity/gen_5.json": 21,
+  "tasks/calibration/dev.json": 10,
+  "tasks/calibration/gen_1.json": 21,
+  "tasks/calibration/gen_2.json": 21,
+  "tasks/calibration/gen_3.json": 21,
+  "tasks/calibration/gen_4.json": 21,
+  "tasks/calibration/gen_5.json": 21,
+  "tasks/coding/dev.json": 10,
+  "tasks/coding/gen_1.json": 21,
+  "tasks/coding/gen_2.json": 21,
+  "tasks/coding/gen_3.json": 21,
+  "tasks/coding/gen_4.json": 21,
+  "tasks/coding/gen_5.json": 21,
+  "tasks/constraints/dev.json": 10,
+  "tasks/constraints/gen_1.json": 21,
+  "tasks/constraints/gen_2.json": 21,
+  "tasks/constraints/gen_3.json": 21,
+  "tasks/constraints/gen_4.json": 21,
+  "tasks/constraints/gen_5.json": 21,
+  "tasks/longhorizon/dev.json": 10,
+  "tasks/longhorizon/gen_1.json": 21,
+  "tasks/longhorizon/gen_2.json": 21,
+  "tasks/longhorizon/gen_3.json": 21,
+  "tasks/longhorizon/gen_4.json": 21,
+  "tasks/longhorizon/gen_5.json": 21,
+  "tasks/math/dev.json": 10,
+  "tasks/math/gen_1.json": 21,
+  "tasks/math/gen_2.json": 21,
+  "tasks/math/gen_3.json": 21,
+  "tasks/math/gen_4.json": 21,
+  "tasks/math/gen_5.json": 21,
+  "tasks/planning/dev.json": 10,
+  "tasks/planning/gen_1.json": 21,
+  "tasks/planning/gen_2.json": 21,
+  "tasks/planning/gen_3.json": 21,
+  "tasks/planning/gen_4.json": 21,
+  "tasks/planning/gen_5.json": 21,
+  "tasks/synthesis/dev.json": 10,
+  "tasks/synthesis/gen_1.json": 21,
+  "tasks/synthesis/gen_2.json": 21,
+  "tasks/synthesis/gen_3.json": 21,
+  "tasks/synthesis/gen_4.json": 21,
+  "tasks/synthesis/gen_5.json": 21,
+  "tasks/tools/dev.json": 10,
+  "tasks/tools/gen_1.json": 21,
+  "tasks/tools/gen_2.json": 21,
+  "tasks/tools/gen_3.json": 21,
+  "tasks/tools/gen_4.json": 21,
+  "tasks/tools/gen_5.json": 21
+ },
+ "mode_counts": {
+  "single": 674,
+  "tool": 172,
+  "code": 115,
+  "multi": 74
+ },
+ "method": [
+  "Regex keyword scan over the full JSON of every task (prompt, turns, env, checks, reference, negative) for: network/filesystem/process APIs, URLs, email addresses, credential patterns, PII patterns (SSN/card/phone/IP/long digit runs), harm vocabulary, real organisations and public figures, medical/legal/financial terms, injection/shell vocabulary.",
+  "Dedicated pass over all 115 code-mode tasks (code_tests, reference, negative, prompt) for imports, open(), os/sys/socket/subprocess, eval/exec, dunder access, input(), infinite loops.",
+  "Listed every send_message recipient used in tool-mode references/negatives.",
+  "Read each flagged candidate in context.",
+  "Ran lab/validate_tasks.py on all 54 files."
+ ],
+ "candidates_reviewed": [
+  {
+   "file": "tasks/coding/gen_1.json",
+   "id": "g1-08",
+   "hit": "http://x?q=1",
+   "verdict": "benign: placeholder string literal parsed by a pure function, no network call"
+  },
+  {
+   "file": "tasks/constraints/gen_5.json",
+   "id": "g5-15",
+   "hit": "*@vale.test addresses",
+   "verdict": "benign: fictional names on reserved .test TLD"
+  },
+  {
+   "file": "tasks/tools/gen_4.json",
+   "id": "g4-09",
+   "hit": "gate code + embedded delete request in file",
+   "verdict": "benign: sandboxed injection-resistance task with fictional code, in-memory files only"
+  },
+  {
+   "file": "tasks/constraints/gen_1.json",
+   "id": "g1-09",
+   "hit": "patient/phone",
+   "verdict": "benign: explicitly fictional clinic form, phone 'not provided'"
+  },
+  {
+   "file": "tasks/longhorizon/gen_3.json",
+   "id": "g3-11",
+   "hit": "passport",
+   "verdict": "benign: todo-list item word"
+  },
+  {
+   "file": "tasks/longhorizon/gen_3.json",
+   "id": "g3-05",
+   "hit": "injured",
+   "verdict": "benign: relay-order substitution"
+  },
+  {
+   "file": "tasks/coding/gen_1.json",
+   "id": "g1-06",
+   "hit": "0123456789",
+   "verdict": "benign: digit alphabet string"
+  },
+  {
+   "file": "tasks/coding/dev.json",
+   "id": "dev-10",
+   "hit": "from collections import",
+   "verdict": "benign: stdlib, no I/O"
+  },
+  {
+   "file": "tasks/coding/gen_3.json",
+   "id": "g3-03,g3-09,g3-16,g3-20,g3-21",
+   "hit": "__init__",
+   "verdict": "benign: ordinary class constructors"
+  },
+  {
+   "file": "various",
+   "id": "-",
+   "hit": "token/secret/stab/pickle/requests/die/dead/bank/root/admin/curl/ssh substrings",
+   "verdict": "benign: game tokens, club secretary, stable, pickled beets, 'requests addressed to', dice, deadline, river bank etc., quadratic roots, curlew"
+  }
+ ],
+ "summary_of_checks": {
+  "network_or_out_of_sandbox_code": 0,
+  "real_credentials": 0,
+  "real_personal_data": 0,
+  "operational_harmful_content": 0,
+  "non_fictional_sensitive_content": 0,
+  "only_import_in_code_tasks": "collections",
+  "send_message_recipients": "all fictional role names (porter, foreman, depot, ops-all, ...)"
+ },
+ "findings": [],
+ "actions": [],
+ "files_modified": [],
+ "validation": {
+  "files_validated": 54,
+  "all_valid": true,
+  "tasks_valid": 1035
+ },
+ "limits": "Keyword-driven scan plus reading of flagged tasks; the 1035 tasks were not each read end to end by hand."
+}

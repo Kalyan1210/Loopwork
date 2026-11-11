@@ -1,0 +1,845 @@
+[
+ {
+  "local_id": "g3-01",
+  "family": "longhorizon",
+  "subtheme": "queue-join-serve",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the waiting queue at a fictional vet clinic. After each of my messages, reply with only one line in the form QUEUE: followed by the names from front to back, separated by commas. From front to back the queue is: Odile, Bern, Katya.",
+   "Lorne joins at the back.",
+   "The person at the front is called in and leaves the queue.",
+   "Pim joins at the back."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(queue\\W+)?bern\\W+katya\\W+lorne\\W+pim\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "QUEUE: Odile, Bern, Katya",
+   "QUEUE: Odile, Bern, Katya, Lorne",
+   "QUEUE: Bern, Katya, Lorne",
+   "QUEUE: Bern, Katya, Lorne, Pim"
+  ],
+  "negative": [
+   "QUEUE: Odile, Bern, Katya",
+   "QUEUE: Odile, Bern, Katya, Lorne",
+   "QUEUE: Odile, Bern, Katya, Lorne",
+   "QUEUE: Odile, Bern, Katya, Lorne, Pim"
+  ]
+ },
+ {
+  "local_id": "g3-02",
+  "family": "longhorizon",
+  "subtheme": "playlist-remove-add-ends",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track a fictional playlist. After each of my messages, reply with only one line in the form PLAYLIST: followed by the song titles from first to last, separated by commas. From first to last the playlist is: Harbor, Lanterns, Ember, Tidewater.",
+   "Remove Ember from the playlist.",
+   "Add Quartz as the new first song.",
+   "Add Meadow at the end."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(playlist\\W+)?quartz\\W+harbor\\W+lanterns\\W+tidewater\\W+meadow\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "PLAYLIST: Harbor, Lanterns, Ember, Tidewater",
+   "PLAYLIST: Harbor, Lanterns, Tidewater",
+   "PLAYLIST: Quartz, Harbor, Lanterns, Tidewater",
+   "PLAYLIST: Quartz, Harbor, Lanterns, Tidewater, Meadow"
+  ],
+  "negative": [
+   "PLAYLIST: Harbor, Lanterns, Ember, Tidewater",
+   "PLAYLIST: Harbor, Lanterns, Tidewater",
+   "PLAYLIST: Harbor, Lanterns, Tidewater",
+   "PLAYLIST: Harbor, Lanterns, Tidewater, Meadow"
+  ]
+ },
+ {
+  "local_id": "g3-03",
+  "family": "longhorizon",
+  "subtheme": "guest-list-count",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the guest list for a fictional dinner. After each of my messages, reply with only one line in the form GUESTS: <number> giving how many guests are on the list now. The list starts with six guests: Alda, Benno, Cyra, Dax, Elin and Fitz.",
+   "Cyra and Dax cancel and are taken off the list.",
+   "Three new guests are added: Gwen, Hale and Ivo.",
+   "Elin and Fitz cancel and are taken off the list."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo_count",
+   "answer_kind": "count"
+  },
+  "reference": [
+   "GUESTS: 6",
+   "GUESTS: 4",
+   "GUESTS: 7",
+   "GUESTS: 5"
+  ],
+  "negative": [
+   "GUESTS: 6",
+   "GUESTS: 4",
+   "GUESTS: 7",
+   "GUESTS: 6"
+  ]
+ },
+ {
+  "local_id": "g3-04",
+  "family": "longhorizon",
+  "subtheme": "shelf-left-end-and-removal",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the order of books on a fictional shelf. Acknowledge each update in a few words. From left to right the shelf holds: Atlas, Fables, Herbal, Sonnets.",
+   "I put Almanac at the left end of the shelf.",
+   "I take Herbal off the shelf.",
+   "What is on the shelf now? Reply with only one line in the form SHELF: followed by the book titles from left to right, separated by commas."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(shelf\\W+)?almanac\\W+atlas\\W+fables\\W+sonnets\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "SHELF: Almanac, Atlas, Fables, Sonnets"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "SHELF: Almanac, Atlas, Fables, Herbal, Sonnets"
+  ]
+ },
+ {
+  "local_id": "g3-05",
+  "family": "longhorizon",
+  "subtheme": "relay-substitution-position",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the running order of a fictional relay team. Acknowledge each update in a few words. The order is: Juno first, Kell second, Mara third, Nils fourth.",
+   "Kell is injured. Oskar takes Kell's exact place in the order.",
+   "A new runner, Pia, is added at the very start of the order, so everyone else runs one place later.",
+   "Who runs third now? Reply with one line in exactly this form: ANSWER: <name>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Oskar"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "pos"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Oskar"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Kell"
+  ]
+ },
+ {
+  "local_id": "g3-06",
+  "family": "longhorizon",
+  "subtheme": "move-to-front-then-leave",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the line of boats waiting at a fictional lock. After each of my messages, reply with only one line in the form ORDER: followed by the boat names from front to back, separated by commas. From front to back the line is: Heron, Otter, Pike, Wren.",
+   "Wren is waved forward to the very front of the line.",
+   "Otter gives up waiting and leaves the line.",
+   "Gull joins at the back."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(order\\W+)?wren\\W+heron\\W+pike\\W+gull\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "ORDER: Heron, Otter, Pike, Wren",
+   "ORDER: Wren, Heron, Otter, Pike",
+   "ORDER: Wren, Heron, Pike",
+   "ORDER: Wren, Heron, Pike, Gull"
+  ],
+  "negative": [
+   "ORDER: Heron, Otter, Pike, Wren",
+   "ORDER: Heron, Otter, Pike, Wren",
+   "ORDER: Heron, Pike, Wren",
+   "ORDER: Heron, Pike, Wren, Gull"
+  ]
+ },
+ {
+  "local_id": "g3-07",
+  "family": "longhorizon",
+  "subtheme": "front-of-queue-echo",
+  "difficulty": "easy",
+  "mode": "multi",
+  "turns": [
+   "Track the queue at a fictional barber shop. After each of my messages, reply with only one line in the form NEXT: <name> giving the person who is at the front of the queue now. From front to back the queue is: Tavi, Ronan, Elke.",
+   "The person at the front gets a haircut and leaves the queue.",
+   "Sabine joins at the back.",
+   "The two people at the front get haircuts and leave the queue."
+  ],
+  "max_tokens": 60,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(next\\W+)?sabine\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo_front",
+   "answer_kind": "front"
+  },
+  "reference": [
+   "NEXT: Tavi",
+   "NEXT: Ronan",
+   "NEXT: Ronan",
+   "NEXT: Sabine"
+  ],
+  "negative": [
+   "NEXT: Tavi",
+   "NEXT: Tavi",
+   "NEXT: Tavi",
+   "NEXT: Elke"
+  ]
+ },
+ {
+  "local_id": "g3-08",
+  "family": "longhorizon",
+  "subtheme": "queue-distractor-rejoin",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the queue at a fictional noodle truck. After each of my messages, reply with only one line in the form QUEUE: followed by the names from front to back, separated by commas. From front to back the queue is: Zane, Mirit, Hollis, Petra.",
+   "Hollis gives up and leaves the queue.",
+   "Unrelated: at the juice stall next door the queue is Bo, Carys and Thad. The noodle queue has not changed.",
+   "Ugo joins at the back. Then the person at the front is served and leaves.",
+   "Mirit steps out of the queue and then rejoins at the back."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(queue\\W+)?petra\\W+ugo\\W+mirit\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "QUEUE: Zane, Mirit, Hollis, Petra",
+   "QUEUE: Zane, Mirit, Petra",
+   "QUEUE: Zane, Mirit, Petra",
+   "QUEUE: Mirit, Petra, Ugo",
+   "QUEUE: Petra, Ugo, Mirit"
+  ],
+  "negative": [
+   "QUEUE: Zane, Mirit, Hollis, Petra",
+   "QUEUE: Zane, Mirit, Petra",
+   "QUEUE: Zane, Mirit, Petra",
+   "QUEUE: Mirit, Petra, Ugo",
+   "QUEUE: Mirit, Petra, Ugo"
+  ]
+ },
+ {
+  "local_id": "g3-09",
+  "family": "longhorizon",
+  "subtheme": "correction-wrong-name",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the boarding line for a fictional coach trip. After each of my messages, reply with only one line in the form LINE: followed by the names from front to back, separated by commas. From front to back the line is: Farid, Greta, Ilse.",
+   "Joss joins at the back.",
+   "Greta leaves the line.",
+   "Correction: the person who joined at the back was Koa, not Joss. Joss was never in the line.",
+   "Lena joins at the front."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?lena\\W+farid\\W+ilse\\W+koa\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "LINE: Farid, Greta, Ilse",
+   "LINE: Farid, Greta, Ilse, Joss",
+   "LINE: Farid, Ilse, Joss",
+   "LINE: Farid, Ilse, Koa",
+   "LINE: Lena, Farid, Ilse, Koa"
+  ],
+  "negative": [
+   "LINE: Farid, Greta, Ilse",
+   "LINE: Farid, Greta, Ilse, Joss",
+   "LINE: Farid, Ilse, Joss",
+   "LINE: Farid, Ilse, Joss",
+   "LINE: Lena, Farid, Ilse, Joss"
+  ]
+ },
+ {
+  "local_id": "g3-10",
+  "family": "longhorizon",
+  "subtheme": "set-membership-no-duplicates",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the sign-up sheet for a fictional chess club. A name can be on the sheet only once. Acknowledge each update in a few words. The sheet starts with five names: Arlo, Bex, Cato, Dina and Emre.",
+   "Fenn and Gita sign up.",
+   "Bex tries to sign up again; she is already on the sheet, so nothing changes. Cato crosses his name off.",
+   "Hugo, who was never on the sheet, asks to be removed, so nothing changes. Dina and Arlo cross their names off.",
+   "Emre crosses his name off. Fenn tries to sign up a second time, which changes nothing.",
+   "How many names are on the sheet now? Reply with one line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "count"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 3"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: 4"
+  ]
+ },
+ {
+  "local_id": "g3-11",
+  "family": "longhorizon",
+  "subtheme": "todo-insert-at-position",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track a fictional to-do list. After each of my messages, reply with only one line in the form TODO: followed by the items from top to bottom, separated by commas. From top to bottom the list is: laundry, invoices, groceries, dentist.",
+   "I finish invoices and delete it from the list.",
+   "I add passport as the new item 2, so the items below it move down one place.",
+   "I add recycling at the bottom.",
+   "I finish the item at the top and delete it."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(todo\\W+)?passport\\W+groceries\\W+dentist\\W+recycling\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "TODO: laundry, invoices, groceries, dentist",
+   "TODO: laundry, groceries, dentist",
+   "TODO: laundry, passport, groceries, dentist",
+   "TODO: laundry, passport, groceries, dentist, recycling",
+   "TODO: passport, groceries, dentist, recycling"
+  ],
+  "negative": [
+   "TODO: laundry, invoices, groceries, dentist",
+   "TODO: laundry, groceries, dentist",
+   "TODO: laundry, passport, groceries, dentist",
+   "TODO: laundry, passport, groceries, dentist, recycling",
+   "TODO: laundry, passport, groceries, dentist, recycling"
+  ]
+ },
+ {
+  "local_id": "g3-12",
+  "family": "longhorizon",
+  "subtheme": "rack-insert-next-to",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the order of jars on a fictional spice rack. Acknowledge each update in a few words. From left to right the rack holds: Cumin, Thyme, Saffron, Fennel.",
+   "I place Nutmeg immediately to the right of Thyme.",
+   "I remove Cumin from the rack.",
+   "I place Clove immediately to the left of Fennel.",
+   "Unrelated: the tea tin on the counter holds Mint, Assam and Rooibos. The rack has not changed.",
+   "What is on the rack now? Reply with only one line in the form RACK: followed by the jar names from left to right, separated by commas."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(rack\\W+)?thyme\\W+nutmeg\\W+saffron\\W+clove\\W+fennel\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "RACK: Thyme, Nutmeg, Saffron, Clove, Fennel"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "RACK: Thyme, Nutmeg, Saffron, Fennel"
+  ]
+ },
+ {
+  "local_id": "g3-13",
+  "family": "longhorizon",
+  "subtheme": "relay-last-to-first-position",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the swimming order of a fictional relay team. Acknowledge each update in a few words. The order is: Dara first, Esme second, Flo third, Gia fourth.",
+   "Gia, who swims last, is moved to swim first. The others each swim one place later.",
+   "Unrelated: the rival team's order is Hana, Iris, Jade, Kim.",
+   "Flo is moved up to swim second. Dara and Esme each swim one place later.",
+   "Lux joins the team and is placed to swim first.",
+   "Who swims fourth now? Reply with one line in exactly this form: ANSWER: <name>"
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Dara"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "pos"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Dara"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "ANSWER: Esme"
+  ]
+ },
+ {
+  "local_id": "g3-14",
+  "family": "longhorizon",
+  "subtheme": "batch-serve-from-front",
+  "difficulty": "medium",
+  "mode": "multi",
+  "turns": [
+   "Track the line outside a fictional concert hall. Acknowledge each update in a few words. From front to back the line is: Abel, Brisa, Corin, Dessa, Eamon.",
+   "The two people at the front are let in and leave the line.",
+   "Farah, Galen, Hesper and Idris join at the back, in that order.",
+   "Dessa gives up and leaves the line. Unrelated: the hall has 200 seats.",
+   "The person at the front is let in and leaves the line.",
+   "What is the line now? Reply with only one line in the form LINE: followed by the names from front to back, separated by commas."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?eamon\\W+farah\\W+galen\\W+hesper\\W+idris\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "LINE: Eamon, Farah, Galen, Hesper, Idris"
+  ],
+  "negative": [
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "Noted.",
+   "LINE: Dessa, Eamon, Farah, Galen, Hesper, Idris"
+  ]
+ },
+ {
+  "local_id": "g3-15",
+  "family": "longhorizon",
+  "subtheme": "silent-queue-swap-rejoin",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the queue at a fictional ticket booth. Reply with only the word NOTED until I ask a question. From front to back the queue is: Noor, Viggo, Wynn, Yara.",
+   "Wynn lets Yara go ahead of him, so the two of them swap places.",
+   "The person at the front is served and leaves. Then Zeke joins at the back.",
+   "Viggo steps out to take a call and then rejoins at the back.",
+   "Quill is allowed to join at the very front of the queue.",
+   "What is the queue now? Reply with only one line in the form QUEUE: followed by the names from front to back, separated by commas."
+  ],
+  "max_tokens": 120,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(queue\\W+)?quill\\W+yara\\W+wynn\\W+zeke\\W+viggo\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "QUEUE: Quill, Yara, Wynn, Zeke, Viggo"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "QUEUE: Quill, Wynn, Yara, Zeke, Viggo"
+  ]
+ },
+ {
+  "local_id": "g3-16",
+  "family": "longhorizon",
+  "subtheme": "setlist-swaps-and-move",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the set list of a fictional band. After each of my messages, reply with only one line in the form SETLIST: followed by the song titles from first to last, separated by commas. From first to last the set list is: Amber, Brook, Cedar, Dune, Ivory.",
+   "Brook and Cedar swap places.",
+   "Ivory is moved to position 2, where position 1 is the first song. The songs after it each move one place later.",
+   "The first two songs swap places.",
+   "Dune is dropped from the set list. Flint is added at the end."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(setlist\\W+)?ivory\\W+amber\\W+cedar\\W+brook\\W+flint\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "SETLIST: Amber, Brook, Cedar, Dune, Ivory",
+   "SETLIST: Amber, Cedar, Brook, Dune, Ivory",
+   "SETLIST: Amber, Ivory, Cedar, Brook, Dune",
+   "SETLIST: Ivory, Amber, Cedar, Brook, Dune",
+   "SETLIST: Ivory, Amber, Cedar, Brook, Flint"
+  ],
+  "negative": [
+   "SETLIST: Amber, Brook, Cedar, Dune, Ivory",
+   "SETLIST: Amber, Cedar, Brook, Dune, Ivory",
+   "SETLIST: Amber, Ivory, Cedar, Brook, Dune",
+   "SETLIST: Amber, Ivory, Cedar, Brook, Dune",
+   "SETLIST: Amber, Ivory, Cedar, Brook, Flint"
+  ]
+ },
+ {
+  "local_id": "g3-17",
+  "family": "longhorizon",
+  "subtheme": "silent-reversal-position",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the order of floats in a fictional parade. Reply with only the word NOTED until I ask a question. From front to back the floats are: Lion, Moth, Newt, Orca, Puma.",
+   "Quail joins at the back.",
+   "Newt breaks down and leaves the parade.",
+   "The whole parade turns around, so the order is reversed: the float that was last is now at the front.",
+   "The float at the front finishes and leaves the parade.",
+   "Counting from the front, which float is third now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <name>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Moth"
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "pos"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "ANSWER: Moth"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "ANSWER: Orca"
+  ]
+ },
+ {
+  "local_id": "g3-18",
+  "family": "longhorizon",
+  "subtheme": "silent-departure-and-return",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the line for a fictional museum tour. Reply with only the word NOTED until I ask a question. From front to back the line is: Ansel, Britt, Cosmo, Delph, Evie.",
+   "Cosmo leaves the line.",
+   "Fenna joins at the back. Then the person at the front goes in and leaves the line.",
+   "Cosmo's departure was a misunderstanding. He comes back and is given the spot directly behind Delph.",
+   "Evie leaves the line.",
+   "What is the line now? Reply with only one line in the form LINE: followed by the names from front to back, separated by commas."
+  ],
+  "max_tokens": 120,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?britt\\W+delph\\W+cosmo\\W+fenna\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "LINE: Britt, Delph, Cosmo, Fenna"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "LINE: Britt, Delph, Fenna"
+  ]
+ },
+ {
+  "local_id": "g3-19",
+  "family": "longhorizon",
+  "subtheme": "turn-order-rotation",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the turn order in a fictional board game. Whenever a turn is played, the player at the front takes it and then moves to the back. After each of my messages, reply with only one line in the form TURNS: followed by the player names from front to back, separated by commas. From front to back the order is: Rook, Sable, Tarn, Umber.",
+   "Two turns are played.",
+   "Umber is knocked out and leaves the order.",
+   "One turn is played.",
+   "Vesper joins the game directly behind Rook.",
+   "Two turns are played."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(turns\\W+)?sable\\W+tarn\\W+rook\\W+vesper\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "TURNS: Rook, Sable, Tarn, Umber",
+   "TURNS: Tarn, Umber, Rook, Sable",
+   "TURNS: Tarn, Rook, Sable",
+   "TURNS: Rook, Sable, Tarn",
+   "TURNS: Rook, Vesper, Sable, Tarn",
+   "TURNS: Sable, Tarn, Rook, Vesper"
+  ],
+  "negative": [
+   "TURNS: Rook, Sable, Tarn, Umber",
+   "TURNS: Tarn, Umber, Rook, Sable",
+   "TURNS: Tarn, Rook, Sable",
+   "TURNS: Rook, Sable, Tarn",
+   "TURNS: Rook, Sable, Tarn",
+   "TURNS: Tarn, Rook, Sable"
+  ]
+ },
+ {
+  "local_id": "g3-20",
+  "family": "longhorizon",
+  "subtheme": "race-standings-overtakes",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the standings in a fictional bike race. After each of my messages, reply with only one line in the form RANK: followed by the rider names from first place to last place, separated by commas. From first to last the riders are: Kite, Lynx, Mako, Nyx, Onyx.",
+   "Nyx overtakes the two riders directly ahead, moving up two places.",
+   "Kite gets a puncture and drops to last place.",
+   "Mako retires from the race and is removed from the standings.",
+   "Onyx overtakes the rider directly ahead, moving up one place.",
+   "Kite overtakes the rider directly ahead, moving up one place."
+  ],
+  "max_tokens": 80,
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(rank\\W+)?nyx\\W+onyx\\W+kite\\W+lynx\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "reference": [
+   "RANK: Kite, Lynx, Mako, Nyx, Onyx",
+   "RANK: Kite, Nyx, Lynx, Mako, Onyx",
+   "RANK: Nyx, Lynx, Mako, Onyx, Kite",
+   "RANK: Nyx, Lynx, Onyx, Kite",
+   "RANK: Nyx, Onyx, Lynx, Kite",
+   "RANK: Nyx, Onyx, Kite, Lynx"
+  ],
+  "negative": [
+   "RANK: Kite, Lynx, Mako, Nyx, Onyx",
+   "RANK: Kite, Nyx, Lynx, Mako, Onyx",
+   "RANK: Kite, Nyx, Lynx, Mako, Onyx",
+   "RANK: Kite, Nyx, Lynx, Onyx",
+   "RANK: Kite, Nyx, Onyx, Lynx",
+   "RANK: Kite, Nyx, Onyx, Lynx"
+  ]
+ },
+ {
+  "local_id": "g3-21",
+  "family": "longhorizon",
+  "subtheme": "silent-bulk-leave-count",
+  "difficulty": "hard",
+  "mode": "multi",
+  "turns": [
+   "Track the queue at a fictional bus stop. Reply with only the word NOTED until I ask a question. From front to back the queue is: Alba, Benoit, Calla, Dmitri, Edda, Faro.",
+   "Calla leaves the queue.",
+   "Everyone standing behind Dmitri gives up and leaves the queue.",
+   "Gus and Hildy join at the back.",
+   "The person at the front boards a bus and leaves the queue.",
+   "How many people are in the queue now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>"
+  ],
+  "max_tokens": 260,
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "count"
+  },
+  "reference": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "ANSWER: 4"
+  ],
+  "negative": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "ANSWER: 6"
+  ]
+ }
+]

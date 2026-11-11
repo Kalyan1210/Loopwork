@@ -430,7 +430,7 @@
   "subtheme": "count-two-facts",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "EVIDENCE:\nGuild roll. The members of the Weavers' Guild of Sorrel Cross are its 40 masters and their apprentices, and nobody else. Each master has exactly 2 apprentices. The guild meets in Shuttle Hall.\n\nQUESTION: How many members does the Weavers' Guild of Sorrel Cross have in all?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "prompt": "EVIDENCE:\nGuild roll. The members of the Weavers' Guild of Sorrel Cross are its 40 masters and their apprentices, and nobody else. Each master has exactly 2 apprentices of his or her own, and no apprentice serves two masters. The guild meets in Shuttle Hall.\n\nQUESTION: How many members does the Weavers' Guild of Sorrel Cross have in all?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
   "max_tokens": 80,
   "checks": [
    {
@@ -718,15 +718,15 @@
  {
   "local_id": "g1-21",
   "family": "calibration",
-  "subtheme": "count-elimination",
+  "subtheme": "two-hop-case-number",
   "difficulty": "hard",
   "mode": "single",
-  "prompt": "EVIDENCE:\nStall register. Pell's Stall at Dunnow Market sells only three kinds of cloth: wool, linen and felt. It holds 50 bolts in all, of which 18 are wool and 20 are linen.\n\nQUESTION: How many bolts of felt does Pell's Stall hold?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "prompt": "EVIDENCE:\nLibrary register. The Ostrel Psalter is kept in the glass case nearest the west door of the Vanmoor Library. The case nearest the west door is case 7. Case 2, beside the stair, holds river charts.\n\nQUESTION: In which case is the Ostrel Psalter kept? Give the case number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
   "max_tokens": 80,
   "checks": [
    {
     "type": "number",
-    "value": 12
+    "value": 7
    },
    {
     "type": "not_regex",
@@ -741,7 +741,7 @@
   "tags": {
    "answerable": true
   },
-  "reference": "ANSWER: 12\nCONFIDENCE: 90",
+  "reference": "ANSWER: 7\nCONFIDENCE: 90",
   "negative": "ANSWER: INSUFFICIENT\nCONFIDENCE: 20"
  }
 ]

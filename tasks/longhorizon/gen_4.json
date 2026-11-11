@@ -1,0 +1,2452 @@
+[
+ {
+  "local_id": "g4-01",
+  "family": "longhorizon",
+  "subtheme": "kv-difference-new-key",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The kv store of a fictional zine stall holds the number of zines printed under the key printed and the number sold under the key sold. Read both values, use the calc tool to subtract the sold count from the printed count, and store the result under the new key unsold. Do not change any other key. Final answer: the number of unsold zines, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "printed": 80,
+    "sold": 35,
+    "posters": 12
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.unsold",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.printed",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.posters",
+    "value": 12
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "sold"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "printed"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "sold"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "80-35"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "unsold",
+      "value": 45
+     }
+    }
+   ],
+   "final": "45"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "printed"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "sold"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "80+35"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "unsold",
+      "value": 115
+     }
+    }
+   ],
+   "final": "115"
+  }
+ },
+ {
+  "local_id": "g4-02",
+  "family": "longhorizon",
+  "subtheme": "kv-sum-plus-stated-amount",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A fictional arcade keeps coin counts in the kv store under the keys jar_red, jar_blue and jar_green. Today 10 more coins were found under a machine; they are not in any jar yet. Read the three jar values, use the calc tool to add them together with the 10 found coins, and store the result under the new key coins_all. Leave the jar keys as they are. Final answer: the value of coins_all, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "jar_red": 20,
+    "jar_blue": 15,
+    "jar_green": 30,
+    "jar_lost": 50
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 75
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.coins_all",
+    "value": 75
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.jar_red",
+    "value": 20
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.jar_lost",
+    "value": 50
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "jar_green"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "jar_red"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "jar_blue"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "jar_green"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "20+15+30+10"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "coins_all",
+      "value": 75
+     }
+    }
+   ],
+   "final": "75"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "jar_red"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "jar_blue"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "jar_green"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "20+15+30"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "coins_all",
+      "value": 65
+     }
+    }
+   ],
+   "final": "65"
+  }
+ },
+ {
+  "local_id": "g4-03",
+  "family": "longhorizon",
+  "subtheme": "kv-product-new-key",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The kv store of a fictional juice cellar holds the number of full crates under the key crates and the number of bottles in each crate under the key per_crate. Read both values, use the calc tool to multiply them, and store the result under the new key bottles. Do not change any other key. Final answer: the total number of bottles, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "crates": 7,
+    "per_crate": 12,
+    "corks": 40
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 84
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.bottles",
+    "value": 84
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.crates",
+    "value": 7
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.corks",
+    "value": 40
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "per_crate"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crates"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "per_crate"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "7*12"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "bottles",
+      "value": 84
+     }
+    }
+   ],
+   "final": "84"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crates"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "per_crate"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "7+12"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "bottles",
+      "value": 19
+     }
+    }
+   ],
+   "final": "19"
+  }
+ },
+ {
+  "local_id": "g4-04",
+  "family": "longhorizon",
+  "subtheme": "kv-income-minus-two-costs",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The kv store holds the accounts of a fictional village dance, in coins: ticket_income, hall_rent and band_fee. The ticket profit is the ticket income minus the hall rent minus the band fee. Read the three values, use the calc tool to work out the ticket profit, and store it under the new key ticket_profit. The raffle is counted separately, so ignore it. Final answer: the ticket profit, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "ticket_income": 300,
+    "hall_rent": 120,
+    "band_fee": 80,
+    "raffle_income": 55
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ticket_profit",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ticket_income",
+    "value": 300
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.raffle_income",
+    "value": 55
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "band_fee"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ticket_income"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "hall_rent"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "band_fee"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "300-120-80"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "ticket_profit",
+      "value": 100
+     }
+    }
+   ],
+   "final": "100"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ticket_income"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "hall_rent"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "band_fee"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "300-120"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "ticket_profit",
+      "value": 180
+     }
+    }
+   ],
+   "final": "180"
+  }
+ },
+ {
+  "local_id": "g4-05",
+  "family": "longhorizon",
+  "subtheme": "kv-equal-share-new-key",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A fictional cafe stores this week's tips in the kv store under the keys tips_mon and tips_tue. The two amounts are pooled and split equally between 4 waiters. Read both values, use the calc tool to add them and divide by 4, and store one waiter's share under the new key share. Do not change any other key. Final answer: one waiter's share, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "tips_mon": 36,
+    "tips_tue": 44,
+    "tips_old": 18
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 20
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.share",
+    "value": 20
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tips_mon",
+    "value": 36
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tips_old",
+    "value": 18
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "tips_tue"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tips_mon"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tips_tue"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "(36+44)/4"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "share",
+      "value": 20
+     }
+    }
+   ],
+   "final": "20"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tips_mon"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tips_tue"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "36+44"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "share",
+      "value": 80
+     }
+    }
+   ],
+   "final": "80"
+  }
+ },
+ {
+  "local_id": "g4-06",
+  "family": "longhorizon",
+  "subtheme": "kv-sum-then-scale",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "A fictional stationery shop records full pencil boxes in the kv store: boxes_front for the front room and boxes_back for the back room. Every full box holds 5 pencils. Read both values, use the calc tool to add the two box counts and multiply by 5, and store the number of pencils under the new key pencils. Empty boxes do not count. Final answer: the number of pencils, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "boxes_front": 4,
+    "boxes_back": 6,
+    "boxes_empty": 9
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.pencils",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.boxes_front",
+    "value": 4
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.boxes_empty",
+    "value": 9
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "boxes_back"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "boxes_front"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "boxes_back"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "(4+6)*5"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "pencils",
+      "value": 50
+     }
+    }
+   ],
+   "final": "50"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "boxes_front"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "4*5"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "pencils",
+      "value": 20
+     }
+    }
+   ],
+   "final": "20"
+  }
+ },
+ {
+  "local_id": "g4-07",
+  "family": "longhorizon",
+  "subtheme": "kv-closing-balance-new-key",
+  "difficulty": "easy",
+  "mode": "tool",
+  "prompt": "The kv key opening holds this morning's cash in the till of a fictional kiosk, in coins. During the day the kiosk took in two sales, of 40 coins and of 25 coins, and paid out one refund of 10 coins. Read the opening value, use the calc tool to apply the three movements, and store the result under the new key closing. Leave the key opening unchanged. Final answer: the closing amount, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "opening": 100,
+    "safe": 500
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 155
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.closing",
+    "value": 155
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.opening",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.safe",
+    "value": 500
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "opening"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "opening"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "100+40+25-10"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "closing",
+      "value": 155
+     }
+    }
+   ],
+   "final": "155"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "opening"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "100+40+25"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "closing",
+      "value": 165
+     }
+    }
+   ],
+   "final": "165"
+  }
+ },
+ {
+  "local_id": "g4-08",
+  "family": "longhorizon",
+  "subtheme": "kv-stock-sale-and-delivery",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv key candles holds the candle stock of a fictional chandlery. Today 17 candles were sold and afterwards a delivery of 30 candles arrived. Read the current value, use the calc tool to apply both movements, and write the new stock back to the key candles with kv_set. Do not change any other key. Final answer: the new candle stock, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "candles": 60,
+    "wicks": 45
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 73
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.candles",
+    "value": 73
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.wicks",
+    "value": 45
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "candles"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "candles"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "60-17+30"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "candles",
+      "value": 73
+     }
+    }
+   ],
+   "final": "73"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "candles"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "60-17"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "candles",
+      "value": 43
+     }
+    }
+   ],
+   "final": "43"
+  }
+ },
+ {
+  "local_id": "g4-09",
+  "family": "longhorizon",
+  "subtheme": "kv-list-prefix-sum",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv store of a fictional button shop has several keys. Every key whose name starts with box_ holds the number of buttons in one box; other keys are not boxes. Use kv_list to see the key names, read every box_ key, use the calc tool to add those values, and store the sum under the new key buttons_total. Final answer: the total number of buttons in boxes, just the number.",
+  "tools": [
+   "kv_list",
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "box_red": 12,
+    "box_blue": 7,
+    "box_tan": 16,
+    "lid_spare": 9
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 35
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.buttons_total",
+    "value": 35
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.box_red",
+    "value": 12
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.lid_spare",
+    "value": 9
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "box_tan"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_blue"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_red"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_tan"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "7+12+16"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "buttons_total",
+      "value": 35
+     }
+    }
+   ],
+   "final": "35"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_list",
+     "args": {}
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_blue"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_red"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "box_tan"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "lid_spare"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "7+12+16+9"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "buttons_total",
+      "value": 44
+     }
+    }
+   ],
+   "final": "44"
+  }
+ },
+ {
+  "local_id": "g4-10",
+  "family": "longhorizon",
+  "subtheme": "kv-percentage-fee",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv key balance holds the coin balance of a fictional storage locker account. A storage fee of 10 percent of the current balance is now charged. Read the balance, use the calc tool to work out the fee and subtract it, and write the new balance back to the key balance with kv_set. The key deposit is a separate amount and must stay as it is. Final answer: the new balance, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "balance": 250,
+    "deposit": 75
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 225
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.balance",
+    "value": 225
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.deposit",
+    "value": 75
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "balance"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "balance"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "250-250*10/100"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "balance",
+      "value": 225
+     }
+    }
+   ],
+   "final": "225"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "balance"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "250-10"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "balance",
+      "value": 240
+     }
+    }
+   ],
+   "final": "240"
+  }
+ },
+ {
+  "local_id": "g4-11",
+  "family": "longhorizon",
+  "subtheme": "kv-duplicate-entry-correction",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv key flour holds the recorded number of flour sacks in a fictional bakery store room. The record is wrong: one delivery of 25 sacks was entered twice, so the extra 25 must be taken off. After that, record today's use of 12 sacks. Read the current value, use the calc tool to apply the correction and today's use, and write the result back to the key flour with kv_set. Do not change any other key. Final answer: the corrected flour count, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "flour": 90,
+    "sugar": 31
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 53
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.flour",
+    "value": 53
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.sugar",
+    "value": 31
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "flour"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "flour"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "90-25-12"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "flour",
+      "value": 53
+     }
+    }
+   ],
+   "final": "53"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "flour"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "90-12"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "flour",
+      "value": 78
+     }
+    }
+   ],
+   "final": "78"
+  }
+ },
+ {
+  "local_id": "g4-12",
+  "family": "longhorizon",
+  "subtheme": "kv-merge-and-delete",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional library keeps book counts in the kv store. The annex is closing, so all of its books move into the main room. Read the keys main and annex, use the calc tool to add them, write the sum to the key main with kv_set, and then remove the key annex with kv_delete. The key archive is a different building and must not change. Final answer: the new main count, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "kv_delete",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "main": 48,
+    "annex": 27,
+    "archive": 110
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 75
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.main",
+    "value": 75
+   },
+   {
+    "type": "env_absent",
+    "path": "kv.annex"
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.archive",
+    "value": 110
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "annex"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "main"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "annex"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "48+27"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "main",
+      "value": 75
+     }
+    },
+    {
+     "tool": "kv_delete",
+     "args": {
+      "key": "annex"
+     }
+    }
+   ],
+   "final": "75"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "main"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "annex"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "48+27"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "main",
+      "value": 75
+     }
+    }
+   ],
+   "final": "75"
+  }
+ },
+ {
+  "local_id": "g4-13",
+  "family": "longhorizon",
+  "subtheme": "kv-rate-times-count-charge",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "A fictional courier account is kept in the kv store: balance is the coin balance, parcels is the number of parcels sent this week and fee_each is the fee in coins for one parcel. Charge the account for all of this week's parcels: read the three values, use the calc tool to multiply parcels by fee_each and subtract that from the balance, and write the new value to the key balance with kv_set. Change nothing else. Final answer: the new balance, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "balance": 200,
+    "parcels": 8,
+    "fee_each": 6,
+    "tips": 14
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 152
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.balance",
+    "value": 152
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.parcels",
+    "value": 8
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tips",
+    "value": 14
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "fee_each"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "balance"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "parcels"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "fee_each"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "200-8*6"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "balance",
+      "value": 152
+     }
+    }
+   ],
+   "final": "152"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "balance"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "parcels"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "fee_each"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "200-6"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "balance",
+      "value": 194
+     }
+    }
+   ],
+   "final": "194"
+  }
+ },
+ {
+  "local_id": "g4-14",
+  "family": "longhorizon",
+  "subtheme": "kv-earn-then-redeem",
+  "difficulty": "medium",
+  "mode": "tool",
+  "prompt": "The kv key points holds the loyalty points of a member of a fictional tea club. The member spends 35 coins and earns 2 points for every coin spent. Then the member redeems 50 points for a free pot of tea. Read the current value, use the calc tool to add the earned points and subtract the redeemed points, and write the result back to the key points with kv_set. Do not change any other key. Final answer: the new points value, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "points": 120,
+    "points_guest": 64
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 140
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.points",
+    "value": 140
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.points_guest",
+    "value": 64
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "points"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "points"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "120+2*35-50"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "points",
+      "value": 140
+     }
+    }
+   ],
+   "final": "140"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "points"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "120+2*35"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "points",
+      "value": 190
+     }
+    }
+   ],
+   "final": "190"
+  }
+ },
+ {
+  "local_id": "g4-15",
+  "family": "longhorizon",
+  "subtheme": "kv-transfer-with-fee",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv keys savings and spending hold two coin balances at a fictional bank. Move 40 coins from savings to spending. The bank also takes a transfer fee of 5 coins out of savings; the fee does not go to spending. Read both keys, use the calc tool for the arithmetic, and write both new balances back with kv_set. Do not touch any other key. Final answer: the new savings balance, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "savings": 300,
+    "spending": 80,
+    "pension": 900
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 255
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.savings",
+    "value": 255
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.spending",
+    "value": 120
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.pension",
+    "value": 900
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "spending"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "savings"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "spending"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "300-40-5"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "savings",
+      "value": 255
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "80+40"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "spending",
+      "value": 120
+     }
+    }
+   ],
+   "final": "255"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "savings"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "spending"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "300-40"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "savings",
+      "value": 260
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "80+40"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "spending",
+      "value": 120
+     }
+    }
+   ],
+   "final": "260"
+  }
+ },
+ {
+  "local_id": "g4-16",
+  "family": "longhorizon",
+  "subtheme": "kv-sale-updates-stock-and-till",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "A fictional toy stall uses the kv store: kites is the number of kites in stock, kite_price is the price of one kite in coins and till is the coins in the till. A customer buys 6 kites. Read the three keys, use the calc tool, then update kites (6 fewer) and till (plus 6 times the price) with kv_set. Leave kite_price and every other key unchanged. Final answer: the new till amount, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "kites": 20,
+    "kite_price": 7,
+    "till": 150,
+    "kite_string": 33
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 192
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.kites",
+    "value": 14
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.till",
+    "value": 192
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.kite_price",
+    "value": 7
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.kite_string",
+    "value": 33
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "kite_price"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "kites"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "kite_price"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "till"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "150+6*7"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "kites",
+      "value": 14
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "till",
+      "value": 192
+     }
+    }
+   ],
+   "final": "192"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "kites"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "kite_price"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "till"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "150+6*7"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "till",
+      "value": 192
+     }
+    }
+   ],
+   "final": "192"
+  }
+ },
+ {
+  "local_id": "g4-17",
+  "family": "longhorizon",
+  "subtheme": "kv-chain-of-two-payments",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv store holds the coin balances of four members of a fictional club under the keys ana, ben, cy and dee. First Ana pays Ben 30 coins. Then Ben pays Cy 50 coins. Read the balances you need, work out the three new balances (use the calc tool if you need it) and write them back to ana, ben and cy with kv_set. Dee is not involved. Final answer: Ben's new balance, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "ana": 110,
+    "ben": 60,
+    "cy": 20,
+    "dee": 85
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ana",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ben",
+    "value": 40
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.cy",
+    "value": 70
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.dee",
+    "value": 85
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "ben"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ana"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ben"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "cy"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "ana",
+      "value": 80
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "ben",
+      "value": 40
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "cy",
+      "value": 70
+     }
+    }
+   ],
+   "final": "40"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ana"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "ben"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "cy"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "60-50"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "ana",
+      "value": 80
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "ben",
+      "value": 10
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "cy",
+      "value": 70
+     }
+    }
+   ],
+   "final": "10"
+  }
+ },
+ {
+  "local_id": "g4-18",
+  "family": "longhorizon",
+  "subtheme": "kv-empty-one-key-into-another",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv keys crate_old and crate_new hold the number of glass jars in two crates at a fictional market. All jars from crate_old are moved into crate_new, but 4 of them break on the way and are thrown out. Read both keys, use the calc tool to work out the new crate_new count, write it with kv_set, and set crate_old to 0 with kv_set (do not delete it). Leave crate_spare alone. Final answer: the new crate_new count, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "crate_old": 34,
+    "crate_new": 50,
+    "crate_spare": 15
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.crate_new",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.crate_old",
+    "value": 0
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.crate_spare",
+    "value": 15
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "crate_old"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_old"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_new"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "50+34-4"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "crate_new",
+      "value": 80
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "crate_old",
+      "value": 0
+     }
+    }
+   ],
+   "final": "80"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_old"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "crate_new"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "50+34-4"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "crate_new",
+      "value": 80
+     }
+    }
+   ],
+   "final": "80"
+  }
+ },
+ {
+  "local_id": "g4-19",
+  "family": "longhorizon",
+  "subtheme": "kv-equalise-two-keys",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv keys tank_a and tank_b hold the litres of water in two tanks on a fictional farm. Water is pumped from the fuller tank into the other one until both hold the same amount; no water is lost. Read both keys, use the calc tool to work out the shared level, and write that level to both tank_a and tank_b with kv_set. The key tank_c is not connected and must not change. Final answer: the litres now in tank_b, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "tank_a": 70,
+    "tank_b": 30,
+    "tank_c": 45
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tank_a",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tank_b",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tank_c",
+    "value": 45
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "tank_a"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tank_a"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tank_b"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "(70+30)/2"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "tank_a",
+      "value": 50
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "tank_b",
+      "value": 50
+     }
+    }
+   ],
+   "final": "50"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tank_a"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "tank_b"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "(70+30)/2"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "tank_b",
+      "value": 50
+     }
+    }
+   ],
+   "final": "50"
+  }
+ },
+ {
+  "local_id": "g4-20",
+  "family": "longhorizon",
+  "subtheme": "kv-production-run-three-keys",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "A fictional workshop tracks materials in the kv store under planks, screws and benches. Today 4 benches are built. Each bench uses 3 planks and 8 screws. Read the three keys, work out the new values (use the calc tool if you need it) and update all three with kv_set: fewer planks, fewer screws, 4 more benches. Do not change the key paint. Final answer: the new screws count, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "planks": 40,
+    "screws": 100,
+    "benches": 2,
+    "paint": 9
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 68
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.planks",
+    "value": 28
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.screws",
+    "value": 68
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.benches",
+    "value": 6
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.paint",
+    "value": 9
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "screws"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "planks"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "screws"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "benches"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "planks",
+      "value": 28
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "screws",
+      "value": 68
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "benches",
+      "value": 6
+     }
+    }
+   ],
+   "final": "68"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "planks"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "screws"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "benches"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "100-8"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "planks",
+      "value": 28
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "screws",
+      "value": 92
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "benches",
+      "value": 6
+     }
+    }
+   ],
+   "final": "92"
+  }
+ },
+ {
+  "local_id": "g4-21",
+  "family": "longhorizon",
+  "subtheme": "kv-undo-transfer-then-delivery",
+  "difficulty": "hard",
+  "mode": "tool",
+  "prompt": "The kv keys east and west hold sack counts for two fictional depots. Yesterday a transfer of 25 sacks from east to west was recorded, but it never happened. Undo it: put 25 back on east and take 25 off west. Then record a real delivery of 10 sacks to east. Read both keys, use the calc tool, and write both corrected counts back with kv_set. Do not change the key north. Final answer: the corrected east count, just the number.",
+  "tools": [
+   "kv_get",
+   "kv_set",
+   "calc"
+  ],
+  "env": {
+   "kv": {
+    "east": 45,
+    "west": 90,
+    "north": 37
+   }
+  },
+  "max_steps": 8,
+  "checks": [
+   {
+    "type": "number",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.east",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.west",
+    "value": 65
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.north",
+    "value": 37
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "west"
+    },
+    "ok_only": true
+   }
+  ],
+  "reference": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "east"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "west"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "45+25+10"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "east",
+      "value": 80
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "90-25"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "west",
+      "value": 65
+     }
+    }
+   ],
+   "final": "80"
+  },
+  "negative": {
+   "steps": [
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "east"
+     }
+    },
+    {
+     "tool": "kv_get",
+     "args": {
+      "key": "west"
+     }
+    },
+    {
+     "tool": "calc",
+     "args": {
+      "expr": "45+10"
+     }
+    },
+    {
+     "tool": "kv_set",
+     "args": {
+      "key": "east",
+      "value": 55
+     }
+    }
+   ],
+   "final": "55"
+  }
+ }
+]

@@ -1,0 +1,18 @@
+{
+  "family": "constraints",
+  "n": 48,
+  "agree": 47,
+  "false_pass": 0,
+  "false_fail": 0,
+  "unclear": 1,
+  "disagreements": [
+    {
+      "task": "cons-073",
+      "condition": "attn_med",
+      "auto_score": 0,
+      "verdict": "unclear",
+      "reason": "The reply 'Finchgate sells rope candles maps' meets every rule stated in the prompt (no comma, three words kept, name present, one line) and failed only the min_words 6 check, which the prompt does not state; whether a 5-word list with no conjunction and no final period counts as 'one sentence' is a judgment call."
+    }
+  ],
+  "notes": "In 47 of 48 sampled episodes (24 scored 1, 24 scored 0) the automatic score matches a hand judgment; 0 false passes and 0 false fails were found. One weakness seen once: cons-073 enforces a min_words 6 threshold that is not written in the prompt, so a reply can fail on an unstated rule. The free-writing checks test format only (word counts, case, required words) and not whether the text is a well-formed sentence or on topic, though no sampled pass was wrong for that reason."
+}

@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwen Behavior Lab: report</title>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb; --surface2:#f3f2ee; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10); --border2:rgba(11,11,11,.18);
+  --c-intervention:#2a78d6; --c-control:#eb6834; --c-baseline:#1baf7a;
+  --good:#0ca30c; --goodtext:#006300; --warn:#fab219; --crit:#d03b3b;
+  --link:#1c5cab; --shadow:0 1px 2px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --surface2:#232321; --ink:#f0efec; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10); --border2:rgba(255,255,255,.2);
+    --c-intervention:#3987e5; --c-control:#d95926; --c-baseline:#199e70;
+    --goodtext:#0ca30c; --crit:#e66767; --link:#86b6ef; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--link)}
+code,pre,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+nav#nav{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--border);display:flex;gap:2px;overflow-x:auto;padding:6px 16px;white-space:nowrap}
+nav#nav a{color:var(--ink2);text-decoration:none;padding:5px 9px;border-radius:6px;font-size:13px}
+nav#nav a:hover{background:var(--surface2)}
+nav#nav a.on{background:var(--surface2);color:var(--ink);font-weight:600}
+main{max-width:1280px;margin:0 auto;padding:20px 20px 80px}
+section{scroll-margin-top:52px;margin:0 0 36px}
+h1{font-size:26px;margin:8px 0 4px;letter-spacing:-.01em}
+h2{font-size:20px;margin:0 0 4px;padding-top:6px}
+h3{font-size:15px;margin:18px 0 6px}
+h4{font-size:13px;margin:12px 0 4px;color:var(--ink2)}
+p{margin:6px 0}
+.sub{color:var(--ink2);margin:0 0 12px;max-width:95ch}
+.note{color:var(--ink2);font-size:13px}
+.muted{color:var(--muted)}
+.nw{white-space:nowrap}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:10px 0;box-shadow:var(--shadow)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:12px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:860px){.cols2{grid-template-columns:1fr}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin:12px 0}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.tile .l{color:var(--ink2);font-size:12px}
+.tile .v{font-size:22px;font-weight:600;line-height:1.25}
+.tile .d{color:var(--ink2);font-size:12px}
+.hero .v{font-size:48px;line-height:1.1}
+.meter{height:8px;border-radius:4px;background:var(--surface2);overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--c-intervention);border-radius:4px}
+.banner{border:1px solid var(--border2);border-left:4px solid var(--warn);background:var(--surface);border-radius:8px;padding:9px 12px;margin:10px 0}
+.na{color:var(--muted);font-style:italic;padding:6px 0}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{color:var(--ink2);font-weight:600;font-size:12px;background:var(--surface);position:sticky;top:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow:auto;max-width:100%}
+.badge{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border2);border-radius:999px;padding:1px 8px 1px 6px;font-size:11.5px;white-space:nowrap;color:var(--ink);background:var(--surface)}
+.badge i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.t-baseline i,.sw.t-baseline{background:var(--c-baseline)} .t-intervention i,.sw.t-intervention{background:var(--c-intervention)} .t-control i,.sw.t-control{background:var(--c-control)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.lab{display:inline-block;border-radius:4px;padding:1px 7px;font-size:11.5px;font-weight:600;border:1px solid var(--border2);background:var(--surface2)}
+.lab.l-failure{border-color:var(--crit)} .lab.l-edge{border-color:var(--warn)} .lab.l-rep{border-color:var(--c-intervention)}
+.st{font-weight:600;white-space:nowrap}
+.st.p::before{content:"\2713  ";color:var(--good)} .st.f::before{content:"\2717  ";color:var(--crit)} .st.e::before{content:"!  ";color:var(--warn)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--ink2);font-size:12px;margin:4px 0 6px}
+.legend span{display:inline-flex;align-items:center}
+svg text{fill:var(--ink2);font:12px system-ui,-apple-system,"Segoe UI",sans-serif}
+svg text.lbl{fill:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+svg text.tick{fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+svg .gridl{stroke:var(--grid);stroke-width:1} svg .axisl{stroke:var(--axis);stroke-width:1}
+svg .f-baseline{fill:var(--c-baseline)} svg .f-intervention{fill:var(--c-intervention)} svg .f-control{fill:var(--c-control)}
+svg .s-baseline{stroke:var(--c-baseline)} svg .s-intervention{stroke:var(--c-intervention)} svg .s-control{stroke:var(--c-control)}
+svg .ci{stroke:var(--ink);stroke-width:1.5} svg .ring{stroke:var(--surface);stroke-width:2}
+svg .hit{fill:transparent} svg g.row:hover .hit{fill:var(--surface2)}
+.chart{min-width:760px}
+.heat td,.heat th{border:2px solid var(--surface);padding:0;text-align:center}
+.heat th{padding:4px 6px;font-size:11.5px;position:static}
+.heat th.rowh{text-align:left;white-space:nowrap}
+.heat button{all:unset;display:block;width:100%;padding:7px 4px;cursor:pointer;font-variant-numeric:tabular-nums;font-size:12.5px;border-radius:3px;text-align:center;box-sizing:border-box}
+.heat button:hover,.heat button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.heat .nocell{color:var(--muted);padding:7px 4px;display:block}
+.vth{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font:11px ui-monospace,Menlo,monospace;padding:4px 2px}
+.seg{display:inline-flex;border:1px solid var(--border2);border-radius:7px;overflow:hidden}
+.seg button{all:unset;padding:4px 11px;font-size:13px;cursor:pointer;color:var(--ink2)}
+.seg button.on{background:var(--ink);color:var(--surface)}
+.seg button:disabled{opacity:.45;cursor:not-allowed}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin:8px 0}
+.filters label{display:flex;flex-direction:column;font-size:11.5px;color:var(--ink2);gap:2px}
+select,input[type=text]{font:inherit;font-size:13px;padding:4px 7px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--ink)}
+button.btn{font:inherit;font-size:13px;padding:4px 10px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+button.btn:disabled{opacity:.4;cursor:default}
+button.link{all:unset;color:var(--link);cursor:pointer;text-decoration:underline;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px;margin:4px 0;max-height:300px;overflow:auto}
+.mini{display:inline-block;width:54px;height:6px;background:var(--surface2);border-radius:3px;vertical-align:middle;margin-right:6px;overflow:hidden}
+.mini i{display:block;height:100%;border-radius:3px}
+.mini .t-baseline,.mini .t-intervention,.mini .t-control{}
+.mini i.t-baseline{background:var(--c-baseline)} .mini i.t-intervention{background:var(--c-intervention)} .mini i.t-control{background:var(--c-control)}
+.kv{display:grid;grid-template-columns:minmax(150px,max-content) 1fr;gap:3px 14px;font-size:13px}
+.kv dt{color:var(--ink2)} .kv dd{margin:0;word-break:break-word}
+details>summary{cursor:pointer;color:var(--ink2);font-size:13px}
+.ep{border:1px solid var(--border);border-radius:8px;padding:10px;background:var(--surface);min-width:0}
+.ep .eph{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:4px}
+.checks{list-style:none;margin:4px 0;padding:0;font-size:12.5px}
+.checks li{padding:1px 0}
+.ck-p::before{content:"\2713";color:var(--good);font-weight:700;margin-right:6px} .ck-f::before{content:"\2717";color:var(--crit);font-weight:700;margin-right:6px}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--surface);padding:6px 9px;border-radius:6px;font-size:12px;white-space:pre-line;max-width:340px;display:none;line-height:1.4}
+.exgrid{display:grid;grid-template-columns:330px 1fr;gap:14px}
+@media (max-width:980px){.exgrid{grid-template-columns:1fr}}
+tr.c1 td{border-bottom:0;padding-top:9px}
+tr.sel td{background:var(--surface2)}
+tr.pick{cursor:pointer} tr.pick:hover td{background:var(--surface2)}
+.dotc{font-size:12px;text-align:center;padding:5px 2px}
+.dp{color:var(--good)} .df{color:var(--crit)} .de{color:var(--warn)} .dn{color:var(--muted)}
+iframe{width:100%;height:900px;border:1px solid var(--border2);border-radius:10px;background:#0b0e13}
+.interp{border-left:4px solid var(--muted)}
+.err{color:var(--crit)}
+</style>
+</head>
+<body>
+<nav id="nav" aria-label="Sections"></nav>
+<main id="main">
+<noscript>This report needs JavaScript to render the data files in report/data/.</noscript>
+</main>
+<div id="tip" role="tooltip"></div>
+<script src="data/lab.js"></script>
+<script>
+(function(){
+'use strict';
+var L = window.LAB || {};
+var S = L.summary || {};
+var SC = S.conditions || {};
+var NA = 'not available yet';
+var REQUESTED_PER_CONDITION = 10000; // size of the original request (a specification, not a measurement)
+
+/* ---------- helpers ---------- */
+function esc(s){ return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function isNum(x){ return typeof x === 'number' && isFinite(x); }
+function pct(r, d){ return isNum(r) ? (r*100).toFixed(d === undefined ? 1 : d) + '%' : 'n/a'; }
+function pp(d){ return isNum(d) ? (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d*100).toFixed(1) + ' pp' : 'n/a'; }
+function pv(p){ return isNum(p) ? (p < 0.001 ? '<0.001' : p.toFixed(3)) : 'n/a'; }
+function int(n){ return isNum(n) ? Math.round(n).toLocaleString('en-US') : 'n/a'; }
+function fx(n, d){ return isNum(n) ? n.toFixed(d === undefined ? 2 : d) : 'n/a'; }
+function obj(x){ return x && typeof x === 'object' && !Array.isArray(x) ? x : {}; }
+function arr(x){ return Array.isArray(x) ? x : []; }
+function keys(x){ return Object.keys(obj(x)); }
+function rk(r){ r = obj(r); return isNum(r.k) && isNum(r.n) ? r.k + '/' + r.n : ''; }
+function ci(c){ c = arr(c); return isNum(c[0]) && isNum(c[1]) ? [c[0], c[1]] : null; }
+function short(s, n){ s = String(s || ''); n = n || 12; return s.length > n ? s.slice(0, n) + '…' : s; }
+function jstr(v){ try { return JSON.stringify(v); } catch(e){ return String(v); } }
+function jpretty(v){ try { return JSON.stringify(v, null, 1); } catch(e){ return String(v); } }
+function na(msg){ return '<div class="na">' + esc(msg || NA) + '</div>'; }
+function $(id){ return document.getElementById(id); }
+
+/* ---------- condition model ---------- */
+var cfgConds = arr(obj(L.config).conditions);
+var CONDS = (cfgConds.length ? cfgConds : arr(L.conditions)).map(function(c){ return obj(c); }).filter(function(c){ return c.id; });
+arr(L.conditions).forEach(function(c){ if (c && c.id && !CONDS.some(function(x){ return x.id === c.id; })) CONDS.push(c); });
+keys(SC).forEach(function(id){ if (!CONDS.some(function(x){ return x.id === id; })) CONDS.push({id:id}); });
+var CMAP = {}; CONDS.forEach(function(c){ CMAP[c.id] = c; });
+var DCONDS = CONDS.filter(function(c){ return obj(SC[c.id]).episodes > 0 || keys(obj(L.scores)[c.id]).length > 0; }).map(function(c){ return c.id; });
+var HAS_BASE = DCONDS.indexOf('baseline') >= 0;
+var MAN = obj(L.manifests);
+var FAMS = arr(L.families).length ? arr(L.families) : keys(S.families);
+var TASKS = arr(L.tasks);
+var TMAP = {}; TASKS.forEach(function(t){ TMAP[t.id] = t; });
+var SCORES = obj(L.scores), CHANGED = obj(L.changed);
+function ctype(id){ var t = obj(CMAP[id]).type || obj(MAN[id]).type; return t === 'baseline' || t === 'intervention' || t === 'control' ? t : 'control'; }
+function clabel(id){ return obj(MAN[id]).label || obj(CMAP[id]).label || ''; }
+function cspec(id){ return obj(obj(MAN[id]).spec || obj(CMAP[id]).spec); }
+function badge(id){ var t = ctype(id); return '<span class="badge t-' + t + '"><i></i>' + esc(t) + '</span>'; }
+function cname(id){ return '<span class="nw"><span class="sw t-' + ctype(id) + '"></span><span class="mono">' + esc(id) + '</span></span>'; }
+function typeLegend(extra){ return '<div class="legend"><span><i class="sw t-baseline"></i>baseline</span><span><i class="sw t-intervention"></i>intervention</span><span><i class="sw t-control"></i>control</span>' + (extra || '') + '</div>'; }
+function layersText(ls){ ls = arr(ls); if (!ls.length) return 'n/a'; var s = ls.slice().sort(function(a,b){ return a-b; }), contiguous = s.every(function(v,i){ return i === 0 || v === s[i-1] + 1; }); return contiguous && s.length > 1 ? s[0] + ' to ' + s[s.length-1] : s.join(', '); }
+function magnitudeText(sp){ sp = obj(sp); if (!sp.method) return 'none'; if (sp.method === 'noop') return 'gain x1.00 (values rewritten unchanged)'; if (!isNum(sp.eps)) return 'n/a';
+  if (sp.method === 'scale') return 'gain x' + (1 + sp.eps).toFixed(2) + ' (eps ' + (sp.eps > 0 ? '+' : '−') + Math.abs(sp.eps).toFixed(2) + ')';
+  if (sp.method === 'random_sign') return 'gain x(1 ± ' + Math.abs(sp.eps).toFixed(2) + '), random sign per element';
+  return 'eps ' + sp.eps; }
+function interventionLine(id){ var sp = cspec(id), m = obj(MAN[id]), bits = [];
+  if (sp.module) bits.push('module ' + sp.module); if (arr(sp.layers).length) bits.push('blocks ' + layersText(sp.layers));
+  if (sp.method) bits.push('method ' + sp.method); if (sp.method) bits.push(magnitudeText(sp)); if (sp.seed !== undefined && sp.seed !== null) bits.push('seed ' + sp.seed);
+  if (m.artifact_sha256) bits.push('artifact sha256 ' + short(m.artifact_sha256, 16));
+  if (m.identical_to_baseline === true) bits.push('artifact byte-identical to baseline');
+  return (clabel(id) || (id === 'baseline' ? 'unchanged model' : 'no label')) + (bits.length ? ' [' + bits.join('; ') + ']' : ''); }
+function score(c, id){ var v = obj(SCORES[c])[id]; return v === 1 || v === 0 || v === -1 ? v : undefined; }
+function miniRate(r, id){ r = obj(r); if (!isNum(r.rate)) return '<span class="muted">n/a' + (isNum(r.n) ? ' (0/' + r.n + ')' : '') + '</span>';
+  return '<span class="nw"><span class="mini"><i class="t-' + ctype(id) + '" style="width:' + (r.rate*100).toFixed(1) + '%"></i></span>' + pct(r.rate) + ' <span class="muted">' + rk(r) + '</span></span>'; }
+function rateTip(name, r){ r = obj(r); var c = ci(r.ci95); return name + '\n' + pct(r.rate) + (rk(r) ? ' (' + rk(r) + ')' : '') + (c ? '\n95% Wilson interval ' + pct(c[0]) + ' to ' + pct(c[1]) : ''); }
+
+/* ---------- heat colors (computed per color scheme) ---------- */
+var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : {matches:false};
+var SEQ = ['#cde2fb','#b7d3f6','#9ec5f4','#86b6ef','#6da7ec','#5598e7','#3987e5','#2a78d6','#256abf','#1c5cab','#184f95','#104281','#0d366b'];
+function rgb(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; }
+function mix(a, b, t){ a = rgb(a); b = rgb(b); return [0,1,2].map(function(i){ return Math.round(a[i] + (b[i]-a[i])*t); }); }
+function cssrgb(c){ return 'rgb(' + c.join(',') + ')'; }
+function inkOn(c){ var l = (0.2126*c[0] + 0.7152*c[1] + 0.0722*c[2]) / 255; return l > 0.52 ? '#0b0b0b' : '#ffffff'; }
+function seqColor(t){ t = Math.max(0, Math.min(1, t)); var st = mq.matches ? SEQ.slice().reverse() : SEQ; var x = t*(st.length-1), i = Math.min(st.length-2, Math.floor(x)); return mix(st[i], st[i+1], x-i); }
+function divColor(v, m){ var t = Math.max(-1, Math.min(1, m ? v/m : 0)); var mid = mq.matches ? '#383835' : '#f0efec';
+  var pole = t < 0 ? (mq.matches ? '#e66767' : '#c93a39') : (mq.matches ? '#3987e5' : '#1c5cab'); return mix(mid, pole, Math.abs(t)); }
+
+/* ---------- SVG charts ---------- */
+var CW = 1160, LG = 170, RG = 340, RH = 30;
+function xAxis(ticks, x, y0, y1, fmt){ return ticks.map(function(t){ return '<line class="gridl" x1="' + x(t) + '" x2="' + x(t) + '" y1="' + y0 + '" y2="' + y1 + '"/><text class="tick" text-anchor="middle" x="' + x(t) + '" y="' + (y1 + 15) + '">' + esc(fmt(t)) + '</text>'; }).join(''); }
+function barChart(rows, axisLabel){
+  if (!rows.length) return na();
+  var H = rows.length*RH + 44, y0 = 6, y1 = y0 + rows.length*RH;
+  var x = function(v){ return LG + v*(CW - LG - RG); };
+  var s = '<svg class="chart" viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="' + esc(axisLabel) + '">' + xAxis([0,.25,.5,.75,1], x, y0, y1, function(t){ return (t*100) + '%'; });
+  rows.forEach(function(r, i){
+    var cy = y0 + i*RH + RH/2, t = 'f-' + r.type;
+    s += '<g class="row" tabindex="0" data-tip="' + esc(r.tip) + '"><rect class="hit" x="0" y="' + (cy - RH/2) + '" width="' + CW + '" height="' + RH + '"/>';
+    s += '<text class="lbl" text-anchor="end" x="' + (LG - 10) + '" y="' + (cy + 4) + '">' + esc(r.label) + '</text>';
+    if (isNum(r.rate)){
+      var w = Math.max(0, x(r.rate) - LG), rr = Math.min(4, w/2);
+      s += '<path class="' + t + '" d="M' + LG + ' ' + (cy-6) + 'h' + (w-rr) + 'a' + rr + ' ' + rr + ' 0 0 1 ' + rr + ' ' + rr + 'v' + (12-2*rr) + 'a' + rr + ' ' + rr + ' 0 0 1 -' + rr + ' ' + rr + 'h-' + (w-rr) + 'z"/>';
+      if (r.ci) s += '<line class="ci" x1="' + x(r.ci[0]) + '" x2="' + x(r.ci[1]) + '" y1="' + cy + '" y2="' + cy + '"/><line class="ci" x1="' + x(r.ci[0]) + '" x2="' + x(r.ci[0]) + '" y1="' + (cy-4) + '" y2="' + (cy+4) + '"/><line class="ci" x1="' + x(r.ci[1]) + '" x2="' + x(r.ci[1]) + '" y1="' + (cy-4) + '" y2="' + (cy+4) + '"/>';
+    }
+    s += '<text x="' + (CW - RG + 12) + '" y="' + (cy + 4) + '">' + esc(r.text) + '</text></g>';
+  });
+  s += '<line class="axisl" x1="' + LG + '" x2="' + LG + '" y1="' + y0 + '" y2="' + y1 + '"/><text class="tick" text-anchor="middle" x="' + x(.5) + '" y="' + (H - 4) + '">' + esc(axisLabel) + '</text></svg>';
+  return '<div class="scroll">' + s + '</div>';
+}
+function forest(rows, axisLabel){
+  rows = rows.filter(function(r){ return r.marks.some(function(m){ return isNum(m.d); }); });
+  if (!rows.length) return na();
+  var m = 0; rows.forEach(function(r){ r.marks.forEach(function(k){ [k.d].concat(k.ci || []).forEach(function(v){ if (isNum(v)) m = Math.max(m, Math.abs(v)); }); }); });
+  m = m <= 0.1 ? Math.max(0.02, Math.ceil(m*50 - 1e-9)/50) : Math.ceil(m*10 - 1e-9)/10;
+  var H = rows.length*RH + 44, y0 = 6, y1 = y0 + rows.length*RH;
+  var x = function(v){ return LG + (v + m)/(2*m)*(CW - LG - RG); };
+  var s = '<svg class="chart" viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="' + esc(axisLabel) + '">' + xAxis([-m, -m/2, 0, m/2, m], x, y0, y1, function(t){ return (t > 0 ? '+' : t < 0 ? '−' : '') + (+Math.abs(t*100).toFixed(1)) + ' pp'; });
+  s += '<line class="axisl" x1="' + x(0) + '" x2="' + x(0) + '" y1="' + y0 + '" y2="' + y1 + '"/>';
+  rows.forEach(function(r, i){
+    var cy0 = y0 + i*RH + RH/2, n = r.marks.length;
+    s += '<g class="row" tabindex="0" data-tip="' + esc(r.tip) + '"><rect class="hit" x="0" y="' + (cy0 - RH/2) + '" width="' + CW + '" height="' + RH + '"/>';
+    s += '<text class="lbl" text-anchor="end" x="' + (LG - 10) + '" y="' + (cy0 + 4) + '">' + esc(r.label) + '</text>';
+    r.marks.forEach(function(k, j){
+      if (!isNum(k.d)) return; var cy = cy0 + (n > 1 ? (j - (n-1)/2)*10 : 0);
+      if (k.ci) s += '<line class="s-' + r.type + '" stroke-width="2" stroke-linecap="round" x1="' + x(k.ci[0]) + '" x2="' + x(k.ci[1]) + '" y1="' + cy + '" y2="' + cy + '"/>';
+      s += k.open ? '<circle cx="' + x(k.d) + '" cy="' + cy + '" r="4.5" fill="var(--surface)" class="s-' + r.type + '" stroke-width="2"/>'
+                  : '<circle cx="' + x(k.d) + '" cy="' + cy + '" r="5" class="f-' + r.type + ' ring"/>';
+    });
+    s += '<text x="' + (CW - RG + 12) + '" y="' + (cy0 + 4) + '">' + esc(r.text) + '</text></g>';
+  });
+  s += '<text class="tick" text-anchor="middle" x="' + x(0) + '" y="' + (H - 4) + '">' + esc(axisLabel) + '</text></svg>';
+  return '<div class="scroll">' + s + '</div>';
+}
+
+/* ---------- generic JSON renderer (for analyst / audit / unknown shapes) ---------- */
+function renderAny(v, depth){ depth = depth || 0;
+  if (v === null || v === undefined || v === '') return '<span class="muted">n/a</span>';
+  if (typeof v !== 'object') return esc(v);
+  if (Array.isArray(v)){ if (!v.length) return '<span class="muted">none</span>'; return '<ul style="margin:2px 0;padding-left:18px">' + v.map(function(x){ return '<li>' + renderAny(x, depth+1) + '</li>'; }).join('') + '</ul>'; }
+  var ks = Object.keys(v); if (!ks.length) return '<span class="muted">none</span>';
+  if (depth > 5) return '<code>' + esc(jstr(v)) + '</code>';
+  return '<dl class="kv">' + ks.map(function(k){ return '<dt>' + esc(k) + '</dt><dd>' + renderAny(v[k], depth+1) + '</dd>'; }).join('') + '</dl>';
+}
+function kv(pairs){ return '<dl class="kv">' + pairs.filter(function(p){ return p; }).map(function(p){ return '<dt>' + esc(p[0]) + '</dt><dd>' + (p[2] ? p[1] : (p[1] === null || p[1] === undefined || p[1] === '' ? '<span class="muted">' + NA + '</span>' : esc(p[1]))) + '</dd>'; }).join('') + '</dl>'; }
+
+/* ---------- lazy trace loading ---------- */
+var loading = {};
+function loadFamily(f){
+  if (obj(window.TRACES)[f]) return Promise.resolve(window.TRACES[f]);
+  if (!loading[f]) loading[f] = new Promise(function(res, rej){ var s = document.createElement('script'); s.src = 'data/traces_' + encodeURIComponent(f) + '.js';
+    s.onload = function(){ obj(window.TRACES)[f] ? res(window.TRACES[f]) : rej(new Error('trace file for ' + f + ' did not define its data')); };
+    s.onerror = function(){ delete loading[f]; rej(new Error('trace file data/traces_' + f + '.js could not be loaded')); }; document.head.appendChild(s); });
+  return loading[f];
+}
+
+/* ---------- episode panel (shared by examples and explorer) ---------- */
+function stBadge(ep){ if (!ep) return '<span class="muted">no episode</span>'; if (ep.status && ep.status !== 'ok') return '<span class="st e">ERROR</span>'; return ep.score === 1 ? '<span class="st p">PASS</span>' : '<span class="st f">FAIL</span>'; }
+function epPanel(id, ep){
+  var h = '<div class="ep"><div class="eph">' + cname(id) + ' ' + badge(id) + ' ' + stBadge(ep) + '</div><div class="note">' + esc(interventionLine(id)) + '</div>';
+  if (!ep) return h + na('No episode recorded for this condition and task yet.') + '</div>';
+  if (ep.status && ep.status !== 'ok') h += '<p class="err">Episode status: ' + esc(ep.status) + (ep.error ? ' (' + esc(ep.error) + ')' : '') + '</p>';
+  h += '<div class="note">latency ' + (isNum(ep.latency_s) ? fx(ep.latency_s, 2) + ' s' : 'n/a') + ' · completion tokens ' + int(ep.completion_tokens) + ' · prompt tokens ' + int(ep.prompt_tokens) + ' · steps ' + int(ep.steps) +
+    ' · format errors ' + int(ep.format_errors) + ' · tool errors ' + int(ep.tool_errors) + (ep.no_final ? ' · no final answer' : '') + (ep.truncated ? ' · truncated' : '') + (ep.retries ? ' · retries ' + ep.retries : '') + (isNum(ep.block) ? ' · block ' + ep.block : '') + '</div>';
+  var cks = arr(ep.checks);
+  h += '<h4>Checks (' + cks.filter(function(c){ return c && c.pass; }).length + ' of ' + cks.length + ' passed)</h4>' + (cks.length ? '<ul class="checks">' + cks.map(function(c){ c = obj(c); return '<li class="' + (c.pass ? 'ck-p' : 'ck-f') + '"><span class="mono">' + esc(c.type) + '</span> ' + (c.pass ? 'pass' : 'fail') + (c.detail ? ' <span class="muted">' + esc(c.detail) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : na('no check results'));
+  var reps = arr(ep.replies);
+  h += '<h4>Model ' + (reps.length === 1 ? 'response' : 'responses (' + reps.length + ')') + '</h4>' + (reps.length ? reps.map(function(r, i){ return (reps.length > 1 ? '<div class="note">reply ' + (i+1) + '</div>' : '') + '<pre>' + esc(typeof r === 'string' ? r : jpretty(r)) + '</pre>'; }).join('') : na('no reply recorded'));
+  if (ep.final !== null && ep.final !== undefined && ep.final !== reps[reps.length-1]) h += '<h4>Final answer (as scored)</h4><pre>' + esc(ep.final) + '</pre>';
+  var tr = arr(ep.trace);
+  if (tr.length) h += '<h4>Tool trace (' + tr.length + ' steps)</h4><div class="scroll"><table><tr><th>#</th><th>tool</th><th>args</th><th>result</th><th>error</th></tr>' + tr.map(function(t, i){ t = obj(t); return '<tr><td class="num">' + (i+1) + '</td><td class="mono">' + esc(t.tool === null || t.tool === undefined ? '(none)' : t.tool) + '</td><td class="mono">' + esc(jstr(t.args)) + '</td><td class="mono">' + esc(short(jstr(t.result), 400)) + '</td><td>' + (t.error ? '<span class="st f">' + esc(t.error === true ? 'error' : t.error) + '</span>' : 'no') + '</td></tr>'; }).join('') + '</table></div>';
+  if (ep.final_env) h += '<details><summary>Final sandbox state</summary><pre>' + esc(jpretty(ep.final_env)) + '</pre></details>';
+  return h + '</div>';
+}
+function taskHead(id, tr){ var t = obj(TMAP[id]), tk = obj(obj(tr).task);
+  return '<div class="note"><span class="mono">' + esc(id) + '</span> · family ' + esc(t.family || 'n/a') + ' · difficulty ' + esc(t.difficulty || 'n/a') + (t.subtheme ? ' · ' + esc(t.subtheme) : '') + ' · mode ' + esc(t.mode || tk.mode || 'n/a') + (keys(t.tags).length ? ' · tags ' + esc(jstr(t.tags)) : '') + (tk.source ? ' · source ' + esc(tk.source) : '') + '</div>' +
+    (tk.system ? '<h4>System prompt</h4><pre>' + esc(tk.system) + '</pre>' : '') +
+    '<h4>Prompt shown to the model</h4>' + (tk.prompt_shown ? '<pre>' + esc(tk.prompt_shown) + '</pre>' : na('prompt not recorded yet (no episode has run for this task)')) +
+    '<details><summary>Check specification (' + arr(tk.checks).length + ' checks)' + (arr(tk.tools).length ? ', tools: ' + esc(arr(tk.tools).join(', ')) : '') + '</summary><pre>' + esc(jpretty(tk.checks)) + '</pre></details>'; }
+
+/* ---------- sections ---------- */
+var SECTIONS = [];
+function section(id, navLabel, title, sub, bodyFn){
+  SECTIONS.push({id:id, nav:navLabel});
+  var el = document.createElement('section'); el.id = id;
+  var body;
+  try { body = bodyFn(); } catch (e){ console.error('section ' + id, e); body = '<div class="card err">This section could not be rendered: ' + esc(e && e.message) + '</div>'; }
+  el.innerHTML = (id === 'top' ? '' : '<h2>' + esc(title) + '</h2>') + (sub ? '<p class="sub">' + sub + '</p>' : '') + body;
+  $('main').appendChild(el);
+}
+var totals = obj(S.totals);
+var nTasks = TASKS.length || totals.tasks || null;
+var episodesRun = isNum(totals.episodes) ? totals.episodes : DCONDS.reduce(function(a, c){ return a + (obj(SC[c]).episodes || 0); }, 0);
+var planned = nTasks && CONDS.length ? nTasks*CONDS.length : null;
+var inv = obj(L.inventory), hw = obj(inv.hardware), model = obj(inv.model), files = obj(inv.files), quant = obj(inv.quantization), rt = obj(inv.runtime);
+var memGB = isNum(hw.memory_bytes) ? Math.round(hw.memory_bytes/1073741824) : null;
+
+/* 1. header */
+section('top', 'Overview', '', '', function(){
+  var errs = isNum(totals.errors) ? totals.errors : null, retried = DCONDS.reduce(function(a, c){ return a + (obj(SC[c]).retried || 0); }, 0);
+  var secs = isNum(totals.model_seconds) ? totals.model_seconds : null, spe = secs !== null && episodesRun ? secs/episodesRun : null;
+  var frac = planned ? episodesRun/planned : null, done = planned !== null && episodesRun >= planned;
+  var modelName = model.name || model.gguf_general_name || NA, hwText = [hw.chip, hw.cores ? hw.cores + ' cores' : '', memGB ? memGB + ' GB memory' : '', hw.os].filter(Boolean).join(', ') || NA;
+  var h = '<h1>Qwen Behavior Lab</h1><p class="sub">Weight edits on a local ' + esc(model.gguf_general_name || 'model') + ' (' + esc(quant.file_type_name || 'quantization ' + NA) + ') and their measured effect on held-out task behavior. Data generated ' + esc(L.generated_at || NA) + '. Every number on this page is read from the data files in report/data/.</p>';
+  if (!window.LAB) h += '<div class="banner">The data file report/data/lab.js was not found, so nothing can be shown. Regenerate it with lab/analyze.py and lab/report_data.py.</div>';
+  if (planned !== null && !done) h += '<div class="banner"><b>Run in progress or incomplete.</b> ' + int(episodesRun) + ' of ' + int(planned) + ' planned episodes are in the data (' + pct(frac) + '). ' + DCONDS.length + ' of ' + CONDS.length + ' conditions have at least one episode' + (HAS_BASE ? '' : '; the baseline has none yet, so comparisons against baseline are ' + NA) + '. All statistics below describe only the episodes run so far and will change.</div>';
+  h += '<div class="tiles"><div class="tile hero" style="grid-column:span 2"><div class="l">Episodes run, of ' + (planned !== null ? int(planned) + ' planned (' + CONDS.length + ' conditions x ' + int(nTasks) + ' tasks)' : 'a plan that is ' + NA) + '</div><div class="v">' + int(episodesRun) + '</div>' + (frac !== null ? '<div class="meter" title="' + pct(frac) + '"><i style="width:' + Math.min(100, frac*100).toFixed(1) + '%"></i></div><div class="d">' + pct(frac) + ' complete</div>' : '') + '</div>' +
+    '<div class="tile"><div class="l">Conditions with data</div><div class="v">' + DCONDS.length + ' <span class="muted" style="font-size:14px">of ' + CONDS.length + '</span></div><div class="d">' + ['baseline','intervention','control'].map(function(t){ return CONDS.filter(function(c){ return ctype(c.id) === t; }).length + ' ' + t; }).join(', ') + '</div></div>' +
+    '<div class="tile"><div class="l">Held-out tasks</div><div class="v">' + int(nTasks) + '</div><div class="d">' + FAMS.length + ' families</div></div>' +
+    '<div class="tile"><div class="l">Episode errors</div><div class="v">' + (errs === null ? 'n/a' : int(errs)) + '</div><div class="d">retries: ' + int(retried) + '</div></div>' +
+    '<div class="tile"><div class="l">Model time per episode</div><div class="v">' + (spe === null ? 'n/a' : fx(spe, 2) + ' s') + '</div><div class="d">' + (secs === null ? '' : 'total ' + fx(secs/3600, 2) + ' h of model time') + '</div></div>' +
+    '<div class="tile"><div class="l">Tokens</div><div class="v">' + int(totals.completion_tokens) + '</div><div class="d">completion; ' + int(totals.prompt_tokens) + ' prompt</div></div></div>';
+  h += '<div class="card"><h3 style="margin-top:0">Shortfall against the original request</h3><p>The original request was ' + int(REQUESTED_PER_CONDITION) + ' episodes per condition' + (CONDS.length ? ' (' + int(REQUESTED_PER_CONDITION*CONDS.length) + ' in total for ' + CONDS.length + ' conditions)' : '') + '. ' +
+    (nTasks ? 'This experiment plans ' + int(nTasks) + ' episodes per condition (' + int(planned) + ' in total), which is ' + pct(nTasks/REQUESTED_PER_CONDITION, 0) + ' of the requested per-condition count. ' : '') +
+    'The requested size was not feasible on this machine (' + esc(hwText) + '): the model runs as one serial worker' + (spe !== null ? ' at a measured ' + fx(spe, 2) + ' s of model time per episode, so the requested size would need about ' + fx(REQUESTED_PER_CONDITION*CONDS.length*spe/3600, 0) + ' hours of model time, against about ' + (planned ? fx(planned*spe/3600, 1) : 'n/a') + ' hours for the planned size' : '; per-episode time is ' + NA) + '.</p></div>';
+  h += '<div class="card">' + kv([['Model', modelName], ['Quantization', quant.file_type_name], ['Hardware', hwText], ['Inference runtime', rt.inference ? rt.inference + (rt.llama_cpp_version ? ' (' + String(rt.llama_cpp_version).split('\n')[0] + ')' : '') : null]]) + '</div>';
+  return h;
+});
+
+/* findings (coordinator supplied) */
+if (L.findings_html) section('findings', 'Findings', 'Findings', 'Written summary supplied by the coordinator. It is interpretation layered on the measured statistics in the sections below.', function(){ return '<div class="card interp">' + L.findings_html + '</div>'; });
+
+/* 2. inventory */
+section('inventory', 'Baseline', 'Baseline inventory and protection', 'Identity of the unmodified model and how it is protected: edits are applied only to separate copies, and the source and baseline reference hashes are recorded here.', function(){
+  if (!keys(inv).length) return na();
+  var same = files.source_blob_sha256 && files.baseline_reference_sha256 ? files.source_blob_sha256 === files.baseline_reference_sha256 : null;
+  var h = '<div class="grid2"><div class="card"><h3 style="margin-top:0">Model identity</h3>' + renderAny(model) + '</div>';
+  h += '<div class="card"><h3 style="margin-top:0">Files and protection</h3>' + kv([['Source file', files.source_blob], ['Source sha256', files.source_blob_sha256 ? '<span class="mono">' + esc(files.source_blob_sha256) + '</span>' : null, 1], ['Source size', isNum(files.source_blob_bytes) ? int(files.source_blob_bytes) + ' bytes' : null], ['Source modified', files.source_blob_mtime],
+    ['Baseline reference', files.baseline_reference], ['Baseline reference sha256', files.baseline_reference_sha256 ? '<span class="mono">' + esc(files.baseline_reference_sha256) + '</span>' : null, 1],
+    ['Hashes match', same === null ? null : (same ? '<span class="st p">identical</span>' : '<span class="st f">DIFFERENT</span>'), 1], ['Inventory recorded', inv.recorded_at]]) +
+    (arr(files.ollama_layers).length ? '<details><summary>Ollama layers (' + files.ollama_layers.length + ')</summary>' + renderAny(files.ollama_layers) + '</details>' : '') + '</div></div>';
+  var bm = obj(quant.by_module);
+  h += '<div class="grid2"><div class="card"><h3 style="margin-top:0">Quantization and editable tensors</h3>' + kv([['File type', quant.file_type_name], ['Tensor types', keys(quant.tensor_types).map(function(k){ return k + ': ' + quant.tensor_types[k]; }).join(', ')]]) +
+    (quant.directly_editable ? '<p class="note"><b>Which tensors are directly editable and why:</b> ' + esc(quant.directly_editable) + '</p>' : '') +
+    (keys(bm).length ? '<div class="scroll" style="max-height:330px"><table><tr><th>module</th><th>stored as (tensor count)</th><th>unquantized float (exact in-place edit possible)</th></tr>' + keys(bm).map(function(k){ var ts = keys(bm[k]), ok = ts.length && ts.every(function(t){ return /^F(16|32|64)$/.test(t); }); return '<tr><td class="mono">' + esc(k) + '</td><td>' + esc(ts.map(function(t){ return t + ' (' + bm[k][t] + ')'; }).join(', ')) + '</td><td>' + (ok ? '<span class="st p">yes</span>' : 'no') + '</td></tr>'; }).join('') + '</table></div>' : '') + '</div>';
+  h += '<div class="card"><h3 style="margin-top:0">Runtime and inference settings</h3>' + kv([['Inference', rt.inference], ['llama.cpp', rt.llama_cpp_version], ['Ollama', rt.ollama_version], ['Python', rt.python], ['gguf-py', rt.gguf_py], ['numpy', rt.numpy], ['Server arguments', arr(rt.server_args).join(' ')], ['Inference settings', keys(rt.inference_settings).length ? '<span class="mono">' + esc(jstr(rt.inference_settings)) + '</span>' : null, 1], ['Thinking', rt.thinking]]) +
+    '<h4>Tokenizer</h4>' + renderAny(inv.tokenizer) + '<h4>Hardware</h4>' + renderAny(Object.assign({}, hw, memGB ? {memory_gb: memGB} : {})) + '</div></div>';
+  if (keys(inv.gguf_metadata).length) h += '<details class="card"><summary>GGUF metadata (' + keys(inv.gguf_metadata).length + ' keys)</summary>' + renderAny(inv.gguf_metadata) + '</details>';
+  var su = obj(L.suite);
+  if (keys(su).length) h += '<details class="card"><summary>Task suite manifest' + (obj(su['suite_eval.jsonl']).n ? ': ' + su['suite_eval.jsonl'].n + ' held-out' : '') + (obj(su['suite_dev.jsonl']).n ? ', ' + su['suite_dev.jsonl'].n + ' dev' : '') + '</summary>' +
+    kv([['Held-out suite sha256', obj(su['suite_eval.jsonl']).sha256], ['Dev suite sha256', obj(su['suite_dev.jsonl']).sha256], ['Dropped tasks', arr(su.dropped).length]]) +
+    (keys(su.families).length ? '<table><tr><th>family</th><th class="num">held-out</th><th class="num">dev</th><th>source files (valid / used)</th></tr>' + keys(su.families).map(function(f){ var x = obj(su.families[f]); return '<tr><td>' + esc(f) + '</td><td class="num">' + int(x.eval) + '</td><td class="num">' + int(x.dev) + '</td><td class="note">' + esc(keys(x.files).map(function(k){ return k + ' ' + obj(x.files[k]).valid + '/' + obj(x.files[k]).used; }).join(', ')) + '</td></tr>'; }).join('') + '</table>' : '') + '</details>';
+  return h;
+});
+
+/* 3. conditions */
+section('conditions', 'Conditions', 'Conditions', 'Exactly what was changed in each condition. Type colors are used consistently on the whole page.' + (obj(L.config)._note ? ' ' + esc(L.config._note) : ''), function(){
+  if (!CONDS.length) return na();
+  var h = typeLegend() + '<div class="card scroll"><table><tr><th>id</th><th>type</th><th>module</th><th>blocks</th><th>method</th><th>magnitude</th><th>seed</th><th class="num">elements edited</th><th class="num">relative delta (L2)</th><th>artifact sha256</th><th>identical to baseline</th><th class="num">episodes</th></tr>';
+  CONDS.forEach(function(c){
+    var id = c.id, m = obj(MAN[id]), sp = cspec(id), has = keys(m).length > 0, ts = arr(m.tensors);
+    h += '<tr class="c1"><td>' + cname(id) + '</td><td>' + badge(id) + '</td><td class="mono">' + esc(sp.module || 'none') + '</td><td>' + esc(arr(sp.layers).length ? layersText(sp.layers) : 'none') + '</td><td class="mono">' + esc(sp.method || c.method || 'n/a') + (c.method && sp.method && c.method !== 'edit' ? '<div class="note">' + esc(c.method) + '</div>' : '') + '</td><td>' + esc(magnitudeText(sp)) + '</td><td class="num">' + (sp.seed === undefined || sp.seed === null ? 'none' : esc(sp.seed)) + '</td>' +
+      '<td class="num">' + (isNum(m.n_elements_edited) ? int(m.n_elements_edited) : '<span class="muted">n/a</span>') + '</td><td class="num">' + (isNum(m.relative_delta_l2) ? fx(m.relative_delta_l2, 4) : '<span class="muted">n/a</span>') + '</td>' +
+      '<td class="mono"' + (m.artifact_sha256 ? ' data-tip="' + esc(m.artifact_sha256) + '"' : '') + '>' + (m.artifact_sha256 ? esc(short(m.artifact_sha256, 16)) : '<span class="muted">n/a</span>') + '</td><td>' + (m.identical_to_baseline === true ? '<span class="st p">yes</span>' : m.identical_to_baseline === false ? 'no' : '<span class="muted">n/a</span>') + '</td><td class="num">' + int(obj(SC[id]).episodes || 0) + '</td></tr>';
+    h += '<tr><td colspan="12" style="padding:0 8px 8px 24px"><div><b>What changed:</b> ' + esc(clabel(id) || 'n/a') + (c.matched_control_for ? ' <span class="note">(matched control for <span class="mono">' + esc(c.matched_control_for) + '</span>)</span>' : '') + '</div>' + (has ? '<details><summary>Manifest detail for ' + esc(id) + (ts.length ? ' (' + ts.length + ' tensors)' : '') + '</summary>' +
+      kv([['Built from', m.built_from], ['Baseline sha256', m.baseline_sha256], ['Artifact', m.artifact], ['Artifact sha256', m.artifact_sha256], ['Artifact bytes', isNum(m.artifact_bytes) ? int(m.artifact_bytes) : null], ['Built at', m.built_at], ['Total delta L2', isNum(m.total_delta_l2) ? fx(m.total_delta_l2, 4) : null], ['Spec', keys(m.spec).length ? jstr(m.spec) : null], ['Steps', arr(m.steps).join(' | ')]]) +
+      (ts.length ? '<div class="scroll"><table><tr><th>tensor</th><th>dtype</th><th>shape</th><th class="num">elements</th><th class="num">delta L2</th><th class="num">weight L2 before</th><th class="num">mean before</th><th class="num">mean after</th><th>sha256 before</th><th>sha256 after</th></tr>' + ts.map(function(t){ t = obj(t); return '<tr><td class="mono">' + esc(t.tensor) + '</td><td>' + esc(t.dtype) + '</td><td>' + esc(arr(t.shape).join(' x ')) + '</td><td class="num">' + int(t.n_elements) + '</td><td class="num">' + fx(t.delta_l2, 4) + '</td><td class="num">' + fx(t.weight_l2_before, 4) + '</td><td class="num">' + fx(t.mean_before, 4) + '</td><td class="num">' + fx(t.mean_after, 4) + '</td><td class="mono" data-tip="' + esc(t.sha256_before) + '">' + esc(short(t.sha256_before)) + '</td><td class="mono" data-tip="' + esc(t.sha256_after) + '">' + esc(short(t.sha256_after)) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="note">No tensors listed in this manifest.</div>') + '</details>'
+      : '<span class="note muted">Manifest for ' + esc(id) + ' is ' + NA + ' in the report data (it is included once the condition has episodes). The values shown come from the frozen configuration.</span>') + '</td></tr>';
+  });
+  h += '</table></div>';
+  var tu = obj(L.tuning), sw = arr(tu.sweep);
+  h += '<h3>Dev sweep used to choose strengths</h3>' + (tu.data ? '<p class="sub">Source: ' + esc(tu.data) + '</p>' : '');
+  if (!sw.length) h += na(); else {
+    h += '<div class="card scroll"><table><tr><th>candidate</th><th>edit</th><th class="num">eps</th><th>dev pass</th><th class="num">regressed vs baseline</th><th class="num">improved vs baseline</th><th class="num">outputs changed</th></tr>' + sw.map(function(r){ r = obj(r); var n = r.dev_tasks, isB = r.candidate === 'baseline';
+      return '<tr><td><span class="sw t-' + (isB ? 'baseline' : 'intervention') + '"></span><span class="mono">' + esc(r.candidate) + '</span></td><td>' + esc(r.label) + '</td><td class="num">' + (isNum(obj(r.spec).eps) ? (r.spec.eps > 0 ? '+' : '−') + Math.abs(r.spec.eps).toFixed(2) : 'none') + '</td><td>' + (isNum(r.dev_pass) && n ? '<span class="mini"><i class="t-' + (isB ? 'baseline' : 'intervention') + '" style="width:' + (100*r.dev_pass/n).toFixed(1) + '%"></i></span>' + r.dev_pass + '/' + n + ' (' + pct(r.dev_pass/n, 0) + ')' : 'n/a') + '</td><td class="num">' + int(r.regressed_vs_baseline) + '</td><td class="num">' + int(r.improved_vs_baseline) + '</td><td class="num">' + int(r.outputs_changed) + '</td></tr>'; }).join('') + '</table>' +
+      (keys(tu.selection).length ? '<h4>Selection notes recorded with the sweep</h4>' + renderAny(tu.selection) : '') + '</div>';
+  }
+  return h;
+});
+
+/* 4. results overview */
+section('results', 'Results', 'Results overview', 'Pass rate is the share of episodes whose automatic checks all passed. Intervals are 95% Wilson intervals. Paired differences use the same tasks under both conditions.', function(){
+  if (!DCONDS.length) return na();
+  var rows = DCONDS.map(function(id){ var p = obj(obj(SC[id]).pass); return {label:id, type:ctype(id), rate:p.rate, ci:ci(p.ci95), text: pct(p.rate) + (rk(p) ? '  (' + rk(p) + ')' : '') + (ci(p.ci95) ? '  [' + pct(p.ci95[0], 0) + ', ' + pct(p.ci95[1], 0) + ']' : ''), tip: rateTip(id + ': ' + (clabel(id) || ''), p)}; });
+  var missing = CONDS.filter(function(c){ return DCONDS.indexOf(c.id) < 0; }).map(function(c){ return c.id; });
+  var h = '<div class="card"><h3 style="margin-top:0">Pass rate per condition, with 95% Wilson interval</h3>' + typeLegend('<span>thin whisker: 95% interval</span>') + barChart(rows, 'pass rate (share of episodes passing all checks)') + (missing.length ? '<p class="note">No episodes yet for: <span class="mono">' + esc(missing.join(', ')) + '</span>.</p>' : '') + '</div>';
+  var VB = obj(S.vs_baseline), vk = DCONDS.filter(function(c){ return obj(VB[c]).overall; });
+  h += '<div class="card"><h3 style="margin-top:0">Paired difference in pass rate versus baseline</h3>';
+  if (!vk.length) h += na(HAS_BASE ? 'Paired comparison is ' + NA + '.' : 'Baseline episodes have not been run yet, so paired differences versus baseline are ' + NA + '.');
+  else {
+    h += typeLegend('<span>dot: difference (condition minus baseline); line: 95% paired bootstrap interval</span>') + forest(vk.map(function(id){ var o = obj(VB[id].overall), c = ci(o.ci95); return {label:id, type:ctype(id), marks:[{d:o.diff, ci:c}], text: pp(o.diff) + (c ? '  [' + pp(c[0]).replace(' pp','') + ', ' + pp(c[1]).replace(' pp','') + ']' : '') + '  Holm p ' + pv(o.mcnemar_p_holm), tip: id + ': ' + clabel(id) + '\n' + pp(o.diff) + ' on ' + int(o.n) + ' paired tasks' + (c ? '\n95% bootstrap interval ' + pp(c[0]) + ' to ' + pp(c[1]) : '') + '\nregressed ' + int(o.regressed) + ', improved ' + int(o.improved) + '\nMcNemar p ' + pv(o.mcnemar_p) + ', Holm-adjusted ' + pv(o.mcnemar_p_holm)}; }), 'difference in pass rate versus baseline (percentage points)');
+    h += '<div class="scroll"><table><tr><th>condition</th><th>type</th><th class="num">paired tasks</th><th class="num">difference</th><th class="num">95% bootstrap interval</th><th class="num">regressed (pass to fail)</th><th class="num">improved (fail to pass)</th><th class="num">McNemar p</th><th class="num">Holm-adjusted p</th><th>outputs changed vs baseline</th></tr>' + vk.map(function(id){ var o = obj(VB[id].overall), c = ci(o.ci95), oc = obj(VB[id].output_changed);
+      return '<tr><td>' + cname(id) + '</td><td>' + badge(id) + '</td><td class="num">' + int(o.n) + '</td><td class="num">' + pp(o.diff) + '</td><td class="num">' + (c ? pp(c[0]) + ' to ' + pp(c[1]) : 'n/a') + '</td><td class="num">' + int(o.regressed) + '</td><td class="num">' + int(o.improved) + '</td><td class="num">' + pv(o.mcnemar_p) + '</td><td class="num">' + pv(o.mcnemar_p_holm) + '</td><td>' + miniRate(oc, id) + '</td></tr>'; }).join('') + '</table></div>';
+    h += '<p class="note">McNemar p is the exact two-sided test on discordant pairs; Holm adjustment is across the conditions compared with baseline. "Outputs changed" is the share of tasks whose replies differ at all from the baseline replies.</p>';
+  }
+  return h + '</div>';
+});
+
+/* 5. families */
+var heatMode = 'rate';
+function heatTable(rowKeys, cellFn, opts){ // cellFn(row, cond) -> {v, text, tip, n} ; opts.mode rate|diff ; opts.m ; opts.click
+  var h = '<div class="scroll"><table class="heat"><tr><th></th>' + DCONDS.map(function(c){ return '<th data-tip="' + esc(c + ': ' + clabel(c)) + '"><span class="sw t-' + ctype(c) + '"></span><span class="mono">' + esc(c) + '</span></th>'; }).join('') + '</tr>';
+  rowKeys.forEach(function(r){ h += '<tr><th class="rowh">' + esc(r) + '</th>' + DCONDS.map(function(c){ var x = cellFn(r, c); if (!x || !isNum(x.v)) return '<td><span class="nocell" data-tip="' + esc((x && x.tip) || (r + ' / ' + c + '\nno data yet')) + '">·</span></td>';
+      var col = opts.mode === 'diff' ? divColor(x.v, opts.m) : seqColor(x.v);
+      return '<td><button type="button" ' + (opts.click ? 'data-act="cell" data-fam="' + esc(r) + '" data-cond="' + esc(c) + '" ' : '') + 'style="background:' + cssrgb(col) + ';color:' + inkOn(col) + (opts.click ? '' : ';cursor:default') + '" data-tip="' + esc(x.tip) + '">' + esc(x.text) + '</button></td>'; }).join('') + '</tr>'; });
+  return h + '</table></div>';
+}
+function scaleLegend(mode, m){ var n = 9, cells = ''; for (var i = 0; i < n; i++){ var t = i/(n-1), col = mode === 'diff' ? divColor((t*2-1)*m, m) : seqColor(t); cells += '<i style="display:inline-block;width:22px;height:10px;background:' + cssrgb(col) + '"></i>'; }
+  return '<div class="legend"><span>' + (mode === 'diff' ? '−' + (m*100).toFixed(0) + ' pp (worse than baseline) ' : '0% ') + '&nbsp;' + cells + '&nbsp; ' + (mode === 'diff' ? '+' + (m*100).toFixed(0) + ' pp (better than baseline)' : '100% pass rate') + '</span></div>'; }
+function renderFamilies(){
+  var F = obj(S.families), VB = obj(S.vs_baseline), canDiff = HAS_BASE && DCONDS.some(function(c){ return keys(obj(VB[c]).by_family).length; });
+  if (!canDiff) heatMode = 'rate';
+  var m = 0.1; if (heatMode === 'diff') FAMS.forEach(function(f){ DCONDS.forEach(function(c){ var d = obj(obj(obj(VB[c]).by_family)[f]).diff; if (isNum(d)) m = Math.max(m, Math.abs(d)); }); }); m = Math.ceil(m*10 - 1e-9)/10;
+  var h = '<div class="filters"><div class="seg" role="group" aria-label="Heatmap value"><button type="button" data-act="heat" data-mode="rate" class="' + (heatMode === 'rate' ? 'on' : '') + '">Pass rate</button><button type="button" data-act="heat" data-mode="diff" class="' + (heatMode === 'diff' ? 'on' : '') + '"' + (canDiff ? '' : ' disabled') + '>Difference vs baseline</button></div>' + (canDiff ? '' : '<span class="note">Difference view is ' + NA + ' (needs baseline episodes).</span>') + '</div>';
+  h += '<div class="card"><h3 style="margin-top:0">' + (heatMode === 'diff' ? 'Paired difference in pass rate versus baseline, by task family' : 'Pass rate by task family and condition') + '</h3>' + scaleLegend(heatMode, m) +
+    heatTable(FAMS, function(f, c){ var r = obj(obj(F[f])[c]);
+      if (heatMode === 'diff'){ if (c === 'baseline') return {v:0, text:'ref', tip:f + ' / baseline\nreference condition, pass rate ' + pct(r.rate)}; var o = obj(obj(obj(VB[c]).by_family)[f]), cc = ci(o.ci95); return {v:o.diff, text:isNum(o.diff) ? pp(o.diff).replace(' pp','') : '', tip:f + ' / ' + c + '\n' + pp(o.diff) + ' on ' + int(o.n) + ' paired tasks' + (cc ? '\n95% bootstrap interval ' + pp(cc[0]) + ' to ' + pp(cc[1]) : '') + '\nregressed ' + int(o.regressed) + ', improved ' + int(o.improved) + '\nHolm-adjusted McNemar p ' + pv(o.mcnemar_p_holm) + '\nClick to open these tasks in the trace explorer'}; }
+      return {v:r.n ? r.rate : null, text:pct(r.rate, 0), tip:rateTip(f + ' / ' + c, r) + '\nClick to open these tasks in the trace explorer'}; }, {mode:heatMode, m:m, click:true}) +
+    '<p class="note">Cell text is the value itself, so the table reads without color. Click a cell to filter the trace explorer to that family and condition. Cells with few episodes have wide intervals (see tooltip).</p></div>';
+  var D = obj(S.difficulty), lv = ['easy','medium','hard'].filter(function(k){ return D[k]; }).concat(keys(D).filter(function(k){ return ['easy','medium','hard'].indexOf(k) < 0; }));
+  h += '<div class="card"><h3 style="margin-top:0">Pass rate by task difficulty</h3>' + (lv.length ? scaleLegend('rate') + heatTable(lv, function(d, c){ var r = obj(obj(D[d])[c]); return {v:r.n ? r.rate : null, text:pct(r.rate, 0) + (rk(r) ? ' (' + rk(r) + ')' : ''), tip:rateTip(d + ' / ' + c, r)}; }, {mode:'rate'}) : na()) + '</div>';
+  $('famBody').innerHTML = h;
+}
+section('families', 'Families', 'Task-family comparison', 'Each family has the same number of held-out tasks. Rows are families, columns are conditions.', function(){ return DCONDS.length ? '<div id="famBody"></div>' : na(); });
+
+/* 6. controls */
+section('controls', 'Controls', 'Controls', 'Two kinds of control: conditions whose model file is byte-identical to the baseline (no-op edit, rollback) should reproduce baseline outputs exactly, and matched random controls apply an edit of the same size as an intervention but in random directions.', function(){
+  var IA = obj(S.identical_artifact_controls), flagged = CONDS.filter(function(c){ return obj(MAN[c.id]).identical_to_baseline === true || IA[c.id]; }).map(function(c){ return c.id; });
+  var expected = CONDS.filter(function(c){ var sp = obj(c.spec); return sp.method === 'noop' || c.method === 'edit_then_rollback'; }).map(function(c){ return c.id; });
+  var h = '<div class="card"><h3 style="margin-top:0">Identical-artifact controls: do outputs match the baseline exactly?</h3>';
+  if (!keys(IA).length) h += na('Identical-output check is ' + NA + (expected.length ? ' for ' + expected.join(', ') : '') + ' (needs baseline episodes and episodes of a control whose artifact is byte-identical to baseline).');
+  else h += '<div class="scroll"><table><tr><th>control</th><th>what it is</th><th class="num">tasks compared</th><th>identical replies</th><th>identical scores</th><th>tasks with differing replies</th></tr>' + keys(IA).map(function(id){ var x = obj(IA[id]), dt = arr(x.differing_tasks);
+      return '<tr><td>' + cname(id) + '</td><td>' + esc(clabel(id)) + '</td><td class="num">' + int(x.n) + '</td><td>' + miniRate({k:x.identical_replies, n:x.n, rate:x.n ? x.identical_replies/x.n : null}, id) + '</td><td>' + miniRate({k:x.identical_scores, n:x.n, rate:x.n ? x.identical_scores/x.n : null}, id) + '</td><td>' + (dt.length ? dt.map(function(t){ return '<button class="link" data-act="open" data-task="' + esc(t) + '" data-cond="' + esc(id) + '">' + esc(t) + '</button>'; }).join(' ') : 'none') + '</td></tr>'; }).join('') + '</table></div>';
+  var pend = expected.filter(function(id){ return !IA[id]; });
+  if (keys(IA).length && pend.length) h += '<p class="note">Still ' + NA + ' for: <span class="mono">' + esc(pend.join(', ')) + '</span>.</p>';
+  h += '</div><div class="card"><h3 style="margin-top:0">Intervention versus its matched random control</h3>';
+  var MC = obj(S.vs_matched_control), mk = keys(MC), pairs = CONDS.filter(function(c){ return c.matched_control_for; });
+  if (pairs.length) h += '<p class="note">Planned pairs: ' + pairs.map(function(c){ return '<span class="mono">' + esc(c.matched_control_for) + '</span> against <span class="mono">' + esc(c.id) + '</span>'; }).join('; ') + '.</p>';
+  if (!mk.length) h += na('Matched-control comparison is ' + NA + ' (needs episodes for both the intervention and its random control).');
+  else {
+    h += typeLegend('<span>dot: pass rate of intervention minus pass rate of its random control; line: 95% paired bootstrap interval</span>') + forest(mk.map(function(id){ var x = obj(MC[id]), o = obj(x.intervention_minus_control), c = ci(o.ci95); return {label:id, type:ctype(id), marks:[{d:o.diff, ci:c}], text:pp(o.diff) + (c ? '  [' + pp(c[0]).replace(' pp','') + ', ' + pp(c[1]).replace(' pp','') + ']' : '') + '  vs ' + x.control, tip:id + ' minus ' + x.control + '\n' + pp(o.diff) + ' on ' + int(o.n) + ' paired tasks\nintervention passes where control fails: ' + int(o.improved) + '\ncontrol passes where intervention fails: ' + int(o.regressed) + '\nMcNemar p ' + pv(o.mcnemar_p)}; }), 'intervention minus matched random control (percentage points)');
+    h += '<div class="scroll"><table><tr><th>intervention</th><th>random control</th><th class="num">paired tasks</th><th class="num">difference</th><th class="num">95% interval</th><th class="num">intervention only passes</th><th class="num">control only passes</th><th class="num">McNemar p</th></tr>' + mk.map(function(id){ var x = obj(MC[id]), o = obj(x.intervention_minus_control), c = ci(o.ci95); return '<tr><td>' + cname(id) + '</td><td>' + cname(x.control) + '</td><td class="num">' + int(o.n) + '</td><td class="num">' + pp(o.diff) + '</td><td class="num">' + (c ? pp(c[0]) + ' to ' + pp(c[1]) : 'n/a') + '</td><td class="num">' + int(o.improved) + '</td><td class="num">' + int(o.regressed) + '</td><td class="num">' + pv(o.mcnemar_p) + '</td></tr>'; }).join('') + '</table></div>';
+    h += '<details><summary>By family</summary><div class="scroll"><table><tr><th>family</th>' + mk.map(function(id){ return '<th class="num">' + esc(id) + ' minus ' + esc(obj(MC[id]).control) + '</th>'; }).join('') + '</tr>' + FAMS.map(function(f){ return '<tr><td>' + esc(f) + '</td>' + mk.map(function(id){ var o = obj(obj(obj(MC[id]).by_family)[f]), c = ci(o.ci95); return '<td class="num">' + pp(o.diff) + (c ? ' <span class="muted">[' + pp(c[0]).replace(' pp','') + ', ' + pp(c[1]).replace(' pp','') + ']</span>' : '') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div></details>';
+  }
+  return h + '</div>';
+});
+
+/* 7. behavior metrics */
+function condTable(heads, rowFn, conds){ conds = conds || DCONDS; return '<div class="scroll"><table><tr><th>condition</th>' + heads.map(function(x){ return '<th' + (x[1] ? ' class="num"' : '') + '>' + esc(x[0]) + '</th>'; }).join('') + '</tr>' + conds.map(function(id){ return '<tr><td>' + cname(id) + '</td>' + rowFn(id) + '</tr>'; }).join('') + '</table></div>'; }
+section('behavior', 'Behavior', 'Behavior metrics', 'Family-specific measurements computed from the model replies by fixed rules (tags, regular expressions, tool logs). Small bars are colored by condition type; counts are shown beside every rate.', function(){
+  if (!DCONDS.length) return na();
+  var M = function(id){ return obj(obj(SC[id]).metrics); };
+  var h = typeLegend() + '<div class="card"><h3 style="margin-top:0">Safety: stated decision by request category</h3><p class="note">Each safety task asks the model to open with DECISION: HELP, CAUTION or REFUSE. "Refusal phrase" is a refusal wording anywhere in the reply; "safe redirection" is counted only among replies that chose REFUSE.</p>';
+  var anyS = DCONDS.some(function(id){ return keys(M(id).safety).length; });
+  if (!anyS) h += na(); else ['benign','risky','disallowed'].forEach(function(cat){
+    h += '<h4>' + cat + ' requests</h4>' + condTable([['n',1],['pass'],['REFUSE'],['CAUTION'],['HELP'],['decision missing'],['refusal phrase'],['safe redirection given REFUSE']], function(id){ var x = obj(obj(M(id).safety)[cat]); return '<td class="num">' + int(x.n) + '</td>' + ['pass','decision_refuse','decision_caution','decision_help','decision_missing','refusal_phrase','safe_redirection_given_refuse'].map(function(k){ return '<td>' + miniRate(x[k], id) + '</td>'; }).join(''); }); });
+  h += '</div><div class="card"><h3 style="margin-top:0">Calibration</h3><p class="note">Brier score and expected calibration error (5 bins) compare the stated confidence with the task score; lower is better.</p>';
+  h += DCONDS.some(function(id){ return keys(M(id).calibration).length; }) ? condTable([['answerable: correct'],['unanswerable: abstained'],['false abstention on answerable'],['confidence reported'],['mean confidence',1],['confidence when right',1],['confidence when wrong',1],['Brier',1],['ECE',1]], function(id){ var x = obj(M(id).calibration); return ['answerable_correct','unanswerable_abstained','false_abstention_on_answerable','confidence_reported'].map(function(k){ return '<td>' + miniRate(x[k], id) + '</td>'; }).join('') + ['mean_confidence','mean_confidence_when_right','mean_confidence_when_wrong'].map(function(k){ return '<td class="num">' + pct(x[k], 0) + '</td>'; }).join('') + '<td class="num">' + fx(x.brier, 3) + '</td><td class="num">' + fx(x.ece_5bin, 3) + '</td>'; }) : na();
+  h += '</div><div class="card"><h3 style="margin-top:0">Tool use</h3>';
+  h += DCONDS.some(function(id){ return keys(M(id).tool_use).length; }) ? condTable([['tool episodes',1],['pass'],['with format error'],['with tool error'],['no final answer'],['mean tool calls',1],['mean steps',1]], function(id){ var x = obj(M(id).tool_use); return '<td class="num">' + int(x.episodes) + '</td>' + ['pass','episodes_with_format_error','episodes_with_tool_error','no_final_answer'].map(function(k){ return '<td>' + miniRate(x[k], id) + '</td>'; }).join('') + '<td class="num">' + fx(x.mean_tool_calls, 2) + '</td><td class="num">' + fx(x.mean_steps, 2) + '</td>'; }) : na();
+  h += '</div><div class="card"><h3 style="margin-top:0">Constraint following: pass rate by check type</h3><p class="note">Every task is scored by one or more typed checks. This is the share of individual checks of each type that passed.</p><div id="ctBody"></div></div>';
+  h += '<div class="card"><h3 style="margin-top:0">Latency and token cost</h3>' + condTable([['episodes',1],['errors',1],['retries',1],['mean latency'],['median latency',1],['total model time',1],['completion tokens',1],['per episode',1],['prompt tokens',1],['per episode',1],['truncated replies',1]], function(id){ var x = obj(SC[id]), n = x.episodes, mx = Math.max.apply(null, DCONDS.map(function(c){ return obj(SC[c]).mean_latency_s || 0; }));
+    return '<td class="num">' + int(n) + '</td><td class="num">' + int(x.errors) + '</td><td class="num">' + int(x.retried) + '</td><td>' + (isNum(x.mean_latency_s) ? '<span class="mini"><i class="t-' + ctype(id) + '" style="width:' + (mx ? 100*x.mean_latency_s/mx : 0).toFixed(1) + '%"></i></span>' + fx(x.mean_latency_s, 2) + ' s' : 'n/a') + '</td><td class="num">' + (isNum(x.median_latency_s) ? fx(x.median_latency_s, 2) + ' s' : 'n/a') + '</td><td class="num">' + (isNum(x.total_latency_s) ? fx(x.total_latency_s/60, 1) + ' min' : 'n/a') + '</td><td class="num">' + int(x.completion_tokens) + '</td><td class="num">' + (n && isNum(x.completion_tokens) ? fx(x.completion_tokens/n, 1) : 'n/a') + '</td><td class="num">' + int(x.prompt_tokens) + '</td><td class="num">' + (n && isNum(x.prompt_tokens) ? fx(x.prompt_tokens/n, 1) : 'n/a') + '</td><td class="num">' + int(x.truncated_replies) + '</td>'; }) + '</div>';
+  return h;
+});
+function renderCheckTypes(){ var el = $('ctBody'); if (!el) return; var all = {}; DCONDS.forEach(function(id){ keys(obj(obj(SC[id]).metrics).check_types).forEach(function(k){ all[k] = 1; }); }); var ks = Object.keys(all).sort();
+  el.innerHTML = ks.length ? scaleLegend('rate') + heatTable(ks, function(k, c){ var r = obj(obj(obj(obj(SC[c]).metrics).check_types)[k]); return {v:r.n ? r.rate : null, text:pct(r.rate, 0) + (rk(r) ? ' (' + rk(r) + ')' : ''), tip:rateTip('check type ' + k + ' / ' + c, r)}; }, {mode:'rate'}) : na(); }
+
+/* 8. generalization */
+section('generalization', 'Generalization', 'Generalization: dev versus held-out', 'Strengths were chosen on the dev tasks only. This compares the effect of each condition on the dev tasks with its effect on the held-out tasks.', function(){
+  var G = obj(S.generalization), gk = keys(G); if (!gk.length) return '<div class="card">' + na('Generalization data is ' + NA + ' (it needs the final dev run and baseline episodes).') + '</div>';
+  var h = '<div class="card">' + typeLegend('<span>open circle: dev tasks</span><span>filled circle: held-out tasks</span><span>line: 95% paired bootstrap interval</span>') + forest(gk.map(function(id){ var g = obj(G[id]), d = obj(g.dev), e = obj(g.heldout); return {label:id, type:ctype(id), marks:[{d:d.diff, ci:ci(d.ci95), open:true}, {d:e.diff, ci:ci(e.ci95)}], text:'dev ' + pp(d.diff) + '   held-out ' + pp(e.diff), tip:id + ': ' + clabel(id) + '\ndev: ' + pp(d.diff) + ' on ' + int(d.n) + ' tasks\nheld-out: ' + pp(e.diff) + ' on ' + int(e.n) + ' tasks'}; }), 'difference in pass rate versus baseline (percentage points)');
+  h += '<div class="scroll"><table><tr><th>condition</th><th>dev baseline pass</th><th>dev condition pass</th><th class="num">dev difference</th><th class="num">dev 95% interval</th><th class="num">held-out difference</th><th class="num">held-out 95% interval</th><th class="num">held-out paired tasks</th></tr>' + gk.map(function(id){ var g = obj(G[id]), d = obj(g.dev), e = obj(g.heldout), dc = ci(d.ci95), ec = ci(e.ci95); return '<tr><td>' + cname(id) + '</td><td>' + miniRate(g.dev_baseline_pass, 'baseline') + '</td><td>' + miniRate(g.dev_condition_pass, id) + '</td><td class="num">' + pp(d.diff) + '</td><td class="num">' + (dc ? pp(dc[0]) + ' to ' + pp(dc[1]) : 'n/a') + '</td><td class="num">' + pp(e.diff) + '</td><td class="num">' + (ec ? pp(ec[0]) + ' to ' + pp(ec[1]) : 'n/a') + '</td><td class="num">' + int(e.n) + '</td></tr>'; }).join('') + '</table></div>';
+  return h + '</div>';
+});
+
+/* 9. examples */
+var EX = arr(L.examples).map(function(x){ x = obj(x); return {task:x.task, condition:x.condition, family:x.family || obj(TMAP[x.task]).family, label:x.label || 'unlabeled', how:x.how || 'selection rule not recorded', src:'rule'}; });
+keys(obj(L.analyst).families).forEach(function(f){ arr(obj(L.analyst.families[f]).examples).forEach(function(x){ x = obj(x); if (x.task) EX.push({task:x.task, condition:x.condition, family:obj(TMAP[x.task]).family || f, label:x.label || 'unlabeled', how:'chosen by an AI analyst subagent' + (x.why ? ': ' + x.why : ' (no reason recorded)'), src:'analyst'}); }); });
+var exState = {label:'all', cond:'all', src:'all', page:0}, EXPP = 4;
+function labClass(l){ return /fail/i.test(l) ? 'l-failure' : /edge/i.test(l) ? 'l-edge' : /repr/i.test(l) ? 'l-rep' : ''; }
+function exFiltered(){ return EX.filter(function(x){ return (exState.label === 'all' || x.label === exState.label) && (exState.cond === 'all' || x.condition === exState.cond) && (exState.src === 'all' || x.src === exState.src); }); }
+function renderExamples(){
+  var el = $('exBody'); if (!el) return; var list = exFiltered(), pages = Math.max(1, Math.ceil(list.length/EXPP)); exState.page = Math.min(exState.page, pages-1);
+  var page = list.slice(exState.page*EXPP, exState.page*EXPP + EXPP);
+  var h = '<div class="filters"><span class="note">' + list.length + ' of ' + EX.length + ' examples</span><button class="btn" data-act="expage" data-d="-1"' + (exState.page <= 0 ? ' disabled' : '') + '>Previous</button><span class="note">page ' + (exState.page+1) + ' of ' + pages + '</span><button class="btn" data-act="expage" data-d="1"' + (exState.page >= pages-1 ? ' disabled' : '') + '>Next</button></div>';
+  h += page.map(function(x, i){ return '<div class="card"><div class="eph" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span class="lab ' + labClass(x.label) + '">' + esc(x.label) + '</span><button class="link" data-act="open" data-task="' + esc(x.task) + '" data-cond="' + esc(x.condition) + '">' + esc(x.task) + '</button><span class="note">family ' + esc(x.family || 'n/a') + '</span>' + cname(x.condition) + ' ' + badge(x.condition) + (x.src === 'analyst' ? '<span class="lab">analyst pick</span>' : '') + '</div><div class="note"><b>Selection rule:</b> ' + esc(x.how) + '</div><div class="note"><b>Exact intervention:</b> ' + esc(interventionLine(x.condition)) + '</div><div id="exslot' + i + '">' + na('loading trace') + '</div></div>'; }).join('') || na('No examples match these filters.');
+  el.innerHTML = h;
+  page.forEach(function(x, i){ var slot = function(){ return $('exslot' + i); };
+    if (!x.family){ if (slot()) slot().innerHTML = na('Task ' + x.task + ' is not in the task index.'); return; }
+    loadFamily(x.family).then(function(T){ var tr = T[x.task], s = slot(); if (!s) return; if (!tr){ s.innerHTML = na('No trace recorded for this task.'); return; } var eps = obj(tr.eps);
+      s.innerHTML = taskHead(x.task, tr) + '<div class="cols2" style="margin-top:8px">' + (x.condition === 'baseline' ? '' : epPanel('baseline', eps.baseline)) + epPanel(x.condition, eps[x.condition]) + '</div>'; }).catch(function(e){ var s = slot(); if (s) s.innerHTML = na(e.message); }); });
+}
+section('examples', 'Examples', 'Showcased examples', 'Examples are drawn by fixed, seeded rules so that nothing is hand-picked silently. Every card carries its label (representative, edge case or failure) and the rule that selected it, and shows the baseline response beside the condition response.', function(){
+  if (!EX.length) return '<div class="card">' + na('Showcased examples are ' + NA + ' (the selection rule needs baseline episodes to draw from).') + '</div>';
+  var labels = {}, conds = {}, srcs = {}; EX.forEach(function(x){ labels[x.label] = 1; conds[x.condition] = 1; srcs[x.src] = 1; });
+  return '<div class="filters"><label>Label<select data-ex="label"><option value="all">all labels</option>' + Object.keys(labels).map(function(l){ return '<option>' + esc(l) + '</option>'; }).join('') + '</select></label><label>Condition<select data-ex="cond"><option value="all">all conditions</option>' + Object.keys(conds).map(function(l){ return '<option>' + esc(l) + '</option>'; }).join('') + '</select></label>' + (Object.keys(srcs).length > 1 ? '<label>Chosen by<select data-ex="src"><option value="all">rule and analyst</option><option value="rule">seeded rule</option><option value="analyst">AI analyst</option></select></label>' : '') + '</div><div id="exBody"></div>';
+});
+
+/* 10. trace explorer */
+var X = {fam:'all', cond:'all', diff:'all', out:'all', q:'', page:0, sel:null, a:null, b:null}, XPP = 20;
+function outcomeMatch(c, id, o){ var s = score(c, id), b = score('baseline', id);
+  if (o === 'all') return s !== undefined; if (o === 'pass') return s === 1; if (o === 'fail') return s === 0; if (o === 'error') return s === -1;
+  if (o === 'regressed') return c !== 'baseline' && b === 1 && s === 0; if (o === 'improved') return c !== 'baseline' && b === 0 && s === 1; if (o === 'changed') return obj(CHANGED[c])[id] === 1; return false; }
+function xFiltered(){ var q = X.q.trim().toLowerCase(), cs = X.cond === 'all' ? DCONDS : [X.cond];
+  return TASKS.filter(function(t){ if (X.fam !== 'all' && t.family !== X.fam) return false; if (X.diff !== 'all' && t.difficulty !== X.diff) return false; if (q && String(t.id).toLowerCase().indexOf(q) < 0 && String(t.subtheme || '').toLowerCase().indexOf(q) < 0) return false;
+    if (X.cond === 'all' && X.out === 'all') return true; return cs.some(function(c){ return outcomeMatch(c, t.id, X.out); }); }); }
+function dot(c, id){ var s = score(c, id); var g = s === 1 ? ['dp','✓','pass'] : s === 0 ? ['df','✗','fail'] : s === -1 ? ['de','!','error'] : ['dn','·','not run']; return '<td class="dotc ' + g[0] + '" data-tip="' + esc(id + ' / ' + c + ': ' + g[2] + (obj(CHANGED[c])[id] === 1 ? ', output differs from baseline' : '')) + '">' + g[1] + '</td>'; }
+function renderXList(){
+  var el = $('xList'); if (!el) return; var list = xFiltered(), pages = Math.max(1, Math.ceil(list.length/XPP)); X.page = Math.max(0, Math.min(X.page, pages-1)); var page = list.slice(X.page*XPP, X.page*XPP + XPP);
+  var h = '<div class="filters" style="margin-top:0"><span class="note">' + int(list.length) + ' of ' + int(TASKS.length) + ' tasks</span><button class="btn" data-act="xpage" data-d="-1"' + (X.page <= 0 ? ' disabled' : '') + '>Prev</button><span class="note">page ' + (X.page+1) + ' of ' + pages + '</span><button class="btn" data-act="xpage" data-d="1"' + (X.page >= pages-1 ? ' disabled' : '') + '>Next</button></div>';
+  h += '<div class="scroll"><table><tr><th>task</th><th>difficulty</th>' + DCONDS.map(function(c){ return '<th style="padding:2px;vertical-align:bottom" data-tip="' + esc(c + ': ' + clabel(c)) + '"><div class="vth">' + esc(c) + '</div><span class="sw t-' + ctype(c) + '" style="margin:3px 0 0 3px"></span></th>'; }).join('') + '</tr>' +
+    page.map(function(t){ return '<tr class="pick' + (X.sel === t.id ? ' sel' : '') + '" data-act="pick" data-task="' + esc(t.id) + '" tabindex="0"><td><span class="mono">' + esc(t.id) + '</span><div class="note muted">' + esc(t.family) + '</div></td><td>' + esc(t.difficulty || '') + '</td>' + DCONDS.map(function(c){ return dot(c, t.id); }).join('') + '</tr>'; }).join('') + '</table></div>' + (list.length ? '' : na('No tasks match these filters.')) +
+    '<div class="legend" style="margin-top:8px"><span class="dp">✓</span><span>pass</span><span class="df">✗</span><span>fail</span><span class="de">!</span><span>error</span><span class="dn">·</span><span>not run yet</span></div>';
+  el.innerHTML = h;
+}
+function renderXDetail(){
+  var el = $('xDetail'); if (!el) return; if (!X.sel){ el.innerHTML = na('Select a task in the list to see its prompt, checks and a side by side comparison of two conditions.'); return; }
+  var t = obj(TMAP[X.sel]); if (!t.family){ el.innerHTML = na('Task ' + X.sel + ' is not in the task index.'); return; }
+  el.innerHTML = na('loading trace for ' + X.sel); var want = X.sel;
+  loadFamily(t.family).then(function(T){ if (X.sel !== want) return; var tr = obj(T[want]), eps = obj(tr.eps), have = DCONDS.filter(function(c){ return eps[c]; });
+    if (!X.a || !eps[X.a]) X.a = eps.baseline ? 'baseline' : have[0] || null;
+    if (!X.b || !eps[X.b] || X.b === X.a) X.b = have.filter(function(c){ return c !== X.a; })[0] || null;
+    var opts = function(cur){ return DCONDS.map(function(c){ return '<option value="' + esc(c) + '"' + (c === cur ? ' selected' : '') + (eps[c] ? '' : ' disabled') + '>' + esc(c) + (eps[c] ? (eps[c].status && eps[c].status !== 'ok' ? ' (error)' : eps[c].score === 1 ? ' (pass)' : ' (fail)') : ' (not run)') + '</option>'; }).join(''); };
+    el.innerHTML = '<h3 style="margin-top:0">Task <span class="mono">' + esc(want) + '</span></h3>' + taskHead(want, tr) +
+      '<div class="filters"><label>Left condition<select data-x="a">' + opts(X.a) + '</select></label><label>Right condition<select data-x="b">' + opts(X.b) + '</select></label><span class="note">' + have.length + ' of ' + DCONDS.length + ' conditions have an episode for this task</span></div>' +
+      (have.length ? '<div class="cols2">' + (X.a ? epPanel(X.a, eps[X.a]) : '') + (X.b ? epPanel(X.b, eps[X.b]) : '<div class="ep">' + na('Only one condition has an episode for this task so far.') + '</div>') + '</div>' : na('No episode has been run for this task yet.'));
+  }).catch(function(e){ if (X.sel === want) el.innerHTML = na(e.message); });
+}
+function openTask(id, cond){ X.sel = id; var t = obj(TMAP[id]); X.fam = t.family || 'all'; X.diff = 'all'; X.out = 'all'; X.q = id; X.cond = 'all'; X.page = 0; if (cond && cond !== 'baseline'){ X.b = cond; X.a = 'baseline'; } syncX(); renderXList(); renderXDetail(); $('explorer').scrollIntoView(); }
+function syncX(){ ['fam','cond','diff','out','q'].forEach(function(k){ var e = document.querySelector('[data-xf="' + k + '"]'); if (e) e.value = X[k]; }); }
+section('explorer', 'Trace explorer', 'Trace explorer', 'Every recorded episode. Outcome filters apply to the chosen condition, or to any condition when none is chosen. Traces load per family on demand.', function(){
+  if (!TASKS.length) return na();
+  var diffs = {}; TASKS.forEach(function(t){ if (t.difficulty) diffs[t.difficulty] = 1; });
+  var sel = function(k, label, options){ return '<label>' + label + '<select data-xf="' + k + '">' + options.map(function(o){ return '<option value="' + esc(o[0]) + '">' + esc(o[1]) + '</option>'; }).join('') + '</select></label>'; };
+  return '<div class="filters">' + sel('fam', 'Family', [['all','all families']].concat(FAMS.map(function(f){ return [f, f]; }))) + sel('cond', 'Condition', [['all','any condition']].concat(DCONDS.map(function(c){ return [c, c + ' (' + ctype(c) + ')']; }))) + sel('diff', 'Difficulty', [['all','all']].concat(Object.keys(diffs).map(function(d){ return [d, d]; }))) +
+    sel('out', 'Outcome', [['all','all'],['pass','pass'],['fail','fail'],['error','error'],['regressed','regressed vs baseline'],['improved','improved vs baseline'],['changed','output changed vs baseline']]) + '<label>Task id or subtheme contains<input type="text" data-xf="q" placeholder="for example plan-01" size="22"></label><button class="btn" data-act="xreset">Reset</button></div>' +
+    (HAS_BASE ? '' : '<p class="note">Baseline episodes are ' + NA + ', so the "regressed", "improved" and "output changed" filters return nothing for now.</p>') +
+    '<div class="exgrid"><div class="card" id="xList" style="margin:0;align-self:start"></div><div class="card" id="xDetail" style="margin:0;min-width:0"></div></div>';
+});
+
+/* 11. analyst notes and audit */
+section('analysis', 'AI notes', 'Agent analysis notes and score audit (interpretation by AI subagents)', 'Everything in this section was written by AI subagents that read sampled traces. It is interpretation and spot checking, kept separate from the measured statistics above, and it can be wrong.', function(){
+  var A = obj(L.analyst), AU = obj(L.audit), h = '<div class="card interp"><h3 style="margin-top:0">Analyst notes by family</h3>';
+  var af = obj(A.families);
+  if (!keys(A).length) h += na('Analyst notes are ' + NA + '.'); else {
+    keys(af).forEach(function(f){ var x = obj(af[f]); h += '<h4>' + esc(f) + '</h4>';
+      ['findings','surprises'].forEach(function(k){ if (x[k] !== undefined) h += '<div class="note"><b>' + k + '</b></div>' + renderAny(x[k]); });
+      if (arr(x.examples).length) h += '<div class="note"><b>examples</b></div><ul style="margin:2px 0;padding-left:18px">' + x.examples.map(function(e){ e = obj(e); return '<li>' + (e.task ? '<button class="link" data-act="open" data-task="' + esc(e.task) + '" data-cond="' + esc(e.condition || '') + '">' + esc(e.task) + '</button> ' : '') + (e.condition ? '<span class="mono">' + esc(e.condition) + '</span> ' : '') + (e.label ? '<span class="lab ' + labClass(e.label) + '">' + esc(e.label) + '</span> ' : '') + esc(e.why || '') + '</li>'; }).join('') + '</ul>';
+      var rest = {}; keys(x).forEach(function(k){ if (['findings','surprises','examples'].indexOf(k) < 0) rest[k] = x[k]; }); if (keys(rest).length) h += renderAny(rest); });
+    var restA = {}; keys(A).forEach(function(k){ if (k !== 'families') restA[k] = A[k]; }); if (keys(restA).length) h += '<h4>Other analyst output</h4>' + renderAny(restA);
+  }
+  h += '</div><div class="card interp"><h3 style="margin-top:0">Score audit</h3><p class="note">Auditor subagents re-read sampled episodes and recorded whether they agree with the automatic score.</p>';
+  var uf = obj(AU.families);
+  if (!keys(AU).length) h += na('Score audit is ' + NA + '.'); else {
+    if (keys(uf).length) h += '<div class="scroll"><table><tr><th>family</th><th class="num">sampled</th><th class="num">agree</th><th class="num">disagree</th><th class="num">agreement</th><th>notes</th></tr>' + keys(uf).map(function(f){ var x = obj(uf[f]); var rest = {}; keys(x).forEach(function(k){ if (['sampled','agree','disagree','notes'].indexOf(k) < 0) rest[k] = x[k]; });
+      return '<tr><td>' + esc(f) + '</td><td class="num">' + int(x.sampled) + '</td><td class="num">' + int(x.agree) + '</td><td class="num">' + int(x.disagree) + '</td><td class="num">' + (isNum(x.agree) && x.sampled ? pct(x.agree/x.sampled, 0) : 'n/a') + '</td><td>' + renderAny(x.notes) + (keys(rest).length ? renderAny(rest) : '') + '</td></tr>'; }).join('') + '</table></div>';
+    var restU = {}; keys(AU).forEach(function(k){ if (k !== 'families') restU[k] = AU[k]; }); if (keys(restU).length) h += '<h4>Other audit output</h4>' + renderAny(restU);
+  }
+  return h + '</div>';
+});
+
+/* 12. swarm */
+section('swarm', 'Swarm', 'Agent swarm', 'AI subagents were used for task-suite design, task generation, review and analysis. <b>The model runs themselves (every episode in this report) were executed by one ordinary script worker, not by AI agents.</b>', function(){
+  var W = obj(L.swarm), E = obj(W.engine); if (!keys(W).length) return na();
+  var roles = obj(W.by_role), items = keys(roles).reduce(function(a, k){ return a + (isNum(roles[k]) ? roles[k] : 0); }, 0);
+  var tile = function(l, v, d){ return '<div class="tile"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + esc(d || '') + '</div></div>'; };
+  var h = '<div class="tiles">' + tile('AI subagents seen', int(W.ai_subagents_seen), 'distinct agents in the event log') + tile('Finished', int(W.ai_done), 'reported done') + tile('Failed', int(W.ai_failed), 'failed and never finished') + tile('Actual concurrency cap', int(E.concurrency_cap), E.concurrency_cap_reason || 'from the workflow engine') + tile('Peak concurrent', int(W.peak_concurrent_self_reported), 'self-reported by agents in the log') + tile('AI work items', keys(roles).length ? int(items) : 'n/a', 'one per subagent, summed over roles') + tile('Events recorded', int(W.events), 'all actors') + '</div>';
+  h += '<div class="grid2"><div class="card"><h3 style="margin-top:0">Subagents by role</h3>' + (keys(roles).length ? '<table><tr><th>role</th><th class="num">subagents</th></tr>' + keys(roles).map(function(k){ return '<tr><td>' + esc(k) + '</td><td class="num">' + int(roles[k]) + '</td></tr>'; }).join('') + '</table>' : na()) + '</div><div class="card"><h3 style="margin-top:0">Workflow engine facts</h3>' + (E.source ? '<p class="note">Source: ' + esc(E.source) + '</p>' : '') +
+    (arr(E.workflows).length ? arr(E.workflows).map(function(w){ return renderAny(w); }).join('<hr style="border:0;border-top:1px solid var(--grid)">') : na()) + '</div></div>';
+  h += '<h3>Swarm replay</h3><p class="sub"><b>This is a REPLAY of recorded events, not a live view.</b> It is the swarm dashboard rebuilt from the recorded event log (' + int(W.events) + ' events).</p><iframe src="swarm_replay.html" title="Replay of the recorded agent swarm dashboard (not live)" loading="lazy"></iframe>';
+  return h;
+});
+
+/* 13. methods */
+section('methods', 'Methods', 'Methods and limitations', '', function(){
+  var is = obj(rt.inference_settings), setTxt = keys(is).length ? keys(is).filter(function(k){ return typeof is[k] !== 'object'; }).map(function(k){ return k + ' ' + is[k]; }).join(', ') : 'settings ' + NA;
+  var perFam = FAMS.length && nTasks ? nTasks/FAMS.length : null;
+  return '<div class="grid2"><div class="card"><h3 style="margin-top:0">Methods</h3><ul style="padding-left:18px;margin:4px 0">' +
+    '<li><b>Model and edits.</b> Each condition is a separate copy of the baseline model file with the listed tensors edited in place; the manifest records hashes before and after. The baseline file is never modified.</li>' +
+    '<li><b>Tasks.</b> ' + (nTasks ? int(nTasks) + ' held-out tasks in ' + FAMS.length + ' families' + (perFam && perFam === Math.round(perFam) ? ' (' + perFam + ' each)' : '') : 'Task counts are ' + NA) + '. Edit strengths were chosen on separate dev tasks only.</li>' +
+    '<li><b>Inference.</b> Deterministic decoding (' + esc(setTxt) + '); ' + esc(rt.thinking ? 'thinking ' + rt.thinking : 'thinking mode ' + NA) + '.</li>' +
+    '<li><b>Scoring.</b> Each task has typed automatic checks; an episode passes only if all of them pass. Errors count as not passed.</li>' +
+    '<li><b>Statistics.</b> Pass rates carry 95% Wilson intervals. Comparisons with baseline are paired on task: the difference carries a paired bootstrap interval over tasks, and significance uses the exact McNemar test with Holm adjustment across conditions.</li>' +
+    '<li><b>Controls.</b> A no-op edit and a rollback check the edit pipeline itself; matched random controls separate the effect of the edit direction from the effect of its size.</li></ul></div>' +
+    '<div class="card"><h3 style="margin-top:0">Limitations</h3><ul style="padding-left:18px;margin:4px 0">' +
+    '<li>Sample size is ' + (nTasks ? int(nTasks) : 'n/a') + ' tasks per condition, not the ' + int(REQUESTED_PER_CONDITION) + ' originally requested; small effects and per-family cells have wide intervals.</li>' +
+    '<li>One quantized model, one seed and deterministic decoding: results describe this model file and these prompts, not Qwen models in general.</li>' +
+    '<li>Only unquantized normalization gains in a fixed range of blocks were edited; other kinds of edit were not tested.</li>' +
+    '<li>Tasks were written and reviewed by AI subagents and scored by rule-based checks, which can mis-score unusual replies. See the score audit when present.</li>' +
+    '<li>Safety, calibration and tool metrics rely on tags and patterns in the reply, so a reply that ignores the requested format is counted as missing, not interpreted.</li>' +
+    (planned !== null && episodesRun < planned ? '<li>The run is incomplete: ' + int(episodesRun) + ' of ' + int(planned) + ' episodes are present, and conditions may cover different subsets of tasks until it finishes.</li>' : '') + '</ul></div></div>' +
+    '<div class="card interp"><h3 style="margin-top:0">Measured versus interpretation</h3><p><b>Measured:</b> everything computed directly from episode records by lab/analyze.py and lab/report_data.py: counts, pass rates, intervals, paired differences, p values, behavior metrics, latency, tokens, hashes, manifests and the traces themselves.</p><p><b>Interpretation:</b> the Findings text (when present), the analyst notes and the score audit, which are written by the coordinator or by AI subagents after reading the measurements and sampled traces. They are marked with a gray left border. Example labels (representative, edge case, failure) are assigned by the stated selection rule, not by judgment, unless marked as an analyst pick.</p></div>';
+});
+
+/* ---------- nav ---------- */
+$('nav').innerHTML = SECTIONS.map(function(s){ return '<a href="#' + s.id + '">' + esc(s.nav) + '</a>'; }).join('');
+if ('IntersectionObserver' in window){ var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ Array.prototype.forEach.call($('nav').children, function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); }); } }); }, {rootMargin:'-45% 0px -50% 0px'}); SECTIONS.forEach(function(s){ io.observe($(s.id)); }); }
+
+/* ---------- dynamic renders and events ---------- */
+function safe(fn){ try { fn(); } catch (e){ console.error(e); } }
+function renderHeat(){ if ($('famBody')) safe(renderFamilies); safe(renderCheckTypes); }
+renderHeat(); safe(renderExamples); safe(renderXList); safe(renderXDetail);
+var hm = /^#task=([^&]+)(?:&cond=([^&]+))?/.exec(location.hash || '');
+if (hm) safe(function(){ openTask(decodeURIComponent(hm[1]), hm[2] ? decodeURIComponent(hm[2]) : null); });
+if (hm) [300, 1200, 2500, 5000].forEach(function(ms){ setTimeout(function(){ var d = $('explorer'); if (d) d.scrollIntoView({behavior:'instant'}); }, ms); });
+else if (location.hash && $(location.hash.slice(1))) $(location.hash.slice(1)).scrollIntoView({behavior:'instant'});
+if (mq.addEventListener) mq.addEventListener('change', renderHeat);
+
+document.addEventListener('click', function(e){ var t = e.target.closest ? e.target.closest('[data-act]') : null; if (!t) return; var a = t.getAttribute('data-act');
+  if (a === 'heat'){ heatMode = t.getAttribute('data-mode'); renderFamilies(); }
+  else if (a === 'cell'){ X.fam = t.getAttribute('data-fam'); X.cond = t.getAttribute('data-cond'); X.out = 'all'; X.diff = 'all'; X.q = ''; X.page = 0; syncX(); renderXList(); $('explorer').scrollIntoView(); }
+  else if (a === 'open'){ openTask(t.getAttribute('data-task'), t.getAttribute('data-cond')); }
+  else if (a === 'expage'){ exState.page += +t.getAttribute('data-d'); renderExamples(); $('examples').scrollIntoView(); }
+  else if (a === 'xpage'){ X.page += +t.getAttribute('data-d'); renderXList(); }
+  else if (a === 'xreset'){ X.fam = X.cond = X.diff = X.out = 'all'; X.q = ''; X.page = 0; syncX(); renderXList(); }
+  else if (a === 'pick'){ X.sel = t.getAttribute('data-task'); var pc = X.cond !== 'all' ? X.cond : (X.out !== 'all' ? DCONDS.filter(function(c){ return c !== 'baseline' && outcomeMatch(c, X.sel, X.out); })[0] : null); if (pc && pc !== 'baseline'){ X.b = pc; X.a = 'baseline'; } renderXList(); renderXDetail(); }
+});
+document.addEventListener('keydown', function(e){ if (e.key === 'Enter' && e.target.matches && e.target.matches('tr.pick')) e.target.click(); });
+document.addEventListener('change', function(e){ var t = e.target; if (!t.getAttribute) return;
+  var k = t.getAttribute('data-xf'); if (k && k !== 'q'){ X[k] = t.value; X.page = 0; renderXList(); return; }
+  k = t.getAttribute('data-x'); if (k){ X[k] = t.value; renderXDetail(); return; }
+  k = t.getAttribute('data-ex'); if (k){ exState[k] = t.value; exState.page = 0; renderExamples(); } });
+document.addEventListener('input', function(e){ if (e.target.getAttribute && e.target.getAttribute('data-xf') === 'q'){ X.q = e.target.value; X.page = 0; renderXList(); } });
+
+/* ---------- tooltip (hover and keyboard focus) ---------- */
+var tip = $('tip');
+function showTip(el, x, y){ tip.textContent = el.getAttribute('data-tip'); tip.style.display = 'block'; var w = tip.offsetWidth, hh = tip.offsetHeight; tip.style.left = Math.max(4, Math.min(window.innerWidth - w - 4, x + 14)) + 'px'; tip.style.top = (y + 18 + hh > window.innerHeight ? Math.max(4, y - hh - 10) : y + 18) + 'px'; }
+document.addEventListener('pointermove', function(e){ var el = e.target.closest ? e.target.closest('[data-tip]') : null; if (el && el.getAttribute('data-tip')) showTip(el, e.clientX, e.clientY); else tip.style.display = 'none'; });
+document.addEventListener('focusin', function(e){ var el = e.target.closest ? e.target.closest('[data-tip]') : null; if (el && el.getAttribute('data-tip')){ var r = el.getBoundingClientRect(); showTip(el, r.left + r.width/2, r.bottom - 10); } });
+document.addEventListener('focusout', function(){ tip.style.display = 'none'; });
+document.addEventListener('scroll', function(){ tip.style.display = 'none'; }, {passive:true});
+})();
+</script>
+</body>
+</html>

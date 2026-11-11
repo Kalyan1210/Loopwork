@@ -1,0 +1,84 @@
+{
+  "family": "longhorizon",
+  "measured": [
+    "Baseline passed 25 of 100; noop and rollback also passed 25 of 100 each, with replies and tool traces identical to baseline on 100 of 100 tasks.",
+    "ffn_low passed 20 of 100, ffn_med 11, ffn_up_low 13, attn_low 34, attn_med 32, rand_ffn_med 20, rand_attn_med 28.",
+    "Against baseline, ffn_med had 16 regressions and 2 improvements (McNemar p 0.0013, Holm-adjusted 0.101); ffn_up_low had 16 and 4 (p 0.0118, Holm 0.80); attn_low had 2 and 11 (p 0.0225, Holm 1.0); attn_med had 8 and 15 (p 0.21).",
+    "Against the matched random control, ffn_med passed 11 versus 20 for rand_ffn_med (12 regressions, 3 improvements, diff -0.09, CI95 -0.16 to -0.02, p 0.035); attn_med passed 32 versus 28 for rand_attn_med (14 regressions, 18 improvements, p 0.60).",
+    "On the 40 tool-mode tasks baseline passed 9, ffn_med 1, ffn_up_low 3, attn_low 11, attn_med 9, rand_ffn_med 7, rand_attn_med 10; on the 60 multi-turn tasks baseline passed 16, ffn_med 10, ffn_up_low 10, attn_low 23, attn_med 23, rand_ffn_med 13, rand_attn_med 18.",
+    "By difficulty, baseline passed 16 of 35 easy, 7 of 35 medium and 2 of 30 hard; 41 of 100 tasks failed under all 10 conditions and 6 passed under all 10."
+  ],
+  "failure_patterns": [
+    "Multi-turn final answer reflects a wrong tracked state (a missed or misapplied update, correction, bulk move or swap) while the reply format is correct: 12 of the 27 failing traces read, across all 7 non-identical conditions.",
+    "Tool task where the reads succeed but the write is missing or holds a wrong value (no kv_set, an expression string stored instead of a number, a distractor key added, operands reversed or double counted): 6 of 27 failing traces read.",
+    "Tool task ends at the 8-step limit with no final answer: 5 of 27 failing traces read; in 3 of those 5 the same call was issued 6 to 8 times in a row. Family-wide, tool episodes with no final numbered 3 of 40 at baseline, 12 under ffn_med, 30 under ffn_up_low, 13 under attn_med, 6 under each random control.",
+    "The calc tool is called with the expression (3+4)*2, which is the example string in the tool description, instead of the task's numbers: 4 of 27 failing traces read. Family-wide this appeared in 1 of 40 tool episodes at baseline, 21 under ffn_med, 9 under ffn_up_low, 4 under rand_ffn_med, 2 under rand_attn_med.",
+    "At least one unparseable tool step (format_error): 4 of 27 failing traces read, including one ffn_med episode with 8 of 8 steps unparseable. Family-wide, episodes with a format error numbered 1 at baseline, 23 under ffn_med, 8 under ffn_up_low, 7 under rand_ffn_med, 5 under rand_attn_med."
+  ],
+  "surprises": [
+    "ffn_up_low (gain x1.15) passed 13 of 100, close to ffn_med (x0.70) at 11, and had the most step-limit endings: 30 of 40 tool episodes produced no final answer versus 3 at baseline.",
+    "Both attention edits scored above baseline (34 and 32 versus 25), but rand_attn_med also scored 28 and the attn_med versus rand_attn_med difference was 14 regressions against 18 improvements (p 0.60).",
+    "Non-identical conditions changed most outputs even where the score did not move: the final answer text matched baseline on 52 of 100 tasks under ffn_low, 61 under attn_low, and 20 under ffn_med."
+  ],
+  "interpretation": [
+    "The ffn_med drop in this family (11 versus 20 for its matched random control, p 0.035, one family, not corrected for multiple families) may be larger than a same-size random change produces, and it is concentrated in tool mode (1 of 40 versus 7 of 40); this is a single run per task, so it should be treated as suggestive only.",
+    "The attention-edit gains over baseline are not distinguishable from the matched random control in this data (32 versus 28, p 0.60), and the attn_low gain does not survive Holm adjustment (adjusted p 1.0), so they may reflect general sensitivity of this small model to any perturbation.",
+    "With 41 tasks failing under every condition and 2 of 30 hard tasks passing at baseline, the family has limited headroom to show regressions on hard items."
+  ],
+  "unknown": [
+    "Whether any of these differences would repeat with another seed or sampling run: each task was run once per condition, and identical controls show the run is deterministic rather than showing run-to-run variance.",
+    "Whether a matched random control for ffn_up_low or the low-strength edits would look the same as those edits; only the two medium edits have matched controls.",
+    "Why a given reply went wrong: the records show the outputs and tool calls, not the reason, and the traces cannot separate lost state from arithmetic slips in the multi-turn failures."
+  ],
+  "examples": [
+    {
+      "task": "long-067",
+      "condition": "ffn_med",
+      "label": "failure",
+      "why": "Calls calc with (3+4)*2, never reads the opening key, then overwrites opening with 14; chosen by rule as the median-by-id regression for ffn_med, and it shows the example-expression pattern seen in 21 of 40 ffn_med tool episodes."
+    },
+    {
+      "task": "long-083",
+      "condition": "ffn_up_low",
+      "label": "failure",
+      "why": "Repeats the same failing kv_get 7 times and hits the step limit with no final answer; chosen as the median-by-id entry of the 30 ffn_up_low no-final episodes, and baseline also failed this task."
+    },
+    {
+      "task": "long-009",
+      "condition": "ffn_low",
+      "label": "failure",
+      "why": "Gives ANSWER 15 instead of 27 with the same final text as baseline, a wrong-state multi-turn failure; chosen by a fixed index rule among tasks failing under both baseline and ffn_low, and it fails under all 10 conditions."
+    },
+    {
+      "task": "long-016",
+      "condition": "rand_ffn_med",
+      "label": "representative",
+      "why": "Answers 60 instead of 55 after a corrected loan and repayment; chosen as the first regression by task id for the random control, and the same task also regressed under ffn_low, ffn_med, ffn_up_low and rand_attn_med, so it is not specific to a targeted edit."
+    },
+    {
+      "task": "long-030",
+      "condition": "attn_med",
+      "label": "representative",
+      "why": "Intermediate replies match baseline and only the final JSON changes from wrong to correct; chosen by a fixed index rule among the 15 attn_med improvements, and it passes under attn_med only."
+    },
+    {
+      "task": "long-006",
+      "condition": "ffn_up_low",
+      "label": "representative",
+      "why": "Four RIDERS lines identical to baseline and correct; chosen by a fixed index rule among tasks passing under both baseline and ffn_up_low, and it is one of the 6 tasks that pass under all 10 conditions."
+    },
+    {
+      "task": "long-070",
+      "condition": "attn_low",
+      "label": "edge case",
+      "why": "The final answer 225 is correct but kv_set stored the string '250 - 25', so the env check fails; chosen as one of only 2 attn_low regressions, and it shows a regression decided by one argument rather than by the answer."
+    },
+    {
+      "task": "long-082",
+      "condition": "ffn_med",
+      "label": "edge case",
+      "why": "Counted as an improvement because baseline read the correct file but used all 8 steps without a final answer while ffn_med followed the chain in 5 calls; chosen by a fixed index rule among the 2 ffn_med improvements, and it runs against that condition's overall drop."
+    }
+  ],
+  "traces_read": 41
+}

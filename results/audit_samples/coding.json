@@ -1,0 +1,1364 @@
+[
+ {
+  "task": "code-026",
+  "condition": "rand_ffn_med",
+  "prompt": "The function `count_at_least(nums, limit)` should return how many numbers in nums are greater than or equal to limit.\n\nBuggy code:\n```python\ndef count_at_least(nums, limit):\n    count = 0\n    for n in nums:\n        if n > limit:\n            count += 1\n    return count\n```\n\nSymptom: count_at_least([5, 7, 3], 5) returns 1 but should return 2.\nFind the bug and write the corrected version of `count_at_least`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_at_least([5, 7, 3], 5) == 2\nassert count_at_least([1, 2, 3], 4) == 0\nassert count_at_least([], 0) == 0\nassert count_at_least([2, 2, 2], 2) == 3\nassert count_at_least([-1, 0, 1], 0) == 2\nassert count_at_least([9, 8], 1) == 2"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong comparison operator"
+  },
+  "replies": [
+   "def count_at_least(nums, limit):\n    count = 0\n    for n in nums:\n        if n >= limit:\n            count += 1\n    return count"
+  ],
+  "final": "def count_at_least(nums, limit):\n    count = 0\n    for n in nums:\n        if n >= limit:\n            count += 1\n    return count",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-043",
+  "condition": "attn_low",
+  "prompt": "Complete this class. A `Tally` counts how many times each item was added: `add(item)` increases the count of item by 1 and `count(item)` returns that count as an int (0 for an item that was never added). Example: after t = Tally(); t.add('fox'); t.add('fox'); t.add('owl'), t.count('fox') returns 2 and t.count('elk') returns 0. Keep the given lines and replace the `...` parts.\n\nclass Tally:\n    def __init__(self):\n        self.counts = {}\n\n    def add(self, item):\n        ...  # increase the count of item by 1\n\n    def count(self, item):\n        ...  # return the count of item, 0 if it was never added\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "t = Tally()\nassert t.count('fox') == 0\nt.add('fox'); t.add('fox'); t.add('owl')\nassert t.count('fox') == 2\nassert t.count('owl') == 1\nassert t.count('elk') == 0\nu = Tally()\nfor k in [3, 1, 3, 3]: u.add(k)\nassert u.count(3) == 3\nassert u.count(1) == 1\nassert t.count(3) == 0"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "class Tally:\n    def __init__(self):\n        self.counts = {}\n\n    def add(self, item):\n        self.counts[item] = self.counts.get(item, 0) + 1\n\n    def count(self, item):\n        return self.counts.get(item, 0)"
+  ],
+  "final": "class Tally:\n    def __init__(self):\n        self.counts = {}\n\n    def add(self, item):\n        self.counts[item] = self.counts.get(item, 0) + 1\n\n    def count(self, item):\n        return self.counts.get(item, 0)",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-030",
+  "condition": "baseline",
+  "prompt": "The function `most_common_char(s)` should return the character that occurs most often in the string s; when several characters share the highest count it returns the one that appears first in s, and it returns '' for an empty string.\n\nBuggy code:\n```python\ndef most_common_char(s):\n    best = ''\n    best_count = 0\n    for ch in s:\n        c = s.count(ch)\n        if c >= best_count:\n            best = ch\n            best_count = c\n    return best\n```\n\nSymptom: most_common_char('abab') returns 'b' but should return 'a'.\nFind the bug and write the corrected version of `most_common_char`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert most_common_char('abab') == 'a'\nassert most_common_char('') == ''\nassert most_common_char('zebra') == 'z'\nassert most_common_char('hello') == 'l'\nassert most_common_char('xyyx') == 'x'\nassert most_common_char('aabbb') == 'b'\nassert most_common_char('q') == 'q'"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong tie-break"
+  },
+  "replies": [
+   "```python\ndef most_common_char(s):\n    if not s:\n        return ''\n    best = s[0]\n    best_count = 1\n    for i in range(1, len(s)):\n        if s[i] == best:\n            best_count += 1\n        else:\n            if best_count < 1:\n                best = s[i]\n                best_count = 1\n            elif best_count == 1:\n                best = s[i]\n                best_count = 1\n    return best\n```"
+  ],
+  "final": "```python\ndef most_common_char(s):\n    if not s:\n        return ''\n    best = s[0]\n    best_count = 1\n    for i in range(1, len(s)):\n        if s[i] == best:\n            best_count += 1\n        else:\n            if best_count < 1:\n                best = s[i]\n                best_count = 1\n            elif best_count == 1:\n                best = s[i]\n                best_count = 1\n    return best\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_nilcj7k_/t.py\", line 2, in <module>\n    assert most_common_char('abab') == 'a'\n           ^^^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-060",
+  "condition": "ffn_low",
+  "prompt": "Complete this class. A `MinStack` is a stack of numbers that can also report its smallest stored value. `push(x)` puts x on top; `pop()` removes and returns the top value (it is only called when the stack is not empty); `smallest()` returns the smallest value currently in the stack, or None when the stack is empty. The list `self.mins` must be kept so that its last item is always the smallest value in `self.items`; equal values may be stored several times and each copy counts. Example: s = MinStack(); s.push(5); s.push(2); s.push(2); s.pop() leaves s.smallest() == 2; a second s.pop() leaves s.smallest() == 5. Keep the given lines and replace the `...` parts.\n\nclass MinStack:\n    def __init__(self):\n        self.items = []\n        self.mins = []\n\n    def push(self, x):\n        self.items.append(x)\n        if ...:  # x is at most the current smallest, or there is none yet\n            self.mins.append(x)\n\n    def pop(self):\n        x = self.items.pop()\n        if ...:  # x is the current smallest\n            ...\n        return x\n\n    def smallest(self):\n        return self.mins[-1] if self.mins else None\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "s = MinStack()\nassert s.smallest() is None\ns.push(5); s.push(2); s.push(2)\nassert s.smallest() == 2\nassert s.pop() == 2\nassert s.smallest() == 2\nassert s.pop() == 2\nassert s.smallest() == 5\ns.push(7); s.push(1); s.push(9)\nassert s.smallest() == 1\nassert s.pop() == 9\nassert s.smallest() == 1\nassert s.pop() == 1\nassert s.smallest() == 5\nassert s.pop() == 7 and s.pop() == 5\nassert s.smallest() is None\nt = MinStack()\nt.push(-3); t.push(4)\nassert t.smallest() == -3 and s.smallest() is None"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\nclass MinStack:\n    def __init__(self):\n        self.items = []\n        self.mins = []\n\n    def push(self, x):\n        self.items.append(x)\n        if x <= self.mins[-1] if self.mins else True:\n            self.mins.append(x)\n\n    def pop(self):\n        x = self.items.pop()\n        if x == self.mins[-1]:\n            self.mins.pop()\n        return x\n\n    def smallest(self):\n        return self.mins[-1] if self.mins else None\n```"
+  ],
+  "final": "```python\nclass MinStack:\n    def __init__(self):\n        self.items = []\n        self.mins = []\n\n    def push(self, x):\n        self.items.append(x)\n        if x <= self.mins[-1] if self.mins else True:\n            self.mins.append(x)\n\n    def pop(self):\n        x = self.items.pop()\n        if x == self.mins[-1]:\n            self.mins.pop()\n        return x\n\n    def smallest(self):\n        return self.mins[-1] if self.mins else None\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-020",
+  "condition": "rand_ffn_med",
+  "prompt": "Write a Python function `box(text)` that draws a frame around text and returns ONE string. The text may contain several lines separated by '\\n'. Let w be the length of the longest line. The first and last lines of the result are '+' followed by w + 2 dashes '-' and another '+'. Between them, each text line becomes '| ' + the line padded on the right with spaces to w characters + ' |'. All result lines are joined with '\\n', with no newline at the end. Examples: box('hi\\nworld') returns '+-------+\\n| hi    |\\n| world |\\n+-------+' and box('') returns '+--+\\n|  |\\n+--+'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert box('hi\\nworld') == '+-------+\\n| hi    |\\n| world |\\n+-------+'\nassert box('') == '+--+\\n|  |\\n+--+'\nassert box('x') == '+---+\\n| x |\\n+---+'\nassert box('abc\\n\\nde') == '+-----+\\n| abc |\\n|     |\\n| de  |\\n+-----+'\nassert box('long line\\nab') == '+-----------+\\n| long line |\\n| ab        |\\n+-----------+'\nassert box('a b') == '+-----+\\n| a b |\\n+-----+'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef box(text):\n    lines = text.split('\\n')\n    max_len = max(len(line) for line in lines) if lines else 0\n    result = []\n    result.append('+--' + '-'*max_len + '+')\n    for line in lines:\n        result.append('| ' + line.rjust(max_len) + ' |')\n    return '\\n'.join(result)\n```"
+  ],
+  "final": "```python\ndef box(text):\n    lines = text.split('\\n')\n    max_len = max(len(line) for line in lines) if lines else 0\n    result = []\n    result.append('+--' + '-'*max_len + '+')\n    for line in lines:\n        result.append('| ' + line.rjust(max_len) + ' |')\n    return '\\n'.join(result)\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_bva063kn/t.py\", line 2, in <module>\n    assert box('hi\\nworld') == '+-------+\\n| hi    |\\n| wor"
+   }
+  ]
+ },
+ {
+  "task": "code-019",
+  "condition": "ffn_up_low",
+  "prompt": "Write a Python function `format_bytes(n)` that takes a non-negative integer number of bytes and returns a readable size string. If n is below 1024, return the integer followed by ' B', for example '512 B'. Otherwise divide by 1024 until the value is below 1024 or the unit GB is reached, using the units KB, MB, GB in that order, and return the value with exactly one digit after the decimal point, a space, and the unit. GB is the largest unit. Examples: format_bytes(1536) returns '1.5 KB', format_bytes(1048576) returns '1.0 MB', format_bytes(0) returns '0 B' and format_bytes(5 * 1024 ** 4) returns '5120.0 GB'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert format_bytes(1536) == '1.5 KB'\nassert format_bytes(1048576) == '1.0 MB'\nassert format_bytes(0) == '0 B'\nassert format_bytes(5 * 1024 ** 4) == '5120.0 GB'\nassert format_bytes(1023) == '1023 B'\nassert format_bytes(1024) == '1.0 KB'\nassert format_bytes(3 * 1024 ** 3 + 512 * 1024 ** 2) == '3.5 GB'\nassert format_bytes(256 * 1024) == '256.0 KB'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef format_bytes(n):\n    if n == 0:\n        return \"0 B\"\n    units = [\"B\", \"KB\", \"MB\", \"GB\"]\n    divisor = 1024\n    count = 0\n    while n >= divisor:\n        count += 1\n        if count > 3:\n            break\n        n //= divisor\n    return f\"{n:.1f} {units[count]}\"\n```"
+  ],
+  "final": "```python\ndef format_bytes(n):\n    if n == 0:\n        return \"0 B\"\n    units = [\"B\", \"KB\", \"MB\", \"GB\"]\n    divisor = 1024\n    count = 0\n    while n >= divisor:\n        count += 1\n        if count > 3:\n            break\n        n //= divisor\n    return f\"{n:.1f} {units[count]}\"\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_44fmo08z/t.py\", line 2, in <module>\n    assert format_bytes(1536) == '1.5 KB'\n           ^^^^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-059",
+  "condition": "attn_med",
+  "prompt": "Here is a helper function that converts a 24-hour clock time such as '07:45' to minutes after midnight:\n\ndef to_minutes(t):\n    h, m = t.split(':')\n    return int(h) * 60 + int(m)\n\nWrite a function `shift_length(start, end)` that calls `to_minutes` and returns how long a work shift lasts, as a string of the form '<hours>h<minutes>m' where the hours have no leading zero and the minutes always have exactly two digits. If `end` is earlier on the clock than `start`, the shift runs past midnight and ends the next day. Equal times give '0h00m'. Examples: shift_length('09:15', '17:05') returns '7h50m', shift_length('22:30', '06:00') returns '7h30m' and shift_length('08:00', '08:00') returns '0h00m'. Your reply must contain both functions: `to_minutes` exactly as given, and `shift_length`.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert shift_length('09:15', '17:05') == '7h50m'\nassert shift_length('22:30', '06:00') == '7h30m'\nassert shift_length('08:00', '08:00') == '0h00m'\nassert shift_length('00:00', '23:59') == '23h59m'\nassert shift_length('23:59', '00:00') == '0h01m'\nassert shift_length('10:00', '10:07') == '0h07m'\nassert shift_length('13:20', '01:20') == '12h00m'\nassert to_minutes('07:45') == 465"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef to_minutes(t):\n    h, m = t.split(':')\n    return int(h) * 60 + int(m)\n\ndef shift_length(start, end):\n    start_min = to_minutes(start)\n    end_min = to_minutes(end)\n    total_min = end_min - start_min\n    hours = total_min // 60\n    minutes = total_min % 60\n    return f\"{hours}h{minutes:02d}m\"\n```"
+  ],
+  "final": "```python\ndef to_minutes(t):\n    h, m = t.split(':')\n    return int(h) * 60 + int(m)\n\ndef shift_length(start, end):\n    start_min = to_minutes(start)\n    end_min = to_minutes(end)\n    total_min = end_min - start_min\n    hours = total_min // 60\n    minutes = total_min % 60\n    return f\"{hours}h{minutes:02d}m\"\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_f4yz36ek/t.py\", line 3, in <module>\n    assert shift_length('22:30', '06:00') == '7h30m'\n      "
+   }
+  ]
+ },
+ {
+  "task": "code-061",
+  "condition": "rand_attn_med",
+  "prompt": "Write a Python function `count_by_status(tickets)` that takes a list of dicts, each with a 'status' key, and returns a dict mapping each status to the number of tickets with that status. Example: count_by_status([{'id': 1, 'status': 'open'}, {'id': 2, 'status': 'done'}, {'id': 3, 'status': 'open'}]) returns {'open': 2, 'done': 1}. An empty list returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_by_status([{'id': 1, 'status': 'open'}, {'id': 2, 'status': 'done'}, {'id': 3, 'status': 'open'}]) == {'open': 2, 'done': 1}\nassert count_by_status([]) == {}\nassert count_by_status([{'status': 'held'}]) == {'held': 1}\nassert count_by_status([{'status': 'a'}, {'status': 'a'}, {'status': 'a'}, {'status': 'b'}]) == {'a': 3, 'b': 1}\nassert count_by_status([{'id': 9, 'status': 'x', 'owner': 'kim'}, {'id': 4, 'status': 'y'}, {'id': 5, 'status': 'z'}, {'id': 6, 'status': 'y'}]) == {'x': 1, 'y': 2, 'z': 1}"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef count_by_status(tickets):\n    status_counts = {}\n    for ticket in tickets:\n        status = ticket['status']\n        if status in status_counts:\n            status_counts[status] += 1\n        else:\n            status_counts[status] = 1\n    return status_counts\n```"
+  ],
+  "final": "```python\ndef count_by_status(tickets):\n    status_counts = {}\n    for ticket in tickets:\n        status = ticket['status']\n        if status in status_counts:\n            status_counts[status] += 1\n        else:\n            status_counts[status] = 1\n    return status_counts\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-014",
+  "condition": "rand_ffn_med",
+  "prompt": "Write a Python function `wrap_words(text, width)` that returns a list of lines. The words of text are separated by whitespace. Fill each line greedily: keep adding the next word, with one space between words, as long as the line stays at most width characters long; otherwise start a new line. A single word longer than width is placed alone on its own line and is not split. Lines have no leading or trailing spaces. Empty or all-space text returns []. Examples: wrap_words('the quick brown fox', 10) returns ['the quick', 'brown fox'] and wrap_words('a bb ccc', 4) returns ['a bb', 'ccc'].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert wrap_words('the quick brown fox', 10) == ['the quick', 'brown fox']\nassert wrap_words('a bb ccc', 4) == ['a bb', 'ccc']\nassert wrap_words('', 5) == []\nassert wrap_words('   ', 5) == []\nassert wrap_words('tiny enormousword ok', 6) == ['tiny', 'enormousword', 'ok']\nassert wrap_words('one', 10) == ['one']\nassert wrap_words('aaa bb c', 5) == ['aaa', 'bb c']\nassert wrap_words('aa bb cc dd', 5) == ['aa bb', 'cc dd']\nassert wrap_words('  spaced   out  words ', 20) == ['spaced out words']"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef wrap_words(text, width):\n    words = text.split()\n    result = []\n    i = 0\n    while i < len(words):\n        line = []\n        j = i\n        while j < len(words) and len(line) < width:\n            line.append(words[j])\n            j += 1\n        if j < len(words):\n            result.append(' '.join(line))\n            i = j\n        else:\n            result.append(' '.join(line))\n            i = j + 1\n    return result\n```"
+  ],
+  "final": "```python\ndef wrap_words(text, width):\n    words = text.split()\n    result = []\n    i = 0\n    while i < len(words):\n        line = []\n        j = i\n        while j < len(words) and len(line) < width:\n            line.append(words[j])\n            j += 1\n        if j < len(words):\n            result.append(' '.join(line))\n            i = j\n        else:\n            result.append(' '.join(line))\n            i = j + 1\n    return result\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_8kncwuff/t.py\", line 2, in <module>\n    assert wrap_words('the quick brown fox', 10) == ['the q"
+   }
+  ]
+ },
+ {
+  "task": "code-005",
+  "condition": "attn_low",
+  "prompt": "Write a Python function `shift_cipher(text, k)` for a toy cipher. Every lower-case letter a-z is moved k places forward in the alphabet, wrapping around from z to a. All other characters (upper-case letters, digits, spaces, punctuation) stay unchanged. k is a non-negative integer and may be larger than 26. Examples: shift_cipher('abc xyz', 2) returns 'cde zab' and shift_cipher('Hi, zed!', 1) returns 'Hj, afe!'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert shift_cipher('abc xyz', 2) == 'cde zab'\nassert shift_cipher('Hi, zed!', 1) == 'Hj, afe!'\nassert shift_cipher('', 5) == ''\nassert shift_cipher('moon', 0) == 'moon'\nassert shift_cipher('moon', 26) == 'moon'\nassert shift_cipher('az', 27) == 'ba'\nassert shift_cipher('ROOM 12b', 3) == 'ROOM 12e'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef shift_cipher(text, k):\n    result = []\n    for char in text:\n        if char.islower():\n            # Compute new position\n            new_pos = (ord(char) - ord('a') + k) % 26\n            new_char = chr(new_pos + ord('a'))\n            result.append(new_char)\n        elif char.isupper():\n            new_pos = (ord(char) - ord('A') + k) % 26\n            new_char = chr(new_pos + ord('A'))\n            result.append(new_char)\n        else:\n            result.append(char)\n    return ''.join(result)\n```"
+  ],
+  "final": "```python\ndef shift_cipher(text, k):\n    result = []\n    for char in text:\n        if char.islower():\n            # Compute new position\n            new_pos = (ord(char) - ord('a') + k) % 26\n            new_char = chr(new_pos + ord('a'))\n            result.append(new_char)\n        elif char.isupper():\n            new_pos = (ord(char) - ord('A') + k) % 26\n            new_char = chr(new_pos + ord('A'))\n            result.append(new_char)\n        else:\n            result.append(char)\n    return ''.join(result)\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_4ljrbhdf/t.py\", line 3, in <module>\n    assert shift_cipher('Hi, zed!', 1) == 'Hj, afe!'\n      "
+   }
+  ]
+ },
+ {
+  "task": "code-066",
+  "condition": "baseline",
+  "prompt": "Write a Python function `merge_stock(a, b)` that takes two dicts mapping item names to integer quantities (quantities may be negative) and returns a new dict with every item from either dict mapped to the sum of its quantities. Items whose total is exactly 0 are left out of the result. Examples: merge_stock({'nut': 4, 'bolt': 2}, {'bolt': -2, 'cog': 5}) returns {'nut': 4, 'cog': 5} and merge_stock({}, {}) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert merge_stock({'nut': 4, 'bolt': 2}, {'bolt': -2, 'cog': 5}) == {'nut': 4, 'cog': 5}\nassert merge_stock({}, {}) == {}\nassert merge_stock({'a': 1}, {}) == {'a': 1}\nassert merge_stock({'a': 0, 'b': 3}, {'c': 0}) == {'b': 3}\nassert merge_stock({'a': 2, 'b': 3}, {'a': 5, 'b': -1}) == {'a': 7, 'b': 2}\nassert merge_stock({'a': -4}, {'a': 4}) == {}"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef merge_stock(a, b):\n    result = {}\n    for item, quantity in a.items():\n        if quantity != 0:\n            result[item] = quantity\n    for item, quantity in b.items():\n        if quantity != 0:\n            if item in result:\n                result[item] += quantity\n            else:\n                result[item] = quantity\n    return result\n```"
+  ],
+  "final": "```python\ndef merge_stock(a, b):\n    result = {}\n    for item, quantity in a.items():\n        if quantity != 0:\n            result[item] = quantity\n    for item, quantity in b.items():\n        if quantity != 0:\n            if item in result:\n                result[item] += quantity\n            else:\n                result[item] = quantity\n    return result\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_ylyr97xr/t.py\", line 2, in <module>\n    assert merge_stock({'nut': 4, 'bolt': 2}, {'bolt': -2, "
+   }
+  ]
+ },
+ {
+  "task": "code-063",
+  "condition": "ffn_low",
+  "prompt": "Write a Python function `flatten_once(items)` that takes a list and returns a new list in which every element that is itself a list is replaced by its own elements, in order. Only ONE level is flattened: lists nested deeper stay as lists. Elements that are not lists are kept as they are. Examples: flatten_once([1, [2, 3], [4, [5, 6]]]) returns [1, 2, 3, 4, [5, 6]] and flatten_once([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert flatten_once([1, [2, 3], [4, [5, 6]]]) == [1, 2, 3, 4, [5, 6]]\nassert flatten_once([]) == []\nassert flatten_once([1, 2, 3]) == [1, 2, 3]\nassert flatten_once([[], [1], []]) == [1]\nassert flatten_once([[[1, 2]], 'ab', [3]]) == [[1, 2], 'ab', 3]\nassert flatten_once([[['x']]]) == [['x']]"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef flatten_once(items):\n    result = []\n    for item in items:\n        if isinstance(item, list):\n            result.extend(flatten_once(item))\n        else:\n            result.append(item)\n    return result\n```"
+  ],
+  "final": "```python\ndef flatten_once(items):\n    result = []\n    for item in items:\n        if isinstance(item, list):\n            result.extend(flatten_once(item))\n        else:\n            result.append(item)\n    return result\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_42uu2gch/t.py\", line 2, in <module>\n    assert flatten_once([1, [2, 3], [4, [5, 6]]]) == [1, 2,"
+   }
+  ]
+ },
+ {
+  "task": "code-039",
+  "condition": "ffn_low",
+  "prompt": "The function `best_slice_sum(nums)` should return the largest sum of any non-empty run of neighbouring elements in the list nums (so a list of only negative numbers gives its largest single element), and 0 for an empty list.\n\nBuggy code:\n```python\ndef best_slice_sum(nums):\n    best = 0\n    cur = 0\n    for n in nums:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```\n\nSymptom: best_slice_sum([-3, -1, -2]) returns 0 but should return -1.\nFind the bug and write the corrected version of `best_slice_sum`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert best_slice_sum([-3, -1, -2]) == -1\nassert best_slice_sum([]) == 0\nassert best_slice_sum([2, -1, 3]) == 4\nassert best_slice_sum([-5]) == -5\nassert best_slice_sum([1, -4, 2, 2, -1]) == 4\nassert best_slice_sum([-2, -7]) == -2\nassert best_slice_sum([4, 5]) == 9"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong initial value in a running-maximum sweep"
+  },
+  "replies": [
+   "```python\ndef best_slice_sum(nums):\n    best = -float('inf')\n    current = -float('inf')\n    for n in nums:\n        current = max(n, current + n)\n        best = max(best, current)\n    return best if best != -float('inf') else 0\n```"
+  ],
+  "final": "```python\ndef best_slice_sum(nums):\n    best = -float('inf')\n    current = -float('inf')\n    for n in nums:\n        current = max(n, current + n)\n        best = max(best, current)\n    return best if best != -float('inf') else 0\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-039",
+  "condition": "attn_med",
+  "prompt": "The function `best_slice_sum(nums)` should return the largest sum of any non-empty run of neighbouring elements in the list nums (so a list of only negative numbers gives its largest single element), and 0 for an empty list.\n\nBuggy code:\n```python\ndef best_slice_sum(nums):\n    best = 0\n    cur = 0\n    for n in nums:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```\n\nSymptom: best_slice_sum([-3, -1, -2]) returns 0 but should return -1.\nFind the bug and write the corrected version of `best_slice_sum`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert best_slice_sum([-3, -1, -2]) == -1\nassert best_slice_sum([]) == 0\nassert best_slice_sum([2, -1, 3]) == 4\nassert best_slice_sum([-5]) == -5\nassert best_slice_sum([1, -4, 2, 2, -1]) == 4\nassert best_slice_sum([-2, -7]) == -2\nassert best_slice_sum([4, 5]) == 9"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong initial value in a running-maximum sweep"
+  },
+  "replies": [
+   "Corrected code:\n```python\ndef best_slice_sum(nums):\n    best = 0\n    cur = 0\n    for n in nums:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```"
+  ],
+  "final": "Corrected code:\n```python\ndef best_slice_sum(nums):\n    best = 0\n    cur = 0\n    for n in nums:\n        cur = max(n, cur + n)\n        best = max(best, cur)\n    return best\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_r105o5ps/t.py\", line 2, in <module>\n    assert best_slice_sum([-3, -1, -2]) == -1\n           ^^"
+   }
+  ]
+ },
+ {
+  "task": "code-067",
+  "condition": "rand_attn_med",
+  "prompt": "Write a Python function `sort_words(words)` that takes a list of lower-case strings and returns a list of the DISTINCT words sorted by length, shortest first; words of the same length are ordered alphabetically. Examples: sort_words(['pear', 'fig', 'apple', 'kiwi', 'fig']) returns ['fig', 'kiwi', 'pear', 'apple'] and sort_words([]) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert sort_words(['pear', 'fig', 'apple', 'kiwi', 'fig']) == ['fig', 'kiwi', 'pear', 'apple']\nassert sort_words([]) == []\nassert sort_words(['b', 'a', 'b', 'a']) == ['a', 'b']\nassert sort_words(['zz', 'a', 'yy', 'ccc', 'b']) == ['a', 'b', 'yy', 'zz', 'ccc']\nassert sort_words(['same']) == ['same']\nassert sort_words(['dog', 'cat', 'ant', 'bee', 'cat', 'ox']) == ['ox', 'ant', 'bee', 'cat', 'dog']"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef sort_words(words):\n    return sorted(words, key=lambda x: (len(x), x))\n```"
+  ],
+  "final": "```python\ndef sort_words(words):\n    return sorted(words, key=lambda x: (len(x), x))\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_zvemsmgq/t.py\", line 2, in <module>\n    assert sort_words(['pear', 'fig', 'apple', 'kiwi', 'fig"
+   }
+  ]
+ },
+ {
+  "task": "code-010",
+  "condition": "ffn_up_low",
+  "prompt": "Write a Python function `truncate(text, n)` that shortens a string to at most n characters (n is an integer, n >= 3). If text has n characters or fewer, return it unchanged. Otherwise take the first n - 3 characters, remove any spaces at the end of that piece, and add '...'. Examples: truncate('hello world', 8) returns 'hello...', truncate('hello world', 9) returns 'hello...' (the piece 'hello ' loses its trailing space) and truncate('short', 10) returns 'short'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert truncate('hello world', 8) == 'hello...'\nassert truncate('hello world', 9) == 'hello...'\nassert truncate('short', 10) == 'short'\nassert truncate('hello world', 11) == 'hello world'\nassert truncate('abcdef', 3) == '...'\nassert truncate('a   bcdefgh', 7) == 'a...'\nassert truncate('', 5) == ''\nassert truncate('river bank walk', 13) == 'river bank...'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef truncate(text, n):\n    if len(text) <= n:\n        return text\n    else:\n        return text[:n-3] + '...'\n```"
+  ],
+  "final": "```python\ndef truncate(text, n):\n    if len(text) <= n:\n        return text\n    else:\n        return text[:n-3] + '...'\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_0eojja4q/t.py\", line 3, in <module>\n    assert truncate('hello world', 9) == 'hello...'\n       "
+   }
+  ]
+ },
+ {
+  "task": "code-083",
+  "condition": "ffn_med",
+  "prompt": "Write a Python function `closest_value(nums, target)` that takes a list of integers in any order and an integer target, and returns the element of nums whose distance to target (the absolute difference) is smallest. If two different elements are equally close, return the SMALLER one. An empty list returns None. Examples: closest_value([9, 1, 4], 5) returns 4, closest_value([6, 2], 4) returns 2 (both are 2 away), closest_value([], 3) returns None.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert closest_value([9, 1, 4], 5) == 4\nassert closest_value([6, 2], 4) == 2\nassert closest_value([], 3) is None\nassert closest_value([7], -100) == 7\nassert closest_value([-1, -5, 3], -3) == -5\nassert closest_value([10, 10, 8], 9) == 8\nassert closest_value([2, 6], 4) == 2\nassert closest_value([0, 20, 13], 13) == 13"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef closest_value(nums, target):\n    min_distance = float('inf')\n    min_element = None\n    \n    for num in nums:\n        distance = abs(num - target)\n        if distance < min_distance:\n            min_element = num\n            min_distance = distance\n        elif distance == min_distance:\n            if num < min_element:\n                min_element = num\n    \n    if not nums:\n        return None\n    return min_element\n```"
+  ],
+  "final": "```python\ndef closest_value(nums, target):\n    min_distance = float('inf')\n    min_element = None\n    \n    for num in nums:\n        distance = abs(num - target)\n        if distance < min_distance:\n            min_element = num\n            min_distance = distance\n        elif distance == min_distance:\n            if num < min_element:\n                min_element = num\n    \n    if not nums:\n        return None\n    return min_element\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-015",
+  "condition": "attn_med",
+  "prompt": "Write a Python function `format_table(rows)` that takes a non-empty list of rows, where every row is a list of strings with the same number of cells, and returns the table as ONE string. Each column is as wide as its longest cell. Every cell, including the cells of the last column, is padded on the right with spaces to its column width. The cells of a row are joined with ' | ' (space, bar, space) and the rows are joined with '\\n', with no newline at the end. Example: format_table([['id', 'name'], ['7', 'Bo'], ['12', 'Al']]) returns 'id | name\\n7  | Bo  \\n12 | Al  '. A single cell: format_table([['x']]) returns 'x'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert format_table([['id', 'name'], ['7', 'Bo'], ['12', 'Al']]) == 'id | name\\n7  | Bo  \\n12 | Al  '\nassert format_table([['x']]) == 'x'\nassert format_table([['a', 'bb', 'ccc']]) == 'a | bb | ccc'\nassert format_table([['port'], ['a'], ['dock']]) == 'port\\na   \\ndock'\nassert format_table([['k', 'v'], ['long key', '1'], ['', '22']]) == 'k        | v \\nlong key | 1 \\n         | 22'\nassert format_table([['ab', 'cd'], ['ef', 'gh']]) == 'ab | cd\\nef | gh'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef format_table(rows):\n    if not rows:\n        return \"\"\n    max_width = max(len(row) for row in rows[0])\n    for row in rows:\n        for i in range(len(row)):\n            row[i] = row[i].ljust(max_width)\n        print(' | '.join(row))\n    return \"\"\n```"
+  ],
+  "final": "```python\ndef format_table(rows):\n    if not rows:\n        return \"\"\n    max_width = max(len(row) for row in rows[0])\n    for row in rows:\n        for i in range(len(row)):\n            row[i] = row[i].ljust(max_width)\n        print(' | '.join(row))\n    return \"\"\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_u8210rkb/t.py\", line 2, in <module>\n    assert format_table([['id', 'name'], ['7', 'Bo'], ['12'"
+   }
+  ]
+ },
+ {
+  "task": "code-085",
+  "condition": "baseline",
+  "prompt": "Write a Python function `from_digits(digits, base)` that takes a list of digit values (ints from 0 to base - 1, most significant digit first; leading zeros are allowed) and a base (an integer from 2 to 36), and returns the non-negative integer they represent as an int. An empty list returns 0. Examples: from_digits([1, 0, 1, 0], 2) returns 10, from_digits([15, 15], 16) returns 255, from_digits([], 5) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert from_digits([1, 0, 1, 0], 2) == 10\nassert from_digits([15, 15], 16) == 255\nassert from_digits([], 5) == 0\nassert from_digits([0], 7) == 0\nassert from_digits([0, 0, 7], 10) == 7\nassert from_digits([27, 28], 36) == 1000\nassert from_digits([1, 2, 3], 4) == 27\nassert from_digits([6], 7) == 6"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef from_digits(digits, base):\n    result = 0\n    for d in digits:\n        result = result * base + d\n    return result\n```"
+  ],
+  "final": "```python\ndef from_digits(digits, base):\n    result = 0\n    for d in digits:\n        result = result * base + d\n    return result\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-098",
+  "condition": "rand_attn_med",
+  "prompt": "Write a Python function `find_span(nums, target)` that takes a list of integers sorted in ascending order (duplicates allowed) and returns the list [first, last], where first is the index of the first occurrence of target and last is the index of its last occurrence. If target does not occur (including when nums is empty), return [-1, -1]. Examples: find_span([1, 2, 2, 2, 5], 2) returns [1, 3], find_span([1, 2, 2, 2, 5], 5) returns [4, 4], find_span([1, 2, 2, 2, 5], 3) returns [-1, -1].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert find_span([1, 2, 2, 2, 5], 2) == [1, 3]\nassert find_span([1, 2, 2, 2, 5], 5) == [4, 4]\nassert find_span([1, 2, 2, 2, 5], 3) == [-1, -1]\nassert find_span([], 1) == [-1, -1]\nassert find_span([4], 4) == [0, 0]\nassert find_span([7, 7, 7, 7], 7) == [0, 3]\nassert find_span([1, 3], 9) == [-1, -1]\nassert find_span([-2, -2, 0, 6], -2) == [0, 1]"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef find_span(nums, target):\n    def find_first():\n        left, right = 0, len(nums)\n        while left < right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid\n        return left if nums[left] == target else -1\n    \n    def find_last():\n        left, right = 0, len(nums)\n        while left < right:\n            mid = (left + right) // 2\n            if nums[mid] > target:\n                right = mid\n            else:\n                left = mid + 1\n        return left - 1 if nums[left - 1] == target else -1\n    \n    first = find_first()\n    last = find_last()\n    return [first, last] if first != -1 else [-1, -1]\n```"
+  ],
+  "final": "```python\ndef find_span(nums, target):\n    def find_first():\n        left, right = 0, len(nums)\n        while left < right:\n            mid = (left + right) // 2\n            if nums[mid] < target:\n                left = mid + 1\n            else:\n                right = mid\n        return left if nums[left] == target else -1\n    \n    def find_last():\n        left, right = 0, len(nums)\n        while left < right:\n            mid = (left + right) // 2\n            if nums[mid] > target:\n                right = mid\n            else:\n                left = mid + 1\n        return left - 1 if nums[left - 1] == target else -1\n    \n    first = find_first()\n    last = find_last()\n    return [first, last] if first != -1 else [-1, -1]\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "]\n           ~~~~~~~~~^^^^^^^\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_d4m2wf3s/solution.py\", line 22, in find_span\n    first = find_first()\n  File \"/private/var/folders/h"
+   }
+  ]
+ },
+ {
+  "task": "code-051",
+  "condition": "rand_ffn_med",
+  "prompt": "Here is a helper function:\n\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\nWrite a function `lcm_all(nums)` that calls `gcd` and returns the least common multiple of a list of positive integers (the smallest positive integer divisible by every number in the list). An empty list returns 1. Examples: lcm_all([4, 6]) returns 12, lcm_all([2, 3, 4, 6]) returns 12 and lcm_all([]) returns 1. Your reply must contain both functions: `gcd` exactly as given, and `lcm_all`.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert lcm_all([4, 6]) == 12\nassert lcm_all([2, 3, 4, 6]) == 12\nassert lcm_all([]) == 1\nassert lcm_all([7]) == 7\nassert lcm_all([5, 5, 5]) == 5\nassert lcm_all([3, 5, 7]) == 105\nassert lcm_all([12, 18, 30]) == 180\nassert gcd(12, 18) == 6"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\ndef lcm_all(nums):\n    if not nums:\n        return 1\n    lcm = nums[0]\n    for num in nums[1:]:\n        lcm = lcm * num // gcd(lcm, num)\n    return lcm\n```"
+  ],
+  "final": "```python\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\ndef lcm_all(nums):\n    if not nums:\n        return 1\n    lcm = nums[0]\n    for num in nums[1:]:\n        lcm = lcm * num // gcd(lcm, num)\n    return lcm\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-057",
+  "condition": "rand_ffn_med",
+  "prompt": "Complete this generator function. `split_on(xs, sep)` cuts the list xs at every item equal to sep and yields the pieces between the separators as lists, in order; the separators themselves are dropped. A piece may be empty (two separators in a row, or a separator at the very start or end), and the number of yielded pieces is always the number of separators plus one. Examples: list(split_on([1, 0, 2, 3, 0], 0)) returns [[1], [2, 3], []], list(split_on([4, 5], 0)) returns [[4, 5]] and list(split_on([], 0)) returns [[]]. Keep the given lines and replace the `...` parts.\n\ndef split_on(xs, sep):\n    part = []\n    for x in xs:\n        if x == sep:\n            yield part\n            ...\n        else:\n            ...\n    ...\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert list(split_on([1, 0, 2, 3, 0], 0)) == [[1], [2, 3], []]\nassert list(split_on([4, 5], 0)) == [[4, 5]]\nassert list(split_on([], 0)) == [[]]\nassert list(split_on([0], 0)) == [[], []]\nassert list(split_on([7, 0, 0, 8], 0)) == [[7], [], [8]]\nassert list(split_on(['a', '-', 'b', 'c'], '-')) == [['a'], ['b', 'c']]\nassert list(split_on([0, 1], 0)) == [[], [1]]"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef split_on(xs, sep):\n    part = []\n    for x in xs:\n        if x == sep:\n            yield part\n            part = []\n        else:\n            part.append(x)\n    if part:\n        yield part\n```"
+  ],
+  "final": "```python\ndef split_on(xs, sep):\n    part = []\n    for x in xs:\n        if x == sep:\n            yield part\n            part = []\n        else:\n            part.append(x)\n    if part:\n        yield part\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_whvj634g/t.py\", line 2, in <module>\n    assert list(split_on([1, 0, 2, 3, 0], 0)) == [[1], [2, "
+   }
+  ]
+ },
+ {
+  "task": "code-040",
+  "condition": "attn_low",
+  "prompt": "The function `avg_by_name(pairs)` takes a list of [name, score] lists and should return a dict that maps each name to the average (a float) of that name's own scores only.\n\nBuggy code:\n```python\ndef avg_by_name(pairs):\n    totals = {}\n    count = 0\n    for name, score in pairs:\n        totals[name] = totals.get(name, 0) + score\n        count += 1\n    return {name: totals[name] / count for name in totals}\n```\n\nSymptom: avg_by_name([['a', 4], ['b', 6]]) returns {'a': 2.0, 'b': 3.0} but should return {'a': 4.0, 'b': 6.0}.\nFind the bug and write the corrected version of `avg_by_name`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert avg_by_name([['a', 4], ['b', 6]]) == {'a': 4.0, 'b': 6.0}\nassert avg_by_name([]) == {}\nassert avg_by_name([['a', 1], ['a', 2]]) == {'a': 1.5}\nassert avg_by_name([['x', 3], ['y', 8], ['x', 6], ['x', 0]]) == {'x': 3.0, 'y': 8.0}\nassert avg_by_name([['solo', 7]]) == {'solo': 7.0}\nassert avg_by_name([['p', -2], ['q', 2], ['p', 4], ['q', 3]]) == {'p': 1.0, 'q': 2.5}"
+   }
+  ],
+  "tags": {
+   "bug_class": "shared counter instead of per-key state"
+  },
+  "replies": [
+   "def avg_by_name(pairs):\n    totals = {}\n    for name, score in pairs:\n        totals[name] = totals.get(name, 0) + score\n    return {name: totals[name] / len(totals) for name in totals}"
+  ],
+  "final": "def avg_by_name(pairs):\n    totals = {}\n    for name, score in pairs:\n        totals[name] = totals.get(name, 0) + score\n    return {name: totals[name] / len(totals) for name in totals}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_7v8ul8i2/t.py\", line 2, in <module>\n    assert avg_by_name([['a', 4], ['b', 6]]) == {'a': 4.0, "
+   }
+  ]
+ },
+ {
+  "task": "code-021",
+  "condition": "baseline",
+  "prompt": "The function `clamp(x, lo, hi)` should return x limited to the range lo..hi: lo when x is below lo, hi when x is above hi, otherwise x itself.\n\nBuggy code:\n```python\ndef clamp(x, lo, hi):\n    if x < lo:\n        return lo\n    if x > hi:\n        return lo\n    return x\n```\n\nSymptom: clamp(15, 0, 10) returns 0 but should return 10.\nFind the bug and write the corrected version of `clamp`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert clamp(15, 0, 10) == 10\nassert clamp(-3, 0, 10) == 0\nassert clamp(7, 0, 10) == 7\nassert clamp(10, 0, 10) == 10\nassert clamp(0, 0, 10) == 0\nassert clamp(99, -5, -1) == -1"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong return value in a branch"
+  },
+  "replies": [
+   "def clamp(x, lo, hi):\n    if x < lo:\n        return lo\n    if x > hi:\n        return hi\n    return x"
+  ],
+  "final": "def clamp(x, lo, hi):\n    if x < lo:\n        return lo\n    if x > hi:\n        return hi\n    return x",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-004",
+  "condition": "baseline",
+  "prompt": "Write a Python function `snake_to_title(name)` that takes a name made of words joined by single underscores and returns the words separated by single spaces, each word with its first letter in upper case and its other letters in lower case. Examples: snake_to_title('user_first_name') returns 'User First Name' and snake_to_title('MAX_size') returns 'Max Size'. An empty string returns ''.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert snake_to_title('user_first_name') == 'User First Name'\nassert snake_to_title('MAX_size') == 'Max Size'\nassert snake_to_title('') == ''\nassert snake_to_title('id') == 'Id'\nassert snake_to_title('a_b_c_d') == 'A B C D'\nassert snake_to_title('total_COUNT') == 'Total Count'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef snake_to_title(name):\n    return ' '.join(word.capitalize() for word in name.split('_'))\n```"
+  ],
+  "final": "```python\ndef snake_to_title(name):\n    return ' '.join(word.capitalize() for word in name.split('_'))\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-031",
+  "condition": "ffn_up_low",
+  "prompt": "The function `median(nums)` should return the median of a non-empty list of numbers: the middle value of the sorted list when the length is odd, and the average of the two middle values (a float) when the length is even.\n\nBuggy code:\n```python\ndef median(nums):\n    s = sorted(nums)\n    mid = len(s) // 2\n    if len(s) % 2 == 1:\n        return s[mid]\n    return (s[mid] + s[mid + 1]) / 2\n```\n\nSymptom: median([1, 2, 3, 4]) returns 3.5 but should return 2.5.\nFind the bug and write the corrected version of `median`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert median([1, 2, 3, 4]) == 2.5\nassert median([5, 1, 3]) == 3\nassert median([8]) == 8\nassert median([4, 2]) == 3.0\nassert median([10, -2, 4, 6]) == 5.0\nassert median([7, 7, 1, 9, 3, 3]) == 5.0"
+   }
+  ],
+  "tags": {
+   "bug_class": "wrong index for the middle pair"
+  },
+  "replies": [
+   "median\n```python\ndef median(nums):\n    s = sorted(nums)\n    mid = len(s) // 2\n    if len(s) % 2 == 1:\n        return s[mid]\n    return (s[mid] + s[mid - 1]) / 2\n```"
+  ],
+  "final": "median\n```python\ndef median(nums):\n    s = sorted(nums)\n    mid = len(s) // 2\n    if len(s) % 2 == 1:\n        return s[mid]\n    return (s[mid] + s[mid - 1]) / 2\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-061",
+  "condition": "attn_med",
+  "prompt": "Write a Python function `count_by_status(tickets)` that takes a list of dicts, each with a 'status' key, and returns a dict mapping each status to the number of tickets with that status. Example: count_by_status([{'id': 1, 'status': 'open'}, {'id': 2, 'status': 'done'}, {'id': 3, 'status': 'open'}]) returns {'open': 2, 'done': 1}. An empty list returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert count_by_status([{'id': 1, 'status': 'open'}, {'id': 2, 'status': 'done'}, {'id': 3, 'status': 'open'}]) == {'open': 2, 'done': 1}\nassert count_by_status([]) == {}\nassert count_by_status([{'status': 'held'}]) == {'held': 1}\nassert count_by_status([{'status': 'a'}, {'status': 'a'}, {'status': 'a'}, {'status': 'b'}]) == {'a': 3, 'b': 1}\nassert count_by_status([{'id': 9, 'status': 'x', 'owner': 'kim'}, {'id': 4, 'status': 'y'}, {'id': 5, 'status': 'z'}, {'id': 6, 'status': 'y'}]) == {'x': 1, 'y': 2, 'z': 1}"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef count_by_status(tickets):\n    status_counts = {}\n    for ticket in tickets:\n        status = ticket['status']\n        if status in status_counts:\n            status_counts[status] += 1\n        else:\n            status_counts[status] = 1\n    return status_counts\n```"
+  ],
+  "final": "```python\ndef count_by_status(tickets):\n    status_counts = {}\n    for ticket in tickets:\n        status = ticket['status']\n        if status in status_counts:\n            status_counts[status] += 1\n        else:\n            status_counts[status] = 1\n    return status_counts\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-013",
+  "condition": "ffn_med",
+  "prompt": "Write a Python function `ordinal(n)` that takes a positive integer and returns it as a string with its English ordinal suffix. Numbers ending in 1 get 'st', in 2 get 'nd', in 3 get 'rd', and all others get 'th'; but numbers whose last two digits are 11, 12 or 13 always get 'th'. Examples: ordinal(1) returns '1st', ordinal(22) returns '22nd', ordinal(13) returns '13th' and ordinal(112) returns '112th'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert ordinal(1) == '1st'\nassert ordinal(22) == '22nd'\nassert ordinal(13) == '13th'\nassert ordinal(112) == '112th'\nassert ordinal(3) == '3rd'\nassert ordinal(4) == '4th'\nassert ordinal(11) == '11th'\nassert ordinal(101) == '101st'\nassert ordinal(40) == '40th'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef ordinal(n):\n    # Determine the ordinal suffix based on the last digit\n    last_digit = n % 10\n    if last_digit == 1:\n        return f'st'\n    elif last_digit == 2:\n        return f'nd'\n    elif last_digit == 3:\n        return f'rd'\n    else:\n        # Check if the last two digits are 11, 12, or 13\n        if (n % 100) == 11 or (n % 100) == 12 or (n % 100) == 13:\n            return f'th'\n    return f'{n}'\n```"
+  ],
+  "final": "```python\ndef ordinal(n):\n    # Determine the ordinal suffix based on the last digit\n    last_digit = n % 10\n    if last_digit == 1:\n        return f'st'\n    elif last_digit == 2:\n        return f'nd'\n    elif last_digit == 3:\n        return f'rd'\n    else:\n        # Check if the last two digits are 11, 12, or 13\n        if (n % 100) == 11 or (n % 100) == 12 or (n % 100) == 13:\n            return f'th'\n    return f'{n}'\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_yw66toeo/t.py\", line 2, in <module>\n    assert ordinal(1) == '1st'\n           ^^^^^^^^^^^^^^^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-025",
+  "condition": "ffn_med",
+  "prompt": "The function `last_index_of(items, target)` should return the index of the last occurrence of target in the list items, or -1 when target is not in the list.\n\nBuggy code:\n```python\ndef last_index_of(items, target):\n    i = len(items) - 1\n    while i > 0:\n        if items[i] == target:\n            return i\n        i -= 1\n    return -1\n```\n\nSymptom: last_index_of([7, 8, 9], 7) returns -1 but should return 0.\nFind the bug and write the corrected version of `last_index_of`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert last_index_of([7, 8, 9], 7) == 0\nassert last_index_of([1, 2, 1, 3], 1) == 2\nassert last_index_of([4, 5], 6) == -1\nassert last_index_of([], 1) == -1\nassert last_index_of(['a'], 'a') == 0\nassert last_index_of([2, 2, 2], 2) == 2"
+   }
+  ],
+  "tags": {
+   "bug_class": "off-by-one loop bound"
+  },
+  "replies": [
+   "```python\ndef last_index_of(items, target):\n    i = 0\n    while i < len(items):\n        if items[i] == target:\n            return i\n        i += 1\n    return -1\n```"
+  ],
+  "final": "```python\ndef last_index_of(items, target):\n    i = 0\n    while i < len(items):\n        if items[i] == target:\n            return i\n        i += 1\n    return -1\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_bxr5g6rf/t.py\", line 3, in <module>\n    assert last_index_of([1, 2, 1, 3], 1) == 2\n           ^"
+   }
+  ]
+ },
+ {
+  "task": "code-047",
+  "condition": "attn_med",
+  "prompt": "Complete this binary search. `find_first(xs, target)` takes a list sorted in ascending order that may contain duplicates and returns the index of the FIRST occurrence of target, or -1 if target is absent, e.g. find_first([1, 3, 3, 3, 8], 3) returns 1, find_first([1, 3, 8], 5) returns -1 and find_first([], 2) returns -1. Keep the given lines and replace the `...` parts.\n\ndef find_first(xs, target):\n    lo, hi = 0, len(xs)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            ...\n        else:\n            ...\n    if lo < len(xs) and xs[lo] == target:\n        return lo\n    return -1\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert find_first([1, 3, 3, 3, 8], 3) == 1\nassert find_first([1, 3, 8], 5) == -1\nassert find_first([], 2) == -1\nassert find_first([2, 2, 2, 2], 2) == 0\nassert find_first([1, 2, 4, 6, 9], 9) == 4\nassert find_first([1, 2, 4, 6, 9], 1) == 0\nassert find_first([1, 2, 4, 6, 9], 10) == -1\nassert find_first([1, 2, 4, 4, 6, 9, 9], 6) == 4"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "def find_first(xs, target):\n    lo, hi = 0, len(xs)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(xs) and xs[lo] == target:\n        return lo\n    return -1"
+  ],
+  "final": "def find_first(xs, target):\n    lo, hi = 0, len(xs)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    if lo < len(xs) and xs[lo] == target:\n        return lo\n    return -1",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-010",
+  "condition": "attn_low",
+  "prompt": "Write a Python function `truncate(text, n)` that shortens a string to at most n characters (n is an integer, n >= 3). If text has n characters or fewer, return it unchanged. Otherwise take the first n - 3 characters, remove any spaces at the end of that piece, and add '...'. Examples: truncate('hello world', 8) returns 'hello...', truncate('hello world', 9) returns 'hello...' (the piece 'hello ' loses its trailing space) and truncate('short', 10) returns 'short'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert truncate('hello world', 8) == 'hello...'\nassert truncate('hello world', 9) == 'hello...'\nassert truncate('short', 10) == 'short'\nassert truncate('hello world', 11) == 'hello world'\nassert truncate('abcdef', 3) == '...'\nassert truncate('a   bcdefgh', 7) == 'a...'\nassert truncate('', 5) == ''\nassert truncate('river bank walk', 13) == 'river bank...'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef truncate(text, n):\n    if len(text) <= n:\n        return text\n    return text[:n-3] + '...'\n```"
+  ],
+  "final": "```python\ndef truncate(text, n):\n    if len(text) <= n:\n        return text\n    return text[:n-3] + '...'\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_1zjbxon8/t.py\", line 3, in <module>\n    assert truncate('hello world', 9) == 'hello...'\n       "
+   }
+  ]
+ },
+ {
+  "task": "code-020",
+  "condition": "baseline",
+  "prompt": "Write a Python function `box(text)` that draws a frame around text and returns ONE string. The text may contain several lines separated by '\\n'. Let w be the length of the longest line. The first and last lines of the result are '+' followed by w + 2 dashes '-' and another '+'. Between them, each text line becomes '| ' + the line padded on the right with spaces to w characters + ' |'. All result lines are joined with '\\n', with no newline at the end. Examples: box('hi\\nworld') returns '+-------+\\n| hi    |\\n| world |\\n+-------+' and box('') returns '+--+\\n|  |\\n+--+'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert box('hi\\nworld') == '+-------+\\n| hi    |\\n| world |\\n+-------+'\nassert box('') == '+--+\\n|  |\\n+--+'\nassert box('x') == '+---+\\n| x |\\n+---+'\nassert box('abc\\n\\nde') == '+-----+\\n| abc |\\n|     |\\n| de  |\\n+-----+'\nassert box('long line\\nab') == '+-----------+\\n| long line |\\n| ab        |\\n+-----------+'\nassert box('a b') == '+-----+\\n| a b |\\n+-----+'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef box(text):\n    if not text:\n        return '+--+\\n|  |\\n+--+'\n    lines = text.split('\\n')\n    w = max(len(line) for line in lines)\n    result = ['+' + '-' * (w + 2) + '+']\n    for line in lines:\n        result.append('| ' + line.rjust(w) + ' |')\n    return '\\n'.join(result)\n```"
+  ],
+  "final": "```python\ndef box(text):\n    if not text:\n        return '+--+\\n|  |\\n+--+'\n    lines = text.split('\\n')\n    w = max(len(line) for line in lines)\n    result = ['+' + '-' * (w + 2) + '+']\n    for line in lines:\n        result.append('| ' + line.rjust(w) + ' |')\n    return '\\n'.join(result)\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_xwrpi21a/t.py\", line 2, in <module>\n    assert box('hi\\nworld') == '+-------+\\n| hi    |\\n| wor"
+   }
+  ]
+ },
+ {
+  "task": "code-064",
+  "condition": "rand_ffn_med",
+  "prompt": "Write a Python function `zip_dict(keys, values)` that takes a list of distinct strings and a list of values and returns a dict that pairs the first key with the first value, the second key with the second value, and so on. If there are more keys than values, the extra keys are mapped to None. If there are more values than keys, the extra values are ignored. Examples: zip_dict(['a', 'b', 'c'], [1, 2]) returns {'a': 1, 'b': 2, 'c': None} and zip_dict([], [1]) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert zip_dict(['a', 'b', 'c'], [1, 2]) == {'a': 1, 'b': 2, 'c': None}\nassert zip_dict([], [1]) == {}\nassert zip_dict(['x'], []) == {'x': None}\nassert zip_dict(['a', 'b'], [1, 2, 3]) == {'a': 1, 'b': 2}\nassert zip_dict(['p', 'q'], ['u', 'v']) == {'p': 'u', 'q': 'v'}\nassert zip_dict(['k1', 'k2', 'k3', 'k4'], [0]) == {'k1': 0, 'k2': None, 'k3': None, 'k4': None}"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef zip_dict(keys, values):\n    result = {}\n    for i in range(len(keys)):\n        if i < len(values):\n            result[keys[i]] = values[i]\n        else:\n            result[keys[i]] = None\n    return result\n```"
+  ],
+  "final": "```python\ndef zip_dict(keys, values):\n    result = {}\n    for i in range(len(keys)):\n        if i < len(values):\n            result[keys[i]] = values[i]\n        else:\n            result[keys[i]] = None\n    return result\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-082",
+  "condition": "ffn_up_low",
+  "prompt": "Write a Python function `primes_below(n)` that returns how many prime numbers are strictly less than the integer n. For n of 2 or less (including negative n) the answer is 0. Examples: primes_below(10) returns 4 (the primes 2, 3, 5, 7), primes_below(3) returns 1, primes_below(2) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert primes_below(10) == 4\nassert primes_below(3) == 1\nassert primes_below(2) == 0\nassert primes_below(-5) == 0\nassert primes_below(0) == 0\nassert primes_below(11) == 4\nassert primes_below(12) == 5\nassert primes_below(100) == 25"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef primes_below(n):\n    if n <= 2:\n        return 0\n    count = 0\n    for i in range(2, n):\n        if i % 2 == 0:\n            continue\n        count += 1\n        for j in range(i*2, n, i):\n            count += 1\n    return count\n```"
+  ],
+  "final": "```python\ndef primes_below(n):\n    if n <= 2:\n        return 0\n    count = 0\n    for i in range(2, n):\n        if i % 2 == 0:\n            continue\n        count += 1\n        for j in range(i*2, n, i):\n            count += 1\n    return count\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_5v7u1pj2/t.py\", line 2, in <module>\n    assert primes_below(10) == 4\n           ^^^^^^^^^^^^^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-011",
+  "condition": "rand_attn_med",
+  "prompt": "Write a Python function `parse_time(s)` that converts a 24-hour clock string 'HH:MM' into the number of minutes since midnight (an integer). The string must be exactly five characters: two digits, a colon, two digits, with the hour from 00 to 23 and the minute from 00 to 59. For any other string return -1. Examples: parse_time('07:05') returns 425, parse_time('23:59') returns 1439, parse_time('7:05') returns -1 and parse_time('24:00') returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert parse_time('07:05') == 425\nassert parse_time('23:59') == 1439\nassert parse_time('7:05') == -1\nassert parse_time('24:00') == -1\nassert parse_time('00:00') == 0\nassert parse_time('12:60') == -1\nassert parse_time('') == -1\nassert parse_time('ab:cd') == -1\nassert parse_time('12-30') == -1"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef parse_time(s):\n    if len(s) != 5 or s[2] != ':' or not (s[0].isdigit() and s[1].isdigit() and s[3].isdigit() and s[4].isdigit()):\n        return -1\n    if not (0 <= int(s[0:2]) <= 23) or not (0 <= int(s[3:5]) <= 59):\n        return -1\n    return int(s[0:2]) * 60 + int(s[3:5])\n```"
+  ],
+  "final": "```python\ndef parse_time(s):\n    if len(s) != 5 or s[2] != ':' or not (s[0].isdigit() and s[1].isdigit() and s[3].isdigit() and s[4].isdigit()):\n        return -1\n    if not (0 <= int(s[0:2]) <= 23) or not (0 <= int(s[3:5]) <= 59):\n        return -1\n    return int(s[0:2]) * 60 + int(s[3:5])\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-095",
+  "condition": "rand_attn_med",
+  "prompt": "In the fictional land of Quill, coins come in the denominations given by the list coins (distinct positive integers, in any order; the list may be empty, in which case only amount 0 can be made), and there is an unlimited supply of each. Write a Python function `fewest_coins(amount, coins)` that returns the smallest number of coins that add up to exactly amount (a non-negative integer), or -1 if the amount cannot be made. Always taking the largest coin first does not always give the smallest count. Examples: fewest_coins(10, [1, 5, 8]) returns 2 (5 + 5), fewest_coins(0, [3]) returns 0, fewest_coins(7, [2, 4]) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert fewest_coins(10, [1, 5, 8]) == 2\nassert fewest_coins(0, [3]) == 0\nassert fewest_coins(7, [2, 4]) == -1\nassert fewest_coins(6, [4, 1, 3]) == 2\nassert fewest_coins(12, [5, 3]) == 4\nassert fewest_coins(5, []) == -1\nassert fewest_coins(9, [9]) == 1\nassert fewest_coins(29, [1, 7, 10]) == 5"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef fewest_coins(amount, coins):\n    if amount == 0:\n        return 0\n    coins = sorted(coins)\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for i in range(1, amount + 1):\n        for j in range(len(coins)):\n            if coins[j] <= i and dp[i - coins[j]] + 1 < dp[i]:\n                dp[i] = dp[i - coins[j]] + 1\n    return dp[amount] if dp[amount] != float('inf') else -1\n```"
+  ],
+  "final": "```python\ndef fewest_coins(amount, coins):\n    if amount == 0:\n        return 0\n    coins = sorted(coins)\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for i in range(1, amount + 1):\n        for j in range(len(coins)):\n            if coins[j] <= i and dp[i - coins[j]] + 1 < dp[i]:\n                dp[i] = dp[i - coins[j]] + 1\n    return dp[amount] if dp[amount] != float('inf') else -1\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-028",
+  "condition": "attn_med",
+  "prompt": "The function `add_tag(tag, tags=None)` should strip and lower-case tag, append it to the list tags unless it is empty or already present, and return the list; when tags is not passed, every call must start from a brand-new empty list.\n\nBuggy code:\n```python\ndef add_tag(tag, tags=[]):\n    tag = tag.strip().lower()\n    if tag == '':\n        return tags\n    if tag not in tags:\n        tags.append(tag)\n    return tags\n```\n\nSymptom: calling add_tag('red') and then add_tag('blue'), the second call returns ['red', 'blue'] but should return ['blue'].\nFind the bug and write the corrected version of `add_tag`. Your code must differ from the buggy code.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert add_tag('red') == ['red']\nassert add_tag('blue') == ['blue']\nassert add_tag('  ') == []\nassert add_tag(' Green ') == ['green']\nassert add_tag(' Y ', ['x']) == ['x', 'y']\nassert add_tag('x', ['x']) == ['x']\nassert add_tag('', ['k']) == ['k']"
+   }
+  ],
+  "tags": {
+   "bug_class": "mutable default argument"
+  },
+  "replies": [
+   "```python\ndef add_tag(tag, tags=None):\n    if tags is None:\n        tags = []\n    tag = tag.strip().lower()\n    if tag:\n        if tag not in tags:\n            tags.append(tag)\n    return tags\n```"
+  ],
+  "final": "```python\ndef add_tag(tag, tags=None):\n    if tags is None:\n        tags = []\n    tag = tag.strip().lower()\n    if tag:\n        if tag not in tags:\n            tags.append(tag)\n    return tags\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-049",
+  "condition": "attn_low",
+  "prompt": "Complete this class. An `Inventory` keeps item quantities in the dict `self.stock`. `add(item, qty)` increases the stock of item by qty (creating the item if needed). `remove(item, qty)` returns False and changes nothing when the item is unknown or has less than qty in stock; otherwise it subtracts qty, deletes the item from `self.stock` if its quantity reaches 0, and returns True. Example: after inv = Inventory(); inv.add('nail', 5), inv.remove('nail', 7) returns False, inv.remove('nail', 5) returns True and inv.stock is then {}. Keep the given lines and replace the `...` parts.\n\nclass Inventory:\n    def __init__(self):\n        self.stock = {}\n\n    def add(self, item, qty):\n        ...  # increase the stock of item by qty\n\n    def remove(self, item, qty):\n        if ...:  # item unknown or not enough stock\n            return False\n        self.stock[item] -= qty\n        if self.stock[item] == 0:\n            ...  # forget the item\n        return True\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "inv = Inventory()\ninv.add('nail', 5)\nassert inv.remove('nail', 7) == False\nassert inv.remove('nail', 5) == True\nassert inv.stock == {}\nassert inv.remove('bolt', 1) == False\ninv.add('bolt', 2); inv.add('bolt', 3); inv.add('glue', 1)\nassert inv.remove('bolt', 4) == True\nassert inv.stock == {'bolt': 1, 'glue': 1}\nassert inv.remove('bolt', 2) == False\nassert inv.stock == {'bolt': 1, 'glue': 1}"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "class Inventory:\n    def __init__(self):\n        self.stock = {}\n\n    def add(self, item, qty):\n        if item in self.stock:\n            self.stock[item] += qty\n        else:\n            self.stock[item] = qty\n\n    def remove(self, item, qty):\n        if item not in self.stock or self.stock[item] < qty:\n            return False\n        self.stock[item] -= qty\n        if self.stock[item] == 0:\n            del self.stock[item]\n        return True"
+  ],
+  "final": "class Inventory:\n    def __init__(self):\n        self.stock = {}\n\n    def add(self, item, qty):\n        if item in self.stock:\n            self.stock[item] += qty\n        else:\n            self.stock[item] = qty\n\n    def remove(self, item, qty):\n        if item not in self.stock or self.stock[item] < qty:\n            return False\n        self.stock[item] -= qty\n        if self.stock[item] == 0:\n            del self.stock[item]\n        return True",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-070",
+  "condition": "ffn_up_low",
+  "prompt": "Write a Python function `join_city(people, cities)` that joins two tables. `people` is a list of dicts with keys 'name' and 'city_id'; `cities` is a list of dicts with keys 'id' and 'city' (ids are unique). Return a list of [name, city] lists, one for each person whose city_id matches a city id, in the same order as `people`. People with no matching city are left out. Example: join_city([{'name': 'Ana', 'city_id': 2}, {'name': 'Bo', 'city_id': 9}, {'name': 'Cy', 'city_id': 1}], [{'id': 1, 'city': 'Oslo'}, {'id': 2, 'city': 'Lima'}]) returns [['Ana', 'Lima'], ['Cy', 'Oslo']]. If either list is empty the result is [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert [list(r) for r in join_city([{'name': 'Ana', 'city_id': 2}, {'name': 'Bo', 'city_id': 9}, {'name': 'Cy', 'city_id': 1}], [{'id': 1, 'city': 'Oslo'}, {'id': 2, 'city': 'Lima'}])] == [['Ana', 'Lima'], ['Cy', 'Oslo']]\nassert [list(r) for r in join_city([], [{'id': 1, 'city': 'Oslo'}])] == []\nassert [list(r) for r in join_city([{'name': 'Ana', 'city_id': 2}], [])] == []\nassert [list(r) for r in join_city([{'name': 'Di', 'city_id': 3}, {'name': 'Ed', 'city_id': 3}], [{'id': 3, 'city': 'Riga'}])] == [['Di', 'Riga'], ['Ed', 'Riga']]\nassert [list(r) for r in join_city([{'name': 'Flo', 'city_id': 5}], [{'id': 4, 'city': 'Bern'}])] == []\nassert [list(r) for r in join_city([{'name': 'Gus', 'city_id': 'k'}, {'name': 'Hal', 'city_id': 'j'}], [{'id': 'j', 'city': 'Kobe'}, {'id': 'k', 'city': 'Pisa'}, {'id': 'm', 'city': 'Graz'}])] == [['Gus', 'Pisa'], ['Hal', 'Kobe']]"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef join_city(people, cities):\n    result = []\n    for person in people:\n        if person['city_id'] in [city['id'] for city in cities]:\n            for city in cities:\n                if city['id'] == person['city_id']:\n                    result.append([person['name'], city['city']])\n    return result\n```"
+  ],
+  "final": "```python\ndef join_city(people, cities):\n    result = []\n    for person in people:\n        if person['city_id'] in [city['id'] for city in cities]:\n            for city in cities:\n                if city['id'] == person['city_id']:\n                    result.append([person['name'], city['city']])\n    return result\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-091",
+  "condition": "ffn_low",
+  "prompt": "Write a Python function `prime_factors(n)` that returns the prime factorization of the integer n as a list of primes in ascending order, with each prime repeated as many times as it divides n. For n less than 2 (including 0 and negative numbers) return an empty list. Examples: prime_factors(60) returns [2, 2, 3, 5], prime_factors(13) returns [13], prime_factors(1) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert prime_factors(60) == [2, 2, 3, 5]\nassert prime_factors(13) == [13]\nassert prime_factors(1) == []\nassert prime_factors(0) == []\nassert prime_factors(-12) == []\nassert prime_factors(64) == [2, 2, 2, 2, 2, 2]\nassert prime_factors(49) == [7, 7]\nassert prime_factors(9991) == [97, 103]"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef prime_factors(n):\n    if n < 2:\n        return []\n    factors = []\n    i = 2\n    while i * i <= n:\n        while n % i == 0:\n            factors.append(i)\n            n //= i\n        i += 1\n    return factors\n```"
+  ],
+  "final": "```python\ndef prime_factors(n):\n    if n < 2:\n        return []\n    factors = []\n    i = 2\n    while i * i <= n:\n        while n % i == 0:\n            factors.append(i)\n            n //= i\n        i += 1\n    return factors\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_qsya08uj/t.py\", line 2, in <module>\n    assert prime_factors(60) == [2, 2, 3, 5]\n           ^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-091",
+  "condition": "ffn_med",
+  "prompt": "Write a Python function `prime_factors(n)` that returns the prime factorization of the integer n as a list of primes in ascending order, with each prime repeated as many times as it divides n. For n less than 2 (including 0 and negative numbers) return an empty list. Examples: prime_factors(60) returns [2, 2, 3, 5], prime_factors(13) returns [13], prime_factors(1) returns [].\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert prime_factors(60) == [2, 2, 3, 5]\nassert prime_factors(13) == [13]\nassert prime_factors(1) == []\nassert prime_factors(0) == []\nassert prime_factors(-12) == []\nassert prime_factors(64) == [2, 2, 2, 2, 2, 2]\nassert prime_factors(49) == [7, 7]\nassert prime_factors(9991) == [97, 103]"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef prime_factors(n):\n    if n < 2:\n        return []\n    factors = []\n    i = 2\n    while i <= n:\n        if n % i == 0:\n            factors.append(i)\n            n //= i\n        i += 1\n    return factors\n```"
+  ],
+  "final": "```python\ndef prime_factors(n):\n    if n < 2:\n        return []\n    factors = []\n    i = 2\n    while i <= n:\n        if n % i == 0:\n            factors.append(i)\n            n //= i\n        i += 1\n    return factors\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_jn7rvgyw/t.py\", line 2, in <module>\n    assert prime_factors(60) == [2, 2, 3, 5]\n           ^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-079",
+  "condition": "rand_attn_med",
+  "prompt": "Write a Python function `deep_merge(a, b)` that returns a NEW dict combining two possibly nested dicts, without modifying `a` or `b`. Every key from either dict is in the result. If a key is in both and both values are dicts, the result value is the deep_merge of those two dicts. In every other case where a key is in both, the value from `b` is used. Example: deep_merge({'db': {'host': 'x', 'port': 1}, 'debug': False}, {'db': {'port': 2}, 'debug': True}) returns {'db': {'host': 'x', 'port': 2}, 'debug': True}. deep_merge({}, {}) returns {}.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert deep_merge({'db': {'host': 'x', 'port': 1}, 'debug': False}, {'db': {'port': 2}, 'debug': True}) == {'db': {'host': 'x', 'port': 2}, 'debug': True}\nassert deep_merge({}, {}) == {}\nassert deep_merge({'a': 1}, {'b': 2}) == {'a': 1, 'b': 2}\nassert deep_merge({'a': {'b': {'c': 1, 'd': 2}}}, {'a': {'b': {'d': 3, 'e': 4}}}) == {'a': {'b': {'c': 1, 'd': 3, 'e': 4}}}\nassert deep_merge({'a': {'x': 1}}, {'a': 5}) == {'a': 5}\nassert deep_merge({'a': 5}, {'a': {'x': 1}}) == {'a': {'x': 1}}\n_a = {'p': {'q': 1}, 'r': 2}\n_b = {'p': {'s': 3}}\nassert deep_merge(_a, _b) == {'p': {'q': 1, 's': 3}, 'r': 2}\nassert _a == {'p': {'q': 1}, 'r': 2}\nassert _b == {'p': {'s': 3}}"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef deep_merge(a, b):\n    def merge_dict(d1, d2):\n        result = d1.copy()\n        for k, v in d2.items():\n            if k in result:\n                if isinstance(v, dict):\n                    result[k] = merge_dict(result[k], v)\n                else:\n                    result[k] = v\n            else:\n                result[k] = v\n        return result\n\n    return merge_dict(a, b)\n```"
+  ],
+  "final": "```python\ndef deep_merge(a, b):\n    def merge_dict(d1, d2):\n        result = d1.copy()\n        for k, v in d2.items():\n            if k in result:\n                if isinstance(v, dict):\n                    result[k] = merge_dict(result[k], v)\n                else:\n                    result[k] = v\n            else:\n                result[k] = v\n        return result\n\n    return merge_dict(a, b)\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_hbtf3xq_/solution.py\", line 7, in merge_dict\n    result[k] = merge_dict(result[k], v)\n                ~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"/pri"
+   }
+  ]
+ },
+ {
+  "task": "code-081",
+  "condition": "attn_low",
+  "prompt": "Write a Python function `gcd_all(nums)` that takes a list of non-negative integers and returns the greatest common divisor of all of them as an int. An empty list returns 0, and zeros do not change the result (the gcd of 0 and 9 is 9). Examples: gcd_all([12, 18, 30]) returns 6, gcd_all([7]) returns 7, gcd_all([]) returns 0.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert gcd_all([12, 18, 30]) == 6\nassert gcd_all([7]) == 7\nassert gcd_all([]) == 0\nassert gcd_all([0, 9]) == 9\nassert gcd_all([0, 0]) == 0\nassert gcd_all([14, 25]) == 1\nassert gcd_all([40, 0, 100, 60]) == 20"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef gcd_all(nums):\n    if not nums:\n        return 0\n    current_gcd = nums[0]\n    for num in nums[1:]:\n        current_gcd = gcd(current_gcd, num)\n        if current_gcd == 1:\n            break\n    return current_gcd\n\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n```"
+  ],
+  "final": "```python\ndef gcd_all(nums):\n    if not nums:\n        return 0\n    current_gcd = nums[0]\n    for num in nums[1:]:\n        current_gcd = gcd(current_gcd, num)\n        if current_gcd == 1:\n            break\n    return current_gcd\n\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-006",
+  "condition": "ffn_med",
+  "prompt": "Write a Python function `is_valid_tag(s)` that returns True if the string is a valid tag and False otherwise. A valid tag is 3 to 10 characters long (inclusive), its first character is a lower-case letter a-z, and every other character is a lower-case letter a-z or a digit 0-9. Examples: is_valid_tag('ab1') returns True, is_valid_tag('1ab') returns False, is_valid_tag('ab') returns False and is_valid_tag('a_b') returns False.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert is_valid_tag('ab1') is True\nassert is_valid_tag('1ab') is False\nassert is_valid_tag('ab') is False\nassert is_valid_tag('a_b') is False\nassert is_valid_tag('abcdefghij') is True\nassert is_valid_tag('abcdefghijk') is False\nassert is_valid_tag('Abc') is False\nassert is_valid_tag('') is False"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef is_valid_tag(s):\n    # Check if the string length is between 3 and 10\n    if len(s) < 3 or len(s) > 10:\n        return False\n    \n    # Check if the first character is a lowercase letter\n    if not s[0].islower():\n        return False\n    \n    # Check if all other characters are lowercase letters or digits\n    for char in s[1:]:\n        if not (char.islower() or char.isdigit()):\n            return False\n    \n    return True\n```"
+  ],
+  "final": "```python\ndef is_valid_tag(s):\n    # Check if the string length is between 3 and 10\n    if len(s) < 3 or len(s) > 10:\n        return False\n    \n    # Check if the first character is a lowercase letter\n    if not s[0].islower():\n        return False\n    \n    # Check if all other characters are lowercase letters or digits\n    for char in s[1:]:\n        if not (char.islower() or char.isdigit()):\n            return False\n    \n    return True\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-005",
+  "condition": "ffn_up_low",
+  "prompt": "Write a Python function `shift_cipher(text, k)` for a toy cipher. Every lower-case letter a-z is moved k places forward in the alphabet, wrapping around from z to a. All other characters (upper-case letters, digits, spaces, punctuation) stay unchanged. k is a non-negative integer and may be larger than 26. Examples: shift_cipher('abc xyz', 2) returns 'cde zab' and shift_cipher('Hi, zed!', 1) returns 'Hj, afe!'.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert shift_cipher('abc xyz', 2) == 'cde zab'\nassert shift_cipher('Hi, zed!', 1) == 'Hj, afe!'\nassert shift_cipher('', 5) == ''\nassert shift_cipher('moon', 0) == 'moon'\nassert shift_cipher('moon', 26) == 'moon'\nassert shift_cipher('az', 27) == 'ba'\nassert shift_cipher('ROOM 12b', 3) == 'ROOM 12e'"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef shift_cipher(text, k):\n    result = []\n    for char in text:\n        if char.islower():\n            new_char = chr((ord(char) - ord('a') + k) % 26 + ord('a'))\n            result.append(new_char)\n        else:\n            result.append(char)\n    return ''.join(result)\n```"
+  ],
+  "final": "```python\ndef shift_cipher(text, k):\n    result = []\n    for char in text:\n        if char.islower():\n            new_char = chr((ord(char) - ord('a') + k) % 26 + ord('a'))\n            result.append(new_char)\n        else:\n            result.append(char)\n    return ''.join(result)\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-011",
+  "condition": "ffn_low",
+  "prompt": "Write a Python function `parse_time(s)` that converts a 24-hour clock string 'HH:MM' into the number of minutes since midnight (an integer). The string must be exactly five characters: two digits, a colon, two digits, with the hour from 00 to 23 and the minute from 00 to 59. For any other string return -1. Examples: parse_time('07:05') returns 425, parse_time('23:59') returns 1439, parse_time('7:05') returns -1 and parse_time('24:00') returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert parse_time('07:05') == 425\nassert parse_time('23:59') == 1439\nassert parse_time('7:05') == -1\nassert parse_time('24:00') == -1\nassert parse_time('00:00') == 0\nassert parse_time('12:60') == -1\nassert parse_time('') == -1\nassert parse_time('ab:cd') == -1\nassert parse_time('12-30') == -1"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef parse_time(s):\n    if len(s) != 5:\n        return -1\n    if not (s[0].isdigit() and s[1].isdigit() and s[2] == ':' and s[3].isdigit() and s[4].isdigit()):\n        return -1\n    hour = int(s[0:2])\n    minute = int(s[3:5])\n    return hour * 60 + minute\n```"
+  ],
+  "final": "```python\ndef parse_time(s):\n    if len(s) != 5:\n        return -1\n    if not (s[0].isdigit() and s[1].isdigit() and s[2] == ':' and s[3].isdigit() and s[4].isdigit()):\n        return -1\n    hour = int(s[0:2])\n    minute = int(s[3:5])\n    return hour * 60 + minute\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": false,
+    "detail": "Traceback (most recent call last):\n  File \"/private/var/folders/hb/mw_7649j7p754_q_11gz8_9w0000gn/T/qlab_820if7qb/t.py\", line 5, in <module>\n    assert parse_time('24:00') == -1\n           ^^^^^^^^^^^"
+   }
+  ]
+ },
+ {
+  "task": "code-092",
+  "condition": "ffn_med",
+  "prompt": "Write a Python function `balance_index(nums)` that returns the smallest index i such that the sum of the elements before index i equals the sum of the elements after index i (the element at i itself is not counted on either side, and the sum of no elements is 0). Return -1 if there is no such index, including for an empty list. Examples: balance_index([1, 7, 3, 6, 5, 6]) returns 3, balance_index([2, 1, -1]) returns 0, balance_index([1, 2, 3]) returns -1.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert balance_index([1, 7, 3, 6, 5, 6]) == 3\nassert balance_index([2, 1, -1]) == 0\nassert balance_index([1, 2, 3]) == -1\nassert balance_index([]) == -1\nassert balance_index([9]) == 0\nassert balance_index([0, 0, 0]) == 0\nassert balance_index([-1, 1, 4]) == 2\nassert balance_index([4, 5, 4]) == 1"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef balance_index(nums):\n    n = len(nums)\n    for i in range(n):\n        left_sum = sum(nums[:i])\n        right_sum = sum(nums[i+1:])\n        if left_sum == right_sum:\n            return i\n    return -1\n```"
+  ],
+  "final": "```python\ndef balance_index(nums):\n    n = len(nums)\n    for i in range(n):\n        left_sum = sum(nums[:i])\n        right_sum = sum(nums[i+1:])\n        if left_sum == right_sum:\n            return i\n    return -1\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "code-088",
+  "condition": "ffn_low",
+  "prompt": "Write a Python function `has_pair_sum(nums, target)` that returns True if two elements at different positions of the list of integers nums add up to target, and False otherwise. The same position may not be used twice, but two equal values at different positions may be. Lists with fewer than two elements return False. Examples: has_pair_sum([2, 7, 11], 9) returns True, has_pair_sum([3, 5], 6) returns False, has_pair_sum([3, 3], 6) returns True.\nReply with only a ```python code block containing the function, no explanation and no example calls.",
+  "system": null,
+  "mode": "code",
+  "checks": [
+   {
+    "type": "code_tests",
+    "tests": "assert has_pair_sum([2, 7, 11], 9) == True\nassert has_pair_sum([3, 5], 6) == False\nassert has_pair_sum([3, 3], 6) == True\nassert has_pair_sum([], 0) == False\nassert has_pair_sum([4], 8) == False\nassert has_pair_sum([-5, 1, 9, 5], 0) == True\nassert has_pair_sum([0, 1, 2], 0) == False\nassert has_pair_sum([1, 2, 4, 8], 7) == False"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "```python\ndef has_pair_sum(nums, target):\n    if len(nums) < 2:\n        return False\n    for i in range(len(nums)):\n        for j in range(i + 1, len(nums)):\n            if nums[i] + nums[j] == target:\n                return True\n    return False\n```"
+  ],
+  "final": "```python\ndef has_pair_sum(nums, target):\n    if len(nums) < 2:\n        return False\n    for i in range(len(nums)):\n        for j in range(i + 1, len(nums)):\n            if nums[i] + nums[j] == target:\n                return True\n    return False\n```",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "code_tests",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ }
+]

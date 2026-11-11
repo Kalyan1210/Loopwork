@@ -1,0 +1,84 @@
+{
+ "family": "synthesis",
+ "measured": [
+  "Baseline passed 39 of 100 synthesis tasks; noop and rollback also passed 39 of 100, with all 100 final replies in each identical to baseline and 0 regressed, 0 improved.",
+  "ffn_low passed 35 of 100 (15 regressed, 11 improved versus baseline), attn_low 37 (11 regressed, 9 improved) and attn_med 37 (14 regressed, 12 improved); the McNemar p values versus baseline were 0.557, 0.824 and 0.845.",
+  "ffn_med passed 23 of 100 (26 regressed, 10 improved, unadjusted p 0.011, Holm-adjusted 0.78) and ffn_up_low passed 21 of 100 (23 regressed, 5 improved, unadjusted p 0.0009, Holm-adjusted 0.071).",
+  "The matched random controls passed 25 of 100 (rand_ffn_med: 21 regressed, 7 improved) and 22 of 100 (rand_attn_med: 23 regressed, 6 improved).",
+  "Against its matched control, ffn_med differed by -2 points (23 versus 25; 12 tasks passed only under the control, 10 only under ffn_med, p 0.83), and attn_med differed by +15 points (37 versus 22; 23 tasks passed only under attn_med, 8 only under the control, unadjusted p 0.011, 95% CI +5 to +25 points).",
+  "By difficulty, baseline passed 21 of 35 easy, 11 of 35 medium and 7 of 30 hard; ffn_med passed 16, 6 and 1; ffn_up_low passed 11, 7 and 3. Across baseline and the 7 edited conditions, 36 of 100 tasks were never passed and 3 were passed every time."
+ ],
+ "failure_patterns": [
+  "A well-formed final answer carrying a wrong value: 21 of the 29 failing traces I read (for example a wrong total, date, rank, name or document pair on an 'ANSWER:' line). By a code classification of all failures, a parseable ANSWER line that still failed accounted for 39 of 61 baseline failures and 57 of 77 ffn_med failures.",
+  "A document or adjustment the question needed was left out of the working: 5 of the 29 failing traces read (synt-040 ffn_med used the old headcount, synt-034 rand_ffn_med subtracted one receipt of two, synt-031 ffn_up_low subtracted only the refund, synt-057 attn_low applied one delay of two, synt-027 ffn_up_low said the March figure was not provided).",
+  "The answer was asserted with no working at all: 6 of the 29 failing traces read (synt-099 ffn_med, synt-009 ffn_up_low, synt-084 and synt-042 attn_med, synt-082 and synt-001 rand_attn_med). By code, replies consisting only of an ANSWER line numbered 1 at baseline, 7 under attn_med and 14 under rand_ffn_med (3 of those 14 passed).",
+  "Tool episodes that ended with no final answer: 5 of the 29 failing traces read. In the 3 ffn_med tool traces read, the first reply continued past the tool call with invented search results and then repeated the same search. By code, ffn_med had 8 of 9 tool tasks with no final answer (baseline 2 of 9) and 9 of 9 first replies with extra text after the tool call (baseline 1 of 9).",
+  "A correct value lost to output form: 2 of the 29 failing traces read (synt-087 ffn_up_low wrote 'Answer: <Larch Room>' with the template's angle brackets; synt-092 rand_attn_med put 'ANSWER: B and D' inside a sentence instead of on its own line). A third (synt-070 ffn_med) copied the template as 'ANSWER: C, D or E'."
+ ],
+ "surprises": [
+  "The matched random attn control scored lower than the targeted attn edit: rand_attn_med passed 22 of 100 while attn_med passed 37 of 100, and rand_attn_med's 22 is within 1 to 3 tasks of ffn_med (23), ffn_up_low (21) and rand_ffn_med (25).",
+  "Answer lines that kept the template's angle brackets appeared 18 times under ffn_up_low and 23 times under rand_attn_med, against 0 at baseline, 2 under attn_med and 0 in the other 4 edited conditions; rescoring in memory with the brackets stripped changed only 1 fail to a pass (synt-087, ffn_up_low), so the brackets do not account for those conditions' lower counts.",
+  "All 7 improvement traces I read (fail at baseline, pass under a condition) had working that did not derive the answer. The 18 closed-choice tasks (answer template of the form 'X or Y') hold 23 of the 60 improvements summed over the 7 edited conditions but 15 of the 133 regressions; synt-074 (SUPPORTED or REFUTED) improved in the 3 conditions where I drew it."
+ ],
+ "interpretation": [
+  "On this family the medium ffn edit is not distinguishable from its matched random control (23 versus 25 of 100), so the drop from 39 may reflect the size of the change and not the specific direction; this is a reading of one run per condition with no repeat sampling.",
+  "The medium attn edit stayed near baseline (37 versus 39) while its matched random control fell to 22, which suggests the targeted attn change was less disruptive on these tasks than a random change of the same size, though the unadjusted p of 0.011 is for one family among ten and was not corrected for that.",
+  "Part of the 5 to 12 improvements per condition may be chance agreement on tasks with 2 or 3 possible answers, since the passes I read on those tasks did not show working that reached the answer; the checker scores only the final answer."
+ ],
+ "unknown": [
+  "Run-to-run variation is not measured: each condition has one reply per task, so the data cannot say how many of the 11 to 26 regressions or 5 to 12 improvements per condition would repeat on a second run.",
+  "Whether a pass reflects correct reading of the documents: the checks do not examine working, and 8 of the 16 passing traces I read had working that did not support the answer.",
+  "Why the angle-bracket answer lines cluster in ffn_up_low and rand_attn_med, and why invented tool results cluster in ffn_med (9 of 9) and rand_ffn_med (7 of 9); the episode records show the outputs only."
+ ],
+ "examples": [
+  {
+   "task": "synt-040",
+   "condition": "ffn_med",
+   "label": "representative",
+   "why": "Seeded random draw from ffn_med regressions; the reply divides 720 by the old headcount of 15 and ignores the later note adding 3 members, a wrong value on a well-formed ANSWER line, the most common failure form in the traces read (21 of 29)."
+  },
+  {
+   "task": "synt-023",
+   "condition": "attn_med",
+   "label": "representative",
+   "why": "Seeded random draw from tasks passed at both baseline and attn_med; one of the 3 tasks passed in every condition, with different wording of the working and the same answer 126."
+  },
+  {
+   "task": "synt-013",
+   "condition": "rand_attn_med",
+   "label": "representative",
+   "why": "Seeded random draw from tasks failed at both baseline and rand_attn_med; the reply lists the five weights in the right order and then states the wrong rank (1, baseline said 2, expected 4), typical of the 36 tasks never passed."
+  },
+  {
+   "task": "synt-087",
+   "condition": "ffn_up_low",
+   "label": "edge case",
+   "why": "Chosen by code as the only failure in any condition that becomes a pass when angle brackets are stripped; the final line 'Answer: <Larch Room>' names the correct room."
+  },
+  {
+   "task": "synt-076",
+   "condition": "ffn_med",
+   "label": "edge case",
+   "why": "Seeded random draw from ffn_med improvements; the reply says all three claims disagree with the ledger and then gives the expected letter D, a pass whose working does not support it."
+  },
+  {
+   "task": "synt-034",
+   "condition": "ffn_med",
+   "label": "failure",
+   "why": "Picked from the 8 ffn_med tool tasks with no final answer because it passed at baseline; the first reply appends invented search results after the tool call, then the same search is repeated 4 more times until the step limit."
+  },
+  {
+   "task": "synt-084",
+   "condition": "attn_med",
+   "label": "failure",
+   "why": "Seeded random draw from attn_med regressions; an easy two-hop lookup answered with the single line 'ANSWER: Marrowby' and no working, where baseline gave Dunrae with its working."
+  },
+  {
+   "task": "synt-009",
+   "condition": "attn_low",
+   "label": "failure",
+   "why": "Seeded random draw from attn_low regressions; the working computes the three gains correctly (25, 45, 75) and then names Isard instead of Thackley, so the error is in the last step only."
+  }
+ ],
+ "traces_read": 45
+}

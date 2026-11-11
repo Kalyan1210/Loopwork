@@ -1,0 +1,84 @@
+{
+  "family": "tools",
+  "measured": [
+    "Baseline passed 56 of 100 tools tasks; noop and rollback also passed 56 of 100 and produced reply text identical to baseline on 100 of 100 tasks each.",
+    "ffn_med passed 19 of 100 (43 tasks regressed from baseline, 6 improved) and ffn_up_low passed 24 of 100 (35 regressed, 3 improved); ffn_low passed 55, attn_low 58, attn_med 52, rand_ffn_med 49 and rand_attn_med 49.",
+    "Against its matched random control, ffn_med failed 37 tasks that rand_ffn_med passed and passed 7 that rand_ffn_med failed (19 versus 49 of 100); attn_med failed 12 that rand_attn_med passed and passed 15 that it failed (52 versus 49 of 100).",
+    "Episodes that ended with no final answer inside the step limit: baseline 14, ffn_low 3, attn_low 10, attn_med 30, ffn_med 47, ffn_up_low 51, rand_ffn_med 15, rand_attn_med 10 (each out of 100).",
+    "Episodes with at least one reply that was not a valid protocol JSON object: baseline 8, ffn_low 16, ffn_med 63, ffn_up_low 9, attn_low 5, attn_med 4, rand_ffn_med 32, rand_attn_med 14; total such replies were 10 at baseline and 150 under ffn_med.",
+    "By task batch, ffn_med passed 0 of the 20 calc tasks (tool-021 to tool-040; baseline 13, rand_ffn_med 14) and ffn_up_low passed 0 of the 20 edit tasks (tool-041 to tool-060; baseline 8); 23 tasks failed under all 10 conditions and 3 passed under all 10."
+  ],
+  "failure_patterns": [
+    "Tool call followed in the same reply by a guessed final answer written before any tool result (the harness keeps only the first object): 15 of the 43 traces read, 10 of them failures. Across all episodes this appeared in 20 baseline, 57 ffn_low, 69 ffn_med, 0 ffn_up_low, 4 attn_med, 44 rand_ffn_med and 32 rand_attn_med episodes.",
+    "Answer given as bare text without the {\"final\": ...} wrapper, counted as a format error and often followed by re-calling the same tool until the step limit: 12 of 43 traces read had a non-JSON reply and 6 of those ended with no final. Across all episodes, 47 of the 47 ffn_med no-final episodes had at least one non-JSON reply.",
+    "Repeating an identical tool call with identical arguments, with every reply well formed, until the step limit: 5 of 43 traces read (16 of 43 had some repeated identical call). Across all episodes this well-formed loop with no final occurred in 10 baseline, 40 ffn_up_low, 27 attn_med and 0 ffn_med episodes.",
+    "Calling a tool name that does not exist (for example \"list_files()\", \"DONE\", \"final\", \"kv_rename\", \"compare_files\"): 5 of 43 traces read. Across all episodes: 6 baseline, 14 ffn_up_low, 2 ffn_med.",
+    "Running the calc example copied from the tool documentation, (3+4)*2, in place of the task's own numbers: 4 of 43 traces read. Across all episodes: 2 baseline, 13 ffn_med, 8 ffn_up_low. Separately, 5 of 43 traces read called a tool the task forbade; across all episodes that check failed in 9 baseline, 24 ffn_up_low and 2 ffn_med episodes."
+  ],
+  "surprises": [
+    "ffn_med and ffn_up_low reached similar pass counts (19 and 24) with different trace shapes: ffn_med had 63 episodes with non-JSON replies and 0 well-formed repeat loops, ffn_up_low had 9 episodes with non-JSON replies and 40 well-formed repeat loops.",
+    "ffn_low had fewer no-final episodes than baseline (3 versus 14) while having more episodes with non-JSON replies (16 versus 8), and its pass count was 55 versus 56.",
+    "attn_med had 30 no-final episodes versus 14 at baseline yet passed 52 versus 56, and it passed 8 of 30 hard tasks versus 6 at baseline; rand_ffn_med also passed 8 hard tasks."
+  ],
+  "interpretation": [
+    "The ffn_med drop on this family (19 versus 49 of 100 for the matched random control, 37 worse and 7 better) is larger than what the same-size random edit produced, so it does not look like an effect of change size alone; this is one model, one seed and 100 tasks, so it should be read as specific to this setup.",
+    "Most failures that separate ffn_med and ffn_up_low from baseline in the traces read look like protocol and stopping failures (non-JSON answers, repeated calls, no final) more than wrong lookups or arithmetic, but that reading rests on 43 traces plus automated counts and the scoring is all-or-nothing per task.",
+    "attn_low and attn_med pass counts (58 and 52) are within the baseline confidence interval reported in summary.json (0.46 to 0.65), so the data may not distinguish them from baseline on this family."
+  ],
+  "unknown": [
+    "Whether the model would have reached the right answer with a more lenient protocol (for example accepting bare-text answers or a larger step limit); the data only shows pass or fail under the fixed harness.",
+    "Whether these counts would hold with a different random seed, sampling setting or a second random-sign control draw; each condition was run once per task.",
+    "Why ffn_med and ffn_up_low differ in trace shape; nothing in the episode records identifies a mechanism."
+  ],
+  "examples": [
+    {
+      "task": "tool-023",
+      "condition": "ffn_med",
+      "label": "representative",
+      "why": "Shows the bare-text pattern: calc returned 3024, the reply was the bare number three times with no final wrapper, ending with no final; chosen as a typical member of the 47 ffn_med no-final episodes, all of which had a non-JSON reply."
+    },
+    {
+      "task": "tool-093",
+      "condition": "ffn_up_low",
+      "label": "representative",
+      "why": "Shows the well-formed repeat loop: kv_get then read_file returned the budget, then the same two calls repeated to the step limit with no final; chosen as typical of the 40 ffn_up_low episodes with that shape."
+    },
+    {
+      "task": "tool-090",
+      "condition": "attn_low",
+      "label": "representative",
+      "why": "Unchanged pass: calc errored on 'x', was retried with '*', and the final was correct, same outcome as baseline; chosen from the 3 tasks that passed under all 10 conditions to show an unaffected case."
+    },
+    {
+      "task": "tool-013",
+      "condition": "ffn_med",
+      "label": "edge case",
+      "why": "An improvement under the condition with the fewest passes: the first reply contained a guessed final (12.5) after the tool call, the harness dropped it, and the next reply gave the correct 38; chosen from the 6 ffn_med improvements to show a pass that depends on the one-object rule."
+    },
+    {
+      "task": "tool-099",
+      "condition": "ffn_up_low",
+      "label": "edge case",
+      "why": "A hard three-step key lookup that failed at baseline (it queried the literal keys 'depot_' and 'km_') and passed under ffn_up_low, which passed 24 of 100 overall; chosen from the 3 ffn_up_low improvements."
+    },
+    {
+      "task": "tool-070",
+      "condition": "attn_med",
+      "label": "failure",
+      "why": "kv_get on the same key six times, never sending the required message or a final; chosen from the 11 attn_med regressions as an instance of the 27 attn_med well-formed loop episodes."
+    },
+    {
+      "task": "tool-088",
+      "condition": "rand_ffn_med",
+      "label": "failure",
+      "why": "All tool steps and the written file were correct but the final was 'ok' in place of the sum, so only the number check failed; chosen from the 14 rand_ffn_med regressions to show that the matched control also regresses, in a different way."
+    },
+    {
+      "task": "tool-021",
+      "condition": "ffn_low",
+      "label": "failure",
+      "why": "Called calc with '2537 Mod 24', got a syntax error, then answered 1 without retrying (correct remainder is 17); chosen from the 6 ffn_low regressions, a condition whose pass count was 55 versus 56 at baseline."
+    }
+  ],
+  "traces_read": 43
+}

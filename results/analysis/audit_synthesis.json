@@ -1,0 +1,25 @@
+{
+  "family": "synthesis",
+  "n": 48,
+  "agree": 46,
+  "false_pass": 0,
+  "false_fail": 1,
+  "unclear": 1,
+  "disagreements": [
+    {
+      "task": "synt-087",
+      "condition": "ffn_up_low",
+      "auto_score": 0,
+      "verdict": "false_fail",
+      "reason": "The final line is 'Answer: <Larch Room>', which names the correct room on an answer line; the exact_any check failed only because the reply kept the template's angle brackets, which norm() does not strip."
+    },
+    {
+      "task": "synt-061",
+      "condition": "attn_med",
+      "auto_score": 0,
+      "verdict": "unclear",
+      "reason": "The reply ends 'Final answer: D', the correct document, but does not use the required 'ANSWER:' line, so the result depends on whether the grader enforces the exact output form."
+    }
+  ],
+  "notes": "Angle brackets copied from the 'ANSWER: <...>' template are handled inconsistently: the number check ignores them (2 sampled passes, synt-010 under rand_attn_med and ffn_up_low, replied 'ANSWER: <38>'), while exact_any does not strip them (1 sampled fail, synt-087). All 22 other sampled fails had a wrong answer value by my own rework, and 0 of 24 sampled passes had a wrong final answer. 5 sampled passes (synt-070 attn_low, synt-010 x2, synt-019 attn_med, synt-061 ffn_low) had a correct final answer with incorrect working, which the checks do not examine; in synt-010 the wrong pair of wards gives the same difference (874 - 836 = 912 - 874 = 38), so that task's number does not separate the two readings."
+}

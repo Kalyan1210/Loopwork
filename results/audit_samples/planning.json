@@ -1,0 +1,1688 @@
+[
+ {
+  "task": "plan-035",
+  "condition": "ffn_up_low",
+  "prompt": "A crew builds a shed. There are plenty of workers, so any number of tasks can run at the same time, but a task can start only when the tasks it needs are finished.\nTasks (minutes):\n- dig the footing: 30\n- pour the base: 45, needs the footing dug\n- cut the timber: 80\n- build the frame: 50, needs the base poured and the timber cut\n- fit the roof: 40, needs the frame built\n- paint the door: 25\nWhat is the minimum number of minutes from the start until every task is finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 170
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To determine the minimum number of minutes, we need to identify the critical path.\n\nThe tasks and their dependencies are:\n- **dig the footing** (30) → **pour the base** (45)\n- **cut the timber** (80) → **build the frame** (50) → **fit the roof** (40) → **paint the door** (25)\n- **build the frame** (50) → **fit the roof** (40) → **paint the door** (25)\n\nThe critical path is:\n- **dig the footing** (30) → **pour the base** (45) → **build the frame** (50) → **fit the roof** (40) → **paint the door** (25)\n\nTotal time: 30 + 45 + 50 + 40 + 25 = **170 minutes**\n\nANSWER: 170"
+  ],
+  "final": "To determine the minimum number of minutes, we need to identify the critical path.\n\nThe tasks and their dependencies are:\n- **dig the footing** (30) → **pour the base** (45)\n- **cut the timber** (80) → **build the frame** (50) → **fit the roof** (40) → **paint the door** (25)\n- **build the frame** (50) → **fit the roof** (40) → **paint the door** (25)\n\nThe critical path is:\n- **dig the footing** (30) → **pour the base** (45) → **build the frame** (50) → **fit the roof** (40) → **paint the door** (25)\n\nTotal time: 30 + 45 + 50 + 40 + 25 = **170 minutes**\n\nANSWER: 170",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 170.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-034",
+  "condition": "ffn_low",
+  "prompt": "Three people need to meet, and all three must be present for the whole meeting.\n- Ivo is free from 09:00 to 11:30.\n- Jun is free from 10:15 to 12:00.\n- Kai is free from 08:30 to 11:00.\nWhat is the longest meeting they can hold, in minutes?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Ivo is free from 09:00 to 11:30 (8 hours = 480 minutes). Jun is free from 10:15 to 12:00 (1 hour 45 minutes = 105 minutes). Kai is free from 08:30 to 11:00 (2 hours 30 minutes = 150 minutes). The overlap is from 10:15 to 11:00 (45 minutes). The longest meeting is 45 minutes. ANSWER: 45"
+  ],
+  "final": "Ivo is free from 09:00 to 11:30 (8 hours = 480 minutes). Jun is free from 10:15 to 12:00 (1 hour 45 minutes = 105 minutes). Kai is free from 08:30 to 11:00 (2 hours 30 minutes = 150 minutes). The overlap is from 10:15 to 11:00 (45 minutes). The longest meeting is 45 minutes. ANSWER: 45",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 45.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-080",
+  "condition": "rand_attn_med",
+  "prompt": "Kofi must be inside the Lantern Theatre by 19:30. His trip is:\n1. Walk from home to the bus stop: 12 minutes.\n2. Bus to the Market stop: 28 minutes. Buses leave his stop at 18:05, 18:25, 18:45 and 19:05.\n3. Walk from the Market stop to the theatre: 9 minutes.\nHe does not want to wait at the bus stop longer than needed.\nWhat is the latest time Kofi can leave home and still be inside the theatre by 19:30?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "06:33 pm",
+       "18:33",
+       "18:33 pm",
+       "18:33pm",
+       "6:33 p.m",
+       "6:33 pm",
+       "6:33pm",
+       "<18:33>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*(?:18:33(?:\\s*p\\.?m\\.?)?|0?6:33\\s*p\\.?m\\.?)\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To determine the latest departure time, we need to account for the maximum waiting time at the bus stop. The bus leaves at 18:05, 18:25, 18:45, and 19:05. To avoid waiting longer than needed, Kofi must leave at the latest time that still allows him to catch the earliest bus. The earliest bus is at 18:05. Therefore, he must leave at 18:05 - 12 minutes = 17:53. Adding the 12 minutes walk to the bus stop, 9 minutes walk to the theatre, and the 28 minutes bus ride, the total time is 17:53 + 12 minutes + 9 minutes + 28 minutes = 18:30. Thus, the latest departure time is 17:53. \n\nANSWER: 17:53"
+  ],
+  "final": "To determine the latest departure time, we need to account for the maximum waiting time at the bus stop. The bus leaves at 18:05, 18:25, 18:45, and 19:05. To avoid waiting longer than needed, Kofi must leave at the latest time that still allows him to catch the earliest bus. The earliest bus is at 18:05. Therefore, he must leave at 18:05 - 12 minutes = 17:53. Adding the 12 minutes walk to the bus stop, 9 minutes walk to the theatre, and the 28 minutes bus ride, the total time is 17:53 + 12 minutes + 9 minutes + 28 minutes = 18:30. Thus, the latest departure time is 17:53. \n\nANSWER: 17:53",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-083",
+  "condition": "rand_attn_med",
+  "prompt": "The village feast has a budget of 120 coins. The cook proposes this shopping plan:\n- bread: 26 coins\n- cheese: 38 coins\n- fruit: 31 coins\n- cider: 39 coins\nThe plan costs more than the budget. By how many coins does the plan exceed the budget? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The total cost of the plan is 26 + 38 + 31 + 39 = 124 coins. The budget is 120 coins. The plan exceeds the budget by 4 coins. ANSWER: 4"
+  ],
+  "final": "The total cost of the plan is 26 + 38 + 31 + 39 = 124 coins. The budget is 120 coins. The plan exceeds the budget by 4 coins. ANSWER: 4",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 4.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-050",
+  "condition": "attn_low",
+  "prompt": "Three choirs are travelling to a festival: one with 8 singers, one with 7 singers and one with 5 singers. Each minibus has 10 passenger seats. A choir must travel together in one minibus, and choirs may share a minibus if they all fit.\nWhat is the minimum number of minibuses needed? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We need to find the minimum number of minibuses required to transport 8 + 7 + 5 = 20 singers, with each minibus having 10 seats.  \nTotal seats needed: 20.  \nEach minibus can carry up to 10 passengers.  \n20 singers require 2 minibuses (since 10 seats per minibus).  \nThus, the minimum number of minibuses needed is 2.  \n\nANSWER: 2"
+  ],
+  "final": "We need to find the minimum number of minibuses required to transport 8 + 7 + 5 = 20 singers, with each minibus having 10 seats.  \nTotal seats needed: 20.  \nEach minibus can carry up to 10 passengers.  \n20 singers require 2 minibuses (since 10 seats per minibus).  \nThus, the minimum number of minibuses needed is 2.  \n\nANSWER: 2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 2.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-071",
+  "condition": "ffn_low",
+  "prompt": "There are exactly three ways to get from Quarry Lane to Zenith Park:\n- Bus 5: a direct ride of 52 minutes with no change.\n- Tram A then tram B: rides of 18 and 20 minutes, with one change.\n- Metro lines M1, M2 and M3: rides of 10, 12 and 11 minutes, with two changes.\nEvery change adds 6 minutes of waiting.\nHow many changes does the quickest way have?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The quickest way is Bus 5 with 0 changes.  \nANSWER: 0"
+  ],
+  "final": "The quickest way is Bus 5 with 0 changes.  \nANSWER: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 0.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-089",
+  "condition": "rand_attn_med",
+  "prompt": "A miller has 90 coins. He must pay 18 coins for a market permit, and spends the rest on sacks of grain at 6 coins per sack. Each sack weighs 8 kg, and his cart can carry at most 60 kg in total. He makes only one trip, and sacks are sold whole.\nWhat is the largest number of sacks he can buy and carry home on the cart? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To determine the largest number of sacks the miller can buy, we need to consider the constraints:\n\n1. The miller has 90 coins.\n2. He must pay 18 coins for a market permit.\n3. The remaining coins are used to buy sacks of grain.\n4. Each sack weighs 8 kg, and the cart can carry at most 60 kg.\n\nFirst, calculate the maximum number of sacks he can buy:\n- Total coins = 90\n- Cost per sack = 6 coins\n- Maximum sacks = floor(90 / 6) = 15 sacks\n\nNext, check if the weight constraint is satisfied:\n- Total weight = 15 sacks × 8 kg = 120 kg\n- Cart can carry at most 60 kg\n\nSince the weight constraint is not satisfied, the miller cannot buy 15 sacks. He must reduce the number of sacks to ensure the total weight does not exceed 60 kg.\n\nThe maximum number of sacks he can buy while satisfying the weight constraint is:\n- 60 kg ÷ 8 kg/sack = 7.5 sacks\n- Since he can only buy whole sacks, the maximum number of sacks is 7.\n\nThus, the largest number of sacks he can buy and carry home is 7.\n\nANSWER: 7"
+  ],
+  "final": "To determine the largest number of sacks the miller can buy, we need to consider the constraints:\n\n1. The miller has 90 coins.\n2. He must pay 18 coins for a market permit.\n3. The remaining coins are used to buy sacks of grain.\n4. Each sack weighs 8 kg, and the cart can carry at most 60 kg.\n\nFirst, calculate the maximum number of sacks he can buy:\n- Total coins = 90\n- Cost per sack = 6 coins\n- Maximum sacks = floor(90 / 6) = 15 sacks\n\nNext, check if the weight constraint is satisfied:\n- Total weight = 15 sacks × 8 kg = 120 kg\n- Cart can carry at most 60 kg\n\nSince the weight constraint is not satisfied, the miller cannot buy 15 sacks. He must reduce the number of sacks to ensure the total weight does not exceed 60 kg.\n\nThe maximum number of sacks he can buy while satisfying the weight constraint is:\n- 60 kg ÷ 8 kg/sack = 7.5 sacks\n- Since he can only buy whole sacks, the maximum number of sacks is 7.\n\nThus, the largest number of sacks he can buy and carry home is 7.\n\nANSWER: 7",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 7.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-032",
+  "condition": "ffn_low",
+  "prompt": "A vet sees patients one after another starting at 09:00. Every appointment lasts 25 minutes, and there is a 5-minute gap for cleaning between one appointment and the next.\nAt what time does the fourth appointment end?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:55",
+       "10:55 am",
+       "10:55am",
+       "<10:55>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*10:55(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The first appointment starts at 09:00. It lasts 25 minutes, so it ends at 09:25. There is a 5-minute gap, so the second appointment starts at 09:30 and ends at 09:35. The third appointment starts at 09:35 and ends at 09:60. The fourth appointment starts at 09:60 and ends at 09:85. \n\nANSWER: 09:85"
+  ],
+  "final": "The first appointment starts at 09:00. It lasts 25 minutes, so it ends at 09:25. There is a 5-minute gap, so the second appointment starts at 09:30 and ends at 09:35. The third appointment starts at 09:35 and ends at 09:60. The fourth appointment starts at 09:60 and ends at 09:85. \n\nANSWER: 09:85",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-001",
+  "condition": "ffn_up_low",
+  "prompt": "A dyer treats one batch of wool in four steps, one at a time: rinse, soak, boil, strain.\nRules:\n- soak is the first step\n- strain happens immediately after boil\n- rinse is not the last step\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "soak",
+     "rinse",
+     "boil",
+     "strain"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "[[\"soak\"], [[\"boil\"], [[\"strain\"], [[\"rinse\"]]]"
+  ],
+  "final": "[[\"soak\"], [[\"boil\"], [[\"strain\"], [[\"rinse\"]]]",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": false,
+    "detail": "not valid JSON"
+   }
+  ]
+ },
+ {
+  "task": "plan-017",
+  "condition": "attn_low",
+  "prompt": "A crew films seven scenes one at a time: Arrival, Betrayal, Chase, Duel, Escape, Feast, Goodbye.\nRules:\n- Duel is filmed before Betrayal\n- Chase is filmed before Escape\n- Feast is filmed before Arrival\n- Goodbye is filmed before Chase\n- Arrival is filmed before Duel\n- Betrayal is filmed before Goodbye\n- Feast is filmed before Duel\nWhich scene is filmed fifth? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the scene name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Goodbye",
+       "<Goodbye>",
+       "the Goodbye",
+       "Goodbye scene",
+       "the Goodbye scene",
+       "scene Goodbye"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:scene\\s+)?goodbye(?:\\s+scene)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "From the rules:\n\n1. Duel is before Betrayal  \n2. Chase is before Escape  \n3. Feast is before Arrival  \n4. Goodbye is before Chase  \n5. Arrival is before Duel  \n6. Betrayal is before Goodbye  \n7. Feast is before Duel  \n\nLet’s build the order step by step:\n\n- From (3): Feast before Arrival  \n- From (5): Arrival before Duel  \n- From (1): Duel before Betrayal  \n- From (6): Betrayal before Goodbye  \n- From (4): Goodbye before Chase  \n- From (2): Chase before Escape  \n\nLet’s assign positions:\n\n1. Feast  \n2. Arrival  \n3. Duel  \n4. Betrayal  \n5. Goodbye  \n6. Chase  \n7. Escape  \n\nFifth scene is **Goodbye**.\n\nANSWER: GOODBYE"
+  ],
+  "final": "From the rules:\n\n1. Duel is before Betrayal  \n2. Chase is before Escape  \n3. Feast is before Arrival  \n4. Goodbye is before Chase  \n5. Arrival is before Duel  \n6. Betrayal is before Goodbye  \n7. Feast is before Duel  \n\nLet’s build the order step by step:\n\n- From (3): Feast before Arrival  \n- From (5): Arrival before Duel  \n- From (1): Duel before Betrayal  \n- From (6): Betrayal before Goodbye  \n- From (4): Goodbye before Chase  \n- From (2): Chase before Escape  \n\nLet’s assign positions:\n\n1. Feast  \n2. Arrival  \n3. Duel  \n4. Betrayal  \n5. Goodbye  \n6. Chase  \n7. Escape  \n\nFifth scene is **Goodbye**.\n\nANSWER: GOODBYE",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-054",
+  "condition": "rand_ffn_med",
+  "prompt": "Thirteen children must cross a lake in rowing boats, all at the same time. Each boat seats at most 5 people in total, and every boat must have exactly one adult rower on board, who takes up one of the seats. Five adult rowers are available.\nWhat is the minimum number of boats needed to carry all thirteen children? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To carry 13 children, each boat can carry at most 5 people. Since each boat must have exactly one adult rower, the minimum number of boats needed is calculated by dividing 13 by 5, rounding up. \n\n13 ÷ 5 = 2.6 → 3 boats.\n\nANSWER: 3"
+  ],
+  "final": "To carry 13 children, each boat can carry at most 5 people. Since each boat must have exactly one adult rower, the minimum number of boats needed is calculated by dividing 13 by 5, rounding up. \n\n13 ÷ 5 = 2.6 → 3 boats.\n\nANSWER: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 3.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-098",
+  "condition": "attn_med",
+  "prompt": "A potter has 100 coins to order clay. The supplier charges a delivery fee of 14 coins once per order. The first 5 bags in an order cost 6 coins each, and every bag after the fifth costs 9 coins each. Bags are sold whole.\nWhat is the largest number of bags the potter can get in one order? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To determine the largest number of bags, we need to calculate the total cost for different numbers of bags and compare.\n\n- 1–5 bags: 6 coins each  \n- 6–10 bags: 9 coins each  \n\nLet’s find the maximum number of bags where the cost is still ≤ 100 coins.\n\n- 5 bags: 5 × 6 = 30 coins  \n- 10 bags: 10 × 9 = 90 coins  \n- 11 bags: 11 × 9 = 99 coins  \n- 12 bags: 12 × 9 = 108 coins (exceeds 100)\n\nSo, the largest number of bags is 11.\n\nANSWER: 11"
+  ],
+  "final": "To determine the largest number of bags, we need to calculate the total cost for different numbers of bags and compare.\n\n- 1–5 bags: 6 coins each  \n- 6–10 bags: 9 coins each  \n\nLet’s find the maximum number of bags where the cost is still ≤ 100 coins.\n\n- 5 bags: 5 × 6 = 30 coins  \n- 10 bags: 10 × 9 = 90 coins  \n- 11 bags: 11 × 9 = 99 coins  \n- 12 bags: 12 × 9 = 108 coins (exceeds 100)\n\nSo, the largest number of bags is 11.\n\nANSWER: 11",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 11.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-059",
+  "condition": "attn_low",
+  "prompt": "A farm must move 26 hay bales to a barn using two trucks. The big truck carries at most 7 bales per trip but has fuel for only 2 trips. The small truck carries at most 4 bales per trip and can make as many trips as needed.\nWhat is the minimum total number of trips (big and small together) needed to move all 26 bales? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To minimize trips, use the big truck for maximum efficiency. The big truck can carry 7 bales per trip, so it needs 4 trips (4 × 7 = 28, which is more than 26). Thus, the big truck can make 2 trips (2 × 7 = 14 bales), leaving 12 bales. The small truck can carry 4 bales per trip, so it needs 3 trips (3 × 4 = 12). Total trips: 2 (big) + 3 (small) = 5.\n\nANSWER: 5"
+  ],
+  "final": "To minimize trips, use the big truck for maximum efficiency. The big truck can carry 7 bales per trip, so it needs 4 trips (4 × 7 = 28, which is more than 26). Thus, the big truck can make 2 trips (2 × 7 = 14 bales), leaving 12 bales. The small truck can carry 4 bales per trip, so it needs 3 trips (3 × 4 = 12). Total trips: 2 (big) + 3 (small) = 5.\n\nANSWER: 5",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 5.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-060",
+  "condition": "ffn_up_low",
+  "prompt": "A gate is guarded for five shifts in a row. Each shift needs exactly 2 guards on duty. No guard may work two shifts in a row, but a guard may work again after resting for one shift.\nWhat is the minimum number of different guards needed to cover all five shifts? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To cover all five shifts, we need a minimum of 3 guards. The solution involves rotating guards in a way that no guard works two shifts in a row, but allows for a rest period of one shift between shifts. This ensures coverage while adhering to the constraints.\n\nANSWER: 3"
+  ],
+  "final": "To cover all five shifts, we need a minimum of 3 guards. The solution involves rotating guards in a way that no guard works two shifts in a row, but allows for a rest period of one shift between shifts. This ensures coverage while adhering to the constraints.\n\nANSWER: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 3.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-100",
+  "condition": "ffn_med",
+  "prompt": "A club has 120 coins for a museum trip. Exactly 3 adults must go, and as many children as possible.\nTickets: 9 coins per adult, 5 coins per child.\nThe club must hire exactly one bus for everyone: the small bus costs 40 coins and holds at most 10 people in total (adults and children), the large bus costs 65 coins and holds at most 20 people.\nWhat is the largest number of children who can go on the trip? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To maximize children:  \n- 3 adults = 3 × 9 = 27 coins  \n- 1 child = 5 coins  \nTotal coins = 27 + 5 = 32  \nBus cost: 40 coins  \nMax people = 10  \nSo 3 adults + x children = 10 → x = 10 - 3 = 7  \nThus, max children = 7  \nANSWER: 7"
+  ],
+  "final": "To maximize children:  \n- 3 adults = 3 × 9 = 27 coins  \n- 1 child = 5 coins  \nTotal coins = 27 + 5 = 32  \nBus cost: 40 coins  \nMax people = 10  \nSo 3 adults + x children = 10 → x = 10 - 3 = 7  \nThus, max children = 7  \nANSWER: 7",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 7.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-007",
+  "condition": "attn_med",
+  "prompt": "Four floats enter a parade one at a time: drum, kite, lamp, sail.\nRules:\n- the lamp float goes first\n- the drum float goes last\n- the sail float goes before the kite float\nGive the only valid order of the four floats. Reply with only a JSON array of the four float names, for example [\"a\",\"b\"]. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "lamp",
+     "sail",
+     "kite",
+     "drum"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"floats\": [\"lamp\", \"drum\", \"sail\", \"kite\"]}"
+  ],
+  "final": "{\"floats\": [\"lamp\", \"drum\", \"sail\", \"kite\"]}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": false,
+    "detail": "not an array"
+   }
+  ]
+ },
+ {
+  "task": "plan-005",
+  "condition": "attn_low",
+  "prompt": "A game has five quests, played one at a time: Bridge, Cave, Forge, Gate, Tower.\n- Cave unlocks only after Forge is completed.\n- Bridge unlocks only after Tower is completed.\n- Gate unlocks only after Cave is completed.\n- Forge unlocks only after Bridge is completed.\nExactly one quest is unlocked from the start. Which quest must be played first? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the quest name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Tower",
+       "<Tower>",
+       "the Tower",
+       "Tower quest",
+       "the Tower quest",
+       "quest Tower"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:quest\\s+)?tower(?:\\s+quest)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To determine the order, we analyze the dependencies:\n\n1. **Cave** unlocks after **Forge**.\n2. **Bridge** unlocks after **Tower**.\n3. **Gate** unlocks after **Cave**.\n4. **Forge** unlocks after **Bridge**.\n\nFrom this, we see:\n- **Forge** must come after **Bridge**.\n- **Bridge** must come after **Tower**.\n- **Cave** must come after **Forge**.\n- **Gate** must come after **Cave**.\n\nThis creates a chain: **Tower → Bridge → Forge → Cave → Gate**.\n\nThe only quest that can be played first is **Tower**, as it is the starting point and has no dependencies.\n\nANSWER: Tower"
+  ],
+  "final": "To determine the order, we analyze the dependencies:\n\n1. **Cave** unlocks after **Forge**.\n2. **Bridge** unlocks after **Tower**.\n3. **Gate** unlocks after **Cave**.\n4. **Forge** unlocks after **Bridge**.\n\nFrom this, we see:\n- **Forge** must come after **Bridge**.\n- **Bridge** must come after **Tower**.\n- **Cave** must come after **Forge**.\n- **Gate** must come after **Cave**.\n\nThis creates a chain: **Tower → Bridge → Forge → Cave → Gate**.\n\nThe only quest that can be played first is **Tower**, as it is the starting point and has no dependencies.\n\nANSWER: Tower",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-021",
+  "condition": "baseline",
+  "prompt": "A baker starts at 07:20 and does three steps one after another with no gaps:\n1. Knead the dough: 25 minutes.\n2. Let the dough rise: 50 minutes.\n3. Bake the loaf: 35 minutes.\nAt what time is the loaf finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:10",
+       "09:10 am",
+       "09:10am",
+       "<09:10>",
+       "9:10",
+       "9:10 am",
+       "9:10am",
+       "<9:10>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*0?9:10(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The baker starts at 07:20.  \n- Knead: 07:20 + 25 = 07:45  \n- Rise: 07:45 + 50 = 08:35  \n- Bake: 08:35 + 35 = 09:10  \n\nANSWER: 09:10"
+  ],
+  "final": "The baker starts at 07:20.  \n- Knead: 07:20 + 25 = 07:45  \n- Rise: 07:45 + 50 = 08:35  \n- Bake: 08:35 + 35 = 09:10  \n\nANSWER: 09:10",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-020",
+  "condition": "rand_ffn_med",
+  "prompt": "A stage crew sets up seven items one at a time: amps, banner, cables, drums, lights, mics, stage.\n- amps needs cables\n- banner needs stage\n- drums needs stage\n- lights needs cables and banner\n- mics needs amps and drums\n- cables and stage need nothing\nAn item can be set up only when everything it needs is done. Tie-break: whenever more than one item is ready, set up the one whose name comes first alphabetically.\nWhich item is set up immediately before drums? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the item name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "banner",
+       "<banner>",
+       "the banner",
+       "banner item",
+       "the banner item",
+       "item banner"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:item\\s+)?banner(?:\\s+item)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The items are set up in the following order:\n\n1. amps  \n2. banner  \n3. drums  \n4. lights  \n5. mics  \n\nThe item set up immediately before drums is **banner**.  \n\nANSWER: banner"
+  ],
+  "final": "The items are set up in the following order:\n\n1. amps  \n2. banner  \n3. drums  \n4. lights  \n5. mics  \n\nThe item set up immediately before drums is **banner**.  \n\nANSWER: banner",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-023",
+  "condition": "rand_attn_med",
+  "prompt": "A painter starts the first coat of paint on a door at 08:00. The first coat takes 30 minutes to apply. The paint must then dry for 90 minutes before the second coat can begin. The second coat also takes 30 minutes to apply and is started as soon as the drying time is over.\nAt what time is the second coat finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:30",
+       "10:30 am",
+       "10:30am",
+       "<10:30>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*10:30(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The first coat starts at 08:00 and takes 30 minutes, finishing at 08:30. It must dry for 90 minutes, so it finishes drying at 10:00. The second coat starts at 10:00 and takes 30 minutes, finishing at 10:30.  \nANSWER: 10:30"
+  ],
+  "final": "The first coat starts at 08:00 and takes 30 minutes, finishing at 08:30. It must dry for 90 minutes, so it finishes drying at 10:00. The second coat starts at 10:00 and takes 30 minutes, finishing at 10:30.  \nANSWER: 10:30",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-030",
+  "condition": "attn_med",
+  "prompt": "A cake must be ready to serve at 18:00. The steps happen in this order:\n1. Bake the cake: 50 minutes.\n2. Let it cool: at least 40 minutes.\n3. Decorate it: 25 minutes.\nWhat is the latest time the baking can start so that the decorated cake is ready at 18:00?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "16:05",
+       "16:05 pm",
+       "16:05pm",
+       "<16:05>",
+       "4:05 pm",
+       "4:05pm",
+       "04:05 pm"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:16:05(?:\\s*p\\.?m\\.?)?|0?4:05\\s*p\\.?m\\.?)\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To ensure the cake is ready at 18:00, we need to calculate the latest start time.\n\n- Bake: 50 minutes (ends at 18:00 - 50 min = 17:10)\n- Let cool: 40 minutes (starts at 17:10, ends at 17:50)\n- Decorate: 25 minutes (starts at 17:50, ends at 18:15)\n\nThe latest start time for baking is 17:10 - 50 min = 16:20.\n\nLatest start time: 16:20\n\nANSWER: 16:20"
+  ],
+  "final": "To ensure the cake is ready at 18:00, we need to calculate the latest start time.\n\n- Bake: 50 minutes (ends at 18:00 - 50 min = 17:10)\n- Let cool: 40 minutes (starts at 17:10, ends at 17:50)\n- Decorate: 25 minutes (starts at 17:50, ends at 18:15)\n\nThe latest start time for baking is 17:10 - 50 min = 16:20.\n\nLatest start time: 16:20\n\nANSWER: 16:20",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-023",
+  "condition": "ffn_low",
+  "prompt": "A painter starts the first coat of paint on a door at 08:00. The first coat takes 30 minutes to apply. The paint must then dry for 90 minutes before the second coat can begin. The second coat also takes 30 minutes to apply and is started as soon as the drying time is over.\nAt what time is the second coat finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:30",
+       "10:30 am",
+       "10:30am",
+       "<10:30>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*10:30(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The first coat ends at 08:30. The drying time ends at 11:30. The second coat starts at 11:30 and takes 30 minutes, finishing at 12:00.  \nANSWER: 12:00"
+  ],
+  "final": "The first coat ends at 08:30. The drying time ends at 11:30. The second coat starts at 11:30 and takes 30 minutes, finishing at 12:00.  \nANSWER: 12:00",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-066",
+  "condition": "ffn_up_low",
+  "prompt": "A tram line has seven stops in this order: Ash, Birchley, Corran, Dell, Eastmoor, Fountain, Grange. The tram halts at every stop.\nPip gets on at Birchley and gets off at Fountain. At how many stops does the tram halt while Pip is on board, not counting Birchley and Fountain themselves?\nName those stops in one line. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We need to determine how many stops the tram halts at while Pip is on board, not counting Birchley and Fountain.\n\n### Step 1: Identify the stops\nThe tram stops are in the order:  \n**Ash, Birchley, Corran, Dell, Eastmoor, Fountain, Grange**\n\n### Step 2: Determine the stops Pip is on board\nPip gets on at **Birchley** and gets off at **Fountain**.  \nWe are not counting **Birchley** and **Fountain** themselves, so we need to exclude them from the count.\n\n### Step 3: List the stops Pip is on board\n- Pip gets on at **Birchley** (not counted)\n- Pip gets off at **Fountain** (not counted)\n\nSo, the stops Pip is on board are:  \n**Ash, Corran, Dell, Eastmoor, Grange**\n\n### Step 4: Count the stops\nThere are **5 stops** (Ash, Corran, Dell, Eastmoor, Grange) that Pip is on board.\n\n### Final Answer:\nANSWER: 5"
+  ],
+  "final": "We need to determine how many stops the tram halts at while Pip is on board, not counting Birchley and Fountain.\n\n### Step 1: Identify the stops\nThe tram stops are in the order:  \n**Ash, Birchley, Corran, Dell, Eastmoor, Fountain, Grange**\n\n### Step 2: Determine the stops Pip is on board\nPip gets on at **Birchley** and gets off at **Fountain**.  \nWe are not counting **Birchley** and **Fountain** themselves, so we need to exclude them from the count.\n\n### Step 3: List the stops Pip is on board\n- Pip gets on at **Birchley** (not counted)\n- Pip gets off at **Fountain** (not counted)\n\nSo, the stops Pip is on board are:  \n**Ash, Corran, Dell, Eastmoor, Grange**\n\n### Step 4: Count the stops\nThere are **5 stops** (Ash, Corran, Dell, Eastmoor, Grange) that Pip is on board.\n\n### Final Answer:\nANSWER: 5",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 5.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-024",
+  "condition": "ffn_med",
+  "prompt": "A lab runs three samples on three separate machines, so they can overlap:\n- Sample Red starts at 08:00 and takes 30 minutes.\n- Sample Blue starts at 08:10 and takes 15 minutes.\n- Sample Green starts at 08:25 and takes 10 minutes.\nAt what time has the last of the three samples finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "08:35",
+       "08:35 am",
+       "08:35am",
+       "<08:35>",
+       "8:35",
+       "8:35 am",
+       "8:35am",
+       "<8:35>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*0?8:35(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The last sample finishes at 08:25 + 10 minutes = 08:35.  \nANSWER: 08:35"
+  ],
+  "final": "The last sample finishes at 08:25 + 10 minutes = 08:35.  \nANSWER: 08:35",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-046",
+  "condition": "rand_attn_med",
+  "prompt": "A kennel has three pens: small, medium and large. Three dogs (a hound, a terrier and a pup) each need their own pen.\n- The hound only fits in the large pen.\n- The terrier fits in the medium or the large pen.\n- The pup fits in any pen.\nReply with only a JSON object whose keys are \"small\", \"medium\" and \"large\" and whose values are the dog placed in that pen (\"hound\", \"terrier\" or \"pup\"), in the form {\"small\":\"...\",\"medium\":\"...\",\"large\":\"...\"}. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "small",
+     "medium",
+     "large"
+    ],
+    "equals": {
+     "large": "hound",
+     "medium": "terrier",
+     "small": "pup"
+    }
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"small\":\"pup\",\"medium\":\"terrier\",\"large\":\"hound\"}"
+  ],
+  "final": "{\"small\":\"pup\",\"medium\":\"terrier\",\"large\":\"hound\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "plan-092",
+  "condition": "baseline",
+  "prompt": "An expedition leader proposes this spending plan:\n- food: 48 coins\n- gear: 55 coins\n- guide: 40 coins\n- permits: 12 coins\n- reserve fund: 25 coins\nRules:\nRule 1: No single line costs more than 60 coins.\nRule 2: Gear costs more than food.\nRule 3: The whole plan costs at most 170 coins.\nRule 4: The reserve fund is at least 20 coins.\nExactly one rule is broken by the plan. Which rule number is it? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The plan totals 48 + 55 + 40 + 12 + 25 = 180 coins. Rule 3 states the total must be at most 170 coins. Therefore, the plan violates Rule 3. \n\nANSWER: 3"
+  ],
+  "final": "The plan totals 48 + 55 + 40 + 12 + 25 = 180 coins. Rule 3 states the total must be at most 170 coins. Therefore, the plan violates Rule 3. \n\nANSWER: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 3.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-004",
+  "condition": "ffn_up_low",
+  "prompt": "A signaller raises four flags, one at a time: red, blue, green, white.\nRules:\n- blue is raised before red\n- white is raised before blue\n- red is raised before green\nWhich flag is raised last? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the flag colour.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "green",
+       "<green>",
+       "the green",
+       "green flag",
+       "the green flag",
+       "flag green"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:flag\\s+)?green(?:\\s+flag)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The flags are raised in the order: red, blue, green, white.\n\nThe rules are:\n1. Blue is raised before red.\n2. White is raised before blue.\n3. Red is raised before green.\n\nWe need to determine which flag is raised last.\n\nFrom the rules, we know:\n- Red must come before green.\n- Blue must come before red.\n- White must come before blue.\n\nSo the order must include: red, blue, green, white, and the last flag is unknown.\n\nThe flags are: red, blue, green, white.\n\nWe need to determine the last flag.\n\nLet’s assume the last flag is green. Then the order would be: red, blue, green, white.\n\nThis satisfies all the rules:\n- Red is before green.\n- Blue is before red.\n- White is before blue.\n\nSo the last flag is green.\n\nANSWER: green"
+  ],
+  "final": "The flags are raised in the order: red, blue, green, white.\n\nThe rules are:\n1. Blue is raised before red.\n2. White is raised before blue.\n3. Red is raised before green.\n\nWe need to determine which flag is raised last.\n\nFrom the rules, we know:\n- Red must come before green.\n- Blue must come before red.\n- White must come before blue.\n\nSo the order must include: red, blue, green, white, and the last flag is unknown.\n\nThe flags are: red, blue, green, white.\n\nWe need to determine the last flag.\n\nLet’s assume the last flag is green. Then the order would be: red, blue, green, white.\n\nThis satisfies all the rules:\n- Red is before green.\n- Blue is before red.\n- White is before blue.\n\nSo the last flag is green.\n\nANSWER: green",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-026",
+  "condition": "ffn_low",
+  "prompt": "A shop opens at 08:30. Lin arrives at 07:15 and starts at once: first cleaning the counters (25 minutes), then restocking the shelves (30 minutes), with no gap between them.\nHow many spare minutes does Lin have between finishing the restocking and the shop opening?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 20
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Lin arrives at 07:15, starts cleaning counters at 07:15, finishes at 07:40. Then restocks shelves from 07:40 to 08:10. The shop opens at 08:30. The spare time is 20 minutes.  \nANSWER: 20"
+  ],
+  "final": "Lin arrives at 07:15, starts cleaning counters at 07:15, finishes at 07:40. Then restocks shelves from 07:40 to 08:10. The shop opens at 08:30. The spare time is 20 minutes.  \nANSWER: 20",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 20.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-071",
+  "condition": "attn_low",
+  "prompt": "There are exactly three ways to get from Quarry Lane to Zenith Park:\n- Bus 5: a direct ride of 52 minutes with no change.\n- Tram A then tram B: rides of 18 and 20 minutes, with one change.\n- Metro lines M1, M2 and M3: rides of 10, 12 and 11 minutes, with two changes.\nEvery change adds 6 minutes of waiting.\nHow many changes does the quickest way have?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The quickest way is Bus 5 with 0 changes.  \nANSWER: 0"
+  ],
+  "final": "The quickest way is Bus 5 with 0 changes.  \nANSWER: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 0.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-041",
+  "condition": "attn_med",
+  "prompt": "A guest house has three rooms: red, blue and green. Three guests (Ada, Bo, Cy) each get exactly one room, and no room is shared.\nRules:\n- Bo gets the blue room.\n- Ada cannot have the green room.\nReply with only a JSON object whose keys are \"Ada\", \"Bo\" and \"Cy\" and whose values are the room colours in lowercase, in the form {\"Ada\":\"...\",\"Bo\":\"...\",\"Cy\":\"...\"}. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "Ada",
+     "Bo",
+     "Cy"
+    ],
+    "equals": {
+     "Ada": "red",
+     "Bo": "blue",
+     "Cy": "green"
+    }
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"Ada\":\"red\",\"Bo\":\"blue\",\"Cy\":\"green\"}"
+  ],
+  "final": "{\"Ada\":\"red\",\"Bo\":\"blue\",\"Cy\":\"green\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "plan-016",
+  "condition": "baseline",
+  "prompt": "A bathroom is fitted in six jobs, one at a time: tap, sink, tiles, mirror, cabinet, lighting.\n- tap needs sink finished.\n- sink needs cabinet finished.\n- mirror needs tiles finished.\n- tiles, cabinet and lighting need nothing.\nTie-break: whenever more than one job is ready to start, do the one whose name has the fewest letters.\nWhich job is done fourth? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the job name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "sink",
+       "<sink>",
+       "the sink",
+       "sink job",
+       "the sink job",
+       "job sink"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:job\\s+)?sink(?:\\s+job)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The jobs are: tap, sink, tiles, mirror, cabinet, lighting.\n\nConstraints:\n- Tap needs sink finished.\n- Sink needs cabinet finished.\n- Mirror needs tiles finished.\n\nTie-break: job with fewer letters.\n\nOrdering:\n1. Sink (needs cabinet)\n2. Cabinet (needs nothing)\n3. Tiles (needs nothing)\n4. Mirror (needs tiles)\n5. Tap (needs sink)\n6. Lighting (needs nothing)\n\nTie-break: \"tiles\" (4 letters) < \"mirror\" (6 letters) < \"sink\" (4 letters) < \"tap\" (3 letters) < \"lighting\" (8 letters)\n\nSo, the fourth job is **mirror**.\n\nANSWER: mirror"
+  ],
+  "final": "The jobs are: tap, sink, tiles, mirror, cabinet, lighting.\n\nConstraints:\n- Tap needs sink finished.\n- Sink needs cabinet finished.\n- Mirror needs tiles finished.\n\nTie-break: job with fewer letters.\n\nOrdering:\n1. Sink (needs cabinet)\n2. Cabinet (needs nothing)\n3. Tiles (needs nothing)\n4. Mirror (needs tiles)\n5. Tap (needs sink)\n6. Lighting (needs nothing)\n\nTie-break: \"tiles\" (4 letters) < \"mirror\" (6 letters) < \"sink\" (4 letters) < \"tap\" (3 letters) < \"lighting\" (8 letters)\n\nSo, the fourth job is **mirror**.\n\nANSWER: mirror",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-081",
+  "condition": "baseline",
+  "prompt": "Nilo has 70 coins to set up a kite stall. He must buy everything on this list:\n- 2 spools of string at 9 coins each\n- 1 bamboo frame set at 23 coins\n- 4 ribbons at 3 coins each\nHow many coins does Nilo have left after buying the whole list? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 17
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Nilo buys 2 spools of string at 9 coins each: 2 × 9 = 18 coins.  \nHe buys 4 ribbons at 3 coins each: 4 × 3 = 12 coins.  \nHe buys 1 bamboo frame set at 23 coins: 23 coins.  \nTotal cost: 18 + 12 + 23 = 53 coins.  \nCoins left: 70 - 53 = 17.  \n\nANSWER: 17"
+  ],
+  "final": "Nilo buys 2 spools of string at 9 coins each: 2 × 9 = 18 coins.  \nHe buys 4 ribbons at 3 coins each: 4 × 3 = 12 coins.  \nHe buys 1 bamboo frame set at 23 coins: 23 coins.  \nTotal cost: 18 + 12 + 23 = 53 coins.  \nCoins left: 70 - 53 = 17.  \n\nANSWER: 17",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 17.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-061",
+  "condition": "rand_ffn_med",
+  "prompt": "Nia drives from Fenwick to Garnet Bay. There are exactly three ways to go:\n- Ferry way: drive 12 minutes to the dock, wait 10 minutes for the ferry, then an 18 minute crossing.\n- Bridge way: one drive of 44 minutes.\n- Tunnel way: drive 25 minutes, queue 8 minutes at the tunnel, then drive 9 minutes.\nHow many minutes does the quickest way take in total?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To find the quickest way, compare the times:\n- Ferry way: 12 + 10 + 18 = 40 minutes\n- Bridge way: 44 minutes\n- Tunnel way: 25 + 8 + 9 = 42 minutes\n\nThe quickest way takes 40 minutes. \n\nANSWER: 40"
+  ],
+  "final": "To find the quickest way, compare the times:\n- Ferry way: 12 + 10 + 18 = 40 minutes\n- Bridge way: 44 minutes\n- Tunnel way: 25 + 8 + 9 = 42 minutes\n\nThe quickest way takes 40 minutes. \n\nANSWER: 40",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 40.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-034",
+  "condition": "ffn_med",
+  "prompt": "Three people need to meet, and all three must be present for the whole meeting.\n- Ivo is free from 09:00 to 11:30.\n- Jun is free from 10:15 to 12:00.\n- Kai is free from 08:30 to 11:00.\nWhat is the longest meeting they can hold, in minutes?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Ivo is free from 09:00 to 11:30. Jun is free from 10:15 to 12:00. Kai is free from 08:30 to 11:00. The latest time is 12:00. The meeting can last 12:00 - 11:30 = 150 minutes. ANSWER: 150"
+  ],
+  "final": "Ivo is free from 09:00 to 11:30. Jun is free from 10:15 to 12:00. Kai is free from 08:30 to 11:00. The latest time is 12:00. The meeting can last 12:00 - 11:30 = 150 minutes. ANSWER: 150",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 150.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-086",
+  "condition": "ffn_med",
+  "prompt": "Odra goes to market with 30 coins and no way to get more. Her plan, in order:\nStep 1: buy bread for 12 coins\nStep 2: buy oil for 10 coins\nStep 3: buy cloth for 15 coins\nStep 4: buy salt for 2 coins\nShe pays for each step in turn from what is left in her purse. Which step is the first one she cannot pay for? Give the step number. Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Step  4: buy salt for 2 coins. She cannot pay for this step. ANSWER: 4"
+  ],
+  "final": "Step  4: buy salt for 2 coins. She cannot pay for this step. ANSWER: 4",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 4.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-082",
+  "condition": "ffn_med",
+  "prompt": "Sela has 95 coins for the night market. She must first pay a stall fee of 28 coins. With the money that remains she buys paper lanterns to sell, at 9 coins per lantern. Lanterns are sold whole only.\nWhat is the largest number of lanterns Sela can buy? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 7
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Sela has 95 coins. She pays 28 coins. Remaining: 95 - 28 = 67 coins. She buys lanterns at 9 coins each. 67 ÷ 9 = 7.666... So the largest number is 7.  \nANSWER: 7"
+  ],
+  "final": "Sela has 95 coins. She pays 28 coins. Remaining: 95 - 28 = 67 coins. She buys lanterns at 9 coins each. 67 ÷ 9 = 7.666... So the largest number is 7.  \nANSWER: 7",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 7.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-051",
+  "condition": "attn_med",
+  "prompt": "Five helpers (Ana, Ben, Cal, Dee, Eli) are split into two teams for a village fair: exactly 2 helpers in the kitchen and exactly 3 in the hall.\n- Ana and Ben must be on different teams.\n- Cal must be on the same team as Ana.\n- Dee and Eli must be on the same team.\nDee and Eli end up in the hall. Who is the third helper in the hall? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the helper's name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Ben",
+       "<Ben>",
+       "the Ben"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?ben\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We know:\n- Dee and Eli are in the hall.\n- They must be on the same team.\n- Ana and Ben are on different teams.\n- Cal must be on the same team as Ana.\n\nDee and Eli are in the hall, so Cal must also be in the hall (since they must be together). That leaves Ana and Ben on different teams. If Cal is in the hall, Ana must be in the kitchen (since she can't be with Cal in the hall). Therefore, Ben must be in the hall.\n\nThe third helper in the hall is **Eli** (already in the hall), and **Cal** is in the hall. The remaining helper is **Ben**, who must be in the hall with Cal and Eli. So the third helper in the hall is **Ben**.\n\nANSWER: BEN"
+  ],
+  "final": "We know:\n- Dee and Eli are in the hall.\n- They must be on the same team.\n- Ana and Ben are on different teams.\n- Cal must be on the same team as Ana.\n\nDee and Eli are in the hall, so Cal must also be in the hall (since they must be together). That leaves Ana and Ben on different teams. If Cal is in the hall, Ana must be in the kitchen (since she can't be with Cal in the hall). Therefore, Ben must be in the hall.\n\nThe third helper in the hall is **Eli** (already in the hall), and **Cal** is in the hall. The remaining helper is **Ben**, who must be in the hall with Cal and Eli. So the third helper in the hall is **Ben**.\n\nANSWER: BEN",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-095",
+  "condition": "rand_ffn_med",
+  "prompt": "A trader has a voucher worth exactly 50 coins. It must be used on exactly three different items, and their prices must add up to exactly 50 coins.\nItems: candle 7, rope 12, pot 15, blanket 19, lamp 23, kettle 26 (prices in coins).\nOnly one set of three items works. What is the price in coins of the cheapest item in that set? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The trader needs to select three items whose prices add up to exactly 50 coins. After checking all possible combinations, the valid set is: candle (7), pot (15), and kettle (26). The cheapest item in this set is **7**.\n\nANSWER: 7"
+  ],
+  "final": "The trader needs to select three items whose prices add up to exactly 50 coins. After checking all possible combinations, the valid set is: candle (7), pot (15), and kettle (26). The cheapest item in this set is **7**.\n\nANSWER: 7",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 7.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-017",
+  "condition": "baseline",
+  "prompt": "A crew films seven scenes one at a time: Arrival, Betrayal, Chase, Duel, Escape, Feast, Goodbye.\nRules:\n- Duel is filmed before Betrayal\n- Chase is filmed before Escape\n- Feast is filmed before Arrival\n- Goodbye is filmed before Chase\n- Arrival is filmed before Duel\n- Betrayal is filmed before Goodbye\n- Feast is filmed before Duel\nWhich scene is filmed fifth? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the scene name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Goodbye",
+       "<Goodbye>",
+       "the Goodbye",
+       "Goodbye scene",
+       "the Goodbye scene",
+       "scene Goodbye"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?(?:scene\\s+)?goodbye(?:\\s+scene)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "From the rules:\n- Arrival < Duel < Betrayal < Goodbye\n- Chase < Escape\n- Feast < Arrival < Duel < Betrayal\n\nPossible order:\nFeast < Arrival < Duel < Betrayal < Goodbye  \nChase < Escape  \nDuel is before Betrayal, so Chase must be before Escape and before Duel.\n\nPossible arrangement:\nFeast, Arrival, Chase, Duel, Betrayal, Goodbye\n\nFifth scene: Duel\n\nANSWER: Duel"
+  ],
+  "final": "From the rules:\n- Arrival < Duel < Betrayal < Goodbye\n- Chase < Escape\n- Feast < Arrival < Duel < Betrayal\n\nPossible order:\nFeast < Arrival < Duel < Betrayal < Goodbye  \nChase < Escape  \nDuel is before Betrayal, so Chase must be before Escape and before Duel.\n\nPossible arrangement:\nFeast, Arrival, Chase, Duel, Betrayal, Goodbye\n\nFifth scene: Duel\n\nANSWER: Duel",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-070",
+  "condition": "rand_ffn_med",
+  "prompt": "Oren is waiting at the Gull Rock bus stop from 08:00 and wants to reach Ivel.\n1. Bus from Gull Rock to Hythe, taking 30 minutes. Departures: 08:10, 08:40.\n2. Train from Hythe to Ivel, taking 45 minutes. Departures: 08:45, 09:15, 09:45.\nAt Hythe he needs at least 10 minutes between getting off the bus and the train leaving.\nWhat is the earliest time Oren can arrive in Ivel?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "10:00",
+       "10:00 a.m",
+       "10:00 am",
+       "10:00am",
+       "<10:00>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\s*[:=]\\s*\\W*0?10:00(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Oren needs to catch the first train from Hythe to Ivel, which departs at 08:45. He must arrive at least 10 minutes before the train departs, so he must leave the bus by 08:35. The earliest he can arrive is 08:35. \n\nANSWER: 08:35"
+  ],
+  "final": "Oren needs to catch the first train from Hythe to Ivel, which departs at 08:45. He must arrive at least 10 minutes before the train departs, so he must leave the bus by 08:35. The earliest he can arrive is 08:35. \n\nANSWER: 08:35",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-084",
+  "condition": "ffn_low",
+  "prompt": "Before a hike, Brin proposes this shopping plan:\n- rope from the Harbor Shop, 12 coins\n- lamp from the Harbor Shop, 9 coins\n- boots from the Hill Shop, 14 coins\n- tin cup from the Harbor Shop, 3 coins\nRules:\nRule 1: The plan costs at most 40 coins in total.\nRule 2: At most two items come from the same shop.\nRule 3: The plan includes a lamp.\nExactly one rule is broken by the plan. Which rule number is it? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The plan includes three items from the Harbor Shop: rope (12), lamp (9), tin cup (3). This violates Rule 2, which limits two items from the same shop. The total cost is 12 + 9 + 3 = 24 coins, which is under 40, so Rule 1 is not violated. The violation is Rule 2. \n\nANSWER: 2"
+  ],
+  "final": "The plan includes three items from the Harbor Shop: rope (12), lamp (9), tin cup (3). This violates Rule 2, which limits two items from the same shop. The total cost is 12 + 9 + 3 = 24 coins, which is under 40, so Rule 1 is not violated. The violation is Rule 2. \n\nANSWER: 2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 2.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-055",
+  "condition": "rand_ffn_med",
+  "prompt": "A clinic has five wards: maple, oak, pine, rowan and yew. Five nurses (Fen, Gus, Hal, Ida, Jon) each cover exactly one ward, and every ward has exactly one nurse.\n- Ida can only cover pine.\n- Fen can only cover pine or yew.\n- Hal can only cover maple or oak.\n- Gus cannot cover maple, oak or pine.\n- Jon cannot cover oak or yew.\nWhich nurse covers the oak ward? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the nurse's name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Hal",
+       "<Hal>",
+       "the Hal"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?hal\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Based on the constraints:\n\n- Ida can only cover pine.\n- Fen can only cover pine or yew.\n- Hal can only cover maple or oak.\n- Gus cannot cover maple, oak, or pine.\n- Jon cannot cover oak or yew.\n\nAfter analyzing the constraints, the only nurse who can cover oak is **Hal**.\n\nANSWER: Hal"
+  ],
+  "final": "Based on the constraints:\n\n- Ida can only cover pine.\n- Fen can only cover pine or yew.\n- Hal can only cover maple or oak.\n- Gus cannot cover maple, oak, or pine.\n- Jon cannot cover oak or yew.\n\nAfter analyzing the constraints, the only nurse who can cover oak is **Hal**.\n\nANSWER: Hal",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-075",
+  "condition": "rand_attn_med",
+  "prompt": "Six towns are joined by exactly these two-way roads:\n- Arden to Brook: 4 km\n- Arden to Calder: 2 km\n- Brook to Calder: 1 km\n- Brook to Dray: 5 km\n- Calder to Esk: 10 km\n- Dray to Esk: 3 km\n- Dray to Firth: 11 km\n- Esk to Firth: 4 km\nA lorry drives from Arden to Firth and may pass through any towns. What is the length in km of the shortest possible drive?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To find the shortest possible drive from Arden to Firth, we need to consider all possible routes that connect the towns and calculate the total distance for each possible path. The shortest path will be the one with the smallest total distance.\n\nThe possible routes include:\n1. Arden → Brook → Calder → Esk → Firth: 4 + 1 + 10 + 3 = 18 km\n2. Arden → Brook → Calder → Dray → Esk → Firth: 4 + 1 + 10 + 3 + 4 = 22 km\n3. Arden → Brook → Calder → Dray → Esk → Firth: 4 + 1 + 10 + 3 + 4 = 22 km\n4. Arden → Brook → Calder → Dray → Esk → Firth: 4 + 1 + 10 + 3 + 4 = 22 km\n\nThe shortest path is Arden → Brook → Calder → Esk → Firth with a total distance of 18 km.\n\nANSWER: 18"
+  ],
+  "final": "To find the shortest possible drive from Arden to Firth, we need to consider all possible routes that connect the towns and calculate the total distance for each possible path. The shortest path will be the one with the smallest total distance.\n\nThe possible routes include:\n1. Arden → Brook → Calder → Esk → Firth: 4 + 1 + 10 + 3 = 18 km\n2. Arden → Brook → Calder → Dray → Esk → Firth: 4 + 1 + 10 + 3 + 4 = 22 km\n3. Arden → Brook → Calder → Dray → Esk → Firth: 4 + 1 + 10 + 3 + 4 = 22 km\n4. Arden → Brook → Calder → Dray → Esk → Firth: 4 + 1 + 10 + 3 + 4 = 22 km\n\nThe shortest path is Arden → Brook → Calder → Esk → Firth with a total distance of 18 km.\n\nANSWER: 18",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 18.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-090",
+  "condition": "attn_med",
+  "prompt": "A carpenter has a budget of 100 coins and proposes this order from the timber yard:\n- 4 planks at 9 coins each\n- 2 buckets of varnish at 17 coins each\n- 1 saw at 26 coins\nThe yard adds a delivery fee of 12 coins, but the fee is waived when the goods alone cost 100 coins or more.\nBy how many coins does the full cost of the order exceed the budget? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The carpenter's order costs:  \n- 4 planks × 9 = 36 coins  \n- 2 buckets × 17 = 34 coins  \n- 1 saw = 26 coins  \nTotal cost: 36 + 34 + 26 = 96 coins  \n\nThe budget is 100 coins, so the order is under the budget by 4 coins.  \nThe delivery fee is waived, so the total cost is 96 coins.  \nThe full cost of the order is 96 coins, which exceeds the budget by 4 coins.  \n\nANSWER: 4"
+  ],
+  "final": "The carpenter's order costs:  \n- 4 planks × 9 = 36 coins  \n- 2 buckets × 17 = 34 coins  \n- 1 saw = 26 coins  \nTotal cost: 36 + 34 + 26 = 96 coins  \n\nThe budget is 100 coins, so the order is under the budget by 4 coins.  \nThe delivery fee is waived, so the total cost is 96 coins.  \nThe full cost of the order is 96 coins, which exceeds the budget by 4 coins.  \n\nANSWER: 4",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 4.0"
+   }
+  ]
+ },
+ {
+  "task": "plan-002",
+  "condition": "baseline",
+  "prompt": "A clerk prepares a parcel in four steps, one at a time: post, pack, label, seal.\n- label needs seal to be finished first.\n- post needs label to be finished first.\n- seal needs pack to be finished first.\n- pack needs nothing.\nGive the only valid order of the four steps. Reply with only a JSON array of the four step names, for example [\"a\",\"b\"]. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "value": [
+     "pack",
+     "seal",
+     "label",
+     "post"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "[\"pack\", \"label\", \"seal\", \"post\"]"
+  ],
+  "final": "[\"pack\", \"label\", \"seal\", \"post\"]",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": false,
+    "detail": "value mismatch"
+   }
+  ]
+ },
+ {
+  "task": "plan-048",
+  "condition": "ffn_up_low",
+  "prompt": "A community garden has four plots: north, south, east and west. Four gardeners (Asa, Bryn, Coel, Dara) each tend exactly one plot, and every plot has exactly one gardener.\n- Dara tends the west plot.\n- Asa cannot tend the north plot or the south plot.\n- Bryn cannot tend the south plot.\nWho tends the south plot? Keep any working under 60 words. Then end with a final line: ANSWER: followed by just the gardener's name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Coel",
+       "<Coel>",
+       "the Coel"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*(?:the\\s+)?coel\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "- Dara tends the west plot.\n- Asa cannot tend the north or south plot.\n- Bryn cannot tend the south plot.\n\nThe south plot is tended by Coel.\n\nANSWER: Coel"
+  ],
+  "final": "- Dara tends the west plot.\n- Asa cannot tend the north or south plot.\n- Bryn cannot tend the south plot.\n\nThe south plot is tended by Coel.\n\nANSWER: Coel",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-037",
+  "condition": "attn_low",
+  "prompt": "A workshop restores a chair, starting at 08:00. There are enough workers to run tasks at the same time, but a task can start only when the tasks it needs are finished.\n- sand the frame: 40 minutes\n- cut the fabric: 75 minutes\n- varnish the frame: 30 minutes, needs the sanding done\n- assemble the chair: 20 minutes, needs the varnish and the fabric done\n- final inspection: 15 minutes, needs the chair assembled; the inspector arrives at 09:15\nAt what time is the inspection finished?\nKeep any working under 60 words. Then end with a final line in exactly this form: ANSWER: HH:MM",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "09:50",
+       "09:50 am",
+       "09:50am",
+       "<09:50>",
+       "9:50",
+       "9:50 am",
+       "9:50am",
+       "<9:50>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "answer\\W*[:=]\\s*\\W*0?9:50(?:\\s*a\\.?m\\.?)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The tasks are scheduled as follows:\n- Sand frame (08:00 - 08:40)\n- Cut fabric (08:40 - 09:15)\n- Varnish frame (09:15 - 09:45)\n- Assemble chair (09:45 - 10:05)\n- Final inspection (10:05 - 10:20)\n\nThe inspection finishes at 10:20.\n\nANSWER: 10:20"
+  ],
+  "final": "The tasks are scheduled as follows:\n- Sand frame (08:00 - 08:40)\n- Cut fabric (08:40 - 09:15)\n- Varnish frame (09:15 - 09:45)\n- Assemble chair (09:45 - 10:05)\n- Final inspection (10:05 - 10:20)\n\nThe inspection finishes at 10:20.\n\nANSWER: 10:20",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   }
+  ]
+ },
+ {
+  "task": "plan-095",
+  "condition": "ffn_med",
+  "prompt": "A trader has a voucher worth exactly 50 coins. It must be used on exactly three different items, and their prices must add up to exactly 50 coins.\nItems: candle 7, rope 12, pot 15, blanket 19, lamp 23, kettle 26 (prices in coins).\nOnly one set of three items works. What is the price in coins of the cheapest item in that set? Keep any working under 60 words. Then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The trader must use the 50-coin voucher on three items whose total price is exactly 50 coins. The items are: candle 7, rope 12, pot 15, blanket 19, lamp 23, kettle 26.\n\nThe only valid combination is: 7 (candle), 12 (rope), 15 (pot). Total = 7 + 12 + 15 = 34. But this is not 50. So the correct combination must be: 7 (candle), 12 (rope), 19 (blanket). Total = 7 + 12 + 19 = 38. Not 50. So the correct combination is: 7 (candle), 12 (rope), 26 (kettle). Total = 7 + 12 + 26 = 45. Not 50. So the correct combination is: 7 (candle), 12 (rope), 15 (pot). Total = 7 + 12 + 15 = 34. Not 50. So the correct combination is: 7 (candle), 12 (rope), 19 (blanket). Total = 7 + 12 + 19 = 38. Not 50. So"
+  ],
+  "final": "The trader must use the 50-coin voucher on three items whose total price is exactly 50 coins. The items are: candle 7, rope 12, pot 15, blanket 19, lamp 23, kettle 26.\n\nThe only valid combination is: 7 (candle), 12 (rope), 15 (pot). Total = 7 + 12 + 15 = 34. But this is not 50. So the correct combination must be: 7 (candle), 12 (rope), 19 (blanket). Total = 7 + 12 + 19 = 38. Not 50. So the correct combination is: 7 (candle), 12 (rope), 26 (kettle). Total = 7 + 12 + 26 = 45. Not 50. So the correct combination is: 7 (candle), 12 (rope), 15 (pot). Total = 7 + 12 + 15 = 34. Not 50. So the correct combination is: 7 (candle), 12 (rope), 19 (blanket). Total = 7 + 12 + 19 = 38. Not 50. So",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 50.0"
+   }
+  ]
+ }
+]

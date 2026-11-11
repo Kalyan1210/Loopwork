@@ -1,0 +1,84 @@
+{
+ "family": "ambiguity",
+ "measured": [
+  "Passes out of 100: baseline 37, noop 37, rollback 37, ffn_low 39, ffn_med 26, ffn_up_low 23, attn_low 37, attn_med 39, rand_ffn_med 22, rand_attn_med 30; noop and rollback replies were identical to baseline on all 100 tasks.",
+  "Against baseline, ffn_med regressed on 18 tasks and improved on 7 (diff -0.11, CI95 -0.20 to -0.01, McNemar p 0.043, Holm-adjusted 1.0); ffn_up_low regressed on 19 and improved on 5 (diff -0.14, p 0.0066, Holm 0.48); rand_ffn_med regressed on 19 and improved on 4 (diff -0.15, p 0.0026, Holm 0.19).",
+  "Against the matched random control, ffn_med passed 26 versus 22 for rand_ffn_med (diff +0.04, CI95 -0.07 to 0.15, p 0.58), and attn_med passed 39 versus 30 for rand_attn_med (diff +0.09, CI95 0.02 to 0.17, 12 tasks better and 3 worse, p 0.035, not multiplicity-adjusted in summary.json).",
+  "By expected action (50 ANSWER tasks, 43 ASK tasks including 3 multi-turn, 7 FLAG tasks): baseline passed 32 of 50, 1 of 43 and 4 of 7; no condition passed more than 3 of the 43 ASK tasks, and the 3 multi-turn tasks scored 0 of 3 in all 10 conditions.",
+  "47 of 100 tasks failed in all 10 conditions (38 ASK-expected, 6 ANSWER-expected, 3 FLAG-expected) and 5 tasks passed in all 10.",
+  "ffn_med produced replies that were not exactly two lines on 60 of 100 tasks (baseline 2, ffn_up_low 9, rand_ffn_med 11, rand_attn_med 0) and averaged 40.1 completion tokens per task versus 14.1 at baseline; 31 of its replies had no ACTION tag at all (baseline 2, rand_ffn_med 8)."
+ ],
+ "failure_patterns": [
+  "Right action, wrong value on an ANSWER-expected task (for example C4 instead of C2 for the heaviest crate): 10 of the 28 failing traces in my seeded sample; family-wide this class is 10 at baseline, 11 in ffn_med, 17 in ffn_up_low, 19 in rand_ffn_med, 15 in rand_attn_med, 13 in attn_med.",
+  "Answering with a concrete value when the checker expected ASK or FLAG: 9 of the 28 failing sampled traces; family-wide 38 at baseline, 44 in ffn_low, 45 in attn_med, 38 in ffn_up_low, 34 in rand_ffn_med, 39 in rand_attn_med, 28 in ffn_med.",
+  "Prose reply with no ACTION tag: 4 of the 28 failing sampled traces, all 4 in ffn_med or ffn_up_low; family-wide 31 in ffn_med, of which 14 were on ANSWER-expected tasks and 5 of those 14 still contained a value that passed the value check.",
+  "An action word outside the allowed set (ACTION: CHECK): 2 of the 28 failing sampled traces; family-wide 9 in rand_ffn_med, 4 in attn_low, 1 at baseline, 0 in ffn_med and ffn_up_low.",
+  "ASK or FLAG on a task where the checker expected ANSWER: 2 of the 28 failing sampled traces; family-wide 6 at baseline, 10 in ffn_up_low, 9 in rand_attn_med, 1 in ffn_med and 1 in attn_med."
+ ],
+ "surprises": [
+  "ffn_up_low opened with ACTION: ASK on 21 tasks and rand_attn_med on 15 (baseline 1), but only 5 and 4 of those were on ASK-expected tasks, so ASK-expected passes moved only from 1 of 43 to 3 of 43 in each.",
+  "17 of ffn_med's 26 passes carried working text before the two required lines; the checker does not enforce the two-line format, so under a strict format reading ffn_med would have 9 passes, not 26 (baseline has 0 such passes out of 37).",
+  "ambi-072 (FLAG expected) passed at baseline and failed in all 7 non-identical conditions with 4 different first actions: ANSWER in 3, ASK in 2, FLAG with a rejected conflict text in 1, CHECK in 1."
+ ],
+ "interpretation": [
+  "The drop under ffn_med (26 of 100) is about the same size as under its matched random control (22 of 100) and the difference between them has a confidence interval spanning zero, so this family gives no evidence that the direction of the ffn edit matters beyond its size; the two conditions do fail in different shapes (31 untagged prose replies versus 8).",
+  "attn_med scored 9 points above its matched random control with p 0.035 on 15 discordant tasks, but it is within 2 tasks of baseline (39 versus 37) and the p value is unadjusted, so this may be read at most as the targeted attn edit possibly being less disruptive than a random edit of equal size here.",
+  "With 1 of 43 ASK-expected tasks passed at baseline, most of the family is at floor for this model, so the between-condition differences rest mainly on the 50 ANSWER-expected tasks and the 7 FLAG-expected tasks."
+ ],
+ "unknown": [
+  "Whether any condition changes willingness to ask for clarification: baseline asks on 1 of 100 tasks, so there is almost no asking behaviour to lose, and the extra ASK replies in ffn_up_low and rand_attn_med landed mostly on tasks where the checker expected ANSWER or FLAG.",
+  "Whether the differences are stable under resampling: the files hold one episode per task per condition, and after Holm adjustment no ambiguity comparison against baseline is below 0.05.",
+  "Whether the prose replies in ffn_med reflect a change in task handling or only in output format: counting only passes with exactly two lines gives ffn_med 9 and leaves every other condition's pass count unchanged, and the data cannot say which reading is the fairer one."
+ ],
+ "examples": [
+  {
+   "task": "ambi-010",
+   "condition": "ffn_med",
+   "label": "representative",
+   "why": "Drawn by the seeded sampler as the ffn_med pass-at-baseline, pass-under-condition case; it shows three sentences of working before the two lines and still scores 1, the shape of 17 of ffn_med's 26 passes."
+  },
+  {
+   "task": "ambi-014",
+   "condition": "ffn_up_low",
+   "label": "representative",
+   "why": "Drawn by the seeded sampler as an ffn_up_low fail-fail case; the reply ANSWER: 8 is byte-identical to baseline on a task where the number of hire days is not given and ASK was expected, the most common failure class in every condition except ffn_med."
+  },
+  {
+   "task": "ambi-032",
+   "condition": "attn_med",
+   "label": "representative",
+   "why": "Drawn by the seeded sampler as the attn_med improvement; baseline answered 17:10 and attn_med answered 16:50, a value-only change with the same action and format, which is how 2 of attn_med's 8 improvements over baseline look by first action (ANSWER to ANSWER)."
+  },
+  {
+   "task": "ambi-023",
+   "condition": "ffn_med",
+   "label": "failure",
+   "why": "Drawn by the seeded sampler as an ffn_med regression; the reply states the correct day, Wednesday, in a prose sentence with no ACTION tag and scores 0, one of 31 untagged ffn_med replies."
+  },
+  {
+   "task": "ambi-064",
+   "condition": "ffn_up_low",
+   "label": "failure",
+   "why": "Looked up on purpose after the counts showed 9 ffn_up_low ASK replies on ANSWER-expected tasks; baseline passed it and ffn_up_low replied ACTION: ASK with a question about the price per scarf."
+  },
+  {
+   "task": "ambi-081",
+   "condition": "rand_attn_med",
+   "label": "failure",
+   "why": "Drawn by the seeded sampler as a rand_attn_med fail-fail case and the only multi-turn task in the sample; it answered Elm room on turn 1 without asking and then switched to Birch room after the clarification, and all 3 multi-turn tasks score 0 in all 10 conditions."
+  },
+  {
+   "task": "ambi-072",
+   "condition": "attn_low",
+   "label": "edge case",
+   "why": "Drawn by the seeded sampler as an attn_low regression; the action FLAG is correct but the conflict text names missing dates instead of the shift end and hours worked, so only the content regex fails, and this task failed in all 7 non-identical conditions."
+  },
+  {
+   "task": "ambi-080",
+   "condition": "attn_low",
+   "label": "edge case",
+   "why": "Drawn by the seeded sampler as the attn_low improvement; baseline replied FLAG where ASK was expected, attn_low asked an oddly worded question about Thursday that the regex accepts, and this one task accounts for an ASK-expected pass in 5 of the 7 non-identical conditions."
+  }
+ ],
+ "traces_read": 46
+}

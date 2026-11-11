@@ -1,0 +1,2245 @@
+[
+ {
+  "task": "ambi-051",
+  "condition": "baseline",
+  "prompt": "Notice board of the fictional Calder Ferry.\nPriority rule: when two notices from the harbour master disagree, the notice with the later date replaces the earlier one.\nNotice of 18 August, harbour master: \"The evening ferry leaves from the East pier.\"\nNotice of 11 August, harbour master: \"The evening ferry leaves from the North pier.\"\nTask: from which pier does the evening ferry leave?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the pier name only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "East",
+     "East pier",
+     "the East pier"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: North pier"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: North pier",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": false,
+    "detail": "got 'north pier'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-055",
+  "condition": "ffn_med",
+  "prompt": "Order desk of the fictional workshop Tolland Chairs. Each chair costs 7 coins.\nPriority rule: if a customer's signed order form and a phone message disagree, the signed order form counts and the phone message is ignored.\nSigned order form from Mrs Aveling: \"6 chairs.\"\nPhone message from Mrs Aveling: \"Make it 8 chairs.\"\nTask: how many coins is Mrs Aveling charged?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 42
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER  \nThe signed order form from Mrs Aveling is \"6 chairs,\" while the phone message from Mrs Aveling is \"Make it 8 chairs.\" Therefore, the correct amount is 6 coins."
+  ],
+  "final": "ACTION: ANSWER  \nThe signed order form from Mrs Aveling is \"6 chairs,\" while the phone message from Mrs Aveling is \"Make it 8 chairs.\" Therefore, the correct amount is 6 coins.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 6.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-065",
+  "condition": "attn_low",
+  "prompt": "Delivery note of the fictional cannery Brackwater:\n- Crates delivered: 5\n- Jars in every crate: 12\n- Total jars delivered: 72\n- Driver: Nell Aster\nTask: how many jars were delivered?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*\\b72\\b)(?=.*(\\b60\\b|\\b5\\b.*\\b12\\b|\\b12\\b.*\\b5\\b))"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 72"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 72",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-052",
+  "condition": "ffn_low",
+  "prompt": "Minutes of the fictional Larkhill Rowing Club.\nPriority rule: on questions of money, the treasurer's instruction overrides the secretary's instruction.\nTreasurer, Nuala: \"Hold the annual meeting on 12 October.\"\nSecretary, Corin: \"Hold the annual meeting on 19 October.\"\nTask: on which date is the annual meeting held?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the date only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(nuala.*corin|corin.*nuala|treasurer|secretary|which (instruction|note|of the|one|person)|whose|\\brule\\b|money|decides|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 12 October"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 12 October",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-082",
+  "condition": "baseline",
+  "prompt": "Crates on the dock of the fictional Port Avel:\n- C1: 14 kg\n- C2: 22 kg\n- C3: 9 kg\n- C4: 19 kg\nForeman's note: \"Load the heaviest crate first.\"\nTask: give the id of the crate to load first.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the crate id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "C2",
+     "crate C2"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: C2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: C2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'c2'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-017",
+  "condition": "ffn_med",
+  "prompt": "The fictional framing shop Gildcorner sells a small frame for 9 coins and a large frame for 14 coins.\nCustomer message: \"I will take three large frames. I have not decided yet on which day I will collect them. What do I owe?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 42
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "The customer takes three large frames, which cost 14 coins each. Total price = 3 * 14 = 42 coins. \n\nACTION: ANSWER\nANSWER: 42"
+  ],
+  "final": "The customer takes three large frames, which cost 14 coins each. Total price = 3 * 14 = 42 coins. \n\nACTION: ANSWER\nANSWER: 42",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 42.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-088",
+  "condition": "ffn_up_low",
+  "prompt": "Staff of the fictional Hollin Inn:\n- Ilse Brandt, kitchen\n- Tomas Brandt, kitchen\n- Ilse Morn, garden\n- Keir Aldous, garden\nRequest: \"Leave the delivery note with Ilse from the kitchen.\"\nTask: give the full name of the person who must get the delivery note.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Ilse Brandt"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Ilse Brandt"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Ilse Brandt",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'ilse brandt'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-094",
+  "condition": "attn_low",
+  "prompt": "The fictional Ashby Pottery has three kilns: K1, K2 and K3.\nPotter's message: \"Kiln K2 cracked during this morning's firing. Please take it off next week's schedule.\"\nTask: give the id of the kiln to remove from the schedule.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the kiln id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "K2",
+     "kiln K2"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: K2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: K2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'k2'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-083",
+  "condition": "rand_attn_med",
+  "prompt": "Jars in the fictional Tansy Apothecary, listed from left to right:\n- Top shelf: J3, J8, J1\n- Bottom shelf: J6, J2, J5\nRequest: \"Bring me the second one from the left.\"\nTask: give the id of the jar to bring.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the jar id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|shelf|top|bottom|\\bJ8\\b|\\bJ2\\b)",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: J8"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: J8",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-049",
+  "condition": "ffn_up_low",
+  "prompt": "Maintenance board at the fictional Renwick Textile Works.\nPriority rule: when two departments disagree about a machine, the department that owns the machine decides.\nWeaving department: \"Service the steam press on Monday.\"\nDyeing department: \"Service the steam press on Friday.\"\nTask: on which day is the steam press serviced?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(\\bown|belong|which (department|dept|instruction|of the)|whose|weaving.*dyeing|dyeing.*weaving|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Monday"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Monday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-015",
+  "condition": "baseline",
+  "prompt": "The fictional courier Larkpost charges 3 coins for every kilogram a crate weighs. There are no other fees.\nCustomer message: \"I am sending one crate of books to the town of Vell on Monday. What will the postage be?\"\nTask: give the postage in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(weigh|heavy|kilograms?|\\bkgs?\\b|kilos?\\b|mass)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 3"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-036",
+  "condition": "ffn_med",
+  "prompt": "Order book of the fictional Marrow Lane Grocer. It is now week 16.\n- Week 14, Castellan Inn: 8 crates of leeks\n- Week 15, Castellan Inn: 11 crates of leeks\nMessage from Castellan Inn: \"Leeks again, same as last week.\"\nTask: give the number of crates of leeks for week 16.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "The text states that Castellan Inn had 8 crates of leeks in week 14 and 11 crates of leeks in week 15. The message from Castellan Inn indicates that leeks are again, same as last week. Therefore, the number of crates of leeks for week 16 is 11. \n\nACTION: ANSWER\nANSWER: 11"
+  ],
+  "final": "The text states that Castellan Inn had 8 crates of leeks in week 14 and 11 crates of leeks in week 15. The message from Castellan Inn indicates that leeks are again, same as last week. Therefore, the number of crates of leeks for week 16 is 11. \n\nACTION: ANSWER\nANSWER: 11",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 11.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-032",
+  "condition": "attn_med",
+  "prompt": "Diary of the fictional Venn Street Vet Clinic.\nNotes: Mr Okoro's \"usual slot\" is the late clinic. The early clinic starts at 09:10. The late clinic starts at 16:30. Every appointment lasts 20 minutes.\nMessage from Mr Okoro: \"Please book my cat in for Thursday, in my usual slot.\"\nTask: give the time at which the appointment ends.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the end time as HH:MM>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b(16|0?4)[:.]50\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 16:50"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 16:50",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-041",
+  "condition": "rand_ffn_med",
+  "prompt": "Bridge notes on the fictional cargo ship Marrow Tide.\nPriority rule: the captain's order overrides the first mate's order, and the first mate's order overrides the deckhand's order.\nDeckhand: \"We unload at Port Sella.\"\nCaptain: \"We unload at Port Ibris.\"\nFirst mate: \"We unload at Port Quen.\"\nTask: at which port does the ship unload?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the port name only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Ibris",
+     "Port Ibris"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Port Ibris"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Port Ibris",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'port ibris'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-096",
+  "condition": "baseline",
+  "prompt": "Maintenance log of the fictional Brackwater pumping station:\n- Monday: pump P1 and valve V4 were both serviced.\nTechnician's note, Wednesday: \"It is leaking again. Tag it for repair.\"\nTask: give the id of the part to tag for repair.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the part id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|\\bP1\\b|\\bV4\\b|pump or|valve or|pump\\b.*\\bvalve|valve\\b.*\\bpump)",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: V4"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: V4",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-059",
+  "condition": "ffn_med",
+  "prompt": "Menu board at the fictional Saltmarsh Inn.\nPriority rule: a written instruction overrides a spoken instruction. There is no other priority rule.\nWritten note from the cook, Orla: \"Tonight's soup is leek.\"\nWritten note from the innkeeper, Tavin: \"Tonight's soup is barley.\"\nTask: which soup goes on the menu board tonight?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the soup name only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(orla.*tavin|tavin.*orla|cook.*innkeeper|innkeeper.*cook|which (note|instruction|of the|person|one)|whose|both written|\\brule\\b|priorit|overrid|outrank|preceden)"
+   }
+  ],
+  "tags": {
+   "expected_action": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER  \nThe soup going on the menu board tonight is leek."
+  ],
+  "final": "ACTION: ANSWER  \nThe soup going on the menu board tonight is leek.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-090",
+  "condition": "ffn_med",
+  "prompt": "Umbrellas in the lost-property box of the fictional Harrow Baths:\n- U1: green, wooden handle\n- U2: red, wooden handle\n- U3: green, steel handle\n- U4: black, steel handle\nVisitor message: \"I left my red umbrella here yesterday. Can you put it aside for me?\"\nTask: give the id of the umbrella to put aside.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the umbrella id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "U2",
+     "umbrella U2"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: U2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: U2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'u2'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-007",
+  "condition": "ffn_low",
+  "prompt": "At the fictional craft school Loomhaven, the weaving class on Saturday starts at 14:15 and lasts 90 minutes.\nStudent message: \"I have joined the Saturday weaving class. When does it finish?\"\nTask: give the time the class ends.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the end time as HH:MM>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b(15|0?3)[:.]45\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 15:45"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 15:45",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-092",
+  "condition": "rand_ffn_med",
+  "prompt": "[turn 1] Staff of the fictional Quillby Press:\n- Rafi Dume, driver, day shift\n- Hana Voss, packer, day shift\n- Odo Brill, driver, night shift\n- Mira Solen, packer, night shift\nRequest: \"Give the spare van key to the driver.\"\nTask: give the full name of the person who must get the key.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the full name only>\n[turn 2] Reply to your question: \"I mean the driver on the night shift.\"\nUse the same two-line reply format.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "tag",
+     "name": "ACTION",
+     "allowed": [
+      "ASK"
+     ]
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "not_regex",
+     "pattern": "^\\W*answer\\s*[:=]",
+     "flags": "im"
+    }
+   },
+   {
+    "type": "reply_check",
+    "index": 0,
+    "check": {
+     "type": "regex",
+     "pattern": "QUESTION:.*(which|dume|brill|\\brafi\\b|\\bodo\\b|\\bday\\b|night|shift)",
+     "flags": "i"
+    }
+   },
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "Odo Brill"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Odo Brill",
+   "ACTION: ANSWER\nANSWER: Odo Brill"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Odo Brill",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "reply_check",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "reply_check",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "reply_check",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'odo brill'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-025",
+  "condition": "attn_med",
+  "prompt": "Fitting room of the fictional Aldgrove Tailors. A trouser alteration needs two measurements: the waist and the leg length.\nCustomer card for Mr Ibsen: waist 86 cm. Nothing else is written on the card.\nMessage from Mr Ibsen: \"Please alter the grey trousers to my usual leg length.\"\nTask: give the leg length in cm.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(leg|inseam|inside|usual|how long)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 86"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 86",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-077",
+  "condition": "rand_attn_med",
+  "prompt": "Loan slip of the fictional Quillby Library:\n- Book: \"The Salt Road\"\n- Borrowed on: day 4 of the month\n- Loan length: 10 days\n- Due back on: day 14 of the month\nTask: on which day of the month is the book due back?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the day number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 14
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ASK\nQUESTION: What is the day of the month when the book is due back?"
+  ],
+  "final": "ACTION: ASK\nQUESTION: What is the day of the month when the book is due back?",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ASK"
+   },
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got None"
+   }
+  ]
+ },
+ {
+  "task": "ambi-023",
+  "condition": "ffn_low",
+  "prompt": "Dispatch board of the fictional Tessel Dairy.\nStaff note: the \"regular day\" for Dunmore Cafe is Wednesday. The \"regular day\" for Pike Hotel is Friday.\nMessage from Dunmore Cafe: \"Six trays of yoghurt on our regular day, please.\"\nTask: give the day on which the yoghurt is delivered.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Wednesday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Wednesday"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Wednesday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact",
+    "pass": true,
+    "detail": "got 'wednesday'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-010",
+  "condition": "baseline",
+  "prompt": "The fictional kite shop Skyhollow sells every kite for 6 coins.\nCustomer message: \"I want to buy one kite for each of my five nieces. How much is that altogether?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 30"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 30",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 30.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-050",
+  "condition": "baseline",
+  "prompt": "Kennel notes at the fictional Thistle Vet Clinic for a dog called Biscuit.\nPriority rules: on feeding, the vet's note overrides the front desk's note. On collection times, the front desk's note overrides the vet's note.\nFront desk's note: \"The owner collects Biscuit at 17:00. Give him 3 scoops of food tonight.\"\nVet's note: \"The owner collects Biscuit at 15:00. Give him 2 scoops of food tonight.\"\nTask: how many scoops of food does Biscuit get tonight?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 2
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 2.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-006",
+  "condition": "ffn_up_low",
+  "prompt": "The fictional chimney sweep Sootwell sweeps chimneys only on Monday, Tuesday, Wednesday and Thursday. Every job is done on the first sweeping day after the day its request arrives.\nCustomer message, which arrived on a Thursday: \"Please sweep the chimney at Fennel Cottage.\"\nTask: give the day on which the chimney is swept.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Monday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Thursday"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Thursday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'thursday'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-029",
+  "condition": "ffn_med",
+  "prompt": "Counter of the fictional Tarrow Silver Engravers.\nPrice rule: engraving costs 2 coins per letter on each spoon.\nUnsigned note left on the counter: \"Please engrave my initials on these 3 spoons.\"\nTask: give the total engraving cost in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(initial|letter|name|who (is|are|wrote|left))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "The text states that the counter has 3 spoons. The price rule is 2 coins per letter on each spoon. The note specifies \"my initials,\" which implies 3 letters. Therefore, the total engraving cost is 3 × 2 = 6 coins.\n\nACTION: ANSWER\nANSWER: 6"
+  ],
+  "final": "The text states that the counter has 3 spoons. The price rule is 2 coins per letter on each spoon. The note specifies \"my initials,\" which implies 3 letters. Therefore, the total engraving cost is 3 × 2 = 6 coins.\n\nACTION: ANSWER\nANSWER: 6",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-023",
+  "condition": "rand_ffn_med",
+  "prompt": "Dispatch board of the fictional Tessel Dairy.\nStaff note: the \"regular day\" for Dunmore Cafe is Wednesday. The \"regular day\" for Pike Hotel is Friday.\nMessage from Dunmore Cafe: \"Six trays of yoghurt on our regular day, please.\"\nTask: give the day on which the yoghurt is delivered.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Wednesday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Wednesday"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Wednesday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact",
+    "pass": true,
+    "detail": "got 'wednesday'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-095",
+  "condition": "rand_attn_med",
+  "prompt": "Account of Ms Teale at the fictional courier Fernway Post. Parcels still on their way to her:\n- R2: a lamp, sent Monday\n- R6: a kettle, sent Tuesday\n- R9: a rug, sent Tuesday\nThis is her first message today: \"Please send that parcel to my office instead of my home.\"\nTask: give the id of the parcel to redirect.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the parcel id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|\\bR2\\b|\\bR6\\b|\\bR9\\b|lamp|kettle|rug)",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: R6"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: R6",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-076",
+  "condition": "ffn_up_low",
+  "prompt": "Paint order form of the fictional Hobb & Daughter Decorators:\n- Paint: moss green emulsion\n- Tin size: 5 litres\n- Wall area to paint: 40 square metres\n- Coats: 1\nTask: how many tins are needed for the job?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(cover|per lit|per tin|spread|(area|square|metres|meters).*(one|each|a|per) (tin|lit))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ASK\nQUESTION: What is the number of tins needed for the job?"
+  ],
+  "final": "ACTION: ASK\nQUESTION: What is the number of tins needed for the job?",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ASK"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-008",
+  "condition": "rand_ffn_med",
+  "prompt": "You take firing orders for the fictional pottery studio Emberwick Kiln. A firing quote needs two things: the firing type and the number of kiln shelves. A bisque firing costs 6 coins per shelf and a glaze firing costs 9 coins per shelf.\nCustomer message: \"I would like a glaze firing for my bowls next week. What will it cost?\"\nTask: give the total firing price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(shelf|shelves|how many (do|will|would|are)|how much (space|room))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 9"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 9",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-036",
+  "condition": "rand_attn_med",
+  "prompt": "Order book of the fictional Marrow Lane Grocer. It is now week 16.\n- Week 14, Castellan Inn: 8 crates of leeks\n- Week 15, Castellan Inn: 11 crates of leeks\nMessage from Castellan Inn: \"Leeks again, same as last week.\"\nTask: give the number of crates of leeks for week 16.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 11
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 11"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 11",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 11.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-047",
+  "condition": "ffn_low",
+  "prompt": "Painting plan for the fictional Harrowgate School.\nPriority rule: an instruction that names one room overrides an instruction given for the whole building.\nInstruction for the whole building: \"Paint all walls grey.\"\nInstruction for room 4: \"Paint the walls of room 4 yellow.\"\nTask: what colour are the walls of room 4 painted?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the colour only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "yellow"
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: yellow"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: yellow",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact",
+    "pass": true,
+    "detail": "got 'yellow'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-094",
+  "condition": "ffn_up_low",
+  "prompt": "The fictional Ashby Pottery has three kilns: K1, K2 and K3.\nPotter's message: \"Kiln K2 cracked during this morning's firing. Please take it off next week's schedule.\"\nTask: give the id of the kiln to remove from the schedule.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the kiln id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "K2",
+     "kiln K2"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: K2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: K2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'k2'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-016",
+  "condition": "attn_med",
+  "prompt": "The fictional chandlery Knotgate sells hemp rope in two ways: by the metre at 3 coins per metre, or by the fathom at 5 coins per fathom.\nCustomer message: \"I need 30 of the hemp rope for my boat. What does that come to?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(met(re|er)s?|fathoms?|\\bunits?\\b|measure)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 150"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 150",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-010",
+  "condition": "rand_ffn_med",
+  "prompt": "The fictional kite shop Skyhollow sells every kite for 6 coins.\nCustomer message: \"I want to buy one kite for each of my five nieces. How much is that altogether?\"\nTask: give the total price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 30
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\n30"
+  ],
+  "final": "ACTION: ANSWER\n30",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 30.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-079",
+  "condition": "rand_ffn_med",
+  "prompt": "Stock entry of the fictional chandler Morwen & Pike (1 m = 100 cm):\n- Item: mooring rope\n- Length on the tag: 3 m\n- Length in the stock book: 300 cm\n- Price: 2 coins per metre\nTask: how many coins does the whole rope cost?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: FLAG\nCONFLICT: 3 m and 300 cm"
+  ],
+  "final": "ACTION: FLAG\nCONFLICT: 3 m and 300 cm",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=FLAG"
+   },
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 300.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-006",
+  "condition": "attn_low",
+  "prompt": "The fictional chimney sweep Sootwell sweeps chimneys only on Monday, Tuesday, Wednesday and Thursday. Every job is done on the first sweeping day after the day its request arrives.\nCustomer message, which arrived on a Thursday: \"Please sweep the chimney at Fennel Cottage.\"\nTask: give the day on which the chimney is swept.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Monday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Thursday"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Thursday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'thursday'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-023",
+  "condition": "attn_med",
+  "prompt": "Dispatch board of the fictional Tessel Dairy.\nStaff note: the \"regular day\" for Dunmore Cafe is Wednesday. The \"regular day\" for Pike Hotel is Friday.\nMessage from Dunmore Cafe: \"Six trays of yoghurt on our regular day, please.\"\nTask: give the day on which the yoghurt is delivered.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the day only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact",
+    "value": "Wednesday"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: Wednesday"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: Wednesday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact",
+    "pass": true,
+    "detail": "got 'wednesday'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-028",
+  "condition": "attn_low",
+  "prompt": "Packing shed of the fictional Hallowmere Orchard.\nStaff note: a \"standard crate\" holds 20 pears. For plums, a \"standard crate\" holds 50 plums.\nOrder from the Wend market stall: \"Three standard crates of plums.\"\nTask: give the number of plums in this order.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 150
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 150"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 150",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 150.0"
+   }
+  ]
+ },
+ {
+  "task": "ambi-067",
+  "condition": "ffn_low",
+  "prompt": "Account card of the fictional Corran Boat Hire:\n- Customer: Wessel Thane\n- Boat: rowing skiff, 2 days\n- Hire charge: 40 coins\n- Status: PAID IN FULL\n- Balance still owed: 40 coins\nTask: how many coins does the customer still owe?\n\nFirst decide: is the data above complete and consistent?\nIf yes, reply with these two lines:\nACTION: ANSWER\nANSWER: <the number only>\nIf something needed is missing, reply with these two lines:\nACTION: ASK\nQUESTION: <one specific question about the missing item>\nIf two values in the data contradict each other, reply with these two lines:\nACTION: FLAG\nCONFLICT: <the two values that contradict each other>\nNever guess. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "FLAG"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFLICT:(?=.*(paid|\\b0\\b|zero|nothing))(?=.*(\\b40\\b|owed|balance))"
+   }
+  ],
+  "tags": {
+   "expected": "FLAG"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 40"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 40",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-091",
+  "condition": "rand_attn_med",
+  "prompt": "Repair tickets at the fictional Dunmere Cycle Shop, listed in the order they will be worked on (first to last):\n1. ticket K41\n2. ticket K17\n3. ticket K30\n4. ticket K08\nOwner's note: \"Cancel the second one in the list; that customer has collected the bike.\"\nTask: give the id of the ticket to cancel.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the ticket id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "K17",
+     "ticket K17"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: K17"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: K17",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'k17'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-083",
+  "condition": "ffn_low",
+  "prompt": "Jars in the fictional Tansy Apothecary, listed from left to right:\n- Top shelf: J3, J8, J1\n- Bottom shelf: J6, J2, J5\nRequest: \"Bring me the second one from the left.\"\nTask: give the id of the jar to bring.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the jar id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(which|shelf|top|bottom|\\bJ8\\b|\\bJ2\\b)",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: J2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: J2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-027",
+  "condition": "attn_low",
+  "prompt": "Till of the fictional Quillon Bookshop.\nPrice rules: members get 10 coins off any atlas. The Northern Atlas costs 50 coins.\nMessage from the manager: \"Sell one Northern Atlas to Ilse and apply the staff discount.\"\nTask: give the price Ilse pays in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(staff|discount)"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 40"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 40",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-053",
+  "condition": "ffn_up_low",
+  "prompt": "Gate notes at the fictional Vosk freight yard for truck 7.\nPriority rules, applied in this order: (1) A note marked URGENT beats every note that is not marked URGENT. (2) Between notes that are equal under rule 1, the dispatcher's note beats the driver's note. (3) Between notes that are still equal, the later time wins.\n08:10, dispatcher: \"Truck 7 goes to gate A.\"\n08:20, driver, URGENT: \"Truck 7 goes to gate D.\"\n08:40, driver, URGENT: \"Truck 7 goes to gate C.\"\n09:05, dispatcher: \"Truck 7 goes to gate B.\"\nTask: to which gate does truck 7 go?\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the gate letter only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "C",
+     "gate C"
+    ]
+   }
+  ],
+  "tags": {
+   "expected_action": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: C"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: C",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'c'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-090",
+  "condition": "rand_attn_med",
+  "prompt": "Umbrellas in the lost-property box of the fictional Harrow Baths:\n- U1: green, wooden handle\n- U2: red, wooden handle\n- U3: green, steel handle\n- U4: black, steel handle\nVisitor message: \"I left my red umbrella here yesterday. Can you put it aside for me?\"\nTask: give the id of the umbrella to put aside.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the umbrella id only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "exact_any",
+    "values": [
+     "U2",
+     "umbrella U2"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "ACTION: ANSWER\nANSWER: U2"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: U2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'u2'"
+   }
+  ]
+ },
+ {
+  "task": "ambi-024",
+  "condition": "attn_med",
+  "prompt": "Workshop of the fictional Emberfold Pottery.\nNotes: the glaze room opens at 08:00. A stoneware firing takes 6 hours.\nMessage from the owner: \"Start the stoneware firing at the normal time tomorrow.\"\nTask: give the time at which the firing finishes.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the finish time as HH:MM>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ASK"
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=]",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "QUESTION:.*(normal|start|begin|what time (is|does|should).*(kiln|light|switch))"
+   }
+  ],
+  "tags": {
+   "expected": "ASK"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 08:00 + 6 hours = 14:00"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 08:00 + 6 hours = 14:00",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": false,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-039",
+  "condition": "attn_low",
+  "prompt": "Ticket hut of the fictional Skarn Island Ferry.\nTimetable note: \"the early boat\" leaves at 06:40. The crossing takes 35 minutes.\nPassenger message: \"I will be on the early boat tomorrow. When do I arrive?\"\nTask: give the arrival time.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the arrival time as HH:MM>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "ANSWER:.*\\b0?7[:.]15\\b"
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 07:15"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 07:15",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "ambi-004",
+  "condition": "attn_med",
+  "prompt": "The fictional Reedmere Boat Hire rents rowing boats for 7 coins per hour.\nCustomer message: \"I would like one rowing boat for 4 hours on Sunday. What will it cost?\"\nTask: give the total hire price in coins.\n\nReply with exactly two lines and no other text.\nIf a fact needed for the task is missing from the text above, or the request fits more than one item, reply:\nACTION: ASK\nQUESTION: <one specific question naming the missing fact>\nOtherwise, when the text gives everything needed, reply:\nACTION: ANSWER\nANSWER: <the number only>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "tag",
+    "name": "ACTION",
+    "allowed": [
+     "ANSWER"
+    ]
+   },
+   {
+    "type": "number",
+    "value": 28
+   }
+  ],
+  "tags": {
+   "expected": "ANSWER"
+  },
+  "replies": [
+   "ACTION: ANSWER\nANSWER: 28"
+  ],
+  "final": "ACTION: ANSWER\nANSWER: 28",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "tag",
+    "pass": true,
+    "detail": "ACTION=ANSWER"
+   },
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 28.0"
+   }
+  ]
+ }
+]

@@ -1,0 +1,84 @@
+{
+ "family": "planning",
+ "measured": [
+  "Baseline passed 40 of 100 planning tasks; noop and rollback also passed 40 of 100 with 0 replies and 0 scores differing from baseline.",
+  "ffn_med passed 15 of 100 (29 tasks regressed, 4 improved versus baseline; Holm-adjusted McNemar p = 0.000913), and against its matched control rand_ffn_med (32 of 100) it lost 20 tasks and gained 3 (difference -0.17, 95% CI -0.26 to -0.09, McNemar p = 0.000488).",
+  "attn_med passed 32 of 100 (17 regressed, 9 improved) and its matched control rand_attn_med passed 34 of 100; head to head attn_med lost 18 tasks and gained 16 (difference -0.02, 95% CI -0.13 to 0.09, p = 0.864).",
+  "The low-strength edits passed 36 of 100 (ffn_low, 16 regressed, 12 improved) and 42 of 100 (attn_low, 8 regressed, 10 improved); ffn_up_low passed 25 of 100 (22 regressed, 7 improved, unadjusted p = 0.008, Holm-adjusted p = 0.577).",
+  "By difficulty, baseline passed 21 of 35 easy, 12 of 35 medium and 7 of 30 hard tasks; ffn_med passed 8 of 35, 5 of 35 and 2 of 30; rand_ffn_med passed 17 of 35, 10 of 35 and 5 of 30.",
+  "Across the 7 edited conditions, 29 of 100 tasks were failed by baseline and by every edited condition, 5 were passed by baseline and by every edited condition, and the reply text differed from baseline in 90 (attn_low) to 99 (rand_ffn_med) of 100 tasks."
+ ],
+ "failure_patterns": [
+  "Well-formed answer line carrying a wrong value after an arithmetic slip, a dropped leg or gap, or a road that is not in the map: 6 of the 29 failing traces read (for example ffn_low plan-064 summed 14 + 9 + 9 = 32 instead of 46; ffn_med plan-087 wrote 10 + 6*3 = 19).",
+  "Instruction or template text echoed on the answer line: 7 of the 29 failing traces read (5 in ffn_med, 2 in rand_attn_med). By code over all 100 tasks, ffn_med wrote 'ANSWER: followed by just the ... name' in 9 replies, all on dependency-ordering tasks and all scored 0, and no other condition did this more than once; in 3 of those 9 (plan-004, plan-006, plan-015) the keyed name appears on the following line.",
+  "Working states the correct order or value but the answer line names something else: 5 of the 29 failing traces read (ffn_up_low plan-009, attn_low plan-015, attn_med plan-087, attn_med plan-009, rand_ffn_med plan-014).",
+  "Reply runs to the 300-token cap with no answer line: 3 of the 29 failing traces read (one a repeated '17:30 - 40 =' loop in ffn_med plan-022). By code, replies at the cap numbered 2 at baseline, 1 ffn_low, 3 ffn_med, 10 ffn_up_low, 0 attn_low, 9 attn_med, 3 rand_ffn_med and 11 rand_attn_med, and 0 of those 39 passed.",
+  "Answer is not one of the items the question asks about: 3 of the 29 failing traces read ('third' for a step name in attn_med plan-009, the start depot 'Holm' in rand_ffn_med plan-077, '6-person room' instead of a room name in attn_low plan-056)."
+ ],
+ "surprises": [
+  "At least 2 of ffn_med's 29 regressions (plan-004 and plan-006) state the keyed answer and fail only because the answer line holds the echoed instruction; counting the 3 such replies as passes would give ffn_med 18 of 100 rather than 15, still below rand_ffn_med at 32.",
+  "The random-sign control rand_attn_med wrote the answer in angle brackets ('ANSWER: <25>') in 12 replies, of which 6 passed, and hit the 300-token cap 11 times, more than attn_med (9) or ffn_med (3).",
+  "Every episode record has truncated = false and summary.json reports 0 truncated replies, yet 39 planning replies across the 8 distinct conditions used all 300 completion tokens and none of them passed."
+ ],
+ "interpretation": [
+  "The planning pass count under ffn_med is lower than under a random-sign change of the same size (15 versus 32 of 100, paired p = 0.000488), so for ffn_med the drop appears larger than what a same-size perturbation alone produced in this run; for attn_med the data do not separate it from its control (32 versus 34).",
+  "Part of the ffn_med gap seems to come from answer formatting rather than from the plan itself (9 echoed answer lines, 3 with the keyed name present), so the size of any drop in planning ability, as distinct from instruction following, is probably somewhat smaller than 25 points, though this is based on one run per task.",
+  "ffn_low, attn_low, attn_med and both random controls each sit within 8 tasks of baseline with confidence intervals that include 0, so they may not differ from baseline on this family."
+ ],
+ "unknown": [
+  "Each task was run once per condition, so the data cannot say how much of the 8 to 29 regressions and 4 to 12 improvements per condition would recur on a repeat run with different sampling.",
+  "Checks grade only the final answer, so the data cannot say how many passes rest on sound working; in the traces read, baseline plan-056 and attn_med plan-034 passed with working that contains wrong statements.",
+  "With 29 of 100 tasks failed by every condition and baseline at 40 of 100, the data cannot tell whether the edits would affect planning tasks that the unedited model solves reliably in a different way."
+ ],
+ "examples": [
+  {
+   "task": "plan-087",
+   "condition": "ffn_med",
+   "label": "representative",
+   "why": "Seeded random draw from ffn_med's 29 regressions; working contains 10 + 6*3 = 19 and the reply answers 19 where the key is 28, the wrong-arithmetic pattern seen in 6 of 29 failing traces read."
+  },
+  {
+   "task": "plan-044",
+   "condition": "attn_low",
+   "label": "representative",
+   "why": "Seeded random draw from the tasks attn_low and baseline both pass; the reply text differs from baseline but reaches the same keyed answer 2, the unchanged-outcome case that covers most baseline passes under attn_low (32 of 40)."
+  },
+  {
+   "task": "plan-012",
+   "condition": "ffn_low",
+   "label": "representative",
+   "why": "Seeded random draw from tasks failed by both baseline and ffn_low; both answer 'test' where the key is 'paint', one of 18 both-fail tasks where ffn_low gives the same wrong answer string as baseline."
+  },
+  {
+   "task": "plan-006",
+   "condition": "ffn_med",
+   "label": "edge case",
+   "why": "Seeded random draw from ffn_med regressions; the working names the keyed step 'cast' but the answer line is the echoed instruction text, so it scores 0 on format alone (1 of 3 such replies found by code)."
+  },
+  {
+   "task": "plan-056",
+   "condition": "attn_low",
+   "label": "edge case",
+   "why": "Seeded random draw from attn_low's 8 regressions; the reply answers '6-person room' (the capacity of the keyed room Fir) after an arrangement that puts 9 people in it, so the check fails and the working is also invalid."
+  },
+  {
+   "task": "plan-009",
+   "condition": "attn_med",
+   "label": "failure",
+   "why": "Seeded random draw from attn_med's 17 regressions; the reply lists the correct build order and then answers 'third' instead of the step name 'roof', an instance of working and answer line disagreeing."
+  },
+  {
+   "task": "plan-016",
+   "condition": "ffn_up_low",
+   "label": "failure",
+   "why": "Chosen by code from the 10 ffn_up_low replies at the 300-token cap (first inspected); it reverses each dependency, repeats itself and ends mid-list with no answer line; baseline also failed this task."
+  },
+  {
+   "task": "plan-001",
+   "condition": "rand_ffn_med",
+   "label": "representative",
+   "why": "Seeded random draw from the 10 tasks rand_ffn_med passes and baseline fails; a bare JSON array reply changes from an invalid order to the keyed order, showing that improvements also occur under a random control."
+  }
+ ],
+ "traces_read": 43
+}

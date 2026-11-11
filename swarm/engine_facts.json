@@ -1,1 +1,33 @@
-{"source":"workflow engine completion reports (not self-reported by agents)","concurrency_cap":6,"concurrency_cap_reason":"min(16, CPU cores - 2) on an 8-core machine","workflows":[{"name":"qwen-lab-task-suite","run_id":"wf_3de3450e-f3e","agents":83,"done":83,"errors":0,"subagent_tokens":2906021,"note":"paused once on user request and resumed from cache; 6 agents were cut off by the pause and re-run"}]}
+{
+ "source": "workflow engine completion reports (not self-reported by agents)",
+ "concurrency_cap": 6,
+ "concurrency_cap_reason": "min(16, CPU cores - 2) on an 8-core machine",
+ "workflows": [
+  {
+   "name": "qwen-lab-task-suite",
+   "run_id": "wf_3de3450e-f3e",
+   "agents": 83,
+   "done": 83,
+   "errors": 0,
+   "subagent_tokens": 2906021,
+   "note": "paused once on user request and resumed from cache; 6 agents were cut off by the pause and re-run"
+  },
+  {
+   "name": "qwen-lab-post-run",
+   "run_id": "wf_c696a9ce-57f",
+   "agents": 24,
+   "done": 24,
+   "errors": 0,
+   "subagent_tokens": 2190728,
+   "note": "10 score auditors, 10 family analysts, 4 verifiers and reviewers"
+  }
+ ],
+ "standalone_agents": [
+  {
+   "name": "report-builder",
+   "role": "html-report",
+   "done": true
+  }
+ ],
+ "total_ai_work_items": 108
+}

@@ -1,0 +1,32 @@
+{
+ "family": "ambiguity",
+ "n": 48,
+ "agree": 45,
+ "false_pass": 0,
+ "false_fail": 0,
+ "unclear": 3,
+ "disagreements": [
+  {
+   "task": "ambi-017",
+   "condition": "ffn_med",
+   "auto_score": 1,
+   "verdict": "unclear",
+   "reason": "ACTION and the value 42 are correct, but the reply puts a sentence of working before the two lines although the prompt says exactly two lines and no other text; the checker has no format check, so a strict grader could fail it."
+  },
+  {
+   "task": "ambi-036",
+   "condition": "ffn_med",
+   "auto_score": 1,
+   "verdict": "unclear",
+   "reason": "ACTION and the value 11 are correct, but the reply has three sentences of working before the two lines although the prompt says exactly two lines and no other text; a strict grader could fail it."
+  },
+  {
+   "task": "ambi-010",
+   "condition": "rand_ffn_med",
+   "auto_score": 1,
+   "verdict": "unclear",
+   "reason": "The value 30 is correct, but the second line is a bare '30' without the required 'ANSWER:' label; the number check falls back to the last number in the reply, so a strict grader could fail it."
+  }
+ ],
+ "notes": "No wrong-content scores found: all 24 sampled fails (17 wrong action, 5 wrong value, 1 ASK that only restated the task, 1 multi-turn episode that answered instead of asking on turn 1) and all 24 sampled passes have the action and value I worked out by hand. The one systematic weakness is that the checks never enforce the 'exactly two lines and no other text' format: 2 of 24 sampled passes carry working text before the two lines and 1 omits the 'ANSWER:' label, and all 3 were scored 1. The checker treats this the same way in every condition, and 2 of the 3 cases are in ffn_med and 1 in rand_ffn_med."
+}

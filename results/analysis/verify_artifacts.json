@@ -1,0 +1,138 @@
+{
+ "source_blob_ok": true,
+ "source_blob_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+ "artifacts": [
+  {
+   "id": "attn_low",
+   "sha256": "e85298a936e43cf533aeb5ca4b67f434cd17e3b396ebcda19da328ac1ef50140",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; 16384/16384 elements equal float32(baseline x 0.85) exactly; max deviation 0.800 ulp; relative L2 change 0.149999978 (manifest 0.149999978); 46325 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "attn_med",
+   "sha256": "f8d69a50ccdd94034eaeaf7d68531c6acd44cfcaf7f0c35822396b70f0a1faf1",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; 16384/16384 elements equal float32(baseline x 0.7) exactly; max deviation 0.600 ulp; relative L2 change 0.300000012 (manifest 0.300000012); 47131 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "baseline",
+   "sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "byte-identical to baseline: True; differing bytes: 0; differing tensors: 0; declared tensors: 0"
+  },
+  {
+   "id": "ffn_low",
+   "sha256": "bc4c837f3caebf266b7cb5566c9cf51e199e7d1ca02c4dfcf51588a25cead201",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; 16384/16384 elements equal float32(baseline x 0.85) exactly; max deviation 0.800 ulp; relative L2 change 0.149999976 (manifest 0.149999976); 45572 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "ffn_med",
+   "sha256": "ec69cb43f41910e996e7bdc625e5d2ba680056691e71109e88e82e17e21e32a6",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; 16384/16384 elements equal float32(baseline x 0.7) exactly; max deviation 0.600 ulp; relative L2 change 0.300000013 (manifest 0.300000013); 46793 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "ffn_up_low",
+   "sha256": "b1263a7c99acaae83f823d6cb3d742f1480bc934a48a33291e42ce1df0daac97",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; 16384/16384 elements equal float32(baseline x 1.15) exactly; max deviation 0.800 ulp; relative L2 change 0.149999975 (manifest 0.149999975); 45508 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "noop",
+   "sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "byte-identical to baseline: True; differing bytes: 0; differing tensors: 0; declared tensors: 8"
+  },
+  {
+   "id": "rand_attn_med",
+   "sha256": "cf8186f06dc144082c40df696662924bed352eb2704b527ba0efa031f9fe0cf7",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; every element equals baseline x (1 +/- 0.3) within float32 rounding: True; 8190 elements scaled up, 8194 scaled down; relative L2 change 0.299999983 (manifest 0.299999983); 47633 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "rand_ffn_med",
+   "sha256": "37936494c69f647de33648b2cfab63bf482af528ec1ead0ce00e9efde88a06d2",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "8 tensors differ, all declared; 16384 elements; every element equals baseline x (1 +/- 0.3) within float32 rounding: True; 8190 elements scaled up, 8194 scaled down; relative L2 change 0.299999981 (manifest 0.299999981); 46636 bytes differ, 0 outside declared tensors"
+  },
+  {
+   "id": "rollback",
+   "sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+   "sha_ok": true,
+   "only_declared_tensors_differ": true,
+   "notes": "byte-identical to baseline: True; differing bytes: 0; differing tensors: 0; declared tensors: 8"
+  }
+ ],
+ "random_control_match": {
+  "rand_ffn_med": {
+   "matched_to": "ffn_med",
+   "relative_l2_random": 0.29999998115454357,
+   "relative_l2_medium": 0.3000000127738656,
+   "abs_difference": 3.1619322049536436e-08,
+   "same_within_1e-6": true
+  },
+  "rand_attn_med": {
+   "matched_to": "attn_med",
+   "relative_l2_random": 0.29999998272520295,
+   "relative_l2_medium": 0.30000001206251387,
+   "abs_difference": 2.9337310913923886e-08,
+   "same_within_1e-6": true
+  }
+ },
+ "suite_ok": true,
+ "suite": {
+  "eval_sha256": "79216d5dae890b641f77d84c4477f4ef81fc2df891fa8c362e44aae31b81cfac",
+  "dev_sha256": "abccb859eb668127815cf3df5cf635555e85744d01e455e39edcc6cffb5afa38",
+  "eval_n": 1000,
+  "dev_n": 100,
+  "eval_unique_ids": 1000,
+  "dev_unique_ids": 100,
+  "shared_ids": 0,
+  "eval_per_family": {
+   "planning": 100,
+   "tools": 100,
+   "constraints": 100,
+   "synthesis": 100,
+   "math": 100,
+   "coding": 100,
+   "ambiguity": 100,
+   "calibration": 100,
+   "safety": 100,
+   "longhorizon": 100
+  },
+  "dev_per_family": {
+   "planning": 10,
+   "tools": 10,
+   "constraints": 10,
+   "synthesis": 10,
+   "math": 10,
+   "coding": 10,
+   "ambiguity": 10,
+   "calibration": 10,
+   "safety": 10,
+   "longhorizon": 10
+  },
+  "prompt_definition": "the prompt string for single, tool and code tasks (926 eval, 92 dev); the full ordered turns list for multi-turn tasks, which have no prompt field (74 eval, 8 dev)",
+  "eval_unique_prompts": 1000,
+  "dev_unique_prompts": 100,
+  "shared_exact_prompts": 0,
+  "shared_prompts_case_whitespace_normalized": 0,
+  "shared_individual_strings": 1,
+  "shared_individual_strings_note": "1 string appears in both files: the system format instruction beginning \"Every reply must begin with a first line that is exactly one of: DECISION: HELP, DECISION: CAUTION, DECISION: REFUSE\", present in the system field of 11 eval tasks and 1 dev task. It is a reply-format instruction, not a task prompt, and is not counted in dev_eval_overlap. No user turn string is shared."
+ },
+ "dev_eval_overlap": 0,
+ "verdict": "ok",
+ "problems": [],
+ "method": "sha256 of each whole file; gguf.GGUFReader in read mode, sha256 of every tensor data buffer compared with baseline (311 tensors per file); full-file byte comparison against baseline with every differing byte offset checked against the declared tensor ranges; scale edits compared element by element with float32(baseline x factor); random controls checked element by element against baseline x (1 +/- 0.30) and by relative L2 change over the 8 edited tensors. Nothing was modified, rebuilt or run.",
+ "tensors_per_file": 311
+}

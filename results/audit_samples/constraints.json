@@ -1,0 +1,2233 @@
+[
+ {
+  "task": "cons-073",
+  "condition": "attn_med",
+  "prompt": "Finchgate is a fictional shop that sells three things: rope, candles, maps.\nWrite one sentence that says Finchgate sells all three things. The sentence must not contain any comma. Keep the words rope, candles and maps exactly as written. Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": ","
+   },
+   {
+    "type": "regex",
+    "pattern": "\\brope\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bcandles\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bmaps\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bFinchgate\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Finchgate sells rope candles maps"
+  ],
+  "final": "Finchgate sells rope candles maps",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": false,
+    "detail": "5 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-035",
+  "condition": "baseline",
+  "prompt": "Birds seen at the fictional Mossfen reserve: heron, kingfisher, wren, nuthatch, plover, swift, goldcrest, curlew, dunnock.\nKeep ONLY the names with more than 6 letters. Sort them from longest name to shortest. One per line in the format name (letters), where letters is the number of letters in the name, for example: owl (3). No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*kingfisher\\s+\\(10\\)\\s*\\n\\s*goldcrest\\s+\\(9\\)\\s*\\n\\s*nuthatch\\s+\\(8\\)\\s*\\n\\s*dunnock\\s+\\(7\\)\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "heron (6), kingfisher (12), plover (7), swift (5), wren (4), nuthatch (8), curlew (6), goldcrest (9), dunnock (7)"
+  ],
+  "final": "heron (6), kingfisher (12), plover (7), swift (5), wren (4), nuthatch (8), curlew (6), goldcrest (9), dunnock (7)",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "1 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-078",
+  "condition": "ffn_up_low",
+  "prompt": "Write exactly 3 rules for members of the fictional Ashenway Guild.\nRules for your reply: exactly 3 lines; every line starts with \"RULE: \"; every line contains the word \"must\"; every line ends with a period; the words not, no, never and cannot are forbidden, and so is any contraction ending in n't (state every rule positively); no digits. No numbering and no other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^RULE: .*\\b[Mm]ust\\b.*\\.$",
+    "flags": ""
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(not|no|never|cannot)\\b|n['’]t\\b"
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\d"
+   },
+   {
+    "type": "min_words",
+    "value": 12
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "RULE: Must uphold the ancient covenant of the guild.  \nRULE: Must ensure all members are trained in the ways of the guild.  \nRULE: Must remain loyal to the guild's purpose and principles."
+  ],
+  "final": "RULE: Must uphold the ancient covenant of the guild.  \nRULE: Must ensure all members are trained in the ways of the guild.  \nRULE: Must remain loyal to the guild's purpose and principles.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "3 lines"
+   },
+   {
+    "type": "lines_regex",
+    "pass": true,
+    "detail": "0 bad lines"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "32 words"
+   }
+  ]
+ },
+ {
+  "task": "cons-053",
+  "condition": "baseline",
+  "prompt": "The Museum of Lost Buttons is a fictional museum.\nWrite ONE question that a curious visitor might ask at the front desk. Rules: EXACTLY 6 words; the question must contain the word buttons; it must end with a question mark; one line only. Reply with ONLY the question.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "max_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bbuttons\\b",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\S\\?\\s*$",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "buttons where are they kept?"
+  ],
+  "final": "buttons where are they kept?",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "min_words",
+    "pass": false,
+    "detail": "5 words"
+   },
+   {
+    "type": "max_words",
+    "pass": true,
+    "detail": "5 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-077",
+  "condition": "rand_ffn_med",
+  "prompt": "Write one line about snakes in which EVERY word begins with the letter s.\nRules: at least five words; all lowercase letters; the word \"snakes\" must be one of the words; words separated by single spaces; no punctuation except an optional final period. Reply with ONLY that line.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*s[a-z]*( +s[a-z]*){4,}\\.?\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bsnakes\\b",
+    "flags": ""
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "sneakers slither silently through the shadows  \nsneakers slither silently through the shadows"
+  ],
+  "final": "sneakers slither silently through the shadows  \nsneakers slither silently through the shadows",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "2 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-050",
+  "condition": "rand_ffn_med",
+  "prompt": "Dunmere is a fictional town with a busy Saturday market.\nWrite 4 lines describing the market. Rules: exactly 4 lines; every line has EXACTLY 3 words; no numbering. Words are separated by spaces. Reply with ONLY the 4 lines.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+\\s+\\S+\\s+\\S+$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 12
+   },
+   {
+    "type": "max_words",
+    "value": 12
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Dunmere market busts with life  \nSellers call out goods and cheer  \nCrowds gather and trade with glee  \nSunlight shines bright and warm"
+  ],
+  "final": "Dunmere market busts with life  \nSellers call out goods and cheer  \nCrowds gather and trade with glee  \nSunlight shines bright and warm",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "4 lines"
+   },
+   {
+    "type": "lines_regex",
+    "pass": false,
+    "detail": "4 bad lines"
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "22 words"
+   },
+   {
+    "type": "max_words",
+    "pass": false,
+    "detail": "22 words"
+   }
+  ]
+ },
+ {
+  "task": "cons-015",
+  "condition": "ffn_up_low",
+  "prompt": "Stockroom (fictional), item and units: rope 14, lamp 3, tarp 8, flare 2, hook 21, net 4.\nReply with ONLY one JSON object with exactly these keys:\n\"low_stock\": a JSON array of the item names with fewer than 5 units, in the order listed above\n\"low_count\": how many items are in that array (number)\n\"total_units\": the sum of the units of ALL six items (number)\nNo other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "low_stock",
+     "low_count",
+     "total_units"
+    ],
+    "equals": {
+     "low_stock": [
+      "lamp",
+      "flare",
+      "net"
+     ],
+     "low_count": 3,
+     "total_units": 52
+    }
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"low_stock\": [\"rope\", \"lamp\", \"tarp\", \"flare\", \"hook\", \"net\"], \"low_count\": 6, \"total_units\": 14 + 3 + 8 + 2 + 21 + 4}"
+  ],
+  "final": "{\"low_stock\": [\"rope\", \"lamp\", \"tarp\", \"flare\", \"hook\", \"net\"], \"low_count\": 6, \"total_units\": 14 + 3 + 8 + 2 + 21 + 4}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": false,
+    "detail": "not valid JSON"
+   }
+  ]
+ },
+ {
+  "task": "cons-048",
+  "condition": "attn_low",
+  "prompt": "Tobbin is a fictional robot that waters plants in a greenhouse.\nWrite exactly 3 sentences about Tobbin. Rules: each sentence is on its own line (3 lines in total); every sentence contains the name Tobbin; every sentence ends with a period. Reply with ONLY the 3 lines.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^(?=.*\\bTobbin\\b)[^.!?]+\\.$",
+    "flags": "i"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Tobbin is a fictional robot that waters plants in a greenhouse. Tobbin follows a precise schedule to ensure optimal plant growth. Tobbin uses advanced sensors to monitor soil moisture levels."
+  ],
+  "final": "Tobbin is a fictional robot that waters plants in a greenhouse. Tobbin follows a precise schedule to ensure optimal plant growth. Tobbin uses advanced sensors to monitor soil moisture levels.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "1 lines"
+   },
+   {
+    "type": "lines_regex",
+    "pass": false,
+    "detail": "1 bad lines"
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "30 words"
+   }
+  ]
+ },
+ {
+  "task": "cons-024",
+  "condition": "baseline",
+  "prompt": "A job list from the fictional boatyard at Corrin Flats has gaps in its numbering:\n4) Mend the nets\n9) Oil the winch\n15) Paint the hull\n22) Stow the ropes\n\nRenumber the jobs 1 to 4 in the same order, keeping the text of each job unchanged. Reply with exactly 4 lines in the format \"1) Job text\". No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\)\\s+Mend\\s+the\\s+nets\\s*\\n\\s*2\\)\\s+Oil\\s+the\\s+winch\\s*\\n\\s*3\\)\\s+Paint\\s+the\\s+hull\\s*\\n\\s*4\\)\\s+Stow\\s+the\\s+ropes\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1) Mend the nets  \n2) Oil the winch  \n3) Paint the hull  \n4) Stow the ropes"
+  ],
+  "final": "1) Mend the nets  \n2) Oil the winch  \n3) Paint the hull  \n4) Stow the ropes",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "4 lines"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-032",
+  "condition": "rand_attn_med",
+  "prompt": "Events in the fictional town of Wexcombe:\nBridge rebuilt (1874)\nMill founded (1791)\nGreat flood (1856)\nClock tower raised (1902)\nCharter signed (1688)\n\nList all five events from earliest to latest. One per line in the format year: Event, for example: 1500: Well dug. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1688:\\s+Charter\\s+signed\\s*\\n\\s*1791:\\s+Mill\\s+founded\\s*\\n\\s*1856:\\s+Great\\s+flood\\s*\\n\\s*1874:\\s+Bridge\\s+rebuilt\\s*\\n\\s*1902:\\s+Clock\\s+tower\\s+raised\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1791: Mill founded  \n1856: Great flood  \n1874: Bridge rebuilt  \n1688: Charter signed  \n1902: Clock tower raised"
+  ],
+  "final": "1791: Mill founded  \n1856: Great flood  \n1874: Bridge rebuilt  \n1688: Charter signed  \n1902: Clock tower raised",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "5 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-099",
+  "condition": "ffn_low",
+  "prompt": "Fictional addresses in order: 12 Orrin Street; 4 Vell Road; 90 Dask Avenue.\nAbbreviation rules: Street becomes St, Road becomes Rd, Avenue becomes Ave (no period after the abbreviation). Apply the rules, keep the numbers and names unchanged, and join the three addresses on one line with \" | \" (space, vertical bar, space). Shape example for 3 Elm Road; 8 Oak Street: 3 Elm Rd | 8 Oak St\nReply with ONLY that line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*12 Orrin St \\| 4 Vell Rd \\| 90 Dask Ave\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "dict mapping on last word, ' | '.join"
+  },
+  "replies": [
+   "12 Orrin St | 4 Vell Rd | 90 Dask Ave"
+  ],
+  "final": "12 Orrin St | 4 Vell Rd | 90 Dask Ave",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-031",
+  "condition": "ffn_low",
+  "prompt": "Guest list for a fictional dinner at Elder Hall, in seating order: Wynn, Corbel, Isaude, Marrek, Thessaly, Pim, Oswin.\nThese guests cancelled: Marrek, Wynn, Pim.\nList the guests who are still coming, in the original seating order, numbered from 1 like \"1. Name\". One guest per line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\.\\s+Corbel\\s*\\n\\s*2\\.\\s+Isaude\\s*\\n\\s*3\\.\\s+Thessaly\\s*\\n\\s*4\\.\\s+Oswin\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. Corbel  \n2. Isaude  \n3. Thessaly  \n4. Oswin"
+  ],
+  "final": "1. Corbel  \n2. Isaude  \n3. Thessaly  \n4. Oswin",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "4 lines"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-047",
+  "condition": "attn_med",
+  "prompt": "Garrick runs a fictional roadside inn called the Tin Goose.\nWrite his to-do list for tomorrow. Rules: exactly 5 lines, one chore per line; each line has at least 2 words and at most 5 words; no numbering and no bullets. Reply with ONLY the 5 lines.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^[A-Za-z]\\S*(\\s+\\S+){1,4}$",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Garrick needs to check the inventory for missing supplies. He must clean the bathroom and restock the fridge. The diner requires a fresh coat of paint on the walls. He will prepare the breakfast menu and check the stove. A final inspection of the exterior and a quick run to the supply shop are necessary."
+  ],
+  "final": "Garrick needs to check the inventory for missing supplies. He must clean the bathroom and restock the fridge. The diner requires a fresh coat of paint on the walls. He will prepare the breakfast menu and check the stove. A final inspection of the exterior and a quick run to the supply shop are necessary.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "1 lines"
+   },
+   {
+    "type": "lines_regex",
+    "pass": false,
+    "detail": "1 bad lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-085",
+  "condition": "ffn_low",
+  "prompt": "Title of a fictional play: the glass orchard\nRewrite the title with every letter in UPPERCASE. Keep the words and the spaces exactly the same. Reply with ONLY the title. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*THE GLASS ORCHARD\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "str.upper()"
+  },
+  "replies": [
+   "THE GLASS ORCHARD"
+  ],
+  "final": "THE GLASS ORCHARD",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-064",
+  "condition": "ffn_med",
+  "prompt": "Write one sentence about a red kite. The final word of the sentence must be \"home\", followed directly by a period. Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bhome\\.\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bkite\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "A red kite soars high in the sky, its wings spreading wide, and it lands gracefully, home."
+  ],
+  "final": "A red kite soars high in the sky, its wings spreading wide, and it lands gracefully, home.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "17 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-007",
+  "condition": "rand_attn_med",
+  "prompt": "Timetable note (fictional): \"Bramholt station has 3 platforms.\"\nReply with ONLY one JSON object with exactly these keys: \"station\" (string, the station name written in UPPERCASE letters) and \"platforms\" (number). No other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "station",
+     "platforms"
+    ],
+    "equals": {
+     "station": "BRAMHOLT",
+     "platforms": 3
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"station\"\\s*:\\s*\"BRAMHOLT\""
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"station\": \"BRAMHOLT\", \"platforms\": 3}"
+  ],
+  "final": "{\"station\": \"BRAMHOLT\", \"platforms\": 3}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-029",
+  "condition": "ffn_low",
+  "prompt": "Members of the fictional Thornwick choir and their ages: Hesper is 34, Dunnic is 19, Ravella is 62, Ottoline is 27, Brannoc is 45.\nList all five from youngest to oldest. One member per line in the format Name (age), for example: Zed (50). Reply with exactly 5 lines. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 5
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Dunnic\\s+\\(19\\)\\s*\\n\\s*Ottoline\\s+\\(27\\)\\s*\\n\\s*Hesper\\s+\\(34\\)\\s*\\n\\s*Brannoc\\s+\\(45\\)\\s*\\n\\s*Ravella\\s+\\(62\\)\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Dunnic (19), Ottoline (27), Brannoc (45), Hesper (34), Ravella (62)"
+  ],
+  "final": "Dunnic (19), Ottoline (27), Brannoc (45), Hesper (34), Ravella (62)",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "1 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-056",
+  "condition": "rand_ffn_med",
+  "prompt": "Pim is a fictional owl who lives in a clock tower.\nWrite 4 lines about Pim that grow in length: line 1 has exactly 1 word, line 2 has exactly 2 words, line 3 has exactly 3 words, line 4 has exactly 4 words. Words are separated by spaces. No numbering. Reply with ONLY the 4 lines.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "min_words",
+    "value": 10
+   },
+   {
+    "type": "max_words",
+    "value": 10
+   },
+   {
+    "type": "regex",
+    "pattern": "^\\s*\\S+[ \\t]*\\n\\s*\\S+[ \\t]+\\S+[ \\t]*\\n\\s*\\S+[ \\t]+\\S+[ \\t]+\\S+[ \\t]*\\n\\s*\\S+[ \\t]+\\S+[ \\t]+\\S+[ \\t]+\\S+\\s*$",
+    "flags": "s"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Pim lives in a clock tower  \nPim grows in a clock tower  \nPim grows in a clock tower  \nPim grows in a clock tower"
+  ],
+  "final": "Pim lives in a clock tower  \nPim grows in a clock tower  \nPim grows in a clock tower  \nPim grows in a clock tower",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "4 lines"
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "24 words"
+   },
+   {
+    "type": "max_words",
+    "pass": false,
+    "detail": "24 words"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-011",
+  "condition": "attn_med",
+  "prompt": "Town note (fictional): \"Wexcombe has four streets: Tanner Row, Ash Lane, Miller Gate, Dove Street.\"\nReply with ONLY one JSON object with exactly two keys: \"town\" (string) and \"streets\" (a JSON array of the four street names sorted alphabetically from A to Z, spelled exactly as given). No other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "town",
+     "streets"
+    ],
+    "equals": {
+     "town": "Wexcombe",
+     "streets": [
+      "Ash Lane",
+      "Dove Street",
+      "Miller Gate",
+      "Tanner Row"
+     ]
+    }
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"town\": \"Wexcombe\", \"streets\": [\"Ash Lane\", \"Dove Street\", \"Miller Gate\", \"Tanner Row\"]}"
+  ],
+  "final": "{\"town\": \"Wexcombe\", \"streets\": [\"Ash Lane\", \"Dove Street\", \"Miller Gate\", \"Tanner Row\"]}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-003",
+  "condition": "attn_low",
+  "prompt": "Notice (fictional): \"Tindle Museum is open on Mondays. There is no cafe in the building.\"\nReply with ONLY one JSON object with exactly these keys: \"name\" (string), \"open_monday\" (JSON boolean true or false, not a string), \"has_cafe\" (JSON boolean true or false, not a string). No other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "name",
+     "open_monday",
+     "has_cafe"
+    ],
+    "equals": {
+     "name": "Tindle Museum",
+     "open_monday": true,
+     "has_cafe": false
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"open_monday\"\\s*:\\s*true\\b"
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"has_cafe\"\\s*:\\s*false\\b"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"name\": \"Tindle Museum\", \"open_monday\": true, \"has_cafe\": false}"
+  ],
+  "final": "{\"name\": \"Tindle Museum\", \"open_monday\": true, \"has_cafe\": false}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-064",
+  "condition": "rand_ffn_med",
+  "prompt": "Write one sentence about a red kite. The final word of the sentence must be \"home\", followed directly by a period. Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "\\bhome\\.\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bkite\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "A red kite soars across the sky, its wingspan reaching home."
+  ],
+  "final": "A red kite soars across the sky, its wingspan reaching home.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "11 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-009",
+  "condition": "rand_attn_med",
+  "prompt": "Clinic form (fictional): \"Patient name: Ivo Marsh. Phone: not provided. Allergies: none listed.\"\nReply with ONLY one JSON object with exactly these keys:\n\"name\": string\n\"phone\": the phone number as a string, or JSON null if it is not provided\n\"allergies\": a JSON array of strings, empty if there are none\nNo other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "name",
+     "phone",
+     "allergies"
+    ],
+    "equals": {
+     "name": "Ivo Marsh",
+     "phone": null,
+     "allergies": []
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"phone\"\\s*:\\s*null\\b"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\n  \"name\": \"Ivo Marsh\",\n  \"phone\": null,\n  \"allergies\": []\n}"
+  ],
+  "final": "{\n  \"name\": \"Ivo Marsh\",\n  \"phone\": null,\n  \"allergies\": []\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-076",
+  "condition": "ffn_low",
+  "prompt": "Write a 4-line announcement for the fictional Lume Festival.\nRules: exactly 4 lines; lines 1 and 3 are written entirely in UPPERCASE letters; lines 2 and 4 are written entirely in lowercase letters (no capital at all); every line has at least three words; the word lume appears somewhere. No numbering and no other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "pattern": "^\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*\\n\\s*[^a-z\\n]*[A-Z][^a-z\\n]*\\n\\s*[^A-Z\\n]*[a-z][^A-Z\\n]*\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+\\s+\\S+\\s+\\S+",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\blume\\b"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "LUME BLOOMS IN THE SKY  \nLIGHTS SHINE THROUGH THE WIND  \nFESTIVALS ECHO IN THE NIGHT  \nLUME FESTIVAL IS HERE TO STAY"
+  ],
+  "final": "LUME BLOOMS IN THE SKY  \nLIGHTS SHINE THROUGH THE WIND  \nFESTIVALS ECHO IN THE NIGHT  \nLUME FESTIVAL IS HERE TO STAY",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "4 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "lines_regex",
+    "pass": true,
+    "detail": "0 bad lines"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-093",
+  "condition": "baseline",
+  "prompt": "Booking details (fictional):\ntown: Eskby\nferry: Dunlin\ndock: 4\n\nRewrite all three details on ONE line as key=value pairs in the same order, joined by \"&\" with no spaces anywhere. Shape example for a: X and b: Y: a=X&b=Y\nReply with ONLY that line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*town=Eskby\\&ferry=Dunlin\\&dock=4\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "'&'.join(k=v)"
+  },
+  "replies": [
+   "town=Eskby&ferry=Dunlin&dock=4"
+  ],
+  "final": "town=Eskby&ferry=Dunlin&dock=4",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-079",
+  "condition": "ffn_low",
+  "prompt": "Write a newspaper headline about a flood in the fictional town of Kessel.\nRules: 5 to 8 words on one line; every word starts with one capital letter and all its other letters are lowercase; the name Kessel must appear; do NOT use the words flood, water or river in any form; letters and spaces only (no punctuation, no digits). Reply with ONLY the headline.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[A-Z][a-z]*( +[A-Z][a-z]*){4,7}\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bKessel\\b",
+    "flags": ""
+   },
+   {
+    "type": "not_regex",
+    "pattern": "\\b(flood\\w*|water\\w*|river\\w*)\\b"
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Kessel floods skies"
+  ],
+  "final": "Kessel floods skies",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-023",
+  "condition": "rand_attn_med",
+  "prompt": "Storeroom items: barrel, candle, bucket, anchor, bellows, drum, basket.\nKeep ONLY the items that start with the letter b, in the same order as given. Reply with one item per line in lowercase. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*barrel\\s*\\n\\s*bucket\\s*\\n\\s*bellows\\s*\\n\\s*basket\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "barrel\nbucket\nbellows\ndrum\nbasket"
+  ],
+  "final": "barrel\nbucket\nbellows\ndrum\nbasket",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "5 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-037",
+  "condition": "ffn_med",
+  "prompt": "Two clerks at the fictional Aldgrave registry wrote down locker numbers.\nClerk A: 12, 45, 7, 88, 30\nClerk B: 45, 61, 7, 19, 88, 5\n\nMerge both lists into one, remove duplicates so each number appears once, and sort from largest to smallest. Number the lines from 1 in the format \"1. number\". One per line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 8
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*1\\.\\s+88\\s*\\n\\s*2\\.\\s+61\\s*\\n\\s*3\\.\\s+45\\s*\\n\\s*4\\.\\s+30\\s*\\n\\s*5\\.\\s+19\\s*\\n\\s*6\\.\\s+12\\s*\\n\\s*7\\.\\s+7\\s*\\n\\s*8\\.\\s+5\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. 88  \n2. 88  \n3. 7  \n4. 45  \n5. 61  \n6. 30  \n7. 45  \n8. 19  \n9. 12"
+  ],
+  "final": "1. 88  \n2. 88  \n3. 7  \n4. 45  \n5. 61  \n6. 30  \n7. 45  \n8. 19  \n9. 12",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "9 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-063",
+  "condition": "attn_med",
+  "prompt": "The Oskel is a fictional river. Write one sentence about the Oskel whose very first word is exactly \"Yesterday\" (capital Y). Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*Yesterday\\b",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bOskel\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Yesterday, the Oskel flowed silently through the valleys, its waters whispering tales of ancient times."
+  ],
+  "final": "Yesterday, the Oskel flowed silently through the valleys, its waters whispering tales of ancient times.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "15 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-072",
+  "condition": "ffn_up_low",
+  "prompt": "Harrowick is a fictional market town. Write one sentence of at least six words about the Harrowick market.\nRules: use ONLY lowercase letters and spaces: no capital letters (write the name as harrowick), no digits and no punctuation marks at all, not even a final period. Reply with ONLY that line.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[a-z]+( +[a-z]+)*\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bharrowick\\b",
+    "flags": ""
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "harrowick market is a fictional market town"
+  ],
+  "final": "harrowick market is a fictional market town",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "7 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-009",
+  "condition": "attn_med",
+  "prompt": "Clinic form (fictional): \"Patient name: Ivo Marsh. Phone: not provided. Allergies: none listed.\"\nReply with ONLY one JSON object with exactly these keys:\n\"name\": string\n\"phone\": the phone number as a string, or JSON null if it is not provided\n\"allergies\": a JSON array of strings, empty if there are none\nNo other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "name",
+     "phone",
+     "allergies"
+    ],
+    "equals": {
+     "name": "Ivo Marsh",
+     "phone": null,
+     "allergies": []
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"phone\"\\s*:\\s*null\\b"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"name\": \"Ivo Marsh\", \"phone\": null, \"allergies\": []}"
+  ],
+  "final": "{\"name\": \"Ivo Marsh\", \"phone\": null, \"allergies\": []}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-061",
+  "condition": "baseline",
+  "prompt": "Tavrick is a fictional clock shop. Write one short sentence about Tavrick in which EVERY letter is an UPPERCASE letter, including the name (TAVRICK). Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "[a-z]",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bTAVRICK\\b",
+    "flags": ""
+   },
+   {
+    "type": "min_words",
+    "value": 4
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "TAVRICK IS A FANTASTIC CLOCK SHOP WITH A HISTORY OF MAKING TIME MORE RELAXING."
+  ],
+  "final": "TAVRICK IS A FANTASTIC CLOCK SHOP WITH A HISTORY OF MAKING TIME MORE RELAXING.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "14 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-090",
+  "condition": "rand_ffn_med",
+  "prompt": "Three fictional trail names, in order: silver marsh, hollow pine, red fen.\nCapitalize the first letter of every word, then join the three names on one line with \" + \" (space, plus sign, space). Shape example for old oak, dry well: Old Oak + Dry Well\nReply with ONLY that line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*Silver Marsh \\+ Hollow Pine \\+ Red Fen\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "str.title() then ' + '.join"
+  },
+  "replies": [
+   "Silver Marsh + Hollow Pine + Red Fen"
+  ],
+  "final": "Silver Marsh + Hollow Pine + Red Fen",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-068",
+  "condition": "attn_low",
+  "prompt": "Invent a name for a fictional bakery.\nRules: exactly three words on one line; every word starts with one capital letter and the rest of the word is lowercase; one of the three words must be \"Oven\"; letters and spaces only (no punctuation). Example of the shape for a flower shop: Quiet Petal Corner\nReply with ONLY the name.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\s*[A-Z][a-z]+ +[A-Z][a-z]+ +[A-Z][a-z]+\\s*$",
+    "flags": ""
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bOven\\b",
+    "flags": ""
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Oven Biscuit Spot"
+  ],
+  "final": "Oven Biscuit Spot",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-027",
+  "condition": "attn_low",
+  "prompt": "Archery scores at the fictional Larkmoor tourney:\nOdrun 71\nMaelis 88\nTibbet 64\nKorvane 93\nSella 79\nBrask 55\n\nList the names of the 3 highest scorers, highest score first. Reply with exactly 3 lines, one name per line, names only (no scores). No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*Korvane\\s*\\n\\s*Maelis\\s*\\n\\s*Sella\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Odrun  \nKorvane  \nSella"
+  ],
+  "final": "Odrun  \nKorvane  \nSella",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "3 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-023",
+  "condition": "ffn_med",
+  "prompt": "Storeroom items: barrel, candle, bucket, anchor, bellows, drum, basket.\nKeep ONLY the items that start with the letter b, in the same order as given. Reply with one item per line in lowercase. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*barrel\\s*\\n\\s*bucket\\s*\\n\\s*bellows\\s*\\n\\s*basket\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "barrel\nbucket\nbellows\ndrum"
+  ],
+  "final": "barrel\nbucket\nbellows\ndrum",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "4 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-013",
+  "condition": "ffn_up_low",
+  "prompt": "Poster (fictional): \"Lantern Night will be held on 9 March 2041.\"\nReply with ONLY one JSON object with exactly two keys: \"festival\" (string) and \"date\" (an object with exactly the keys \"year\", \"month\", \"day\", all numbers; write the month as its number, where January is 1). No other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "festival",
+     "date"
+    ],
+    "equals": {
+     "festival": "Lantern Night",
+     "date": {
+      "year": 2041,
+      "month": 3,
+      "day": 9
+     }
+    }
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"festival\": \"Lantern Night\", \"date\": {\"year\": 2041, \"month\": 3, \"day\": 9}}"
+  ],
+  "final": "{\"festival\": \"Lantern Night\", \"date\": {\"year\": 2041, \"month\": 3, \"day\": 9}}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-088",
+  "condition": "ffn_med",
+  "prompt": "Full name of a fictional mapmaker: Corwin Aldous Thrane\nWrite the initials: the first letter of each of the three names, in order, in UPPERCASE, each followed by a period, with no spaces. Shape example for Ada Bo Cruz: A.B.C.\nReply with ONLY the initials. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*C\\.A\\.T\\.\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "first letter of each word + '.'"
+  },
+  "replies": [
+   "C.T.T."
+  ],
+  "final": "C.T.T.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-006",
+  "condition": "rand_attn_med",
+  "prompt": "Dart game (fictional): Kessa threw four darts and scored 12, then 7, then 19, then 3, in that order.\nReply with ONLY a JSON array of exactly 4 numbers: the four scores in the order thrown. Numbers must not be in quotes. No keys, no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 4,
+    "value": [
+     12,
+     7,
+     19,
+     3
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "[12, 7, 19, 3]"
+  ],
+  "final": "[12, 7, 19, 3]",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-058",
+  "condition": "attn_low",
+  "prompt": "Brackwater is a fictional town beside a marsh.\nWrite exactly 3 sentences about it. Rules: each sentence is on its own line; each sentence has EXACTLY 5 words; each sentence ends with a period; the name Brackwater must appear at least once. Words are separated by spaces. Reply with ONLY the 3 lines.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^\\S+(\\s+\\S+){4}$",
+    "flags": "i"
+   },
+   {
+    "type": "lines_regex",
+    "pattern": "^[^.!?]*\\w\\.$",
+    "flags": "i"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bBrackwater\\b",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Brackwater is a fictional town beside a marsh. Brackwater has a unique landscape with wetlands and water. Brackwater is known for its quiet beauty and isolated location."
+  ],
+  "final": "Brackwater is a fictional town beside a marsh. Brackwater has a unique landscape with wetlands and water. Brackwater is known for its quiet beauty and isolated location.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "1 lines"
+   },
+   {
+    "type": "lines_regex",
+    "pass": false,
+    "detail": "1 bad lines"
+   },
+   {
+    "type": "lines_regex",
+    "pass": false,
+    "detail": "1 bad lines"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-075",
+  "condition": "ffn_up_low",
+  "prompt": "Dorval is a fictional town. Write one sentence of at least six words about Dorval that does NOT contain the letter \"e\" anywhere (neither e nor E). Check every word. The name Dorval must appear. Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "e"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bDorval\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 6
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Dorval is a fictional town. Write one sentence of at least six words about Dorval that does NOT contain the letter \"e\" anywhere (neither e nor E). Check every word. The name Dorval must appear. Reply with ONLY the sentence on one line. No other text."
+  ],
+  "final": "Dorval is a fictional town. Write one sentence of at least six words about Dorval that does NOT contain the letter \"e\" anywhere (neither e nor E). Check every word. The name Dorval must appear. Reply with ONLY the sentence on one line. No other text.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "46 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-020",
+  "condition": "baseline",
+  "prompt": "Outfitter order (fictional): compass 18 coins, map case 7 coins, boots 31 coins. The buyer's budget is 50 coins.\nReply with ONLY one JSON object with exactly these keys:\n\"total\": the sum of the three prices (number)\n\"within_budget\": JSON boolean, true if the total is less than or equal to the budget, otherwise false\n\"priciest\": the name of the most expensive item (string)\nNo other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "total",
+     "within_budget",
+     "priciest"
+    ],
+    "equals": {
+     "total": 56,
+     "within_budget": false,
+     "priciest": "boots"
+    }
+   },
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "\"within_budget\"\\s*:\\s*false\\b"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\n  \"total\": 50,\n  \"within_budget\": true,\n  \"priciest\": \"boots\"\n}"
+  ],
+  "final": "{\n  \"total\": 50,\n  \"within_budget\": true,\n  \"priciest\": \"boots\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": false,
+    "detail": "total: got 50"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-035",
+  "condition": "ffn_up_low",
+  "prompt": "Birds seen at the fictional Mossfen reserve: heron, kingfisher, wren, nuthatch, plover, swift, goldcrest, curlew, dunnock.\nKeep ONLY the names with more than 6 letters. Sort them from longest name to shortest. One per line in the format name (letters), where letters is the number of letters in the name, for example: owl (3). No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 4
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*kingfisher\\s+\\(10\\)\\s*\\n\\s*goldcrest\\s+\\(9\\)\\s*\\n\\s*nuthatch\\s+\\(8\\)\\s*\\n\\s*dunnock\\s+\\(7\\)\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "bird (4), dunnock (7), heron (5), kingfisher (11), nuthatch (8), plover (7), swift (5), wren (4), curlew (6), goldcrest (9), mossfen (7)."
+  ],
+  "final": "bird (4), dunnock (7), heron (5), kingfisher (11), nuthatch (8), plover (7), swift (5), wren (4), curlew (6), goldcrest (9), mossfen (7).",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": false,
+    "detail": "1 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-030",
+  "condition": "rand_attn_med",
+  "prompt": "Stock count at the fictional Pinfold Haberdashery:\nthimbles 12\nribbon 0\nbuttons 40\nlace 0\nneedles 7\nfelt 0\nzippers 3\n\nList ONLY the items with a stock of 0, in alphabetical order. One item per line, each line starting with \"* \" (asterisk, space), item name only, in lowercase as written above. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "line_count",
+    "value": 3
+   },
+   {
+    "type": "regex",
+    "flags": "s",
+    "pattern": "^\\s*\\*\\s+felt\\s*\\n\\s*\\*\\s+lace\\s*\\n\\s*\\*\\s+ribbon\\s*$"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "* ribbon\n* lace\n* felt"
+  ],
+  "final": "* ribbon\n* lace\n* felt",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "3 lines"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-001",
+  "condition": "rand_ffn_med",
+  "prompt": "Depot slip (fictional): \"Parcel 7731 for Dalia Wren weighs 4 kg and goes to Port Ashby.\"\nReply with ONLY one JSON object with exactly these keys: \"recipient\" (string), \"parcel_id\" (number), \"weight_kg\" (number), \"destination\" (string). No other keys and no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "object",
+    "keys": [
+     "recipient",
+     "parcel_id",
+     "weight_kg",
+     "destination"
+    ],
+    "equals": {
+     "recipient": "Dalia Wren",
+     "parcel_id": 7731,
+     "weight_kg": 4,
+     "destination": "Port Ashby"
+    }
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\n  \"recipient\": \"Dalia Wren\",\n  \"parcel_id\": 7731,\n  \"weight_kg\": 4,\n  \"destination\": \"Port Ashby\"\n}"
+  ],
+  "final": "{\n  \"recipient\": \"Dalia Wren\",\n  \"parcel_id\": 7731,\n  \"weight_kg\": 4,\n  \"destination\": \"Port Ashby\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-100",
+  "condition": "attn_med",
+  "prompt": "One record from a fictional census, as name,age,town: Sigrun,48,Mistlethorpe\nRewrite it on one line in exactly this format: NAME=<name in UPPERCASE>; AGE=<age>; TOWN=<town in lowercase>\nThe three labels are uppercase and the parts are separated by \"; \" (semicolon, space). Shape example for Ines,7,Corby: NAME=INES; AGE=7; TOWN=corby\nReply with ONLY that line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "regex",
+    "flags": "",
+    "pattern": "^\\s*NAME=SIGRUN; AGE=48; TOWN=mistlethorpe\\s*$"
+   }
+  ],
+  "tags": {
+   "derivation": "upper()/lower() per field"
+  },
+  "replies": [
+   "NAME=SIGRUN; AGE=48; TOWN=MISTLETHORPE"
+  ],
+  "final": "NAME=SIGRUN; AGE=48; TOWN=MISTLETHORPE",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-066",
+  "condition": "ffn_med",
+  "prompt": "Pepper is a fictional dog who loves chasing sticks. Describe Pepper in one sentence WITHOUT using the word \"dog\" in any form (not dog, dogs or doggy). You MUST use the name Pepper and the word \"sticks\". Reply with ONLY the sentence on one line. No other text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "not_regex",
+    "pattern": "\\bdog\\w*\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bPepper\\b"
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bsticks\\b"
+   },
+   {
+    "type": "min_words",
+    "value": 5
+   },
+   {
+    "type": "max_words",
+    "value": 30
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Pepper loves chasing sticks with a curious heart and a playful spirit."
+  ],
+  "final": "Pepper loves chasing sticks with a curious heart and a playful spirit.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "12 words"
+   },
+   {
+    "type": "max_words",
+    "pass": true,
+    "detail": "12 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   }
+  ]
+ },
+ {
+  "task": "cons-006",
+  "condition": "ffn_med",
+  "prompt": "Dart game (fictional): Kessa threw four darts and scored 12, then 7, then 19, then 3, in that order.\nReply with ONLY a JSON array of exactly 4 numbers: the four scores in the order thrown. Numbers must not be in quotes. No keys, no extra text.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "json",
+    "strict": true,
+    "is": "array",
+    "list_len": 4,
+    "value": [
+     12,
+     7,
+     19,
+     3
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "[12, 7, 19, 3]"
+  ],
+  "final": "[12, 7, 19, 3]",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cons-045",
+  "condition": "attn_low",
+  "prompt": "Hesk is a fictional mountain village with a stone bridge and a goat market.\nDescribe Hesk in one paragraph of at least 15 words and at most 30 words. The paragraph must be on a single line and must contain the name Hesk. Reply with ONLY the paragraph.",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "min_words",
+    "value": 15
+   },
+   {
+    "type": "max_words",
+    "value": 30
+   },
+   {
+    "type": "line_count",
+    "value": 1
+   },
+   {
+    "type": "regex",
+    "pattern": "\\bHesk\\b",
+    "flags": "i"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Hesk is a fictional mountain village with a stone bridge and a goat market, where the air is crisp and the villagers greet each other with warmth."
+  ],
+  "final": "Hesk is a fictional mountain village with a stone bridge and a goat market, where the air is crisp and the villagers greet each other with warmth.",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "min_words",
+    "pass": true,
+    "detail": "27 words"
+   },
+   {
+    "type": "max_words",
+    "pass": true,
+    "detail": "27 words"
+   },
+   {
+    "type": "line_count",
+    "pass": true,
+    "detail": "1 lines"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ }
+]

@@ -45,6 +45,12 @@ class H(BaseHTTPRequestHandler):
         u = urllib.parse.urlparse(self.path); q = urllib.parse.parse_qs(u.query)
         if u.path in ("/", "/index.html"):
             return self.send(200, open(os.path.join(ROOT, "lab", "dashboard.html"), "rb").read(), "text/html")
+        if u.path.startswith("/report"):   # serve the static report folder so relative data files load
+            rel = u.path[len("/report"):].lstrip("/") or "index.html"
+            full = os.path.realpath(os.path.join(ROOT, "report", rel))
+            if not full.startswith(os.path.realpath(os.path.join(ROOT, "report"))) or not os.path.isfile(full): return self.send(404, "{}")
+            ct = {"html": "text/html", "js": "application/javascript", "png": "image/png", "css": "text/css", "mp4": "video/mp4", "json": "application/json"}.get(full.rsplit(".", 1)[-1], "application/octet-stream")
+            return self.send(200, open(full, "rb").read(), ct)
         if u.path == "/api/events":
             since = int(q.get("since", ["0"])[0]); out = []
             if os.path.exists(LOG):

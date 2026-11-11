@@ -1,0 +1,18 @@
+{
+ "family": "longhorizon",
+ "n": 48,
+ "agree": 47,
+ "false_pass": 1,
+ "false_fail": 0,
+ "unclear": 0,
+ "disagreements": [
+  {
+   "task": "long-021",
+   "condition": "ffn_low",
+   "auto_score": 1,
+   "verdict": "false_pass",
+   "reason": "The task requires every reply to give the spotlight's current colour, and the turn 3 reply was LAMP: GREEN (the curtain colour) when the spotlight was still amber; the checks only cover reply 2 and the final reply."
+  }
+ ],
+ "notes": "On echo-policy tasks the checks cover the final reply and at most one earlier reply, so a wrong intermediate state line is not scored; this affected 1 of the 6 sampled echo-policy passes. On ack-policy tasks the 'acknowledge in a few words' instruction is not checked, and most of the 13 sampled ack-policy passes had multi-line acknowledgements; I counted these as agree because the final answer was correct. All 24 sampled fails were confirmed by working the expected answer by hand; 2 tool-mode fails (long-064 attn_low, long-066 ffn_low) had a correct final number but no stored kv value, and in long-064 the kv_set was written after another call in the same reply and dropped under the one-object-per-turn protocol."
+}

@@ -1,0 +1,84 @@
+{
+  "family": "math",
+  "measured": [
+    "Passes out of 100: baseline 65, noop 65, rollback 65, attn_low 68, attn_med 62, ffn_low 60, ffn_up_low 49, rand_ffn_med 41, rand_attn_med 40, ffn_med 21; noop and rollback produced the same final text as baseline on 100 of 100 math tasks each.",
+    "ffn_med versus baseline: 46 tasks regressed and 2 improved (difference -0.44, 95% CI -0.54 to -0.34, Holm-adjusted McNemar p below 0.001); versus its matched control rand_ffn_med it passed 21 against 41, with 28 tasks passing only under the control and 8 only under ffn_med (p = 0.0012).",
+    "attn_med versus baseline: 15 regressed and 12 improved (difference -0.03, CI -0.13 to 0.07); versus its matched control rand_attn_med it passed 62 against 40, with 28 tasks passing only under attn_med and 6 only under the control (p = 0.0002).",
+    "ffn_up_low regressed 25 and improved 9 (49 of 100, Holm-adjusted p = 0.63); ffn_low regressed 13 and improved 8; attn_low regressed 9 and improved 12.",
+    "By difficulty, baseline passed 31 of 34 easy, 20 of 35 medium and 14 of 31 hard; ffn_med passed 11, 6 and 4; rand_ffn_med 21, 12 and 8; rand_attn_med 25, 7 and 8.",
+    "Replies that used the full 320-token budget: baseline 17, ffn_low 9, attn_low 16, attn_med 20, rand_attn_med 18, rand_ffn_med 21, ffn_med 23, ffn_up_low 25; mean completion tokens were 175.4 at baseline and 211.8 under ffn_up_low."
+  ],
+  "failure_patterns": [
+    "Wrong value on a well-formed ANSWER line: 17 of the 39 traces read (17 of the 25 failing traces). Across all math episodes this class is 22 of 35 baseline fails, 55 of 79 ffn_med fails, 39 of 59 rand_ffn_med fails and 31 of 40 ffn_low fails.",
+    "Reply runs to the 320-token limit before any ANSWER line, so the checker grades the last number or the whole text: 7 of the 39 traces read. Across all math episodes: 12 of 35 baseline fails, 25 of 51 ffn_up_low fails, 22 of 79 ffn_med fails, 18 of 38 attn_med fails.",
+    "A quantity or condition stated in the problem is dropped or misused in the setup (for example the last 30 melons, press B's output, the return leg, the repeated letters): 8 of the 39 traces read.",
+    "Correct equation written down, then a wrong final solving or arithmetic step: 2 of the 39 traces read (math-028 under ffn_med, math-017 under ffn_up_low).",
+    "Final line is the literal template 'ANSWER: <number>' or 'ANSWER: <name>' with no value: 1 of the 39 traces read; across all math episodes 11 under rand_attn_med, 1 under ffn_med and 0 in the other conditions."
+  ],
+  "surprises": [
+    "The random-sign attention control scored lower than the targeted attention edit of the same size: rand_attn_med 40 of 100 against attn_med 62 of 100, while for the ffn pair the order is the other way round (rand_ffn_med 41, ffn_med 21).",
+    "11 of the 60 rand_attn_med fails end with the unfilled placeholder line; 9 of those 11 tasks passed at baseline, and in 5 of the 11 the last line of working already shows the expected value (math-006, 008, 026, 028, 032).",
+    "The checker passes replies with no ANSWER line by falling back to the last number: 12 of the 49 ffn_up_low passes have no ANSWER line (15 ffn_up_low replies contain a boxed answer against 1 at baseline), and 5 of the 65 baseline passes have none. The per-episode 'truncated' flag is false on every math episode even though 17 to 25 replies per condition used all 320 tokens."
+  ],
+  "interpretation": [
+    "On this family the medium ffn_norm reduction appears to cost more passes than a random-sign change of the same size (21 against 41), so the drop may not be explained by change size alone; this is one model, one seed of the control and 100 tasks.",
+    "The attention-gain edits look close to baseline on math (68 and 62 against 65) with roughly balanced regressions and improvements, which seems consistent with task-level churn rather than a clear shift, though the intervals are about plus or minus 10 points.",
+    "Part of the ffn_up_low drop seems tied to longer replies hitting the token limit (25 of its 51 fails), so that number may partly reflect the 320-token budget and the lenient checker rather than answer correctness alone."
+  ],
+  "unknown": [
+    "Whether the ffn_med and rand_attn_med drops would hold with other random-sign draws, other prompts or a larger token budget; each condition was run once per task.",
+    "How many token-limit fails would have reached the right value with more tokens, and how many no-ANSWER-line passes a strict format checker would reject.",
+    "Why any condition differs from baseline on a given task; with 23 of the 35 baseline-failing tasks passing under at least one edit and only 8 tasks passing in every condition, single-task flips cannot be told apart from run-to-run sensitivity."
+  ],
+  "examples": [
+    {
+      "task": "math-073",
+      "condition": "ffn_med",
+      "label": "representative",
+      "why": "Drawn at random (seed 11) from the 46 ffn_med regressions; it ignores the repeated letters, computes 4! = 24 instead of 12 and reports it on a clean ANSWER line, the most common fail class (55 of 79 ffn_med fails)."
+    },
+    {
+      "task": "math-068",
+      "condition": "ffn_up_low",
+      "label": "representative",
+      "why": "Drawn at random from the 25 ffn_up_low regressions; the working is on track but the reply stops at 320 tokens before an ANSWER line, the class that makes up 25 of 51 ffn_up_low fails."
+    },
+    {
+      "task": "math-003",
+      "condition": "attn_med",
+      "label": "representative",
+      "why": "Drawn at random from the tasks whose score did not change under attn_med; same steps and same answer 230 as baseline, as in 73 of 100 attn_med tasks with an unchanged score."
+    },
+    {
+      "task": "math-028",
+      "condition": "ffn_med",
+      "label": "failure",
+      "why": "Drawn at random from the ffn_med regressions; it writes the correct equation x + 11 = 2x - 8 and then states x = 3 where baseline got 19."
+    },
+    {
+      "task": "math-009",
+      "condition": "rand_ffn_med",
+      "label": "failure",
+      "why": "Drawn at random from the 29 rand_ffn_med regressions; it uses 60 km instead of 120 km as total distance and answers 12 instead of 24, showing the control also breaks easy setups."
+    },
+    {
+      "task": "math-028",
+      "condition": "rand_attn_med",
+      "label": "edge case",
+      "why": "Drawn at random from the 30 rand_attn_med regressions; the working reaches 19 = x, the expected value, but the last line is the literal 'ANSWER: <number>', one of 11 such replies in this condition."
+    },
+    {
+      "task": "math-070",
+      "condition": "attn_low",
+      "label": "edge case",
+      "why": "Drawn at random from the 12 attn_low improvements; it scored a pass because the reply was cut at 320 tokens right after 'ANSWER:' and the checker fell back to the last number 0.2917, and its list of 7 pairs includes (4,4), which the task excludes."
+    },
+    {
+      "task": "math-091",
+      "condition": "ffn_med",
+      "label": "edge case",
+      "why": "Drawn at random from the only 2 ffn_med improvements; it answers Lida correctly where baseline said Jorn, but the working just numbers the six names in list order, so the pass does not show a sound derivation."
+    }
+  ],
+  "traces_read": 39
+}

@@ -1,0 +1,10 @@
+{
+ "family": "planning",
+ "n": 48,
+ "agree": 48,
+ "false_pass": 0,
+ "false_fail": 0,
+ "unclear": 0,
+ "disagreements": [],
+ "notes": "No scoring errors found: for all 48 samples (24 auto-pass, 24 auto-fail) the expected value was re-derived by hand, matched the answer key, and the auto score matched the model's final answer. The checks grade only the final answer, so 5 of the 24 passes (plan-035 ffn_up_low, plan-089 rand_attn_med, plan-098 attn_med, plan-100 ffn_med, plan-020 rand_ffn_med) reached the keyed answer with working that contains wrong arithmetic or skips a stated constraint; these count as agree under the task as written. The number check reads the last number in the reply when no ANSWER line is present (seen in plan-095 ffn_med, a truncated reply scored 0 correctly), which could produce a false pass on a truncated reply whose last number happens to equal the key; 0 such cases in this sample."
+}

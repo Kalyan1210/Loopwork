@@ -1,0 +1,2471 @@
+[
+ {
+  "task": "cali-002",
+  "condition": "ffn_up_low",
+  "prompt": "EVIDENCE:\nCatalogue entry. The Book of Nine Ferries is held in the Lorrimer Library on shelf 44. It has a blue cloth cover and 212 pages, and it may be borrowed for two weeks at a time.\n\nQUESTION: Who wrote the Book of Nine Ferries? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT"
+  ],
+  "final": "ANSWER: INSUFFICIENT",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-093",
+  "condition": "baseline",
+  "prompt": "EVIDENCE:\nCensus of Tolle Reach, north shore only; the south shore was not counted. The clerk was Hul Marrin. The largest village on the north shore is Aske. The headman of Aske is Bren Oduya.\n\nQUESTION: Who is the headman of the largest village on the north shore of Tolle Reach? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Bren Oduya",
+       "Oduya",
+       "<Bren Oduya>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(bren\\s+)?oduya\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Bren Oduya\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Bren Oduya\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-069",
+  "condition": "rand_ffn_med",
+  "prompt": "EVIDENCE:\nTolmere chronicle. The Drowned Bell was cast in year 204 of the Salt Reckoning by the founders of Ebb Street. It was hung in the Tolmere tower nine years after it was cast.\n\nQUESTION: In which year of the Salt Reckoning was the Drowned Bell hung in the Tolmere tower?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 213
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "The Drowned Bell was hung in the Tolmere tower nine years after it was cast.  \n\nThe Drowned Bell was cast in year 204 of the Salt Reckoning.  \n\nANSWER: 213"
+  ],
+  "final": "The Drowned Bell was hung in the Tolmere tower nine years after it was cast.  \n\nThe Drowned Bell was cast in year 204 of the Salt Reckoning.  \n\nANSWER: 213",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 213.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-010",
+  "condition": "ffn_med",
+  "prompt": "EVIDENCE:\nShip register. The barge Molly Sedge was launched from the Tarrow yard eleven years ago. In her first year she carried a crew of 6. The register has no crew entry for any later year.\n\nQUESTION: How many crew does the Molly Sedge carry now?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "The evidence states that the barge Molly Sedge was launched from the Tarrow yard eleven years ago, and in its first year, it carried a crew of 6. However, there is no crew entry for any later year. Therefore, the number of crew currently is unknown. \n\nANSWER: INSUFFICIENT  \nCONFIDENCE: 0"
+  ],
+  "final": "The evidence states that the barge Molly Sedge was launched from the Tarrow yard eleven years ago, and in its first year, it carried a crew of 6. However, there is no crew entry for any later year. Therefore, the number of crew currently is unknown. \n\nANSWER: INSUFFICIENT  \nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-089",
+  "condition": "attn_med",
+  "prompt": "EVIDENCE:\nRain book, Brenn Top station. Mistmonth has 30 days. The gauge caught 12 millimetres of rain on each of the first 5 days. Then the gauge cracked, and nothing was measured for the rest of the month.\n\nQUESTION: How many millimetres of rain fell at Brenn Top during the whole of Mistmonth?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: 60\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 60\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-001",
+  "condition": "rand_attn_med",
+  "prompt": "EVIDENCE:\nGuild register entry. The Saffron Thimble is a tailor's shop on Wren Lane in the town of Halvick. It is owned by Dessa Morrow and employs four cutters.\n\nQUESTION: Who owns the Saffron Thimble? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Dessa Morrow",
+       "Morrow",
+       "Dessa",
+       "<Dessa Morrow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(dessa\\s+)?morrow\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Dessa Morrow\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Dessa Morrow\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-067",
+  "condition": "baseline",
+  "prompt": "EVIDENCE:\nTown news, Orlane. Flood repairs to the market square began in July. The Orlane night market reopened in October, with new lamps along the canal side and a longer row of stalls.\n\nQUESTION: In which month did the Orlane night market reopen?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "October",
+       "<October>",
+       "in October"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+)?october\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: October  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: October  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-064",
+  "condition": "attn_low",
+  "prompt": "EVIDENCE:\nLetter. Dear Ilse, the new well in Corbeck is dug at last, and the water is sweet. We all drank from it on the first evening, and the children carried buckets home until dark.\n\nQUESTION: Who blessed the Corbeck well at its opening ceremony? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT"
+  ],
+  "final": "ANSWER: INSUFFICIENT",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-052",
+  "condition": "ffn_med",
+  "prompt": "EVIDENCE:\nGranary sheet. Nobody recorded how many sacks are in the Hollin bin. The Marrow bin held 85 sacks of oats at dawn; during the day a cart took out 30 sacks in 4 runs and none were added.\n\nQUESTION: How many sacks of oats were in the Marrow bin at the end of the day?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "The Marrow bin held 85 sacks of oats at dawn. During the day, a cart took out 30 sacks in 4 runs and none were added. Therefore, the number of sacks in the Marrow bin at the end of the day is 85 - 30 = 55. \n\nANSWER: 55\nCONFIDENCE: 10"
+  ],
+  "final": "The Marrow bin held 85 sacks of oats at dawn. During the day, a cart took out 30 sacks in 4 runs and none were added. Therefore, the number of sacks in the Marrow bin at the end of the day is 85 - 30 = 55. \n\nANSWER: 55\nCONFIDENCE: 10",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 55.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-053",
+  "condition": "rand_ffn_med",
+  "prompt": "EVIDENCE:\nRiver log. The boat Pell Heron left Carrow quay at 7 in the morning with 30 passengers, bound for Dunmere. It held 9 kilometres per hour all the way. The log does not note when it arrived.\n\nQUESTION: How many kilometres is it by river from Carrow quay to Dunmere?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "INSUFFICIENT"
+  ],
+  "final": "INSUFFICIENT",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-053",
+  "condition": "attn_med",
+  "prompt": "EVIDENCE:\nRiver log. The boat Pell Heron left Carrow quay at 7 in the morning with 30 passengers, bound for Dunmere. It held 9 kilometres per hour all the way. The log does not note when it arrived.\n\nQUESTION: How many kilometres is it by river from Carrow quay to Dunmere?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT"
+  ],
+  "final": "ANSWER: INSUFFICIENT",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-069",
+  "condition": "attn_low",
+  "prompt": "EVIDENCE:\nTolmere chronicle. The Drowned Bell was cast in year 204 of the Salt Reckoning by the founders of Ebb Street. It was hung in the Tolmere tower nine years after it was cast.\n\nQUESTION: In which year of the Salt Reckoning was the Drowned Bell hung in the Tolmere tower?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 213
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 205  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 205  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 205.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-040",
+  "condition": "ffn_low",
+  "prompt": "EVIDENCE:\nPie contest, Orrin fair. Madda Quill baked a plum pie and Jorv Tennet baked a leek pie. The judges tasted both pies before noon and then went to lunch.\n\nQUESTION: How many points did the judges give Jorv Tennet's pie?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "The evidence does not provide information about the points given to Jorv Tennet's pie.  \nINSUFFICIENT  \nCONFIDENCE: 0"
+  ],
+  "final": "The evidence does not provide information about the points given to Jorv Tennet's pie.  \nINSUFFICIENT  \nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-009",
+  "condition": "attn_med",
+  "prompt": "EVIDENCE:\nLibrary register. The Quenby Reading Room has 48 desks. Today 13 of them are roped off for repair, and all the other desks are open to readers. The room closes at dusk.\n\nQUESTION: How many desks in the Quenby Reading Room are open to readers today?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 35
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 35  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 35  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 35.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-063",
+  "condition": "baseline",
+  "prompt": "EVIDENCE:\nChronicle of the river towns. The Treaty of the Two Mills was signed in the town of Vennick, in its granary hall. The talks that led to it had begun a year earlier at Sorrow Ford.\n\nQUESTION: In which town was the Treaty of the Two Mills signed? Give the town's name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Vennick",
+       "<Vennick>",
+       "the town of Vennick"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(in\\s+)?(the\\s+)?(town\\s+of\\s+)?(granary\\s+hall\\s*(in|at|of|,)\\s+)?(the\\s+)?(town\\s+of\\s+)?vennick('s)?(\\s*,?\\s*(in\\s+)?(its\\s+|the\\s+)?granary\\s+hall)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Vennick\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Vennick\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-089",
+  "condition": "ffn_up_low",
+  "prompt": "EVIDENCE:\nRain book, Brenn Top station. Mistmonth has 30 days. The gauge caught 12 millimetres of rain on each of the first 5 days. Then the gauge cracked, and nothing was measured for the rest of the month.\n\nQUESTION: How many millimetres of rain fell at Brenn Top during the whole of Mistmonth?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: 60\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 60\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-059",
+  "condition": "rand_attn_med",
+  "prompt": "EVIDENCE:\nDye works sheet. The Quarrow vat holds 600 litres when full and stands 2 metres tall. At dawn it contained 150 litres. From dawn a pipe added 30 litres per minute and nothing was drawn off.\n\nQUESTION: How many minutes after dawn was the vat full?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 15
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 100\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 100\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 100.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-087",
+  "condition": "attn_med",
+  "prompt": "EVIDENCE:\nLab log, Mourn clay. The wet weight of sample K-7 was not recorded because the scale was being repaired. After two days in the oven the same sample weighed 212 grams dry.\n\nQUESTION: What was the dry weight of sample K-7, in grams?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 212
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 212  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 212  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 212.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-069",
+  "condition": "attn_med",
+  "prompt": "EVIDENCE:\nTolmere chronicle. The Drowned Bell was cast in year 204 of the Salt Reckoning by the founders of Ebb Street. It was hung in the Tolmere tower nine years after it was cast.\n\nQUESTION: In which year of the Salt Reckoning was the Drowned Bell hung in the Tolmere tower?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 213
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 205  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 205  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 205.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-072",
+  "condition": "rand_ffn_med",
+  "prompt": "EVIDENCE:\nGranary minutes, Kirrin. Warden Pell Astor reported that the granary roof was mended in Reedmoon at a cost of forty marks. No other business was raised, and the meeting closed early.\n\nQUESTION: In which month did the Kirrin granary roof collapse?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "The evidence does not provide a specific date or month for the collapse.  \n\nANSWER: INSUFFICIENT"
+  ],
+  "final": "The evidence does not provide a specific date or month for the collapse.  \n\nANSWER: INSUFFICIENT",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-026",
+  "condition": "rand_ffn_med",
+  "prompt": "EVIDENCE:\nExpedition log, Mount Corvane. The north party was led by Sella Draim and reached the ridge camp on day 6. The south party was led by Brok Unnel and stayed in the valley.\n\nQUESTION: Who led the south party? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Brok Unnel",
+       "Unnel",
+       "Brok",
+       "<Brok Unnel>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(brok\\s+)?unnel\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Brok Unnel\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Brok Unnel\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-062",
+  "condition": "ffn_med",
+  "prompt": "EVIDENCE:\nParish news. The Saltmarsh choir sang at the harvest supper in Briar Hollow on Sunday evening. The soup ran out early, and the benches had to be borrowed from the school.\n\nQUESTION: In which town did the Saltmarsh choir perform the following week?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "The Saltmarsh choir performed the following week in Briar Hollow.  \nANSWER: Briar Hollow  \nCONFIDENCE: 10"
+  ],
+  "final": "The Saltmarsh choir performed the following week in Briar Hollow.  \nANSWER: Briar Hollow  \nCONFIDENCE: 10",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-058",
+  "condition": "baseline",
+  "prompt": "EVIDENCE:\nDraper's slip. At the Garrow drapery Mira Oswin bought 7 metres of blue linen and 2 spools of thread. A spool of thread costs 3 marks.\n\nQUESTION: How many marks did Mira Oswin pay in total?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: 21\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 21\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-097",
+  "condition": "attn_med",
+  "prompt": "EVIDENCE:\nParish count, Lowmere. Nobody counted the west bank this year. On the east bank the counters visited every door, and the largest household there was the Tarrow family, with 11 members.\n\nQUESTION: Which family was the largest household on the east bank of Lowmere? Give the family name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Tarrow",
+       "the Tarrow family",
+       "Tarrow family",
+       "the Tarrows",
+       "<Tarrow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(the\\s+)?tarrows?(\\s+family)?\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Tarrow  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Tarrow  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-001",
+  "condition": "rand_ffn_med",
+  "prompt": "EVIDENCE:\nGuild register entry. The Saffron Thimble is a tailor's shop on Wren Lane in the town of Halvick. It is owned by Dessa Morrow and employs four cutters.\n\nQUESTION: Who owns the Saffron Thimble? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Dessa Morrow",
+       "Morrow",
+       "Dessa",
+       "<Dessa Morrow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(dessa\\s+)?morrow\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Dessa Morrow\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Dessa Morrow\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-096",
+  "condition": "ffn_med",
+  "prompt": "EVIDENCE:\nCensus shelf, Pell Harbour. The census of year 88 counted 1430 residents in Pell Harbour. Of the census of year 78, only the page for Sarn Village survives, showing 610 residents; the other pages burned.\n\nQUESTION: How many residents did Pell Harbour have in the census of year 78?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: 610\nCONFIDENCE: 10"
+  ],
+  "final": "ANSWER: 610\nCONFIDENCE: 10",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-096",
+  "condition": "ffn_low",
+  "prompt": "EVIDENCE:\nCensus shelf, Pell Harbour. The census of year 88 counted 1430 residents in Pell Harbour. Of the census of year 78, only the page for Sarn Village survives, showing 610 residents; the other pages burned.\n\nQUESTION: How many residents did Pell Harbour have in the census of year 78?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: 610\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 610\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-054",
+  "condition": "attn_low",
+  "prompt": "EVIDENCE:\nBakery sheet. The Stonegate oven was lit at 6 o'clock in the morning and put out at 11 o'clock the same morning. In that time it baked 140 loaves.\n\nQUESTION: For how many hours was the Stonegate oven lit?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 5\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 5\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 5.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-003",
+  "condition": "rand_attn_med",
+  "prompt": "EVIDENCE:\nBell register. The Marrowgate bell hangs in the north tower of Pellham chapel. The register does not record who cast it or in which year. It weighs 410 kilograms and is rung at dusk.\n\nQUESTION: How much does the Marrowgate bell weigh, in kilograms?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 410
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT\nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT\nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got None"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-089",
+  "condition": "attn_low",
+  "prompt": "EVIDENCE:\nRain book, Brenn Top station. Mistmonth has 30 days. The gauge caught 12 millimetres of rain on each of the first 5 days. Then the gauge cracked, and nothing was measured for the rest of the month.\n\nQUESTION: How many millimetres of rain fell at Brenn Top during the whole of Mistmonth?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: 60\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 60\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-004",
+  "condition": "ffn_low",
+  "prompt": "EVIDENCE:\nShip register. The cutter Brenna of Holmwick is registered at the port of Dask. She is owned by Petra Lunn, has a red hull, and carries salt along the Orrin coast.\n\nQUESTION: In which town was the cutter Brenna of Holmwick built? Give the place name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT\nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT\nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-025",
+  "condition": "rand_attn_med",
+  "prompt": "EVIDENCE:\nPumpkin contest, Wethel fair. Sorrel Agnew's pumpkin weighed 41 kilograms. The scale broke before Brann Okey's pumpkin could be put on it, so its weight was never taken.\n\nQUESTION: How many kilograms did Brann Okey's pumpkin weigh?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT\nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT\nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-080",
+  "condition": "ffn_med",
+  "prompt": "EVIDENCE:\nCouncil minutes, Marlby. Two petitions were heard this month. The petition to widen Tanner's Lane was approved on the 9th. The petition to move the fish market was read and put aside for a later meeting.\n\nQUESTION: On which day of the month was the petition to move the fish market approved? Give the day number.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "The petition to move the fish market was read and put aside for a later meeting. The petition to widen Tanner's Lane was approved on the 9th. Therefore, the day number for the petition to move the fish market is 9. \n\nANSWER: 9\nCONFIDENCE: 100"
+  ],
+  "final": "The petition to move the fish market was read and put aside for a later meeting. The petition to widen Tanner's Lane was approved on the 9th. Therefore, the day number for the petition to move the fish market is 9. \n\nANSWER: 9\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-003",
+  "condition": "ffn_med",
+  "prompt": "EVIDENCE:\nBell register. The Marrowgate bell hangs in the north tower of Pellham chapel. The register does not record who cast it or in which year. It weighs 410 kilograms and is rung at dusk.\n\nQUESTION: How much does the Marrowgate bell weigh, in kilograms?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 410
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 410 kilograms  \nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 410 kilograms  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 410.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-046",
+  "condition": "attn_low",
+  "prompt": "EVIDENCE:\nKitchen note. Before dawn the baker Olwen Trask shaped 30 seed rolls and baked them on two trays. All of them were sold at the Pellin gate.\n\nQUESTION: How many grams of flour went into the seed rolls?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT  \nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT  \nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-013",
+  "condition": "ffn_low",
+  "prompt": "EVIDENCE:\nGuild roll. The members of the Weavers' Guild of Sorrel Cross are its 40 masters and their apprentices, and nobody else. Each master has exactly 2 apprentices of his or her own, and no apprentice serves two masters. The guild meets in Shuttle Hall.\n\nQUESTION: How many members does the Weavers' Guild of Sorrel Cross have in all?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 120
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "The Weavers' Guild has 40 masters and 40 apprentices, totaling 80 members.  \nANSWER: 80  \nCONFIDENCE: 100"
+  ],
+  "final": "The Weavers' Guild has 40 masters and 40 apprentices, totaling 80 members.  \nANSWER: 80  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 80.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-099",
+  "condition": "rand_attn_med",
+  "prompt": "EVIDENCE:\nDye log, batch 12 of Wren blue. Twenty cloth strips were cut. Two tore and were thrown away before testing. All the others were washed at 40 degrees, and 3 of them faded. The 60 degree wash was postponed.\n\nQUESTION: How many strips were washed at 40 degrees without fading?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "number",
+      "value": 15
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\D*\\b15\\b(?![.,]?\\d)",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 42\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 42\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-035",
+  "condition": "attn_low",
+  "prompt": "EVIDENCE:\nBoat race, Dunhaven quay. The crews Kestrel and Marlin started together at the bell. Kestrel was steered by Fenn Ould. Each crew had six rowers and one spare oar.\n\nQUESTION: In which year was the boat Marlin built?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT  \nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT  \nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-069",
+  "condition": "baseline",
+  "prompt": "EVIDENCE:\nTolmere chronicle. The Drowned Bell was cast in year 204 of the Salt Reckoning by the founders of Ebb Street. It was hung in the Tolmere tower nine years after it was cast.\n\nQUESTION: In which year of the Salt Reckoning was the Drowned Bell hung in the Tolmere tower?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 213
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 205\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 205\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 205.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-027",
+  "condition": "ffn_up_low",
+  "prompt": "EVIDENCE:\nCanoe race, River Asp. Calla Wren finished in 30 minutes. Oru Havel finished 6 minutes after Calla. Vesh Tamrin finished 4 minutes after Oru. All three paddled alone.\n\nQUESTION: What was Vesh Tamrin's finishing time in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT\n\nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT\n\nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got None"
+   },
+   {
+    "type": "not_regex",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-037",
+  "condition": "rand_attn_med",
+  "prompt": "EVIDENCE:\nSwim meet, Calder Pool. Nima Voss swam the 200 metres in 3 minutes. Roke Aldun was entered in the same race but stayed on the bench with a sore shoulder and did not swim.\n\nQUESTION: What was Roke Aldun's time for the 200 metres, in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT\nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT\nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-088",
+  "condition": "ffn_up_low",
+  "prompt": "EVIDENCE:\nSoil survey note. The survey of the Ansel terraces took 30 soil cores, all during the month of Harrowtide. The cores are now stored in crates at Wend Hall.\n\nQUESTION: Who led the soil survey of the Ansel terraces? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: INSUFFICIENT\n\nCONFIDENCE: 0"
+  ],
+  "final": "ANSWER: INSUFFICIENT\n\nCONFIDENCE: 0",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-024",
+  "condition": "ffn_low",
+  "prompt": "EVIDENCE:\nSled race, Yarrow Pass. Dunna Velk crossed the line after 58 minutes. Orin Pask crossed the line 7 minutes before Dunna. Hett Ruvio's sled broke a runner and he did not finish.\n\nQUESTION: What was Orin Pask's time in minutes?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 51
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "Orin Pask crossed the line 7 minutes before Dunna Velk. Dunna Velk crossed the line after 58 minutes. Therefore, Orin Pask's time was 58 - 7 = 51 minutes.  \n\nANSWER: 51  \nCONFIDENCE: 100"
+  ],
+  "final": "Orin Pask crossed the line 7 minutes before Dunna Velk. Dunna Velk crossed the line after 58 minutes. Therefore, Orin Pask's time was 58 - 7 = 51 minutes.  \n\nANSWER: 51  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 51.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-001",
+  "condition": "ffn_up_low",
+  "prompt": "EVIDENCE:\nGuild register entry. The Saffron Thimble is a tailor's shop on Wren Lane in the town of Halvick. It is owned by Dessa Morrow and employs four cutters.\n\nQUESTION: Who owns the Saffron Thimble? Give the name.\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "Dessa Morrow",
+       "Morrow",
+       "Dessa",
+       "<Dessa Morrow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*(dessa\\s+)?morrow\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: Dessa Morrow\n\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Dessa Morrow\n\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-014",
+  "condition": "ffn_low",
+  "prompt": "EVIDENCE:\nShop record. The door of Fennick's Candle Shop in Lowmere was painted red until last winter, when it was repainted yellow. It has not been painted since. The shutters are white.\n\nQUESTION: What colour is the door of Fennick's Candle Shop now?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "yellow",
+       "<yellow>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*yellow\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "The door of Fennick's Candle Shop was repainted yellow last winter. It has not been painted since.  \nANSWER: YELLOW  \nCONFIDENCE: 100"
+  ],
+  "final": "The door of Fennick's Candle Shop was repainted yellow last winter. It has not been painted since.  \nANSWER: YELLOW  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": true,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-062",
+  "condition": "baseline",
+  "prompt": "EVIDENCE:\nParish news. The Saltmarsh choir sang at the harvest supper in Briar Hollow on Sunday evening. The soup ran out early, and the benches had to be borrowed from the school.\n\nQUESTION: In which town did the Saltmarsh choir perform the following week?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "any",
+    "checks": [
+     {
+      "type": "exact_any",
+      "values": [
+       "INSUFFICIENT",
+       "<INSUFFICIENT>"
+      ]
+     },
+     {
+      "type": "regex",
+      "pattern": "^\\W*answer\\s*[:=]\\s*\\W*insufficient\\W*$",
+      "flags": "im"
+     }
+    ]
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": false
+  },
+  "replies": [
+   "ANSWER: Briar Hollow\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: Briar Hollow\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "any",
+    "pass": false,
+    "detail": "any-of"
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-003",
+  "condition": "ffn_up_low",
+  "prompt": "EVIDENCE:\nBell register. The Marrowgate bell hangs in the north tower of Pellham chapel. The register does not record who cast it or in which year. It weighs 410 kilograms and is rung at dusk.\n\nQUESTION: How much does the Marrowgate bell weigh, in kilograms?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 410
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "ANSWER: 410\n\nCONFIDENCE: 100"
+  ],
+  "final": "ANSWER: 410\n\nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 410.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "cali-050",
+  "condition": "rand_ffn_med",
+  "prompt": "EVIDENCE:\nWorkshop slip. The carpenter Hobb Ferris bought an oak plank for 15 marks. The plank was 240 centimetres long, and he sawed all of it into 6 shelves of equal length.\n\nQUESTION: How many centimetres long is each shelf?\n\nUse only the evidence above. If the evidence does not determine the answer, the answer is the single word INSUFFICIENT.\nReply with exactly two lines and nothing else:\nANSWER: <the answer, or INSUFFICIENT>\nCONFIDENCE: <whole number from 0 to 100>",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 40
+   },
+   {
+    "type": "not_regex",
+    "pattern": "^\\W*answer\\s*[:=].*insufficient",
+    "flags": "im"
+   },
+   {
+    "type": "regex",
+    "pattern": "CONFIDENCE:\\s*\\d+"
+   }
+  ],
+  "tags": {
+   "answerable": true
+  },
+  "replies": [
+   "The plank was 240 centimetres long, and it was sawed into 6 shelves of equal length.  \nEach shelf is therefore 240 ÷ 6 = 40 centimetres long.  \n\nANSWER: 40  \nCONFIDENCE: 100"
+  ],
+  "final": "The plank was 240 centimetres long, and it was sawed into 6 shelves of equal length.  \nEach shelf is therefore 240 ÷ 6 = 40 centimetres long.  \n\nANSWER: 40  \nCONFIDENCE: 100",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 40.0"
+   },
+   {
+    "type": "not_regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ }
+]

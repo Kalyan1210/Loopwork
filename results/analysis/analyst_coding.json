@@ -1,0 +1,83 @@
+{
+  "family": "coding",
+  "measured": [
+    "Baseline, noop and rollback each passed 57 of 100 coding tasks, and 100 of 100 replies under noop and under rollback were byte-identical to the baseline reply.",
+    "Pass counts out of 100 for the edited conditions: attn_low 52, attn_med 48, ffn_low 47, rand_attn_med 44, rand_ffn_med 37, ffn_up_low 34, ffn_med 30.",
+    "Against baseline, ffn_med regressed on 31 tasks and improved on 4 (McNemar p 0.000003, Holm-adjusted 0.000252), ffn_up_low regressed 29 and improved 6 (Holm 0.00936), rand_ffn_med regressed 25 and improved 5 (Holm 0.025675); ffn_low (14 regressed, 4 improved), attn_low (11, 6), attn_med (16, 7) and rand_attn_med (17, 4) all have Holm-adjusted p above 0.5.",
+    "Against the matched random controls, ffn_med minus rand_ffn_med is -7 tasks (14 regressed, 7 improved, p 0.189, CI -0.16 to 0.02) and attn_med minus rand_attn_med is +4 tasks (10 regressed, 14 improved, p 0.541, CI -0.05 to 0.13).",
+    "By difficulty, baseline passed 20 of 28 easy, 23 of 38 medium and 14 of 34 hard; ffn_med passed 16, 11 and 3; rand_ffn_med 17, 15 and 5; ffn_up_low 15, 14 and 5; attn_med 18, 20 and 10. In the bugfix subtheme (20 tasks) baseline passed 16, ffn_med 7, rand_ffn_med 9 and the other five edited conditions 12 or 13.",
+    "Across all 10 conditions 8 tasks passed every time, 24 failed every time and 68 changed score at least once; 4 tasks (code-007, code-032, code-076, code-077) regressed in all 7 edited conditions and 8 of the 57 baseline passes never regressed."
+  ],
+  "failure_patterns": [
+    "Core logic wrong for the task (wrong accumulation, wrong field, wrong window or index arithmetic, one loop that never ends): 14 of the 33 failed edited-condition traces read, for example code-100 ffn_med and code-070 rand_attn_med.",
+    "Mostly correct code that drops one stated requirement or special case (the '0s' case in code-007, DISTINCT in code-067, trailing-space strip in code-010, the 11 to 13 rule in code-013, trailing empty piece in code-057, zero-point teams in code-076): 8 of 33.",
+    "Bug-fix reply that returns the buggy code unchanged or with a change that has no effect: 6 of 33 read. Counted by code over the whole family, replies whose code equals the buggy code were 0 at baseline, 2 ffn_low, 4 ffn_med, 5 ffn_up_low, 3 attn_low, 4 attn_med, 4 rand_ffn_med, 4 rand_attn_med.",
+    "Reply that is not a complete runnable definition (syntax or indentation error, missing def keyword, bare call, single method instead of the class, '...' placeholder left in): 5 of 33 read. Counted by code over the whole family, failed replies that do not compile were 0 at baseline, 1 ffn_low, 8 ffn_med, 2 ffn_up_low, 0 attn_low, 0 attn_med, 5 rand_ffn_med, 0 rand_attn_med."
+  ],
+  "surprises": [
+    "Replies without any code fence numbered 28 of 100 at baseline (all in the complete-partial and bugfix subthemes, 20 of the 28 still passed) but 0 under ffn_med and 3 under ffn_low, while attn_low had 29 and attn_med 26; the checker does not score the fence, so this format change is invisible in the pass counts.",
+    "The random-sign control rand_ffn_med lost 20 tasks against baseline on its own (37 versus 57), and 19 of the 31 ffn_med regressions were also rand_ffn_med regressions.",
+    "4 edited-condition replies used the full 320 completion tokens (code-036 and code-096 under ffn_med, code-099 under ffn_up_low, code-053 under attn_med) and 5 failed replies repeat one line 5 or more times (2 ffn_med, 2 ffn_up_low, 1 attn_med, 0 at baseline), yet the truncated flag is false on all 1,000 coding episodes."
+  ],
+  "interpretation": [
+    "The two medium and upward ffn_norm edits and the random ffn control all scored below baseline on coding by 20 to 27 tasks, but ffn_med is not separable from its matched random control here (difference -7 tasks, CI includes 0), so the data do not support attributing the coding drop to the specific direction of the ffn_med edit rather than to a change of that size.",
+    "The attn_norm edits are not distinguishable from baseline on this family after Holm adjustment (5 and 9 tasks lower), and attn_med scored 4 tasks above its random control, a difference that is also within noise.",
+    "With one sample per task per condition and 68 of 100 tasks changing score somewhere, single-task differences should be read as possibly sampling or tie-breaking effects; only the family-level counts are reasonably stable."
+  ],
+  "unknown": [
+    "Run-to-run variation of an edited condition is not measured: noop and rollback show the unedited model is deterministic, but no edited condition was run twice or with a second random-sign seed, so the spread of the rand controls is unknown.",
+    "Stored check details are cut off before the exception line, so the split between wrong answers and runtime exceptions in the failures cannot be recovered from the records without re-running the tests; only compile failures and timeouts (1 at baseline, 3 under ffn_up_low, 1 each under attn_low and attn_med) could be counted.",
+    "Tests cover a few inputs per task, so some passes may be wrong on untested inputs (for example code-013 attn_low), and how many of the 292 edited-condition passes this affects is not known."
+  ],
+  "examples": [
+    {
+      "task": "code-007",
+      "condition": "attn_med",
+      "label": "representative",
+      "why": "Reply matches the baseline code line for line except that the final \"if result else '0s'\" is gone, so format_duration(0) fails; drawn by seeded random sample of attn_med regressions and typical of the dropped-requirement pattern (8 of 33 failed traces read), on a task that regressed in all 7 edited conditions."
+    },
+    {
+      "task": "code-026",
+      "condition": "ffn_med",
+      "label": "representative",
+      "why": "Easy bug-fix (> changed to >=) that passes at baseline and under ffn_med with a byte-identical reply (1 of 3 identical replies in that condition); drawn by seeded random sample from the 26 tasks that passed in both, to show an unchanged case in the lowest-scoring condition."
+    },
+    {
+      "task": "code-079",
+      "condition": "ffn_low",
+      "label": "representative",
+      "why": "Improvement: baseline deep_merge did not recurse into nested dicts and failed, the ffn_low reply adds the recursive branch and passes; drawn by seeded random sample from the 4 ffn_low improvements."
+    },
+    {
+      "task": "code-013",
+      "condition": "attn_low",
+      "label": "edge case",
+      "why": "Scored as an improvement, but the code gives no suffix when n is a multiple of 100 (ordinal(100) would return '100') and the 9 tests contain no such input; found while reading the seeded attn_low improvement sample and kept because it shows a pass that depends on test coverage."
+    },
+    {
+      "task": "code-036",
+      "condition": "ffn_med",
+      "label": "edge case",
+      "why": "Reply keeps the buggy sort line and then repeats one comment line 14 times until the 320 token limit, with truncated recorded as false; drawn by seeded random sample of ffn_med regressions and kept as 1 of only 4 token-limit replies."
+    },
+    {
+      "task": "code-032",
+      "condition": "ffn_med",
+      "label": "failure",
+      "why": "Bug-fix reply is the buggy chunk function returned unchanged despite the instruction that the code must differ; chosen because code-032 regressed in all 7 edited conditions and it shows the unchanged-buggy-code pattern (4 such replies under ffn_med, 4 under rand_ffn_med)."
+    },
+    {
+      "task": "code-053",
+      "condition": "rand_ffn_med",
+      "label": "failure",
+      "why": "Function body is correct but the def keyword is missing from the first line, so the import fails; drawn by seeded random sample of rand_ffn_med regressions, and it shows that non-compiling replies also occur in the random control (5 there, 8 under ffn_med)."
+    },
+    {
+      "task": "code-100",
+      "condition": "ffn_med",
+      "label": "failure",
+      "why": "Baseline used a correct sliding window; the ffn_med reply counts zeros instead of measuring a window and fails the first test; chosen from the tasks that regressed in 6 or more edited conditions as an instance of the wrong-core-logic pattern (14 of 33 failed traces read)."
+    }
+  ],
+  "traces_read": 52
+}

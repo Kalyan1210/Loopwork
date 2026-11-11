@@ -1,0 +1,32 @@
+{
+  "family": "tools",
+  "n": 48,
+  "agree": 45,
+  "false_pass": 0,
+  "false_fail": 0,
+  "unclear": 3,
+  "disagreements": [
+    {
+      "task": "tool-081",
+      "condition": "attn_low",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Final answer 27 is correct and nothing forbidden was done, but the model never made the instructed first call read_file('roster_final'); it called list_files and then read roster_v2, and no check requires the roster_final attempt."
+    },
+    {
+      "task": "tool-090",
+      "condition": "ffn_low",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Final answer 13122 is correct, but the model skipped the instructed first call with the literal expression '486 x 27' and went straight to '486*27', so the error-then-retry step the prompt asks for never happened and no check requires it."
+    },
+    {
+      "task": "tool-066",
+      "condition": "ffn_med",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Final was 'Maren: night' where the prompt asks for just the one word for the shift; the regex check accepts any final containing 'night', so a strict grader would fail the format while a lenient one would pass the content."
+    }
+  ],
+  "notes": "No clear false passes or false fails in 48 samples (24 scored 1, 24 scored 0); all expected numbers were recomputed by hand and match. Weakness 1: on the error-recovery tasks sampled (tool-081, tool-090) the checks verify only the fallback call and the answer, not that the instructed first call was attempted, so 2 of 4 sampled passes on those tasks skipped that step; regex answer checks also accept extra words (tool-066). Weakness 2, strictness rather than error: in 3 sampled fails (tool-009 ffn_med, tool-041 rand_ffn_med, tool-043 rand_ffn_med) the tool work or value was correct but the final was given as bare text instead of the required JSON, and the episode then ran to the step limit, so those fails reflect the reply protocol and call limit, not a wrong answer; I counted them as agree because the protocol is part of the task. Also env_equals with a numeric value accepts the string '4471' for 4471 (tool-041 rand_attn_med pass)."
+}

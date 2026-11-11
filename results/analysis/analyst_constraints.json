@@ -1,0 +1,84 @@
+{
+  "family": "constraints",
+  "measured": [
+    "Baseline, noop and rollback each passed 45 of 100 constraints tasks, with 0 of 100 replies differing between baseline and either control.",
+    "Pass counts out of 100 for the edited conditions: attn_low 46, ffn_low 44, attn_med 41, rand_attn_med 40, rand_ffn_med 39, ffn_up_low 38, ffn_med 36.",
+    "Against baseline, ffn_med regressed on 16 tasks and improved on 7 (McNemar p 0.093, Holm-adjusted 1.0); ffn_up_low regressed 11 and improved 4; attn_med regressed 7 and improved 3; attn_low regressed 2 and improved 3; no condition in this family has a Holm-adjusted p below 1.0.",
+    "Against the matched random controls, ffn_med minus rand_ffn_med is -3 tasks (11 regressed, 8 improved, p 0.65, CI -0.12 to 0.05) and attn_med minus rand_attn_med is +1 task (5 regressed, 6 improved, p 1.0).",
+    "Across all 10 conditions, 22 tasks passed every time (16 easy, 6 medium, 0 hard), 39 failed every time (7 easy, 11 medium, 21 hard) and 39 changed score in at least one condition; baseline passed 24 of 35 easy, 14 of 35 medium and 7 of 30 hard.",
+    "Reply text differed from baseline on 49 of 100 tasks under attn_low and 82 of 100 under ffn_med, but the score stayed the same on 44 and 59 of those tasks respectively; truncated replies, retries and missing finals were 0 in every condition."
+  ],
+  "failure_patterns": [
+    "Right output shape, wrong content of a sort, filter, sum or character-position transform (for example bay-101 placed before bay-20, a total of 50 for 18+7+31, KX4471Q rewritten as K-X-4471-Q): 10 of the 30 failing non-baseline replies read.",
+    "One stated rule broken in an otherwise compliant reply (a forbidden word used, a required name omitted, a capital letter or final period kept, a word dropped or added): 7 of 30.",
+    "Reply reproduces the prompt's shape example or the source sentence instead of applying the instruction (for example cons-012 returning the Clay Class example object, cons-097 returning the two example dates, cons-074 returning the original sentence): 6 of 30.",
+    "Word-count or line-count rule missed in free writing (three sentences on one line, 4 words where 3 were required, two words per line where one was required, numbered lines): 6 of 30.",
+    "Degenerate repetition: 1 of 30 (cons-059 under attn_low gave the line 'tea leaf' five times where five different lines were required)."
+  ],
+  "surprises": [
+    "Regressions concentrate on a small set of tasks: 23 of the 45 baseline-pass tasks regressed in at least one of the 7 edited conditions, 11 of them in 3 or more, and cons-012, cons-040 and cons-059 each regressed in 6 of 7; the other 22 baseline-pass tasks never regressed.",
+    "The random-sign controls regressed about as many tasks as the targeted edits: rand_ffn_med 10 versus ffn_med 16 (7 tasks in common), rand_attn_med 11 versus attn_med 7 (5 in common).",
+    "cons-002 failed at baseline (comma-separated words instead of a JSON array) and passed in 6 of the 7 edited conditions, including both random controls."
+  ],
+  "interpretation": [
+    "In this family the pass count under every edit is within 9 tasks of baseline and no paired difference survives Holm correction, so the data are compatible with no family-specific effect of any edit at n=100.",
+    "The targeted medium edits are not distinguishable from their matched random controls here (differences of -3 and +1 tasks with intervals spanning 0), which suggests, tentatively, that the score changes seen may reflect the size of the weight change in general and not the specific direction of the edit.",
+    "Since 39 tasks fail and 22 pass in every condition, only 39 tasks carry any signal, and the per-condition differences rest on small numbers of flips."
+  ],
+  "unknown": [
+    "Whether the task-level flips are stable: each task was run once per condition, so the data cannot separate an effect of an edit from sensitivity of a borderline task to any change in the weights.",
+    "Whether a larger sample would show a real ffn_med deficit: the observed -9 tasks has a 95 percent interval of -0.18 to 0.00 and cannot be distinguished from zero or from the -6 of its random control.",
+    "Whether passing replies are good text: the checks test format only (the audit file reports 47 of 48 sampled scores agreeing with hand judgment, with cons-073 enforcing an unstated 6-word minimum), so quality differences between conditions inside passing replies are not measured."
+  ],
+  "examples": [
+    {
+      "task": "cons-012",
+      "condition": "ffn_med",
+      "label": "failure",
+      "why": "Reply is the prompt's Clay Class example object verbatim where baseline filled in the flyer's values; chosen because cons-012 is one of the three tasks that regressed most often (6 of 7 edited conditions)."
+    },
+    {
+      "task": "cons-040",
+      "condition": "rand_ffn_med",
+      "label": "failure",
+      "why": "Keeps the right five bay codes but orders them 3, 7, 101, 20, 12; chosen as another of the three most-regressed tasks and shown in a random control to make clear that regressions are not specific to targeted edits."
+    },
+    {
+      "task": "cons-059",
+      "condition": "attn_low",
+      "label": "failure",
+      "why": "Returns 'tea leaf' five times where five different lines were required; chosen because it is one of only 2 regressions under attn_low, the condition with the fewest."
+    },
+    {
+      "task": "cons-006",
+      "condition": "ffn_med",
+      "label": "representative",
+      "why": "Reply '[12, 7, 19, 3]' is byte-identical to baseline and passes; drawn at random (fixed seed) from the 22 tasks that pass in all 10 conditions."
+    },
+    {
+      "task": "cons-021",
+      "condition": "attn_low",
+      "label": "representative",
+      "why": "Same wrong numeric sort as baseline (20, 47, 58, 9, 132) and fails; drawn at random (fixed seed) from the 39 tasks that fail in all 10 conditions."
+    },
+    {
+      "task": "cons-067",
+      "condition": "ffn_low",
+      "label": "representative",
+      "why": "Wording differs from baseline but both sentences contain anchor and lantern and both pass; drawn at random from the all-pass tasks and shows the most common outcome, changed text with unchanged score (50 of 100 under ffn_low)."
+    },
+    {
+      "task": "cons-002",
+      "condition": "attn_low",
+      "label": "representative",
+      "why": "Baseline gave 'fiddle,ocarina,tambour' and this condition gave a valid JSON array; chosen because cons-002 is the most frequently improved task (6 of 7 edited conditions)."
+    },
+    {
+      "task": "cons-073",
+      "condition": "ffn_up_low",
+      "label": "edge case",
+      "why": "Scored as an improvement with 'Finchgate sells rope Finchgate sells candles Finchgate sells maps', which clears the unstated 6-word minimum that baseline's 5-word reply missed; chosen because the audit file flagged this task's check."
+    }
+  ],
+  "traces_read": 44
+}

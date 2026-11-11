@@ -1,0 +1,1373 @@
+[
+ {
+  "task": "math-045",
+  "condition": "baseline",
+  "prompt": "A whole number n leaves a remainder of 7 when it is divided by 9. What is the remainder when 5n + 4 is divided by 9? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "When divided by 9, n leaves remainder 7.  \nSo, n ≡ 7 mod 9.  \n5n + 4 ≡ 5*7 + 4 = 35 + 4 = 39 mod 9.  \n39 ÷ 9 = 4 remainder 3.  \nANSWER: 3"
+  ],
+  "final": "When divided by 9, n leaves remainder 7.  \nSo, n ≡ 7 mod 9.  \n5n + 4 ≡ 5*7 + 4 = 35 + 4 = 39 mod 9.  \n39 ÷ 9 = 4 remainder 3.  \nANSWER: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 3.0"
+   }
+  ]
+ },
+ {
+  "task": "math-092",
+  "condition": "attn_med",
+  "prompt": "Four books (Atlas, Diary, Fables, Guide) stand in a row on a shelf. Atlas is somewhere to the left of Fables. Diary is not at either end. Fables is not at the right end. Which one statement must be true? A) Diary is second from the left. B) Guide is at the right end. C) Fables is next to Guide. D) Diary is to the left of Fables. Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <letter>' (one letter only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "B",
+     "B)",
+     "(B)",
+     "option B",
+     "B) Guide is at the right end",
+     "(B) Guide is at the right end",
+     "B. Guide is at the right end",
+     "B: Guide is at the right end",
+     "Guide is at the right end"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Atlas is to the left of Fables.  \nDiary is not at either end.  \nFables is not at the right end.  \n\nSince Diary is not at the ends, it must be in position 2, 3, or 4.  \nFables is not at the right end, so it cannot be in position 4.  \nThus, Diary must be in position 2 or 3.  \nIf Diary is in position 2, Fables must be in position 3 or 4.  \nIf Diary is in position 3, Fables must be in position 4.  \n\nIn all cases, Fables is not at the right end.  \n\nAnswer: D"
+  ],
+  "final": "Atlas is to the left of Fables.  \nDiary is not at either end.  \nFables is not at the right end.  \n\nSince Diary is not at the ends, it must be in position 2, 3, or 4.  \nFables is not at the right end, so it cannot be in position 4.  \nThus, Diary must be in position 2 or 3.  \nIf Diary is in position 2, Fables must be in position 3 or 4.  \nIf Diary is in position 3, Fables must be in position 4.  \n\nIn all cases, Fables is not at the right end.  \n\nAnswer: D",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact_any",
+    "pass": false,
+    "detail": "got 'd'"
+   }
+  ]
+ },
+ {
+  "task": "math-033",
+  "condition": "rand_ffn_med",
+  "prompt": "Data plan A costs 40 coins per month plus 3 coins per gigabyte used. Plan B costs 15 coins per month plus 8 coins per gigabyte used. What is the smallest whole number of gigabytes for which plan A is strictly cheaper than plan B? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To find the smallest number of gigabytes for which Plan A is strictly cheaper than Plan B, we compare the total costs for both plans.\n\nPlan A: $ 40 + 3x $  \nPlan B: $ 15 + 8x $\n\nWe want to find the smallest $ x $ such that:\n\n$$\n40 + 3x < 15 + 8x\n$$\n\nSolve for $ x $:\n\n$$\n40 + 3x < 15 + 8x \\\\\n40 - 15 < 8x - 3x \\\\\n25 < 5x \\\\\nx > 5\n$$\n\nSo the smallest whole number of gigabytes for which Plan A is strictly cheaper than Plan B is:\n\n**ANSWER: 6**"
+  ],
+  "final": "To find the smallest number of gigabytes for which Plan A is strictly cheaper than Plan B, we compare the total costs for both plans.\n\nPlan A: $ 40 + 3x $  \nPlan B: $ 15 + 8x $\n\nWe want to find the smallest $ x $ such that:\n\n$$\n40 + 3x < 15 + 8x\n$$\n\nSolve for $ x $:\n\n$$\n40 + 3x < 15 + 8x \\\\\n40 - 15 < 8x - 3x \\\\\n25 < 5x \\\\\nx > 5\n$$\n\nSo the smallest whole number of gigabytes for which Plan A is strictly cheaper than Plan B is:\n\n**ANSWER: 6**",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 6.0"
+   }
+  ]
+ },
+ {
+  "task": "math-081",
+  "condition": "rand_attn_med",
+  "prompt": "Brin, Dax, Fenn and Hale have four different heights. Brin is taller than Dax. Fenn is shorter than Dax. Brin is not the tallest of the four. Who is the second tallest? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Brin"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Brin is taller than Dax.  \nFenn is shorter than Dax.  \nBrin is not the tallest.  \nFenn is shorter than Dax, so Fenn is not the tallest.  \nBrin is taller than Dax, so Brin is not the tallest.  \nThus, Fenn is the second tallest.  \n\nANSWER: Fenn"
+  ],
+  "final": "Brin is taller than Dax.  \nFenn is shorter than Dax.  \nBrin is not the tallest.  \nFenn is shorter than Dax, so Fenn is not the tallest.  \nBrin is taller than Dax, so Brin is not the tallest.  \nThus, Fenn is the second tallest.  \n\nANSWER: Fenn",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'fenn'"
+   }
+  ]
+ },
+ {
+  "task": "math-018",
+  "condition": "baseline",
+  "prompt": "A 40-litre cask holds a drink that is 25% syrup and 75% water, well mixed. A cook draws off 10 litres of the mixed drink and then pours in 10 litres of pure syrup. What percent of the drink in the cask is syrup now? State the percent as a number between 0 and 100 (so one half would be 50.00, not 0.50). Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 43.75,
+    "tol": 0.0051
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. Initial volume: 40 litres  \n2. Initial syrup: 25% of 40 = 10 litres  \n3. After removing 10 litres: 30 litres left  \n4. Syrup remaining: 10 - (25% of 10) = 7.5 litres  \n5. Pour in 10 litres pure syrup: 7.5 + 10 = 17.5 litres syrup  \n6. Total volume: 30 - 10 + 10 = 30 litres  \n7. Syrup percentage: (17.5 / 30) * 100 = 58.33%  \nANSWER: 58.33"
+  ],
+  "final": "1. Initial volume: 40 litres  \n2. Initial syrup: 25% of 40 = 10 litres  \n3. After removing 10 litres: 30 litres left  \n4. Syrup remaining: 10 - (25% of 10) = 7.5 litres  \n5. Pour in 10 litres pure syrup: 7.5 + 10 = 17.5 litres syrup  \n6. Total volume: 30 - 10 + 10 = 30 litres  \n7. Syrup percentage: (17.5 / 30) * 100 = 58.33%  \nANSWER: 58.33",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 58.33"
+   }
+  ]
+ },
+ {
+  "task": "math-095",
+  "condition": "ffn_low",
+  "prompt": "Four houses in a row are numbered 1 to 4 from left to right. Ines, Joss, Kade and Lux each live in one house, and each owns a different pet: a cat, an owl, a hen and a newt. Joss lives in the house immediately to the right of the owl's house. The cat lives in an end house (1 or 4). Kade lives next door to Ines. Lux owns the hen. Kade does not own the owl. Lux does not live in house 4. Who owns the newt? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Kade"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. Joss lives to the right of the owl.  \n2. Cat is in 1 or 4.  \n3. Kade lives next to Ines.  \n4. Lux owns the hen.  \n5. Kade does not own the owl.  \n6. Lux does not live in 4.  \n\nFrom 1 and 5: Owl is not Kade.  \nFrom 6: Lux ≠ 4.  \nFrom 2: Cat is in 1 or 4.  \nFrom 3: Kade is next to Ines.  \nFrom 4: Lux owns the hen.  \n\nOnly possible arrangement:  \nInes in 1, Kade in 2, Joss in 3, Lux in 4 (but Lux ≠ 4).  \nSo Lux in 3.  \nThen Kade in 2, Ines in 1, Joss in 3, Lux in 4 (but Lux ≠ 4).  \nSo Lux in 3.  \nThen cat is in 1 or 4.  \nIf cat is in 1, then Ines in 1.  \nIf cat is in 4, then Kade in 3.  \n\nSo Kade in 3, Ines in 1, Joss in 3, Lux in 4.  \nThen newt is in 2.  \n\nANSWER: <name>  \nANSWER: Kade"
+  ],
+  "final": "1. Joss lives to the right of the owl.  \n2. Cat is in 1 or 4.  \n3. Kade lives next to Ines.  \n4. Lux owns the hen.  \n5. Kade does not own the owl.  \n6. Lux does not live in 4.  \n\nFrom 1 and 5: Owl is not Kade.  \nFrom 6: Lux ≠ 4.  \nFrom 2: Cat is in 1 or 4.  \nFrom 3: Kade is next to Ines.  \nFrom 4: Lux owns the hen.  \n\nOnly possible arrangement:  \nInes in 1, Kade in 2, Joss in 3, Lux in 4 (but Lux ≠ 4).  \nSo Lux in 3.  \nThen Kade in 2, Ines in 1, Joss in 3, Lux in 4 (but Lux ≠ 4).  \nSo Lux in 3.  \nThen cat is in 1 or 4.  \nIf cat is in 1, then Ines in 1.  \nIf cat is in 4, then Kade in 3.  \n\nSo Kade in 3, Ines in 1, Joss in 3, Lux in 4.  \nThen newt is in 2.  \n\nANSWER: <name>  \nANSWER: Kade",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": true,
+    "detail": "got 'kade'"
+   }
+  ]
+ },
+ {
+  "task": "math-079",
+  "condition": "rand_attn_med",
+  "prompt": "In a board game a player rolls two fair six-sided dice and moves forward a number of squares equal to the larger of the two numbers shown (if both dice show the same number, that number). What is the expected number of squares moved? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 4.47,
+    "tol": 0.0051
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To find the expected number of squares moved, we need to calculate the average of the number of squares moved for all possible outcomes of rolling two dice.\n\nThere are 36 possible outcomes when rolling two six-sided dice.\n\nFor each outcome, we calculate the number of squares moved (which is the maximum of the two dice):\n\n- (1,1) → 1\n- (1,2) → 2\n- (1,3) → 3\n- (1,4) → 4\n- (1,5) → 5\n- (1,6) → 6\n- (2,1) → 2\n- (2,2) → 2\n- (2,3) → 3\n- (2,4) → 4\n- (2,5) → 5\n- (2,6) → 6\n- (3,1) → 3\n- (3,2) → 3\n- (3,3) → 3\n- (3,4) → 4\n- (3,5) → 5\n- (3,6) → 6\n- (4,1) → 4\n- (4,2) → 4\n- (4,3) → 4\n- (4,4) → 4\n- (4,5) → 5\n- (4,6) → 6\n- (5,1) → 5\n- (5,2"
+  ],
+  "final": "To find the expected number of squares moved, we need to calculate the average of the number of squares moved for all possible outcomes of rolling two dice.\n\nThere are 36 possible outcomes when rolling two six-sided dice.\n\nFor each outcome, we calculate the number of squares moved (which is the maximum of the two dice):\n\n- (1,1) → 1\n- (1,2) → 2\n- (1,3) → 3\n- (1,4) → 4\n- (1,5) → 5\n- (1,6) → 6\n- (2,1) → 2\n- (2,2) → 2\n- (2,3) → 3\n- (2,4) → 4\n- (2,5) → 5\n- (2,6) → 6\n- (3,1) → 3\n- (3,2) → 3\n- (3,3) → 3\n- (3,4) → 4\n- (3,5) → 5\n- (3,6) → 6\n- (4,1) → 4\n- (4,2) → 4\n- (4,3) → 4\n- (4,4) → 4\n- (4,5) → 5\n- (4,6) → 6\n- (5,1) → 5\n- (5,2",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 52.0"
+   }
+  ]
+ },
+ {
+  "task": "math-081",
+  "condition": "ffn_med",
+  "prompt": "Brin, Dax, Fenn and Hale have four different heights. Brin is taller than Dax. Fenn is shorter than Dax. Brin is not the tallest of the four. Who is the second tallest? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Brin"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let's analyze the given information:\n\n- Brin is taller than Dax.\n- Fenn is shorter than Dax.\n- Brin is not the tallest of the four.\n\nSo, the order of heights from tallest to shortest is:\n\n1. Brin  \n2. Dax  \n3. Fenn  \n4. Hale\n\nSince Brin is not the tallest, the second tallest must be Dax.\n\n**ANSWER: Dax"
+  ],
+  "final": "Let's analyze the given information:\n\n- Brin is taller than Dax.\n- Fenn is shorter than Dax.\n- Brin is not the tallest of the four.\n\nSo, the order of heights from tallest to shortest is:\n\n1. Brin  \n2. Dax  \n3. Fenn  \n4. Hale\n\nSince Brin is not the tallest, the second tallest must be Dax.\n\n**ANSWER: Dax",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'dax'"
+   }
+  ]
+ },
+ {
+  "task": "math-039",
+  "condition": "ffn_low",
+  "prompt": "The equation x^2 - 13x + k = 0 has two solutions, and one solution is exactly 5 greater than the other. What is the value of k? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 36
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. Let the two solutions be $ a $ and $ a + 5 $.\n2. By Vieta's formula, the sum of the roots is $ a + (a + 5) = 2a + 5 $.\n3. The product of the roots is $ a(a + 5) = k $.\n4. The quadratic equation is $ x^2 - 13x + k = 0 $.\n5. From the sum of the roots: $ 2a + 5 = 13 $.\n6. Solve for $ a $: $ 2a = 8 \\Rightarrow a = 4 $.\n7. Compute $ k = 4(4 + 5) = 4 \\times 9 = 36 $.\n8. Final answer: ANSWER: 36"
+  ],
+  "final": "1. Let the two solutions be $ a $ and $ a + 5 $.\n2. By Vieta's formula, the sum of the roots is $ a + (a + 5) = 2a + 5 $.\n3. The product of the roots is $ a(a + 5) = k $.\n4. The quadratic equation is $ x^2 - 13x + k = 0 $.\n5. From the sum of the roots: $ 2a + 5 = 13 $.\n6. Solve for $ a $: $ 2a = 8 \\Rightarrow a = 4 $.\n7. Compute $ k = 4(4 + 5) = 4 \\times 9 = 36 $.\n8. Final answer: ANSWER: 36",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 36.0"
+   }
+  ]
+ },
+ {
+  "task": "math-015",
+  "condition": "rand_attn_med",
+  "prompt": "Six masons, all working at the same steady rate, can build a wall in 10 days. They start together, but after 4 days of work 2 of the masons leave. How many more days do the remaining masons need to finish the wall? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let's break it down step by step:\n\n1. **Total work**: 6 masons × 10 days = 60 mason-days.\n\n2. **Work done in 4 days**: 6 masons × 4 days = 24 mason-days.\n\n3. **Remaining work**: 60 - 24 = 36 mason-days.\n\n4. **Remaining masons**: 4 masons.\n\n5. **Days needed**: 36 mason-days ÷ 4 masons = 9 days.\n\nANSWER: 9"
+  ],
+  "final": "Let's break it down step by step:\n\n1. **Total work**: 6 masons × 10 days = 60 mason-days.\n\n2. **Work done in 4 days**: 6 masons × 4 days = 24 mason-days.\n\n3. **Remaining work**: 60 - 24 = 36 mason-days.\n\n4. **Remaining masons**: 4 masons.\n\n5. **Days needed**: 36 mason-days ÷ 4 masons = 9 days.\n\nANSWER: 9",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 9.0"
+   }
+  ]
+ },
+ {
+  "task": "math-058",
+  "condition": "rand_ffn_med",
+  "prompt": "In the four-digit number 6A3B, A and B stand for single digits (they may be equal). The number is divisible by 36. What is the largest possible value of the whole four-digit number? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 6732
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To find the largest possible value of the four-digit number 6A3B that is divisible by 36, we need to ensure the number is divisible by both 4 and 9 (since 36 = 4 × 9).\n\n- **Divisibility by 4**: The last two digits (3B) must form a number divisible by 4.\n- **Divisibility by 9**: The sum of the digits (6 + A + 3 + B) must be divisible by 9.\n\nWe want to maximize the number 6A3B, so we want to maximize A and B.\n\nStart with the largest possible value of A (9), and find the largest B such that 3B is divisible by 4.\n\n- A = 9, B = 9 → 3B = 39 → 39 is not divisible by 4.\n- A = 9, B = 8 → 3B = 38 → 38 is not divisible by 4.\n- A = 9, B = 7 → 3B = 37 → 37 is not divisible by 4.\n- A = 9, B = 6 → 3B = 36 → 36 is divisible by 4.\n\nSo, A = 9, B = 6.\n\nThe number is 6936.\n\nCheck divisibility by 36:\n- 6936 ÷ 4 = 1734 → divisible by"
+  ],
+  "final": "To find the largest possible value of the four-digit number 6A3B that is divisible by 36, we need to ensure the number is divisible by both 4 and 9 (since 36 = 4 × 9).\n\n- **Divisibility by 4**: The last two digits (3B) must form a number divisible by 4.\n- **Divisibility by 9**: The sum of the digits (6 + A + 3 + B) must be divisible by 9.\n\nWe want to maximize the number 6A3B, so we want to maximize A and B.\n\nStart with the largest possible value of A (9), and find the largest B such that 3B is divisible by 4.\n\n- A = 9, B = 9 → 3B = 39 → 39 is not divisible by 4.\n- A = 9, B = 8 → 3B = 38 → 38 is not divisible by 4.\n- A = 9, B = 7 → 3B = 37 → 37 is not divisible by 4.\n- A = 9, B = 6 → 3B = 36 → 36 is divisible by 4.\n\nSo, A = 9, B = 6.\n\nThe number is 6936.\n\nCheck divisibility by 36:\n- 6936 ÷ 4 = 1734 → divisible by",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 1734.0"
+   }
+  ]
+ },
+ {
+  "task": "math-031",
+  "condition": "attn_low",
+  "prompt": "The numbers x and y satisfy both 4x + 3y = 10 and 3x - 5y = 51. What is the value of x + y? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We are given:\n1. $ 4x + 3y = 10 $\n2. $ 3x - 5y = 51 $\n\nWe can solve this system of equations.\n\nFirst, solve equation 1 for $ x $:\n$$\n4x + 3y = 10 \\Rightarrow x = \\frac{10 - 3y}{4}\n$$\n\nSubstitute into equation 2:\n$$\n3\\left(\\frac{10 - 3y}{4}\\right) - 5y = 51\n$$\n\nMultiply through by 4 to eliminate the denominator:\n$$\n3(10 - 3y) - 20y = 204\n$$\n\nSimplify:\n$$\n30 - 9y - 20y = 204 \\Rightarrow 30 - 29y = 204\n$$\n\nSolve for $ y $:\n$$\n-29y = 174 \\Rightarrow y = -\\frac{174}{29}\n$$\n\nNow substitute back to find $ x $:\n$$\nx = \\frac{10 - 3y}{4} = \\frac{10 - 3(-\\frac{174}{29})}{4} = \\frac{10 + \\frac{522}{29}}{4} = \\frac{300}{116} = \\frac{75}{29}\n$$"
+  ],
+  "final": "We are given:\n1. $ 4x + 3y = 10 $\n2. $ 3x - 5y = 51 $\n\nWe can solve this system of equations.\n\nFirst, solve equation 1 for $ x $:\n$$\n4x + 3y = 10 \\Rightarrow x = \\frac{10 - 3y}{4}\n$$\n\nSubstitute into equation 2:\n$$\n3\\left(\\frac{10 - 3y}{4}\\right) - 5y = 51\n$$\n\nMultiply through by 4 to eliminate the denominator:\n$$\n3(10 - 3y) - 20y = 204\n$$\n\nSimplify:\n$$\n30 - 9y - 20y = 204 \\Rightarrow 30 - 29y = 204\n$$\n\nSolve for $ y $:\n$$\n-29y = 174 \\Rightarrow y = -\\frac{174}{29}\n$$\n\nNow substitute back to find $ x $:\n$$\nx = \\frac{10 - 3y}{4} = \\frac{10 - 3(-\\frac{174}{29})}{4} = \\frac{10 + \\frac{522}{29}}{4} = \\frac{300}{116} = \\frac{75}{29}\n$$",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 29.0"
+   }
+  ]
+ },
+ {
+  "task": "math-086",
+  "condition": "ffn_low",
+  "prompt": "Three talks (knots, maps, stars) are given on Monday, Tuesday and Wednesday, one talk per day. The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. On which day is the stars talk? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <day>' (one word only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Wednesday",
+     "on Wednesday",
+     "Wed"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. Since the maps talk is not on Wednesday, it must be on Tuesday. Therefore, the stars talk must be on the remaining day, which is Monday.  \n\nANSWER: Monday"
+  ],
+  "final": "The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. Since the maps talk is not on Wednesday, it must be on Tuesday. Therefore, the stars talk must be on the remaining day, which is Monday.  \n\nANSWER: Monday",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact_any",
+    "pass": false,
+    "detail": "got 'monday'"
+   }
+  ]
+ },
+ {
+  "task": "math-091",
+  "condition": "rand_ffn_med",
+  "prompt": "Six friends (Gus, Hana, Ilse, Jorn, Kofi, Lida) sit evenly spaced around a round table, so each person has exactly one person directly opposite. Hana sits directly opposite Gus. Ilse sits next to Gus. Jorn sits directly opposite Ilse. Kofi sits in the next seat clockwise from Hana. Who sits in the next seat clockwise from Gus? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Lida"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let's break down the seating step by step.\n\n1. Hana sits directly opposite Gus.  \n2. Ilse sits next to Gus.  \n3. Jorn sits directly opposite Ilse.  \n4. Kofi sits in the next seat clockwise from Hana.  \n5. We need to find who sits in the next seat clockwise from Gus.\n\nFrom step 1: Hana is directly opposite Gus.  \nFrom step 2: Ilse is next to Gus.  \nFrom step 3: Jorn is directly opposite Ilse.  \nFrom step 4: Kofi is in the next seat clockwise from Hana.\n\nLet’s build the seating:\n\n- Hana is opposite Gus.  \n- Ilse is next to Gus.  \n- Jorn is opposite Ilse.  \n- Kofi is next to Hana.  \n- We need to find who is next to Gus.\n\nLet’s place the people in a circle:\n\n- Hana is opposite Gus.  \n- Ilse is next to Gus.  \n- Jorn is opposite Ilse.  \n- Kofi is next to Hana.\n\nFrom this, we can deduce the full seating:\n\n- Gus is opposite Hana.  \n- Ilse is next to Gus.  \n- Jorn is opposite Ilse.  \n- Kofi is next to Hana.  \n- We need to find who is next to Gus.\n\nNow, we can determine who is next to Gus.\n\nFrom the above, we can see that Gus is next to Ilse and Kofi.\n\nSo, the person **next to"
+  ],
+  "final": "Let's break down the seating step by step.\n\n1. Hana sits directly opposite Gus.  \n2. Ilse sits next to Gus.  \n3. Jorn sits directly opposite Ilse.  \n4. Kofi sits in the next seat clockwise from Hana.  \n5. We need to find who sits in the next seat clockwise from Gus.\n\nFrom step 1: Hana is directly opposite Gus.  \nFrom step 2: Ilse is next to Gus.  \nFrom step 3: Jorn is directly opposite Ilse.  \nFrom step 4: Kofi is in the next seat clockwise from Hana.\n\nLet’s build the seating:\n\n- Hana is opposite Gus.  \n- Ilse is next to Gus.  \n- Jorn is opposite Ilse.  \n- Kofi is next to Hana.  \n- We need to find who is next to Gus.\n\nLet’s place the people in a circle:\n\n- Hana is opposite Gus.  \n- Ilse is next to Gus.  \n- Jorn is opposite Ilse.  \n- Kofi is next to Hana.\n\nFrom this, we can deduce the full seating:\n\n- Gus is opposite Hana.  \n- Ilse is next to Gus.  \n- Jorn is opposite Ilse.  \n- Kofi is next to Hana.  \n- We need to find who is next to Gus.\n\nNow, we can determine who is next to Gus.\n\nFrom the above, we can see that Gus is next to Ilse and Kofi.\n\nSo, the person **next to",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'let's break down the seating step by step. 1. hana sits directly opposite gus. 2'"
+   }
+  ]
+ },
+ {
+  "task": "math-064",
+  "condition": "rand_ffn_med",
+  "prompt": "At the Brindle fair a game costs 2 tokens to play. The player rolls one fair six-sided die: a 6 pays 9 tokens, a 4 or a 5 pays 3 tokens, and any other number pays nothing. What is the player's expected net gain in tokens per game (expected payout minus the cost)? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.5,
+    "tol": 0.0051
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To calculate the expected net gain, we need to find the expected value of the game. The player pays 2 tokens to play, so we'll subtract the expected payout from 2.\n\nExpected payout = (Probability of 6 * 9) + (Probability of 4 or 5 * 3) + (Probability of other numbers * 0)\n\n- Probability of 6: 1/6  \n- Probability of 4 or 5: 2/6  \n- Probability of other numbers: 3/6  \n\nExpected payout = (1/6 * 9) + (2/6 * 3) + (3/6 * 0) = 1.5 + 1 + 0 = 2.5\n\nExpected net gain = 2.5 - 2 = 0.5\n\nANSWER: 0.5"
+  ],
+  "final": "To calculate the expected net gain, we need to find the expected value of the game. The player pays 2 tokens to play, so we'll subtract the expected payout from 2.\n\nExpected payout = (Probability of 6 * 9) + (Probability of 4 or 5 * 3) + (Probability of other numbers * 0)\n\n- Probability of 6: 1/6  \n- Probability of 4 or 5: 2/6  \n- Probability of other numbers: 3/6  \n\nExpected payout = (1/6 * 9) + (2/6 * 3) + (3/6 * 0) = 1.5 + 1 + 0 = 2.5\n\nExpected net gain = 2.5 - 2 = 0.5\n\nANSWER: 0.5",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 0.5"
+   }
+  ]
+ },
+ {
+  "task": "math-076",
+  "condition": "attn_med",
+  "prompt": "Five friends (Ada, Bram, Cleo, Dov, Esme) stand in a row for a photo. Ada and Bram must stand next to each other, and Cleo must not stand at either end of the row. How many different orders are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 24
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We are given:\n\n- 5 friends: Ada, Bram, Cleo, Dov, Esme\n- Ada and Bram must stand **next to each other**\n- Cleo must **not** stand at either end\n\n### Step 1: Treat Ada and Bram as a single unit\nSince Ada and Bram must stand next to each other, we can treat them as a single \"block\" or \"unit.\"\n\nThis reduces the problem to arranging 4 units:  \n- [Ada-Bram]  \n- Cleo  \n- Dov  \n- Esme  \n\nSo, we now have 4 units to arrange: [Ada-Bram], Cleo, Dov, Esme\n\n### Step 2: Arrange the 4 units\nThe number of ways to arrange 4 units is:\n\n$$\n4! = 24\n$$\n\nBut we must also consider that **Ada and Bram** can be arranged within their block in **2 ways** (Ada-Bram or Bram-Ada)\n\nSo total arrangements = $ 4! \\times 2 = 24 \\times 2 = 48 $\n\n### Step 3: Subtract invalid arrangements\nNow, we must ensure **Cleo is not at either end**\n\nWe need to count how many of the 48 arrangements have Cleo at either end.\n\nLet’s count the number of arrangements where Cleo is at one of the ends.\n\n#### Case 1: Cleo is at one of the ends\nThere are 2 ends, and Cleo can be at either end.\n\n- Fix Cle"
+  ],
+  "final": "We are given:\n\n- 5 friends: Ada, Bram, Cleo, Dov, Esme\n- Ada and Bram must stand **next to each other**\n- Cleo must **not** stand at either end\n\n### Step 1: Treat Ada and Bram as a single unit\nSince Ada and Bram must stand next to each other, we can treat them as a single \"block\" or \"unit.\"\n\nThis reduces the problem to arranging 4 units:  \n- [Ada-Bram]  \n- Cleo  \n- Dov  \n- Esme  \n\nSo, we now have 4 units to arrange: [Ada-Bram], Cleo, Dov, Esme\n\n### Step 2: Arrange the 4 units\nThe number of ways to arrange 4 units is:\n\n$$\n4! = 24\n$$\n\nBut we must also consider that **Ada and Bram** can be arranged within their block in **2 ways** (Ada-Bram or Bram-Ada)\n\nSo total arrangements = $ 4! \\times 2 = 24 \\times 2 = 48 $\n\n### Step 3: Subtract invalid arrangements\nNow, we must ensure **Cleo is not at either end**\n\nWe need to count how many of the 48 arrangements have Cleo at either end.\n\nLet’s count the number of arrangements where Cleo is at one of the ends.\n\n#### Case 1: Cleo is at one of the ends\nThere are 2 ends, and Cleo can be at either end.\n\n- Fix Cle",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 2.0"
+   }
+  ]
+ },
+ {
+  "task": "math-052",
+  "condition": "baseline",
+  "prompt": "What is the sum of all multiples of 7 that are greater than 50 and less than 150? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 1421
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "First, identify the multiples of 7 between 50 and 150.  \nThe smallest multiple of 7 greater than 50 is 56 (since $ 7 \\times 8 = 56 $).  \nThe largest multiple of 7 less than 150 is 147 (since $ 7 \\times 21 = 147 $).  \n\nNow, find the sum of the arithmetic sequence:  \nFirst term = 56, last term = 147, common difference = 7.  \n\nSum = $\\frac{(56 + 147)}{2} \\times 20$ (number of terms = $ \\frac{147 - 56}{7} + 1 = 20 $)  \n\nSum = $\\frac{203}{2} \\times 20 = 2030$  \n\nANSWER: 2030"
+  ],
+  "final": "First, identify the multiples of 7 between 50 and 150.  \nThe smallest multiple of 7 greater than 50 is 56 (since $ 7 \\times 8 = 56 $).  \nThe largest multiple of 7 less than 150 is 147 (since $ 7 \\times 21 = 147 $).  \n\nNow, find the sum of the arithmetic sequence:  \nFirst term = 56, last term = 147, common difference = 7.  \n\nSum = $\\frac{(56 + 147)}{2} \\times 20$ (number of terms = $ \\frac{147 - 56}{7} + 1 = 20 $)  \n\nSum = $\\frac{203}{2} \\times 20 = 2030$  \n\nANSWER: 2030",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 2030.0"
+   }
+  ]
+ },
+ {
+  "task": "math-042",
+  "condition": "attn_med",
+  "prompt": "The numeral 2103 is written in base 4. What is its value in base 10? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 147
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "2103 in base 4:\n\n- 2 * 4³ = 2 * 64 = 128  \n- 1 * 4² = 1 * 16 = 16  \n- 0 * 4¹ = 0 * 4 = 0  \n- 3 * 4⁰ = 3 * 1 = 3  \n\nTotal: 128 + 16 + 0 + 3 = 147  \n\nANSWER: 147"
+  ],
+  "final": "2103 in base 4:\n\n- 2 * 4³ = 2 * 64 = 128  \n- 1 * 4² = 1 * 16 = 16  \n- 0 * 4¹ = 0 * 4 = 0  \n- 3 * 4⁰ = 3 * 1 = 3  \n\nTotal: 128 + 16 + 0 + 3 = 147  \n\nANSWER: 147",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 147.0"
+   }
+  ]
+ },
+ {
+  "task": "math-005",
+  "condition": "ffn_med",
+  "prompt": "An ox cart travels at 18 km per hour for 2.5 hours, then at 12 km per hour for 1.5 hours. How many km does it travel in total? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 63
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "18 km/h * 2.5 hours = 45 km  \n12 km/h * 1.5 hours = 18 km  \nTotal distance = 45 + 18 = 63 km  \nANSWER: 63"
+  ],
+  "final": "18 km/h * 2.5 hours = 45 km  \n12 km/h * 1.5 hours = 18 km  \nTotal distance = 45 + 18 = 63 km  \nANSWER: 63",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 63.0"
+   }
+  ]
+ },
+ {
+  "task": "math-028",
+  "condition": "ffn_med",
+  "prompt": "Dara is 5 years older than Pim. In 6 years, Dara will be twice as old as Pim was 4 years ago. How old is Pim now? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 19
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let’s denote Pim’s current age as $ x $.  \nDara is 5 years older, so Dara’s age is $ x + 5 $.\n\nIn 6 years, Dara will be twice as old as Pim was 4 years ago.  \nPim was 4 years ago, so that's $ x - 4 $.  \nSo, the equation is:  \n$ x + 5 + 6 = 2(x - 4) $\n\nSimplify:  \n$ x + 11 = 2x - 8 $\n\nSolve for $ x $:  \n$ x + 11 = 2x - 8 $  \n$ x = 3 $\n\nANSWER: 3"
+  ],
+  "final": "Let’s denote Pim’s current age as $ x $.  \nDara is 5 years older, so Dara’s age is $ x + 5 $.\n\nIn 6 years, Dara will be twice as old as Pim was 4 years ago.  \nPim was 4 years ago, so that's $ x - 4 $.  \nSo, the equation is:  \n$ x + 5 + 6 = 2(x - 4) $\n\nSimplify:  \n$ x + 11 = 2x - 8 $\n\nSolve for $ x $:  \n$ x + 11 = 2x - 8 $  \n$ x = 3 $\n\nANSWER: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 3.0"
+   }
+  ]
+ },
+ {
+  "task": "math-077",
+  "condition": "ffn_up_low",
+  "prompt": "A studio has 5 engineers and 4 designers. A team of 4 people must include at least one engineer and at least one designer. The engineer Rovan and the designer Ilsa refuse to be on the same team. How many different teams are possible? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 99
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let's solve the problem step by step.\n\nWe are given:\n\n- Total engineers: 5\n- Total designers: 4\n- Total people: 5 + 4 = 9\n- Team size: 4 people\n- Team must include at least 1 engineer and at least 1 designer\n- Rovan (engineer) and Ilsa (designer) cannot be on the same team\n\nWe need to find the number of different teams possible under these constraints.\n\n---\n\n**Step 1: Total number of teams with at least 1 engineer and 1 designer**\n\nWe need to count all possible 4-person teams that include at least 1 engineer and at least 1 designer.\n\nTotal number of 4-person teams from 9 people = $\\binom{9}{4}$\n\nBut we need to exclude teams that have only engineers or only designers.\n\nLet’s compute the total number of 4-person teams that include at least 1 engineer and 1 designer.\n\n---\n\n**Step 2: Total number of 4-person teams from 9 people**\n\n$$\n\\binom{9}{4} = 126\n$$\n\n---\n\n**Step 3: Subtract invalid teams**\n\nInvalid teams are those that have **only** engineers or **only** designers.\n\n- Number of 4-person teams with **only engineers** (from 5 engineers): $\\binom{5}{4} = 5$\n- Number of 4-person teams with **only designers** (from 4 designers): $\\binom{4}{4}"
+  ],
+  "final": "Let's solve the problem step by step.\n\nWe are given:\n\n- Total engineers: 5\n- Total designers: 4\n- Total people: 5 + 4 = 9\n- Team size: 4 people\n- Team must include at least 1 engineer and at least 1 designer\n- Rovan (engineer) and Ilsa (designer) cannot be on the same team\n\nWe need to find the number of different teams possible under these constraints.\n\n---\n\n**Step 1: Total number of teams with at least 1 engineer and 1 designer**\n\nWe need to count all possible 4-person teams that include at least 1 engineer and at least 1 designer.\n\nTotal number of 4-person teams from 9 people = $\\binom{9}{4}$\n\nBut we need to exclude teams that have only engineers or only designers.\n\nLet’s compute the total number of 4-person teams that include at least 1 engineer and 1 designer.\n\n---\n\n**Step 2: Total number of 4-person teams from 9 people**\n\n$$\n\\binom{9}{4} = 126\n$$\n\n---\n\n**Step 3: Subtract invalid teams**\n\nInvalid teams are those that have **only** engineers or **only** designers.\n\n- Number of 4-person teams with **only engineers** (from 5 engineers): $\\binom{5}{4} = 5$\n- Number of 4-person teams with **only designers** (from 4 designers): $\\binom{4}{4}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 4.0"
+   }
+  ]
+ },
+ {
+  "task": "math-069",
+  "condition": "attn_low",
+  "prompt": "Pouch P holds 1 gold token and 2 iron tokens. Pouch Q holds 3 gold tokens and 1 iron token. A fair coin is tossed to choose one of the two pouches, then one token is drawn at random from the chosen pouch. What is the probability that the token is gold? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.54,
+    "tol": 0.0051
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. Pouch P has 1 gold token and 2 iron tokens.  \n2. Pouch Q has 3 gold tokens and 1 iron token.  \n3. Probability of choosing P: 1/2.  \n4. Probability of choosing Q: 1/2.  \n5. Probability of drawing gold from P: 1/3.  \n6. Probability of drawing gold from Q: 3/4.  \n7. Total probability: (1/2)(1/3) + (1/2)(3/4) = 1/6 + 3/8 = 4/24 + 9/24 = 13/24 ≈ 0.54.  \n\nANSWER: 0.54"
+  ],
+  "final": "1. Pouch P has 1 gold token and 2 iron tokens.  \n2. Pouch Q has 3 gold tokens and 1 iron token.  \n3. Probability of choosing P: 1/2.  \n4. Probability of choosing Q: 1/2.  \n5. Probability of drawing gold from P: 1/3.  \n6. Probability of drawing gold from Q: 3/4.  \n7. Total probability: (1/2)(1/3) + (1/2)(3/4) = 1/6 + 3/8 = 4/24 + 9/24 = 13/24 ≈ 0.54.  \n\nANSWER: 0.54",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 0.54"
+   }
+  ]
+ },
+ {
+  "task": "math-013",
+  "condition": "ffn_med",
+  "prompt": "Six crates on a dock have a mean weight of 42 kg. One crate is loaded onto a boat, and the mean weight of the five crates still on the dock is 40 kg. How many kg does the loaded crate weigh? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 52
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let’s denote the weight of the loaded crate as $ x $.\n\nThe original total weight of the six crates is $ 6 \\times 42 = 252 $ kg.\n\nAfter removing one crate, the total weight of the five crates is $ 5 \\times 40 = 200 $ kg.\n\nThe difference between the original total and the new total is:\n\n$ 252 - 200 = 52 $ kg.\n\nSo the loaded crate weighs $ 52 $ kg.\n\nANSWER: 52"
+  ],
+  "final": "Let’s denote the weight of the loaded crate as $ x $.\n\nThe original total weight of the six crates is $ 6 \\times 42 = 252 $ kg.\n\nAfter removing one crate, the total weight of the five crates is $ 5 \\times 40 = 200 $ kg.\n\nThe difference between the original total and the new total is:\n\n$ 252 - 200 = 52 $ kg.\n\nSo the loaded crate weighs $ 52 $ kg.\n\nANSWER: 52",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 52.0"
+   }
+  ]
+ },
+ {
+  "task": "math-040",
+  "condition": "ffn_up_low",
+  "prompt": "A function is defined by f(x) = 2x + 3. For which value of x is f(f(x)) equal to f(x) + 30? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We are given $ f(x) = 2x + 3 $ and need to find $ x $ such that $ f(f(x)) = f(x) + 30 $.\n\nFirst, compute $ f(f(x)) $:\n\n$$\nf(f(x)) = f(2x + 3) = 2(2x + 3) + 3 = 4x + 6 + 3 = 4x + 9\n$$\n\nNow, compute $ f(x) + 30 $:\n\n$$\nf(x) + 30 = (2x + 3) + 30 = 2x + 33\n$$\n\nSet the two expressions equal:\n\n$$\n4x + 9 = 2x + 33\n$$\n\nSolve for $ x $:\n\n$$\n4x - 2x = 33 - 9 \\\\\n2x = 24 \\\\\nx = 12\n$$\n\nFinal answer:\n\n$$\n\\boxed{12}\n$$"
+  ],
+  "final": "We are given $ f(x) = 2x + 3 $ and need to find $ x $ such that $ f(f(x)) = f(x) + 30 $.\n\nFirst, compute $ f(f(x)) $:\n\n$$\nf(f(x)) = f(2x + 3) = 2(2x + 3) + 3 = 4x + 6 + 3 = 4x + 9\n$$\n\nNow, compute $ f(x) + 30 $:\n\n$$\nf(x) + 30 = (2x + 3) + 30 = 2x + 33\n$$\n\nSet the two expressions equal:\n\n$$\n4x + 9 = 2x + 33\n$$\n\nSolve for $ x $:\n\n$$\n4x - 2x = 33 - 9 \\\\\n2x = 24 \\\\\nx = 12\n$$\n\nFinal answer:\n\n$$\n\\boxed{12}\n$$",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 12.0"
+   }
+  ]
+ },
+ {
+  "task": "math-014",
+  "condition": "baseline",
+  "prompt": "A farm harvests 45 sacks of barley a day for 5 days. On the last day 9 of the sacks are found to be rotten and are thrown away. A wagon carries at most 28 sacks per trip. What is the smallest number of wagon trips needed to move all the good sacks? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. Total sacks harvested: $45 \\text{ sacks/day} \\times 5 \\text{ days} = 225 \\text{ sacks}$  \n2. Rotten sacks: 9  \n3. Good sacks to move: $225 - 9 = 216 \\text{ sacks}$  \n4. Wagon can carry at most 28 sacks per trip  \n5. Number of trips needed: $\\lceil \\frac{216}{28} \\rceil = \\lceil 7.714 \\rceil = 8$  \n\nANSWER: 8"
+  ],
+  "final": "1. Total sacks harvested: $45 \\text{ sacks/day} \\times 5 \\text{ days} = 225 \\text{ sacks}$  \n2. Rotten sacks: 9  \n3. Good sacks to move: $225 - 9 = 216 \\text{ sacks}$  \n4. Wagon can carry at most 28 sacks per trip  \n5. Number of trips needed: $\\lceil \\frac{216}{28} \\rceil = \\lceil 7.714 \\rceil = 8$  \n\nANSWER: 8",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 8.0"
+   }
+  ]
+ },
+ {
+  "task": "math-003",
+  "condition": "rand_ffn_med",
+  "prompt": "A lantern is priced at 260 tin coins. The seller takes 15% off the price and then adds a delivery fee of 9 tin coins. How many tin coins does the buyer pay in total? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 230
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "15% of 260 is 39.  \n260 - 39 = 221.  \n221 + 9 = 230.  \n\nANSWER: 230"
+  ],
+  "final": "15% of 260 is 39.  \n260 - 39 = 221.  \n221 + 9 = 230.  \n\nANSWER: 230",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 230.0"
+   }
+  ]
+ },
+ {
+  "task": "math-040",
+  "condition": "attn_med",
+  "prompt": "A function is defined by f(x) = 2x + 3. For which value of x is f(f(x)) equal to f(x) + 30? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 12
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We are given $ f(x) = 2x + 3 $ and need to find $ x $ such that $ f(f(x)) = f(x) + 30 $.\n\nFirst, compute $ f(f(x)) $:\n$$\nf(f(x)) = f(2x + 3) = 2(2x + 3) + 3 = 4x + 6 + 3 = 4x + 9\n$$\n\nNow set up the equation:\n$$\nf(f(x)) = f(x) + 30\n$$\n$$\n4x + 9 = (2x + 3) + 30\n$$\n$$\n4x + 9 = 2x + 33\n$$\n$$\n4x - 2x = 33 - 9\n$$\n$$\n2x = 24\n$$\n$$\nx = 12\n$$\n\nANSWER: 12"
+  ],
+  "final": "We are given $ f(x) = 2x + 3 $ and need to find $ x $ such that $ f(f(x)) = f(x) + 30 $.\n\nFirst, compute $ f(f(x)) $:\n$$\nf(f(x)) = f(2x + 3) = 2(2x + 3) + 3 = 4x + 6 + 3 = 4x + 9\n$$\n\nNow set up the equation:\n$$\nf(f(x)) = f(x) + 30\n$$\n$$\n4x + 9 = (2x + 3) + 30\n$$\n$$\n4x + 9 = 2x + 33\n$$\n$$\n4x - 2x = 33 - 9\n$$\n$$\n2x = 24\n$$\n$$\nx = 12\n$$\n\nANSWER: 12",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 12.0"
+   }
+  ]
+ },
+ {
+  "task": "math-088",
+  "condition": "attn_med",
+  "prompt": "Five people (Hugo, Iris, Jett, Kara, Lorn) stand in a single queue; position 1 is the front. Iris is somewhere ahead of Jett. Kara is directly behind Hugo. Lorn is neither first nor last. Jett is not last. Jett is not directly behind Iris. Who is in position 3? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Jett"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let's analyze the clues step by step.\n\n1. Iris is somewhere ahead of Jett.\n2. Kara is directly behind Hugo.\n3. Lorn is neither first nor last.\n4. Jett is not last.\n5. Jett is not directly behind Iris.\n\nWe know there are 5 people in a queue, so positions 1 to 5.\n\nFrom clue 3: Lorn is not first or last → Lorn is in position 2, 3, or 4.\n\nFrom clue 4: Jett is not last → Jett is in positions 1–4.\n\nFrom clue 5: Jett is not directly behind Iris → Jett ≠ Iris + 1.\n\nFrom clue 1: Iris is ahead of Jett.\n\nLet’s try possible positions for Iris and Jett.\n\nTry Iris in position 1:  \n- Then Jett must be in 2–4 (since Iris is ahead).  \n- But Jett cannot be in position 2 (if Iris is in 1, Jett can be in 2, 3, or 4).  \n- Also, Jett cannot be directly behind Iris (so Jett ≠ Iris + 1).  \n- So if Iris is in 1, Jett can be in 3 or 4.\n\nTry Iris in 2:  \n- Jett must be in 3 or 4 (since Iris is ahead).  \n- Jett cannot be in 2 (since Iris is in 2, Jett can't be in 3 if Iris is"
+  ],
+  "final": "Let's analyze the clues step by step.\n\n1. Iris is somewhere ahead of Jett.\n2. Kara is directly behind Hugo.\n3. Lorn is neither first nor last.\n4. Jett is not last.\n5. Jett is not directly behind Iris.\n\nWe know there are 5 people in a queue, so positions 1 to 5.\n\nFrom clue 3: Lorn is not first or last → Lorn is in position 2, 3, or 4.\n\nFrom clue 4: Jett is not last → Jett is in positions 1–4.\n\nFrom clue 5: Jett is not directly behind Iris → Jett ≠ Iris + 1.\n\nFrom clue 1: Iris is ahead of Jett.\n\nLet’s try possible positions for Iris and Jett.\n\nTry Iris in position 1:  \n- Then Jett must be in 2–4 (since Iris is ahead).  \n- But Jett cannot be in position 2 (if Iris is in 1, Jett can be in 2, 3, or 4).  \n- Also, Jett cannot be directly behind Iris (so Jett ≠ Iris + 1).  \n- So if Iris is in 1, Jett can be in 3 or 4.\n\nTry Iris in 2:  \n- Jett must be in 3 or 4 (since Iris is ahead).  \n- Jett cannot be in 2 (since Iris is in 2, Jett can't be in 3 if Iris is",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'let's analyze the clues step by step. 1. iris is somewhere ahead of jett. 2. kar'"
+   }
+  ]
+ },
+ {
+  "task": "math-014",
+  "condition": "rand_attn_med",
+  "prompt": "A farm harvests 45 sacks of barley a day for 5 days. On the last day 9 of the sacks are found to be rotten and are thrown away. A wagon carries at most 28 sacks per trip. What is the smallest number of wagon trips needed to move all the good sacks? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 8
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let's break this down step by step.\n\n1. **Total sacks harvested**:  \n   $ 45 \\text{ sacks/day} \\times 5 \\text{ days} = 225 \\text{ sacks} $\n\n2. **Rotten sacks**:  \n   $ 9 \\text{ sacks are rotten and thrown away} $\n\n3. **Good sacks**:  \n   $ 225 - 9 = 216 \\text{ good sacks} $\n\n4. **Wagon capacity**:  \n   $ 28 \\text{ sacks per trip} $\n\n5. **Number of trips needed**:  \n   $ \\lceil \\frac{216}{28} \\rceil = \\lceil 7.714 \\rceil = 8 $\n\n**Final answer**:  \nANSWER: 8"
+  ],
+  "final": "Let's break this down step by step.\n\n1. **Total sacks harvested**:  \n   $ 45 \\text{ sacks/day} \\times 5 \\text{ days} = 225 \\text{ sacks} $\n\n2. **Rotten sacks**:  \n   $ 9 \\text{ sacks are rotten and thrown away} $\n\n3. **Good sacks**:  \n   $ 225 - 9 = 216 \\text{ good sacks} $\n\n4. **Wagon capacity**:  \n   $ 28 \\text{ sacks per trip} $\n\n5. **Number of trips needed**:  \n   $ \\lceil \\frac{216}{28} \\rceil = \\lceil 7.714 \\rceil = 8 $\n\n**Final answer**:  \nANSWER: 8",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 8.0"
+   }
+  ]
+ },
+ {
+  "task": "math-086",
+  "condition": "rand_attn_med",
+  "prompt": "Three talks (knots, maps, stars) are given on Monday, Tuesday and Wednesday, one talk per day. The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. On which day is the stars talk? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <day>' (one word only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Wednesday",
+     "on Wednesday",
+     "Wed"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. Since the maps talk is on an earlier day than the stars talk, and the knots talk is on an earlier day than the maps talk, the stars talk must be on a day after the maps talk. Since the maps talk is not on Wednesday, the stars talk must be on Tuesday or Wednesday. But the stars talk is after the maps talk, so it must be on Wednesday. Therefore, the stars talk is on Wednesday. \n\nANSWER: WEDNESDAY"
+  ],
+  "final": "The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. Since the maps talk is on an earlier day than the stars talk, and the knots talk is on an earlier day than the maps talk, the stars talk must be on a day after the maps talk. Since the maps talk is not on Wednesday, the stars talk must be on Tuesday or Wednesday. But the stars talk is after the maps talk, so it must be on Wednesday. Therefore, the stars talk is on Wednesday. \n\nANSWER: WEDNESDAY",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'wednesday'"
+   }
+  ]
+ },
+ {
+  "task": "math-054",
+  "condition": "ffn_low",
+  "prompt": "In a sequence, each term after the first equals twice the previous term minus 3. The fifth term is 35. What is the first term? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 5
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Term 1: x  \nTerm 2: 2x - 3  \nTerm 3: 2(2x - 3) - 3 = 4x - 6  \nTerm 4: 2(4x - 6) - 3 = 8x - 12  \nTerm 5: 2(8x - 12) - 3 = 16x - 21  \n\nGiven that term 5 is 35:  \n16x - 21 = 35  \n16x = 56  \nx = 3.5  \n\nANSWER: 3.5"
+  ],
+  "final": "Term 1: x  \nTerm 2: 2x - 3  \nTerm 3: 2(2x - 3) - 3 = 4x - 6  \nTerm 4: 2(4x - 6) - 3 = 8x - 12  \nTerm 5: 2(8x - 12) - 3 = 16x - 21  \n\nGiven that term 5 is 35:  \n16x - 21 = 35  \n16x = 56  \nx = 3.5  \n\nANSWER: 3.5",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 3.5"
+   }
+  ]
+ },
+ {
+  "task": "math-055",
+  "condition": "ffn_up_low",
+  "prompt": "What is the smallest positive whole number that has exactly 10 positive divisors? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 48
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. A number with exactly 10 divisors must have a prime factorization of the form $ p^9 $ or $ p^4 \\cdot q $, where $ p $ and $ q $ are distinct primes.\n2. The smallest such number is $ 2^4 \\cdot 3 = 16 \\cdot 3 = 48 $.\n3. However, we need to find the smallest number with exactly 10 divisors, not the smallest number with 10 divisors.\n4. The smallest number with exactly 10 divisors is 48.\n\nANSWER: 48"
+  ],
+  "final": "1. A number with exactly 10 divisors must have a prime factorization of the form $ p^9 $ or $ p^4 \\cdot q $, where $ p $ and $ q $ are distinct primes.\n2. The smallest such number is $ 2^4 \\cdot 3 = 16 \\cdot 3 = 48 $.\n3. However, we need to find the smallest number with exactly 10 divisors, not the smallest number with 10 divisors.\n4. The smallest number with exactly 10 divisors is 48.\n\nANSWER: 48",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 48.0"
+   }
+  ]
+ },
+ {
+  "task": "math-038",
+  "condition": "attn_low",
+  "prompt": "A rectangular garden is 7 metres longer than it is wide, and its area is 198 square metres. What is the perimeter of the garden in metres? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 58
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let the width of the garden be $ w $ metres.  \nThen the length is $ w + 7 $ metres.  \nThe area of the garden is given by:  \n$$\nw(w + 7) = 198\n$$  \n$$\nw^2 + 7w - 198 = 0\n$$  \nSolve this quadratic equation:  \n$$\nw = \\frac{-7 \\pm \\sqrt{49 + 792}}{2} = \\frac{-7 \\pm \\sqrt{841}}{2} = \\frac{-7 \\pm 29}{2}\n$$  \n$$\nw = \\frac{22}{2} = 11 \\quad \\text{(discard negative solution)}\n$$  \nSo the width is 11 metres, and the length is $ 11 + 7 = 18 $ metres.  \nThe perimeter is:  \n$$\n2(11 + 18) = 2 \\times 29 = 58\n$$  \nANSWER: 58"
+  ],
+  "final": "Let the width of the garden be $ w $ metres.  \nThen the length is $ w + 7 $ metres.  \nThe area of the garden is given by:  \n$$\nw(w + 7) = 198\n$$  \n$$\nw^2 + 7w - 198 = 0\n$$  \nSolve this quadratic equation:  \n$$\nw = \\frac{-7 \\pm \\sqrt{49 + 792}}{2} = \\frac{-7 \\pm \\sqrt{841}}{2} = \\frac{-7 \\pm 29}{2}\n$$  \n$$\nw = \\frac{22}{2} = 11 \\quad \\text{(discard negative solution)}\n$$  \nSo the width is 11 metres, and the length is $ 11 + 7 = 18 $ metres.  \nThe perimeter is:  \n$$\n2(11 + 18) = 2 \\times 29 = 58\n$$  \nANSWER: 58",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 58.0"
+   }
+  ]
+ },
+ {
+  "task": "math-041",
+  "condition": "attn_low",
+  "prompt": "Two harbour lamps are switched on together at time 0 and both flash at that instant. The red lamp then flashes every 12 seconds and the green lamp every 18 seconds. Counting the flash at time 0, how many times do they flash at the same instant during the first 300 seconds (from second 0 to second 300 inclusive)? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We need to find how many times the red and green lamps flash at the same time between 0 and 300 seconds.\n\nThe red lamp flashes every 12 seconds:  \nThe green lamp flashes every 18 seconds:  \nThe lamps flash together at time 0.\n\nWe need to find the number of times they flash together in the interval [0, 300].\n\nThis is equivalent to finding the number of common multiples of 12 and 18 in the interval [0, 300].\n\nThe least common multiple (LCM) of 12 and 18 is:  \n$$\n\\text{LCM}(12, 18) = 36\n$$\n\nNow, find how many multiples of 36 are in [0, 300]:\n\n$$\n\\left\\lfloor \\frac{300}{36} \\right\\rfloor = 8\n$$\n\nSo, the lamps flash together 8 times in the interval [0, 300].\n\nANSWER: 8"
+  ],
+  "final": "We need to find how many times the red and green lamps flash at the same time between 0 and 300 seconds.\n\nThe red lamp flashes every 12 seconds:  \nThe green lamp flashes every 18 seconds:  \nThe lamps flash together at time 0.\n\nWe need to find the number of times they flash together in the interval [0, 300].\n\nThis is equivalent to finding the number of common multiples of 12 and 18 in the interval [0, 300].\n\nThe least common multiple (LCM) of 12 and 18 is:  \n$$\n\\text{LCM}(12, 18) = 36\n$$\n\nNow, find how many multiples of 36 are in [0, 300]:\n\n$$\n\\left\\lfloor \\frac{300}{36} \\right\\rfloor = 8\n$$\n\nSo, the lamps flash together 8 times in the interval [0, 300].\n\nANSWER: 8",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 8.0"
+   }
+  ]
+ },
+ {
+  "task": "math-043",
+  "condition": "attn_low",
+  "prompt": "In an arithmetic sequence the 7th term is 31 and the 12th term is 51. What is the 20th term? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 83
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let the first term be $ a $ and the common difference be $ d $.  \nWe are given:  \n- 7th term: $ a + 6d = 31 $  \n- 12th term: $ a + 11d = 51 $\n\nSubtract the first equation from the second:  \n$ (a + 11d) - (a + 6d) = 51 - 31 $  \n$ 5d = 20 $  \n$ d = 4 $\n\nSubstitute $ d = 4 $ into $ a + 6d = 31 $:  \n$ a + 24 = 31 $  \n$ a = 7 $\n\nNow find the 20th term:  \n$ a + 19d = 7 + 19 \\cdot 4 = 7 + 76 = 83 $\n\nANSWER: 83"
+  ],
+  "final": "Let the first term be $ a $ and the common difference be $ d $.  \nWe are given:  \n- 7th term: $ a + 6d = 31 $  \n- 12th term: $ a + 11d = 51 $\n\nSubtract the first equation from the second:  \n$ (a + 11d) - (a + 6d) = 51 - 31 $  \n$ 5d = 20 $  \n$ d = 4 $\n\nSubstitute $ d = 4 $ into $ a + 6d = 31 $:  \n$ a + 24 = 31 $  \n$ a = 7 $\n\nNow find the 20th term:  \n$ a + 19d = 7 + 19 \\cdot 4 = 7 + 76 = 83 $\n\nANSWER: 83",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 83.0"
+   }
+  ]
+ },
+ {
+  "task": "math-045",
+  "condition": "ffn_med",
+  "prompt": "A whole number n leaves a remainder of 7 when it is divided by 9. What is the remainder when 5n + 4 is divided by 9? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 3
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "1. n ≡ 7 mod 9  \n2. 5n + 4 �equiv 5*7 + 4 mod 9  \n3. 5*7 = 35, 35 + 4 = 39  \n4. 39 mod 9 = 3  \n5. Answer: 3"
+  ],
+  "final": "1. n ≡ 7 mod 9  \n2. 5n + 4 �equiv 5*7 + 4 mod 9  \n3. 5*7 = 35, 35 + 4 = 39  \n4. 39 mod 9 = 3  \n5. Answer: 3",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 3.0"
+   }
+  ]
+ },
+ {
+  "task": "math-096",
+  "condition": "attn_low",
+  "prompt": "Rhea, Sven, Tova and Ugo are four siblings with different ages. Rhea is older than Sven. If Ugo is older than Rhea, then Tova is the oldest of the four. If Ugo is younger than Rhea, then Sven is the oldest of the four. Who is the second oldest? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Ugo"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "If Ugo is older than Rhea, then Tova is the oldest.  \nIf Ugo is younger than Rhea, then Sven is the oldest.  \nSince Rhea is older than Sven, and Ugo is not the oldest, Ugo must be younger than Rhea.  \nTherefore, Sven is the oldest.  \nThe second oldest must be Tova.  \n\nANSWER: Tova"
+  ],
+  "final": "If Ugo is older than Rhea, then Tova is the oldest.  \nIf Ugo is younger than Rhea, then Sven is the oldest.  \nSince Rhea is older than Sven, and Ugo is not the oldest, Ugo must be younger than Rhea.  \nTherefore, Sven is the oldest.  \nThe second oldest must be Tova.  \n\nANSWER: Tova",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'tova'"
+   }
+  ]
+ },
+ {
+  "task": "math-028",
+  "condition": "attn_med",
+  "prompt": "Dara is 5 years older than Pim. In 6 years, Dara will be twice as old as Pim was 4 years ago. How old is Pim now? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 19
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let D = Dara's current age  \nLet P = Pim's current age  \n\nWe are given:  \n1. Dara is 5 years older than Pim:  \n   D = P + 5  \n\n2. In 6 years, Dara will be twice as old as Pim was 4 years ago:  \n   D + 6 = 2 × (P - 4)  \n\nSubstitute D from equation 1 into equation 2:  \nP + 5 + 6 = 2 × (P - 4)  \nP + 11 = 2P - 8  \n11 + 8 = P  \nP = 19  \n\nANSWER: 19"
+  ],
+  "final": "Let D = Dara's current age  \nLet P = Pim's current age  \n\nWe are given:  \n1. Dara is 5 years older than Pim:  \n   D = P + 5  \n\n2. In 6 years, Dara will be twice as old as Pim was 4 years ago:  \n   D + 6 = 2 × (P - 4)  \n\nSubstitute D from equation 1 into equation 2:  \nP + 5 + 6 = 2 × (P - 4)  \nP + 11 = 2P - 8  \n11 + 8 = P  \nP = 19  \n\nANSWER: 19",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 19.0"
+   }
+  ]
+ },
+ {
+  "task": "math-059",
+  "condition": "ffn_med",
+  "prompt": "For every positive whole number n, the sum of the first n terms of a sequence is 3n^2 + 2n. What is the 10th term of the sequence? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 59
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The sum of the first n terms is $ 3n^2 + 2n $.  \nTo find the 10th term, substitute $ n = 10 $:  \n$ 3(10)^2 + 2(10) = 300 + 20 = 320 $.  \nANSWER: 320"
+  ],
+  "final": "The sum of the first n terms is $ 3n^2 + 2n $.  \nTo find the 10th term, substitute $ n = 10 $:  \n$ 3(10)^2 + 2(10) = 300 + 20 = 320 $.  \nANSWER: 320",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 320.0"
+   }
+  ]
+ },
+ {
+  "task": "math-071",
+  "condition": "ffn_up_low",
+  "prompt": "Twelve cards are numbered 1 to 12. Two cards are drawn at random without replacement. What is the probability that the sum of the two numbers is odd? Give the answer as a decimal rounded to 2 decimal places. Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <decimal>' (for example 'ANSWER: 0.25'; no fractions, no percent sign, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 0.55,
+    "tol": 0.0051
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We need to find the probability that the sum of two randomly drawn cards (without replacement) is odd.\n\nThere are two cases for the sum to be odd:\n1. One card is even, and the other is odd.\n\nTotal cards: 12 (numbers 1-12)\nEven numbers: 2, 4, 6, 8, 10, 12 → 6 even numbers\nOdd numbers: 1, 3, 5, 7, 9, 11 → 6 odd numbers\n\nTotal possible outcomes: $ \\binom{12}{2} = 66 $\n\nNumber of favorable outcomes: $ \\binom{6}{1} \\times \\binom{6}{1} = 6 \\times 6 = 36 $\n\nProbability: $ \\frac{36}{66} \\approx 0.5454 $\n\nANSWER: 0.54"
+  ],
+  "final": "We need to find the probability that the sum of two randomly drawn cards (without replacement) is odd.\n\nThere are two cases for the sum to be odd:\n1. One card is even, and the other is odd.\n\nTotal cards: 12 (numbers 1-12)\nEven numbers: 2, 4, 6, 8, 10, 12 → 6 even numbers\nOdd numbers: 1, 3, 5, 7, 9, 11 → 6 odd numbers\n\nTotal possible outcomes: $ \\binom{12}{2} = 66 $\n\nNumber of favorable outcomes: $ \\binom{6}{1} \\times \\binom{6}{1} = 6 \\times 6 = 36 $\n\nProbability: $ \\frac{36}{66} \\approx 0.5454 $\n\nANSWER: 0.54",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 0.54"
+   }
+  ]
+ },
+ {
+  "task": "math-086",
+  "condition": "baseline",
+  "prompt": "Three talks (knots, maps, stars) are given on Monday, Tuesday and Wednesday, one talk per day. The knots talk is on an earlier day than the maps talk. The maps talk is not on Wednesday. On which day is the stars talk? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <day>' (one word only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "Wednesday",
+     "on Wednesday",
+     "Wed"
+    ]
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "The knots talk is on an earlier day than the maps talk.  \nThe maps talk is not on Wednesday.  \nSince the maps talk is not on Wednesday, it must be on Tuesday or Monday.  \nIf the maps talk is on Tuesday, then the knots talk must be on Monday.  \nIf the maps talk is on Monday, then the knots talk must be on Sunday (but that's not possible).  \nSo the maps talk is on Tuesday, and the knots talk is on Monday.  \nTherefore, the stars talk is on Wednesday.  \n\nANSWER: WEDNESDAY"
+  ],
+  "final": "The knots talk is on an earlier day than the maps talk.  \nThe maps talk is not on Wednesday.  \nSince the maps talk is not on Wednesday, it must be on Tuesday or Monday.  \nIf the maps talk is on Tuesday, then the knots talk must be on Monday.  \nIf the maps talk is on Monday, then the knots talk must be on Sunday (but that's not possible).  \nSo the maps talk is on Tuesday, and the knots talk is on Monday.  \nTherefore, the stars talk is on Wednesday.  \n\nANSWER: WEDNESDAY",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "exact_any",
+    "pass": true,
+    "detail": "got 'wednesday'"
+   }
+  ]
+ },
+ {
+  "task": "math-023",
+  "condition": "ffn_up_low",
+  "prompt": "Three consecutive odd integers add up to 147. What is the largest of the three? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 51
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Let the three consecutive odd integers be $ x-2 $, $ x $, and $ x+2 $.\n\nTheir sum is:\n\n$$\n(x-2) + x + (x+2) = 147\n$$\n\nSimplify:\n\n$$\n3x = 147\n$$\n\nSolve for $ x $:\n\n$$\nx = 49\n$$\n\nThe largest of the three integers is:\n\n$$\nx+2 = 51\n$$\n\nANSWER: 51"
+  ],
+  "final": "Let the three consecutive odd integers be $ x-2 $, $ x $, and $ x+2 $.\n\nTheir sum is:\n\n$$\n(x-2) + x + (x+2) = 147\n$$\n\nSimplify:\n\n$$\n3x = 147\n$$\n\nSolve for $ x $:\n\n$$\nx = 49\n$$\n\nThe largest of the three integers is:\n\n$$\nx+2 = 51\n$$\n\nANSWER: 51",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 51.0"
+   }
+  ]
+ },
+ {
+  "task": "math-057",
+  "condition": "ffn_up_low",
+  "prompt": "Two positive whole numbers have greatest common divisor 12 and least common multiple 180. Neither number is a multiple of the other. What is the sum of the two numbers? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 96
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We are given two positive whole numbers with GCD 12 and LCM 180.  \nWe need to find the sum of the two numbers.  \n\nLet the numbers be $ a $ and $ b $.  \nWe know:  \n$$\n\\text{GCD}(a, b) = 12 \\quad \\text{and} \\quad \\text{LCM}(a, b) = 180\n$$  \nAlso, the product of the GCD and LCM of two numbers is equal to the product of the numbers:  \n$$\nab = \\text{GCD}(a, b) \\times \\text{LCM}(a, b)\n$$  \nSo:  \n$$\nab = 12 \\times 180 = 2160\n$$  \nWe are also told that neither number is a multiple of the other.  \nSo, the two numbers are:  \n$$\na = 12, \\quad b = 180 \\quad \\text{(but 12 and 180 are not coprime)}\n$$  \nWe need to find two numbers with GCD 12 and LCM 180, neither is a multiple of the other.  \nLet’s find such numbers.  \n\nLet’s try $ a = 12 $, $ b = 180 $:  \n- GCD(12, 180) = 12  \n- LCM(12, 180) = 1"
+  ],
+  "final": "We are given two positive whole numbers with GCD 12 and LCM 180.  \nWe need to find the sum of the two numbers.  \n\nLet the numbers be $ a $ and $ b $.  \nWe know:  \n$$\n\\text{GCD}(a, b) = 12 \\quad \\text{and} \\quad \\text{LCM}(a, b) = 180\n$$  \nAlso, the product of the GCD and LCM of two numbers is equal to the product of the numbers:  \n$$\nab = \\text{GCD}(a, b) \\times \\text{LCM}(a, b)\n$$  \nSo:  \n$$\nab = 12 \\times 180 = 2160\n$$  \nWe are also told that neither number is a multiple of the other.  \nSo, the two numbers are:  \n$$\na = 12, \\quad b = 180 \\quad \\text{(but 12 and 180 are not coprime)}\n$$  \nWe need to find two numbers with GCD 12 and LCM 180, neither is a multiple of the other.  \nLet’s find such numbers.  \n\nLet’s try $ a = 12 $, $ b = 180 $:  \n- GCD(12, 180) = 12  \n- LCM(12, 180) = 1",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 1.0"
+   }
+  ]
+ },
+ {
+  "task": "math-097",
+  "condition": "ffn_low",
+  "prompt": "Nico, Odile and Pavel finished a race in places 1, 2 and 3 with no ties. Each made two statements; for each person exactly one statement is true and the other is false. Nico: 'I was first. Odile was second.' Odile: 'I was second. Pavel was third.' Pavel: 'I was second. Nico was third.' Who finished first? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Pavel"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "Nico said \"I was first. Odile was second.\" — only one true statement. So either he was first (true) and Odile was second (false), or he was not first (false) and Odile was second (true).\n\nOdile said \"I was second. Pavel was third.\" — only one true statement. So either she was second (true) and Pavel was third (false), or she was not second (false) and Pavel was third (true).\n\nPavel said \"I was second. Nico was third.\" — only one true statement. So either he was second (true) and Nico was third (false), or he was not second (false) and Nico was third (true).\n\nNow test possibilities:\n\nIf Nico was first (true), then Odile was second (false). Then Pavel was third (true). So Odile's statement is false (she was not second), and Pavel's statement is true (he was second). That fits.\n\nSo Nico was first.  \nANSWER: Nico"
+  ],
+  "final": "Nico said \"I was first. Odile was second.\" — only one true statement. So either he was first (true) and Odile was second (false), or he was not first (false) and Odile was second (true).\n\nOdile said \"I was second. Pavel was third.\" — only one true statement. So either she was second (true) and Pavel was third (false), or she was not second (false) and Pavel was third (true).\n\nPavel said \"I was second. Nico was third.\" — only one true statement. So either he was second (true) and Nico was third (false), or he was not second (false) and Nico was third (true).\n\nNow test possibilities:\n\nIf Nico was first (true), then Odile was second (false). Then Pavel was third (true). So Odile's statement is false (she was not second), and Pavel's statement is true (he was second). That fits.\n\nSo Nico was first.  \nANSWER: Nico",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'nico'"
+   }
+  ]
+ },
+ {
+  "task": "math-063",
+  "condition": "ffn_low",
+  "prompt": "A dark drawer holds a large supply of loose gloves in 4 colours: grey, tan, plum and teal (far more than ten of each). Gloves are pulled out one at a time without looking. What is the smallest number of gloves that must be pulled out to be certain that at least 3 of them have the same colour? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To ensure at least 3 gloves of the same color, we use the Pigeonhole Principle. There are 4 colors: grey, tan, plum, and teal.\n\nIf we pull out 3 gloves, it's possible that they are all of different colors. To guarantee 3 of the same color, we need to pull out enough gloves so that at least 3 are of the same color.\n\nThe worst-case scenario is pulling out 2 gloves of each color (2 × 4 = 8 gloves), and then one more glove to ensure 3 of the same color.\n\nSo, the smallest number of gloves needed is:\n\nANSWER: 9"
+  ],
+  "final": "To ensure at least 3 gloves of the same color, we use the Pigeonhole Principle. There are 4 colors: grey, tan, plum, and teal.\n\nIf we pull out 3 gloves, it's possible that they are all of different colors. To guarantee 3 of the same color, we need to pull out enough gloves so that at least 3 are of the same color.\n\nThe worst-case scenario is pulling out 2 gloves of each color (2 × 4 = 8 gloves), and then one more glove to ensure 3 of the same color.\n\nSo, the smallest number of gloves needed is:\n\nANSWER: 9",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 9.0"
+   }
+  ]
+ },
+ {
+  "task": "math-033",
+  "condition": "rand_attn_med",
+  "prompt": "Data plan A costs 40 coins per month plus 3 coins per gigabyte used. Plan B costs 15 coins per month plus 8 coins per gigabyte used. What is the smallest whole number of gigabytes for which plan A is strictly cheaper than plan B? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 6
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "To find the smallest whole number of gigabytes for which Plan A is strictly cheaper than Plan B, we can set up the following inequality:\n\n$$\n40 + 3x < 15 + 8x\n$$\n\nSolve for $ x $:\n\n$$\n40 + 3x < 15 + 8x\n$$\n\nSubtract $ 3x $ from both sides:\n\n$$\n40 < 15 + 5x\n$$\n\nSubtract 15 from both sides:\n\n$$\n25 < 5x\n$$\n\nDivide by 5:\n\n$$\n5 < x\n$$\n\nSo, the smallest whole number of gigabytes is:\n\n$$\n\\boxed{5}\n$$\n\nANSWER: <number>"
+  ],
+  "final": "To find the smallest whole number of gigabytes for which Plan A is strictly cheaper than Plan B, we can set up the following inequality:\n\n$$\n40 + 3x < 15 + 8x\n$$\n\nSolve for $ x $:\n\n$$\n40 + 3x < 15 + 8x\n$$\n\nSubtract $ 3x $ from both sides:\n\n$$\n40 < 15 + 5x\n$$\n\nSubtract 15 from both sides:\n\n$$\n25 < 5x\n$$\n\nDivide by 5:\n\n$$\n5 < x\n$$\n\nSo, the smallest whole number of gigabytes is:\n\n$$\n\\boxed{5}\n$$\n\nANSWER: <number>",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got None"
+   }
+  ]
+ },
+ {
+  "task": "math-057",
+  "condition": "rand_ffn_med",
+  "prompt": "Two positive whole numbers have greatest common divisor 12 and least common multiple 180. Neither number is a multiple of the other. What is the sum of the two numbers? Show at most 5 short lines of working, then end with a final line in exactly this form: 'ANSWER: <number>' (digits only, no units, no LaTeX).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "number",
+    "value": 96
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "We are given two positive whole numbers with GCD 12 and LCM 180.  \nWe are also told that neither number is a multiple of the other.  \nWe need to find the sum of the two numbers.\n\nLet the numbers be $ a $ and $ b $.  \nWe know:  \n$$\n\\text{GCD}(a, b) = 12, \\quad \\text{LCM}(a, b) = 180\n$$  \nFrom number theory, we know:  \n$$\n\\text{GCD}(a, b) \\times \\text{LCM}(a, b) = a \\times b\n$$  \nSubstituting the known values:  \n$$\n12 \\times 180 = a \\times b\n$$  \n$$\n2160 = a \\times b\n$$  \nWe also know that $ a $ and $ b $ are not multiples of each other.  \nSo, $ a \\neq b $ and $ a \\neq \\frac{b}{12} $, etc.  \n\nTry possible values of $ a $ and $ b $ such that $ \\text{GCD}(a, b) = 12 $ and $ \\text{LCM}(a, b) = 180 $.  \n\nLet’s try $ a = 12 $, then $ b = \\frac{2160}{12} = 180 $.  \nBut $ \\text{GCD}(12,"
+  ],
+  "final": "We are given two positive whole numbers with GCD 12 and LCM 180.  \nWe are also told that neither number is a multiple of the other.  \nWe need to find the sum of the two numbers.\n\nLet the numbers be $ a $ and $ b $.  \nWe know:  \n$$\n\\text{GCD}(a, b) = 12, \\quad \\text{LCM}(a, b) = 180\n$$  \nFrom number theory, we know:  \n$$\n\\text{GCD}(a, b) \\times \\text{LCM}(a, b) = a \\times b\n$$  \nSubstituting the known values:  \n$$\n12 \\times 180 = a \\times b\n$$  \n$$\n2160 = a \\times b\n$$  \nWe also know that $ a $ and $ b $ are not multiples of each other.  \nSo, $ a \\neq b $ and $ a \\neq \\frac{b}{12} $, etc.  \n\nTry possible values of $ a $ and $ b $ such that $ \\text{GCD}(a, b) = 12 $ and $ \\text{LCM}(a, b) = 180 $.  \n\nLet’s try $ a = 12 $, then $ b = \\frac{2160}{12} = 180 $.  \nBut $ \\text{GCD}(12,",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 12.0"
+   }
+  ]
+ },
+ {
+  "task": "math-094",
+  "condition": "baseline",
+  "prompt": "On an island every person is either a truth-teller (always tells the truth) or a liar (always lies). Dov says: 'Esme is a liar.' Esme says: 'Finn is a liar.' Finn says: 'Dov and Esme are both liars.' Exactly one of the three is a truth-teller. Who? Reason in at most 6 short lines, then end with a final line in exactly this form: 'ANSWER: <name>' (one name only).",
+  "system": null,
+  "mode": "single",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Esme"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "If Dov says Esme is a liar, and Esme says Finn is a liar, and Finn says both Dov and Esme are liars, then:\n\n- If Dov is a truth-teller, Esme is a liar (consistent).\n- If Esme is a truth-teller, Finn is a liar (consistent).\n- If Finn is a truth-teller, both Dov and Esme are liars (contradicts previous statements).\n\nOnly one can be a truth-teller. If Finn is the only truth-teller, then Dov and Esme are liars. This is consistent.\n\nANSWER: Finn"
+  ],
+  "final": "If Dov says Esme is a liar, and Esme says Finn is a liar, and Finn says both Dov and Esme are liars, then:\n\n- If Dov is a truth-teller, Esme is a liar (consistent).\n- If Esme is a truth-teller, Finn is a liar (consistent).\n- If Finn is a truth-teller, both Dov and Esme are liars (contradicts previous statements).\n\nOnly one can be a truth-teller. If Finn is the only truth-teller, then Dov and Esme are liars. This is consistent.\n\nANSWER: Finn",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'finn'"
+   }
+  ]
+ }
+]

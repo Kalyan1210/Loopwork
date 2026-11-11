@@ -1,0 +1,18 @@
+{
+  "family": "math",
+  "n": 48,
+  "agree": 47,
+  "false_pass": 0,
+  "false_fail": 0,
+  "unclear": 1,
+  "disagreements": [
+    {
+      "task": "math-040",
+      "condition": "ffn_up_low",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "The value 12 is correct but the reply ends with \\boxed{12} and has no 'ANSWER: <number>' line, which the prompt requires and forbids LaTeX for, so a strict grader would fail it and a lenient one would pass it."
+    }
+  ],
+  "notes": "All 48 expected answers were re-derived by hand and matched the task checks; all 24 sampled fails are real (14 wrong final answers, 9 replies cut off before any final answer, 1 wrong boxed value followed by a literal 'ANSWER: <number>' placeholder). The checker scores only the extracted value and does not enforce the stated format: among the 24 sampled passes, 5 deviate from the exact final-line form (1 boxed with no ANSWER line, 1 '5. Answer: 3', 1 '8. Final answer: ANSWER: 36', 1 bold-wrapped, 1 with an extra 'ANSWER: <name>' placeholder line) and the line limits on working are not checked. When no ANSWER line exists the number check falls back to the last number in the text (seen in 9 cut-off replies, for example 'got 1734.0'), which could produce a chance false pass, though 0 occurred in this sample."
+}

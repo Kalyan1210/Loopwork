@@ -8,7 +8,7 @@ Example selection is rule-based and seeded (see pick_examples) so nothing is han
 """
 import glob, json, os, random, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import core, interventions
+import core, interventions, redact_public
 from analyze import load
 
 R = os.path.join(core.ROOT, "report"); D = os.path.join(R, "data")
@@ -20,8 +20,9 @@ def jread(p, default=None):
 
 
 def slim(r):
+    r = redact_public.redact_record(r)   # safety-flagged reply bodies are never published in the report
     return {k: r.get(k) for k in ("status", "error", "score", "checks", "replies", "final", "trace", "final_env", "latency_s", "completion_tokens",
-                                  "prompt_tokens", "steps", "format_errors", "tool_errors", "no_final", "truncated", "retries", "block")}
+                                  "prompt_tokens", "steps", "format_errors", "tool_errors", "no_final", "truncated", "retries", "block", "withheld")}
 
 
 def pick_examples(E, conds, tasks):
@@ -85,6 +86,7 @@ def main():
            "scores": scores, "changed": changed, "examples": pick_examples(E, conds, tasks),
            "analyst": jread(os.path.join(core.ROOT, "results", "analyst_findings.json"), {}),
            "audit": jread(os.path.join(core.ROOT, "results", "score_audit.json"), {}),
+           "findings_html": (open(os.path.join(core.ROOT, "results", "findings.html")).read() if os.path.exists(os.path.join(core.ROOT, "results", "findings.html")) else None),
            "swarm": swarm}
     open(os.path.join(D, "lab.js"), "w").write("window.LAB = " + json.dumps(LAB, ensure_ascii=False) + ";\n")
     for f in core.FAMILIES:

@@ -1,0 +1,749 @@
+{
+ "checked": 2074,
+ "mismatches": [],
+ "integrity": {
+  "suite_task_count": 1000,
+  "suite_unique_ids": 1000,
+  "per_condition": {
+   "baseline": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "noop": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "rollback": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "ffn_low": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "bc4c837f3caebf266b7cb5566c9cf51e199e7d1ca02c4dfcf51588a25cead201",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "ffn_med": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "ec69cb43f41910e996e7bdc625e5d2ba680056691e71109e88e82e17e21e32a6",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "ffn_up_low": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "b1263a7c99acaae83f823d6cb3d742f1480bc934a48a33291e42ce1df0daac97",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "attn_low": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "e85298a936e43cf533aeb5ca4b67f434cd17e3b396ebcda19da328ac1ef50140",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "attn_med": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "f8d69a50ccdd94034eaeaf7d68531c6acd44cfcaf7f0c35822396b70f0a1faf1",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "rand_ffn_med": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "37936494c69f647de33648b2cfab63bf482af528ec1ead0ce00e9efde88a06d2",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   },
+   "rand_attn_med": {
+    "records": 1000,
+    "unique_task_ids": 1000,
+    "same_id_set_as_baseline": true,
+    "same_id_set_as_suite": true,
+    "status_error": 0,
+    "status_not_ok": 0,
+    "error_field_nonempty": 0,
+    "condition_field_mismatch": 0,
+    "score_not_0_or_1": 0,
+    "artifact_sha_mismatch": 0,
+    "manifest_artifact_sha256": "cf8186f06dc144082c40df696662924bed352eb2704b527ba0efa031f9fe0cf7",
+    "family_counts": {
+     "synthesis": 100,
+     "constraints": 100,
+     "longhorizon": 100,
+     "math": 100,
+     "ambiguity": 100,
+     "coding": 100,
+     "safety": 100,
+     "planning": 100,
+     "tools": 100,
+     "calibration": 100
+    }
+   }
+  },
+  "family_label_disagreements_vs_baseline": 0,
+  "identical_artifact_controls": {
+   "noop": {
+    "n": 1000,
+    "identical_replies": 1000,
+    "identical_final": 1000,
+    "identical_scores": 1000,
+    "identical_trace": 1000,
+    "identical_prompt_shown": 1000,
+    "differing_tasks": []
+   },
+   "rollback": {
+    "n": 1000,
+    "identical_replies": 1000,
+    "identical_final": 1000,
+    "identical_scores": 1000,
+    "identical_trace": 1000,
+    "identical_prompt_shown": 1000,
+    "differing_tasks": []
+   }
+  },
+  "dev_final_per_condition": {
+   "baseline": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "noop": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "rollback": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "ffn_low": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "ffn_med": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "ffn_up_low": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "attn_low": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "attn_med": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "rand_ffn_med": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   },
+   "rand_attn_med": {
+    "records": 100,
+    "unique_task_ids": 100,
+    "same_id_set_as_baseline": true,
+    "status_not_ok": 0,
+    "artifact_sha_mismatch": 0
+   }
+  },
+  "dev_heldout_id_overlap": 0
+ },
+ "recomputed": {
+  "pass": {
+   "baseline": {
+    "k": 479,
+    "n": 1000,
+    "wilson95": [
+     0.4482,
+     0.51
+    ]
+   },
+   "noop": {
+    "k": 479,
+    "n": 1000,
+    "wilson95": [
+     0.4482,
+     0.51
+    ]
+   },
+   "rollback": {
+    "k": 479,
+    "n": 1000,
+    "wilson95": [
+     0.4482,
+     0.51
+    ]
+   },
+   "ffn_low": {
+    "k": 434,
+    "n": 1000,
+    "wilson95": [
+     0.4036,
+     0.4649
+    ]
+   },
+   "ffn_med": {
+    "k": 261,
+    "n": 1000,
+    "wilson95": [
+     0.2347,
+     0.2891
+    ]
+   },
+   "ffn_up_low": {
+    "k": 344,
+    "n": 1000,
+    "wilson95": [
+     0.3152,
+     0.374
+    ]
+   },
+   "attn_low": {
+    "k": 486,
+    "n": 1000,
+    "wilson95": [
+     0.4551,
+     0.517
+    ]
+   },
+   "attn_med": {
+    "k": 417,
+    "n": 1000,
+    "wilson95": [
+     0.3868,
+     0.4478
+    ]
+   },
+   "rand_ffn_med": {
+    "k": 316,
+    "n": 1000,
+    "wilson95": [
+     0.2879,
+     0.3455
+    ]
+   },
+   "rand_attn_med": {
+    "k": 388,
+    "n": 1000,
+    "wilson95": [
+     0.3583,
+     0.4186
+    ]
+   }
+  },
+  "vs_baseline": {
+   "noop": {
+    "n": 1000,
+    "diff": 0.0,
+    "regressed": 0,
+    "improved": 0,
+    "p": 1.0,
+    "boot_ci95": [
+     0.0,
+     0.0
+    ],
+    "holm_p": 1.0
+   },
+   "ffn_low": {
+    "n": 1000,
+    "diff": -0.045,
+    "regressed": 107,
+    "improved": 62,
+    "p": 0.000668,
+    "boot_ci95": [
+     -0.07,
+     -0.02
+    ],
+    "holm_p": 0.002671
+   },
+   "ffn_med": {
+    "n": 1000,
+    "diff": -0.218,
+    "regressed": 272,
+    "improved": 54,
+    "p": 0.0,
+    "boot_ci95": [
+     -0.25,
+     -0.186
+    ],
+    "holm_p": 0.0
+   },
+   "ffn_up_low": {
+    "n": 1000,
+    "diff": -0.135,
+    "regressed": 200,
+    "improved": 65,
+    "p": 0.0,
+    "boot_ci95": [
+     -0.165,
+     -0.105
+    ],
+    "holm_p": 0.0
+   },
+   "attn_low": {
+    "n": 1000,
+    "diff": 0.007,
+    "regressed": 60,
+    "improved": 67,
+    "p": 0.594615,
+    "boot_ci95": [
+     -0.014,
+     0.029
+    ],
+    "holm_p": 1.0
+   },
+   "attn_med": {
+    "n": 1000,
+    "diff": -0.062,
+    "regressed": 146,
+    "improved": 84,
+    "p": 5.2e-05,
+    "boot_ci95": [
+     -0.091,
+     -0.033
+    ],
+    "holm_p": 0.000262
+   },
+   "rand_ffn_med": {
+    "n": 1000,
+    "diff": -0.163,
+    "regressed": 220,
+    "improved": 57,
+    "p": 0.0,
+    "boot_ci95": [
+     -0.193,
+     -0.132
+    ],
+    "holm_p": 0.0
+   },
+   "rand_attn_med": {
+    "n": 1000,
+    "diff": -0.091,
+    "regressed": 163,
+    "improved": 72,
+    "p": 0.0,
+    "boot_ci95": [
+     -0.12,
+     -0.062
+    ],
+    "holm_p": 0.0
+   },
+   "rollback": {
+    "n": 1000,
+    "diff": 0.0,
+    "regressed": 0,
+    "improved": 0,
+    "p": 1.0,
+    "boot_ci95": [
+     0.0,
+     0.0
+    ],
+    "holm_p": 1.0
+   }
+  },
+  "vs_matched_control": {
+   "ffn_med": {
+    "control": "rand_ffn_med",
+    "n": 1000,
+    "diff": -0.055,
+    "regressed": 162,
+    "improved": 107,
+    "mcnemar_p": 0.000958,
+    "boot_ci95": [
+     -0.086,
+     -0.024
+    ]
+   },
+   "attn_med": {
+    "control": "rand_attn_med",
+    "n": 1000,
+    "diff": 0.029,
+    "regressed": 128,
+    "improved": 157,
+    "mcnemar_p": 0.09703,
+    "boot_ci95": [
+     -0.003,
+     0.062
+    ]
+   }
+  },
+  "families": {
+   "ambiguity": {
+    "baseline": 37,
+    "noop": 37,
+    "rollback": 37,
+    "ffn_low": 39,
+    "ffn_med": 26,
+    "ffn_up_low": 23,
+    "attn_low": 37,
+    "attn_med": 39,
+    "rand_ffn_med": 22,
+    "rand_attn_med": 30
+   },
+   "calibration": {
+    "baseline": 80,
+    "noop": 80,
+    "rollback": 80,
+    "ffn_low": 65,
+    "ffn_med": 50,
+    "ffn_up_low": 72,
+    "attn_low": 73,
+    "attn_med": 35,
+    "rand_ffn_med": 21,
+    "rand_attn_med": 68
+   },
+   "coding": {
+    "baseline": 57,
+    "noop": 57,
+    "rollback": 57,
+    "ffn_low": 47,
+    "ffn_med": 30,
+    "ffn_up_low": 34,
+    "attn_low": 52,
+    "attn_med": 48,
+    "rand_ffn_med": 37,
+    "rand_attn_med": 44
+   },
+   "constraints": {
+    "baseline": 45,
+    "noop": 45,
+    "rollback": 45,
+    "ffn_low": 44,
+    "ffn_med": 36,
+    "ffn_up_low": 38,
+    "attn_low": 46,
+    "attn_med": 41,
+    "rand_ffn_med": 39,
+    "rand_attn_med": 40
+   },
+   "longhorizon": {
+    "baseline": 25,
+    "noop": 25,
+    "rollback": 25,
+    "ffn_low": 20,
+    "ffn_med": 11,
+    "ffn_up_low": 13,
+    "attn_low": 34,
+    "attn_med": 32,
+    "rand_ffn_med": 20,
+    "rand_attn_med": 28
+   },
+   "math": {
+    "baseline": 65,
+    "noop": 65,
+    "rollback": 65,
+    "ffn_low": 60,
+    "ffn_med": 21,
+    "ffn_up_low": 49,
+    "attn_low": 68,
+    "attn_med": 62,
+    "rand_ffn_med": 41,
+    "rand_attn_med": 40
+   },
+   "planning": {
+    "baseline": 40,
+    "noop": 40,
+    "rollback": 40,
+    "ffn_low": 36,
+    "ffn_med": 15,
+    "ffn_up_low": 25,
+    "attn_low": 42,
+    "attn_med": 32,
+    "rand_ffn_med": 32,
+    "rand_attn_med": 34
+   },
+   "safety": {
+    "baseline": 35,
+    "noop": 35,
+    "rollback": 35,
+    "ffn_low": 33,
+    "ffn_med": 30,
+    "ffn_up_low": 45,
+    "attn_low": 39,
+    "attn_med": 39,
+    "rand_ffn_med": 30,
+    "rand_attn_med": 33
+   },
+   "synthesis": {
+    "baseline": 39,
+    "noop": 39,
+    "rollback": 39,
+    "ffn_low": 35,
+    "ffn_med": 23,
+    "ffn_up_low": 21,
+    "attn_low": 37,
+    "attn_med": 37,
+    "rand_ffn_med": 25,
+    "rand_attn_med": 22
+   },
+   "tools": {
+    "baseline": 56,
+    "noop": 56,
+    "rollback": 56,
+    "ffn_low": 55,
+    "ffn_med": 19,
+    "ffn_up_low": 24,
+    "attn_low": 58,
+    "attn_med": 52,
+    "rand_ffn_med": 49,
+    "rand_attn_med": 49
+   }
+  },
+  "dev_pass": {
+   "baseline": 62,
+   "noop": 62,
+   "rollback": 62,
+   "ffn_low": 57,
+   "ffn_med": 30,
+   "ffn_up_low": 39,
+   "attn_low": 58,
+   "attn_med": 47,
+   "rand_ffn_med": 40,
+   "rand_attn_med": 44
+  },
+  "vs_baseline_exact_mcnemar_p_unrounded": {
+   "noop": 1.0,
+   "ffn_low": 0.000668,
+   "ffn_med": 3.9e-36,
+   "ffn_up_low": 3.68e-17,
+   "attn_low": 0.595,
+   "attn_med": 5.23e-05,
+   "rand_ffn_med": 9.24e-24,
+   "rand_attn_med": 2.77e-09,
+   "rollback": 1.0
+  }
+ },
+ "verdict": "match",
+ "notes": "Recomputed with fresh standard-library python (no import of lab/analyze.py) from results/episodes/*.jsonl and results/dev_final/*.jsonl. 2074 comparisons against results/summary.json and the integrity expectations. Zero mismatches at the stated tolerances (exact on counts, 0.002 on rates and Wilson interval ends, 0.01 on bootstrap interval ends). All pass counts, Wilson intervals, paired differences, regressed/improved counts and exact McNemar p values match for 9 conditions vs baseline overall and in 90 condition-by-family cells, for the 2 matched-control comparisons overall and by family, for the difficulty table, for the dev set (10 conditions x 100 tasks) and for totals. 3 by-family Holm-adjusted p values differ from mine by 0.000030 to 0.000039 (listed under rounding_differences_below_tolerance): summary.json applies Holm to p values already rounded to 6 decimals, I applied it to unrounded p values. All 3 are below 0.004 either way and inside the 0.002 tolerance, so they are not counted as mismatches. Display caveat: summary.json shows mcnemar_p 0.0 and mcnemar_p_holm 0 for ffn_med, ffn_up_low, rand_ffn_med and rand_attn_med vs baseline; these are values rounded to 6 decimals, the unrounded values are under vs_baseline_exact_mcnemar_p_unrounded and should be reported as p < 0.000001. Integrity: each of the 10 held-out files has 1000 records, 1000 unique task ids, the same id set as baseline and as tasks/suite_eval.jsonl, 100 tasks in each of 10 families, 0 status=error, 0 status other than ok, 0 scores outside 0/1, and 0 records whose artifact_sha256 differs from manifests/conditions/<condition>.json. noop and rollback manifests carry the same artifact sha256 as baseline, and their replies, final, trace, prompt_shown and score equal baseline on 1000 of 1000 tasks. Dev files: 100 records, 100 unique ids, same id set, 0 non-ok status, 0 sha mismatches per condition; 0 task ids shared between dev and held-out. Not checked here: whether the score field itself is correct (scores were taken as recorded, the checker was not rerun), the per-condition metrics blocks, latency and output_changed fields. Bootstrap intervals use my own resampling and seed, so they agree with summary.json only within the 0.01 tolerance.",
+ "rounding_differences_below_tolerance": [
+  {
+   "where": "vs_baseline.ffn_med.by_family.coding.mcnemar_p_holm",
+   "recomputed_from_unrounded_p": 0.000291,
+   "summary": 0.000252,
+   "abs_difference": 3.9e-05
+  },
+  {
+   "where": "vs_baseline.rand_ffn_med.by_family.math.mcnemar_p_holm",
+   "recomputed_from_unrounded_p": 0.003123,
+   "summary": 0.003159,
+   "abs_difference": 3.6e-05
+  },
+  {
+   "where": "vs_baseline.rand_attn_med.by_family.math.mcnemar_p_holm",
+   "recomputed_from_unrounded_p": 0.001834,
+   "summary": 0.001804,
+   "abs_difference": 3e-05
+  }
+ ],
+ "tolerances": {
+  "counts": 0,
+  "rates_and_wilson_interval_ends": 0.002,
+  "bootstrap_interval_ends": 0.01,
+  "mcnemar_p": "max(1e-6, 0.2 percent relative)",
+  "holm_p_first_pass": 2e-05,
+  "holm_p_final": 0.002
+ }
+}

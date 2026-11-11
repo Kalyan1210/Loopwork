@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>Walkthrough frame</title>
+<style>html,body{margin:0;height:100%;background:#0b0e13;font-family:-apple-system,Helvetica,Arial,sans-serif;overflow:hidden}
+iframe{position:absolute;top:0;left:0;width:100%;height:calc(100% - 150px);border:0;background:#fff}
+#cap{position:absolute;left:0;right:0;bottom:0;height:150px;box-sizing:border-box;padding:18px 40px;color:#e8ecf2;background:#11161f;border-top:3px solid #4f8cff;display:flex;flex-direction:column;justify-content:center}
+#k{font-size:17px;letter-spacing:.08em;text-transform:uppercase;color:#8fb4ff;margin-bottom:6px}#t{font-size:27px;line-height:1.3}
+#badge{position:absolute;top:18px;right:24px;background:#d9480f;color:#fff;font-weight:700;font-size:22px;padding:8px 16px;border-radius:8px;display:none}
+.card iframe{display:none}.card #cap{top:0;height:100%;align-items:center;text-align:center;border:0}.card #t{font-size:44px;max-width:1300px}.card #k{font-size:22px}</style>
+<iframe id="f"></iframe><div id="badge">REPLAY of recorded events, not live</div><div id="cap"><div id="k"></div><div id="t"></div></div>
+<script>var q=new URLSearchParams(location.search);document.getElementById('k').textContent=q.get('k')||'';document.getElementById('t').textContent=q.get('t')||'';
+if(q.get('card'))document.body.className='card';else document.getElementById('f').src=q.get('src');if(q.get('scroll'))[2500,4500,6500,8000].forEach(function(ms){setTimeout(function(){try{var d=document.getElementById('f').contentWindow.document.getElementById(q.get('scroll'));if(d)d.scrollIntoView({behavior:'instant'});}catch(e){}},ms);});if(q.get('replay'))document.getElementById('badge').style.display='block';</script>

@@ -1,0 +1,48 @@
+{
+  "actor": "report-builder",
+  "role": "html-reporting",
+  "item": "report/index.html",
+  "files_written": [
+    "report/index.html",
+    "report/assets/qa/*.png (21 QA screenshots, light and dark)",
+    "swarm/evidence/report-builder.json"
+  ],
+  "files_not_touched": "lab/, results/, tasks/, manifests/, artifacts/, git. report/data/* and report/swarm_replay.html were only regenerated through lab/analyze.py and lab/report_data.py as instructed.",
+  "what_was_built": {
+    "form": "Single self-contained page: inline CSS, one inline vanilla JS script, inline SVG charts. No network resources. Loads data/lab.js with a script tag and data/traces_<family>.js lazily by script injection, so it works from file://.",
+    "data_driven": "Every number is read from window.LAB. The planned condition list comes from LAB.config.conditions, so conditions without episodes are listed as not available yet. Missing or null fields render as 'n/a' or 'not available yet'. Each section renders inside try/catch. The only constant is the size of the original request (10,000 episodes per condition), which is a specification, not a measurement.",
+    "sections": [
+      "Overview: episodes run vs planned, progress, shortfall statement vs original request, errors, retries, model and hardware",
+      "Findings (rendered only when LAB.findings_html is present)",
+      "Baseline inventory and protection",
+      "Conditions table with per-tensor manifest detail, plus dev sweep table",
+      "Results overview: pass rate bars with Wilson intervals, paired difference forest chart with bootstrap intervals, McNemar and Holm p, regressions, improvements, outputs changed",
+      "Task-family heatmap with pass rate / difference toggle, cell click filters the trace explorer, difficulty breakdown",
+      "Controls: identical-artifact output check, intervention vs matched random control",
+      "Behavior metrics: safety by category, calibration, tool use, check-type pass rates, latency and tokens",
+      "Generalization dev vs held-out (chart and table when data is present)",
+      "Showcased examples (rule-based and analyst), paginated, baseline shown beside condition, label badge and selection rule",
+      "Trace explorer: family, condition, difficulty, outcome and text filters, pagination, two-condition side by side comparison, deep link #task=<id>&cond=<cond>",
+      "Agent analysis notes and score audit, marked as AI interpretation",
+      "Agent swarm numbers, script-worker statement, replay iframe labeled as a replay",
+      "Methods, limitations, measured vs interpretation"
+    ],
+    "charts": "dataviz skill followed: condition colors encode type only (baseline aqua, intervention blue, control orange; the first three slots of the reference palette), each condition is identified by a direct row label, legends on every chart, one-hue sequential ramp for pass rate, blue/red diverging ramp with neutral midpoint for differences, values printed in every heat cell, hover and keyboard-focus tooltips, tables beside every chart, separate light and dark values."
+  },
+  "verification": [
+    "Regenerated data with lab/analyze.py and lab/report_data.py (three times; the last run had 586 episodes over 6 conditions).",
+    "node --check on the extracted inline script: passes.",
+    "Palette validated with the dataviz validate_palette.js in light and dark, all-pairs mode: all checks pass (one contrast warning for aqua in light mode, covered by direct labels and tables).",
+    "Headless Google Chrome driven over the DevTools protocol at 1400x1000 against the real data: all 13 sections render, no section render failures, no console errors or exceptions, no horizontal page overflow, zero em dashes in source and rendered text.",
+    "Interactions exercised in that browser: heatmap toggle, heatmap cell click filtering the explorer, outcome filter, text search, pagination, task selection, switching the compared condition, example label filter with lazy trace loading, tooltip, deep link reload, dark color scheme.",
+    "Screenshots reviewed by eye and saved in report/assets/qa/.",
+    "Code paths with no real data yet (all 10 conditions, matched-control chart, generalization chart, analyst notes, audit, findings, episode errors, broken example references) were exercised with a synthetic fixture kept outside the project in a scratch directory; it rendered without errors. No synthetic data was written into report/.",
+    "Page with no data file at all was also seen to render its 'not available' state."
+  ],
+  "not_verified": [
+    "Rendering against the finished 10,000-episode run (run still in progress); only the synthetic full-size fixture covers that.",
+    "Real LAB.analyst, LAB.audit and LAB.findings_html content (absent at build time); rendered generically.",
+    "Browsers other than Chrome, and narrow mobile widths (charts scroll horizontally below about 760 px).",
+    "LAB.findings_html is inserted as trusted HTML from the coordinator, unescaped by design."
+  ]
+}

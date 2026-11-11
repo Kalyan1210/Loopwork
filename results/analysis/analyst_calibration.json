@@ -1,0 +1,84 @@
+{
+  "family": "calibration",
+  "measured": [
+    "Baseline passed 80 of 100 calibration tasks (40 of 49 answerable, 40 of 51 unanswerable); noop and rollback also passed 80 of 100 and their final replies matched baseline text on 100 of 100 tasks each.",
+    "Passes out of 100 under the edits: ffn_low 65 (20 regressed from baseline, 5 improved), ffn_med 50 (33 regressed, 3 improved), ffn_up_low 72 (12 regressed, 4 improved), attn_low 73 (7 regressed, 0 improved), attn_med 35 (45 regressed, 0 improved); the random controls passed 21 (rand_ffn_med, 60 regressed, 1 improved) and 68 (rand_attn_med, 19 regressed, 7 improved).",
+    "Against the matched random control, ffn_med passed 31 tasks that rand_ffn_med failed and failed 2 that it passed (50 versus 21); attn_med failed 44 tasks that rand_attn_med passed and passed 11 that it failed (35 versus 68).",
+    "Unanswerable tasks passed (of 51): baseline 40, ffn_low 21, ffn_med 11, ffn_up_low 39, attn_low 36, attn_med 0, rand_ffn_med 0, rand_attn_med 41; answerable tasks passed (of 49): baseline 40, ffn_low 44, ffn_med 39, ffn_up_low 33, attn_low 37, attn_med 35, rand_ffn_med 21, rand_attn_med 27.",
+    "Replies containing a 'CONFIDENCE: <digits>' line (of 100): baseline 100, ffn_low 91, ffn_med 86, ffn_up_low 99, attn_low 96, attn_med 53, rand_ffn_med 27, rand_attn_med 99; failures where the answer check passed and only the confidence check failed numbered 43 under attn_med, 49 under rand_ffn_med, 4 under attn_low, 3 under ffn_med, 1 each under ffn_low and ffn_up_low, and 0 at baseline and under rand_attn_med.",
+    "Replies that did not begin with the ANSWER line (text placed before it or instead of it): baseline 0, ffn_low 41, ffn_med 76, rand_ffn_med 94, rand_attn_med 12, and 0 under ffn_up_low, attn_low and attn_med; 14 tasks passed under all 10 conditions and 7 failed under all 10."
+  ],
+  "failure_patterns": [
+    "Right answer but no confidence line: the reply is the bare word INSUFFICIENT, or 'ANSWER: INSUFFICIENT' with nothing after it, or a worked answer with no CONFIDENCE line. Seen in 7 of the 44 traces read (attn_low 1, attn_med 2, rand_ffn_med 4).",
+    "Concrete value given on an unanswerable task, usually a number or name copied from the evidence (for example 14 jars reported as marks taken, or the milking shed's 82 points reported for the cheese cellar). Seen in 7 of the 44 traces read, across ffn_low, ffn_med, ffn_up_low, attn_low, attn_med and rand_attn_med.",
+    "Abstention written as prose without the 'ANSWER:' label, so the answer check fails even though the word INSUFFICIENT (or an equivalent sentence) is present. Seen in 5 of the 44 traces read (ffn_low 2, ffn_med 2, rand_attn_med 1); family-wide, failed unanswerable replies that still contained the word INSUFFICIENT numbered 13 under ffn_low, 20 under ffn_med, 9 under rand_ffn_med and 0 under the other conditions.",
+    "Wrong value on an answerable task, typically one arithmetic step dropped or an input number echoed (12 instead of 18 ladles, 24 instead of 37 hens, 12 or 8 instead of 11 degrees). Seen in 6 of the 44 traces read.",
+    "INSUFFICIENT given on an answerable task. Seen in 3 of the 44 traces read (ffn_up_low, attn_med, rand_attn_med); family-wide counts were 2 at baseline, 5 under ffn_up_low, 3 under attn_low, 3 under attn_med, 8 under rand_attn_med and 11 under rand_ffn_med."
+  ],
+  "surprises": [
+    "The random-sign control rand_ffn_med scored lower than the targeted edit it is matched to (21 versus 50 of 100), and lower than every other condition; 94 of its 100 replies did not begin with the ANSWER line and 36 were the bare word INSUFFICIENT.",
+    "Under attn_med, 45 of 45 replies containing INSUFFICIENT had no confidence line, while 53 of 55 replies without INSUFFICIENT had one; all 45 were exactly the text 'ANSWER: INSUFFICIENT'. This accounts for 0 of 51 unanswerable passes even though the answer check passed on 42 of those 51.",
+    "Three of the 9 improvements read (ffn_low cali-077, ffn_med cali-059 and cali-013) were replies that wrote out the arithmetic before the ANSWER line, which breaks the 'exactly two lines' instruction that the checker does not enforce; family-wide, 19 ffn_low passes and 32 ffn_med passes had text before the ANSWER line."
+  ],
+  "interpretation": [
+    "Most of the score loss under attn_med and rand_ffn_med appears to come from a missing confidence line rather than from a different answer (43 and 49 failures respectively had a passing answer check), so the pass rate for those two conditions may say more about output format than about whether the model abstained correctly.",
+    "The ffn_med versus rand_ffn_med gap (+29 points) and the attn_med versus rand_attn_med gap (-33 points) point in opposite directions, so on this family the data do not support a single statement that the targeted edits behave better or worse than a random edit of the same size.",
+    "The ffn_low and ffn_med losses were concentrated on unanswerable tasks (21 and 11 of 51 versus 40 at baseline) while answerable passes stayed close to baseline (44 and 39 of 49 versus 40); this is a description of where the failures fell, not an explanation of them."
+  ],
+  "unknown": [
+    "Whether stated confidence tracks correctness: the checker only tests that a confidence number is present, and 58 of 100 baseline replies gave 100, so these scores do not measure calibration quality.",
+    "Whether the missing confidence line under attn_med and rand_ffn_med would repeat under a different prompt wording, a different seed or sampling setting; each task was run once per condition.",
+    "How scores would change under a stricter checker that enforces 'exactly two lines and nothing else', or a more lenient one that accepts an unlabelled INSUFFICIENT; both readings change the count for ffn_low, ffn_med and rand_ffn_med."
+  ],
+  "examples": [
+    {
+      "task": "cali-082",
+      "condition": "attn_med",
+      "label": "representative",
+      "why": "Reply is 'ANSWER: INSUFFICIENT' with no confidence line and scores 0 although the answer is right; drawn by seeded random sample from the 45 attn_med regressions and typical of the 43 attn_med failures of this kind."
+    },
+    {
+      "task": "cali-022",
+      "condition": "rand_ffn_med",
+      "label": "representative",
+      "why": "Reply is the bare word INSUFFICIENT, answer check passes and confidence check fails; drawn by seeded random sample from the 60 rand_ffn_med regressions and typical of the 36 bare-INSUFFICIENT replies in that condition."
+    },
+    {
+      "task": "cali-051",
+      "condition": "ffn_med",
+      "label": "representative",
+      "why": "Reply explains in prose that the answer is INSUFFICIENT and gives CONFIDENCE 0 but has no ANSWER label, so it scores 0; drawn by seeded random sample from the 33 ffn_med regressions and typical of the 20 ffn_med failures that still contained the word INSUFFICIENT."
+    },
+    {
+      "task": "cali-016",
+      "condition": "rand_attn_med",
+      "label": "edge case",
+      "why": "Reply says 'The evidence does not determine the answer' with CONFIDENCE 0 and never uses the word INSUFFICIENT, so a content reading would pass it and the checker fails it; drawn by seeded random sample from the 19 rand_attn_med regressions."
+    },
+    {
+      "task": "cali-059",
+      "condition": "ffn_med",
+      "label": "edge case",
+      "why": "Passes with the correct value 15 where baseline answered 30, but writes its working before the ANSWER line and used all 80 allowed tokens, ending at 'CONFIDENCE: 1', so the confidence number may be cut off; drawn by seeded random sample from the 3 ffn_med improvements, shown because the pass breaks the two-line instruction."
+    },
+    {
+      "task": "cali-042",
+      "condition": "ffn_low",
+      "label": "failure",
+      "why": "Unanswerable task (unit price missing) answered '14' with CONFIDENCE 100, copying the jar count from the evidence, where baseline abstained; drawn by seeded random sample from the 20 ffn_low regressions."
+    },
+    {
+      "task": "cali-083",
+      "condition": "attn_med",
+      "label": "failure",
+      "why": "Unanswerable task answered '82' with CONFIDENCE 100, the score of a different room in the evidence, where baseline abstained; drawn by seeded random sample from the 45 attn_med regressions and one of the 9 attn_med concrete answers on unanswerable tasks."
+    },
+    {
+      "task": "cali-045",
+      "condition": "ffn_up_low",
+      "label": "failure",
+      "why": "Answerable subtraction task answered '12' (the amount served) instead of 18 with CONFIDENCE 100, where baseline was right; drawn by seeded random sample from the 12 ffn_up_low regressions."
+    }
+  ],
+  "traces_read": 44
+}

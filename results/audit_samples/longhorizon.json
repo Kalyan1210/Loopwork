@@ -1,0 +1,2960 @@
+[
+ {
+  "task": "long-058",
+  "condition": "ffn_med",
+  "prompt": "[turn 1] Track the line for a fictional museum tour. Reply with only the word NOTED until I ask a question. From front to back the line is: Ansel, Britt, Cosmo, Delph, Evie.\n[turn 2] Cosmo leaves the line.\n[turn 3] Fenna joins at the back. Then the person at the front goes in and leaves the line.\n[turn 4] Cosmo's departure was a misunderstanding. He comes back and is given the spot directly behind Delph.\n[turn 5] Evie leaves the line.\n[turn 6] What is the line now? Reply with only one line in the form LINE: followed by the names from front to back, separated by commas.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?britt\\W+delph\\W+cosmo\\W+fenna\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "LINE: Ansel, Britt, Cosmo, Delph, Evie"
+  ],
+  "final": "LINE: Ansel, Britt, Cosmo, Delph, Evie",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-024",
+  "condition": "ffn_low",
+  "prompt": "[turn 1] Track where things are on a fictional picnic. There are three containers: the basket, the backpack and the cooler. The map is in the basket and the flask is in the cooler. Acknowledge each update in a few words.\n[turn 2] I move the flask into the backpack.\n[turn 3] I move the map into the cooler.\n[turn 4] Where is the map now, and where is the flask now? Reply with only a JSON object with exactly the keys \"map\" and \"flask\"; each value is one of basket, backpack or cooler.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "map",
+     "flask"
+    ],
+    "equals": {
+     "map": "cooler",
+     "flask": "backpack"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "two single moves; map goes to the place the flask left"
+  },
+  "replies": [
+   "Basket: The map is here.  \nBackpack: The flask is here.  \nCooler: The container is here.",
+   "Basket: The map is here.  \nBackpack: The flask is here.  \nCooler: The container is here.",
+   "Basket: The map is here.  \nBackpack: The flask is here.  \nCooler: The map is here.",
+   "{\"map\": \"cooler\", \"flask\": \"backpack\"}"
+  ],
+  "final": "{\"map\": \"cooler\", \"flask\": \"backpack\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-027",
+  "condition": "rand_ffn_med",
+  "prompt": "[turn 1] Track who does which chore in a fictional shared flat. Noor does the dishes and Emil does the laundry. Acknowledge each update in a few words.\n[turn 2] The laundry is reassigned to Katya.\n[turn 3] The dishes are reassigned to Emil.\n[turn 4] Who does each chore now? Reply with only a JSON object with exactly the keys \"dishes\" and \"laundry\"; each value is a name.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "dishes",
+     "laundry"
+    ],
+    "equals": {
+     "dishes": "emil",
+     "laundry": "katya"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "Emil changes from laundry to dishes"
+  },
+  "replies": [
+   "Noor: Does dishes  \nEmil: Does laundry  \nAcknowledged.",
+   "Noor: Does dishes  \nEmil: Does laundry  \nKatya: Does laundry  \nAcknowledged.",
+   "Noor: Does dishes  \nEmil: Does laundry  \nKatya: Does laundry  \nEmil: Does dishes  \nAcknowledged.",
+   "{\"dishes\": \"Emil\", \"laundry\": \"Katya\"}"
+  ],
+  "final": "{\"dishes\": \"Emil\", \"laundry\": \"Katya\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-025",
+  "condition": "baseline",
+  "prompt": "[turn 1] Track the settings of a fictional pottery kiln. The mode is dry, the door is shut and the alarm is off. Acknowledge each update in a few words.\n[turn 2] The mode is changed to bake.\n[turn 3] The door is opened, so the door is now open.\n[turn 4] What are the mode and the door state now? Reply with only a JSON object with exactly the keys \"mode\" and \"door\"; each value is a single word.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "mode",
+     "door"
+    ],
+    "equals": {
+     "mode": "bake",
+     "door": "open"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "two independent overwrites; alarm never changes"
+  },
+  "replies": [
+   "Mode: Dry  \nDoor: Shut  \nAlarm: Off  \nAcknowledged.",
+   "Mode: Bake  \nDoor: Shut  \nAlarm: Off  \nAcknowledged.",
+   "Mode: Bake  \nDoor: Open  \nAlarm: Off  \nAcknowledged.",
+   "{\"mode\": \"Bake\", \"door\": \"Open\"}"
+  ],
+  "final": "{\"mode\": \"Bake\", \"door\": \"Open\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-025",
+  "condition": "attn_med",
+  "prompt": "[turn 1] Track the settings of a fictional pottery kiln. The mode is dry, the door is shut and the alarm is off. Acknowledge each update in a few words.\n[turn 2] The mode is changed to bake.\n[turn 3] The door is opened, so the door is now open.\n[turn 4] What are the mode and the door state now? Reply with only a JSON object with exactly the keys \"mode\" and \"door\"; each value is a single word.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "mode",
+     "door"
+    ],
+    "equals": {
+     "mode": "bake",
+     "door": "open"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "two independent overwrites; alarm never changes"
+  },
+  "replies": [
+   "Mode: Dry  \nDoor: Shut  \nAlarm: Off  \nUpdates acknowledged: ✅",
+   "Mode: Bake  \nDoor: Shut  \nAlarm: Off  \nUpdates acknowledged: ✅",
+   "Mode: Bake  \nDoor: Open  \nAlarm: Off  \nUpdates acknowledged: ✅",
+   "{\"mode\": \"Bake\", \"door\": \"Open\"}"
+  ],
+  "final": "{\"mode\": \"Bake\", \"door\": \"Open\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-006",
+  "condition": "ffn_med",
+  "prompt": "[turn 1] Track the passengers on a fictional town bus. After each of my messages, reply with only one line in the form RIDERS: <number> giving the number of passengers on the bus, written in digits. The bus leaves the depot with twelve passengers.\n[turn 2] At the market stop, five passengers get on.\n[turn 3] At the school stop, eight passengers get off.\n[turn 4] At the harbour stop, four passengers get on.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 13
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 9
+  },
+  "replies": [
+   "RIDERS: 12",
+   "RIDERS: 17",
+   "RIDERS: 9",
+   "RIDERS: 13"
+  ],
+  "final": "RIDERS: 13",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 13.0"
+   }
+  ]
+ },
+ {
+  "task": "long-021",
+  "condition": "ffn_low",
+  "prompt": "[turn 1] Track the colour of the spotlight in a fictional theatre. After each of my messages, reply with only one line in the form LAMP: <colour> giving the spotlight's current colour. The spotlight starts white.\n[turn 2] The spotlight is switched to amber.\n[turn 3] The stage curtain is dyed green. The spotlight is not touched.\n[turn 4] The spotlight is switched to violet.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(lamp\\W+)?violet\\W*$",
+    "flags": "i"
+   },
+   {
+    "type": "reply_check",
+    "index": 1,
+    "check": {
+     "type": "regex",
+     "pattern": "^\\W*(lamp\\W+)?amber\\W*$",
+     "flags": "i"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "echo",
+   "negative_drops_turn": 4,
+   "note": "latest value; curtain colour is a distractor; turn-2 value is checked on reply 2"
+  },
+  "replies": [
+   "LAMP: WHITE",
+   "LAMP: AMBER",
+   "LAMP: GREEN",
+   "LAMP: VIOLET"
+  ],
+  "final": "LAMP: VIOLET",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "reply_check",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-016",
+  "condition": "baseline",
+  "prompt": "[turn 1] Track coins for two fictional friends. Start: Lena has 70 coins and Omar has 20 coins. Reply with only the word NOTED until I ask a question.\n[turn 2] Lena lends Omar 30 coins.\n[turn 3] Omar spends 18 coins at the market.\n[turn 4] Correction: the loan from Lena to Omar was 25 coins, not 30.\n[turn 5] Omar pays 10 coins back to Lena.\n[turn 6] How many coins does Lena have now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "single_mistake_answer": 50
+  },
+  "replies": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "Lena had 70 coins. She lent 25 to Omar, so she now has 70 - 25 = 45. She receives 10 back, so she now has 45 + 10 = 55.  \nANSWER: 55"
+  ],
+  "final": "Lena had 70 coins. She lent 25 to Omar, so she now has 70 - 25 = 45. She receives 10 back, so she now has 45 + 10 = 55.  \nANSWER: 55",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 55.0"
+   }
+  ]
+ },
+ {
+  "task": "long-044",
+  "condition": "rand_ffn_med",
+  "prompt": "[turn 1] Track the order of books on a fictional shelf. Acknowledge each update in a few words. From left to right the shelf holds: Atlas, Fables, Herbal, Sonnets.\n[turn 2] I put Almanac at the left end of the shelf.\n[turn 3] I take Herbal off the shelf.\n[turn 4] What is on the shelf now? Reply with only one line in the form SHELF: followed by the book titles from left to right, separated by commas.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(shelf\\W+)?almanac\\W+atlas\\W+fables\\W+sonnets\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "The shelf currently holds:  \n**Atlas**, **Fables**, **Herbal**, **Sonnets**.  \n\nEach update is acknowledged in a few words:  \n- **Atlas**  \n- **Fables**  \n- **Herbal**  \n- **Sonnets**",
+   "I have moved **Almanac** to the left end of the shelf.  \nThe shelf now holds:  \n**Almanac**, **Atlas**, **Fables**, **Herbal**, **Sonnets**.  \n\nEach update is acknowledged in a few words:  \n- **Almanac**  \n- **Atlas**  \n- **Fables**  \n- **Herbal**",
+   "I have removed **Herbal** from the shelf.  \nThe shelf now holds:  \n**Almanac**, **Atlas**, **Fables**, **Sonnets**.  \n\nEach update is acknowledged in a few words:  \n- **Almanac**  \n- **Atlas**  \n- **Fables**  \n- **Sonnets**",
+   "SHELF: Almanac, Atlas, Fables, Sonnets"
+  ],
+  "final": "SHELF: Almanac, Atlas, Fables, Sonnets",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-059",
+  "condition": "baseline",
+  "prompt": "[turn 1] Track the turn order in a fictional board game. Whenever a turn is played, the player at the front takes it and then moves to the back. After each of my messages, reply with only one line in the form TURNS: followed by the player names from front to back, separated by commas. From front to back the order is: Rook, Sable, Tarn, Umber.\n[turn 2] Two turns are played.\n[turn 3] Umber is knocked out and leaves the order.\n[turn 4] One turn is played.\n[turn 5] Vesper joins the game directly behind Rook.\n[turn 6] Two turns are played.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(turns\\W+)?sable\\W+tarn\\W+rook\\W+vesper\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "TURNS: Rook, Sable, Tarn, Umber",
+   "TURNS: Rook, Sable, Tarn, Umber, Rook",
+   "TURNS: Rook, Sable, Tarn, Umber, Rook, Tarn",
+   "TURNS: Rook, Sable, Tarn, Umber, Rook, Tarn, Umber",
+   "TURNS: Rook, Sable, Tarn, Umber, Rook, Tarn, Umber, Vesper",
+   "TURNS: Rook, Sable, Tarn, Umber, Rook, Tarn, Umber, Vesper, Rook"
+  ],
+  "final": "TURNS: Rook, Sable, Tarn, Umber, Rook, Tarn, Umber, Vesper, Rook",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-025",
+  "condition": "rand_attn_med",
+  "prompt": "[turn 1] Track the settings of a fictional pottery kiln. The mode is dry, the door is shut and the alarm is off. Acknowledge each update in a few words.\n[turn 2] The mode is changed to bake.\n[turn 3] The door is opened, so the door is now open.\n[turn 4] What are the mode and the door state now? Reply with only a JSON object with exactly the keys \"mode\" and \"door\"; each value is a single word.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "mode",
+     "door"
+    ],
+    "equals": {
+     "mode": "bake",
+     "door": "open"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "two independent overwrites; alarm never changes"
+  },
+  "replies": [
+   "1. Mode: Dry  \n2. Door: Shut  \n3. Alarm: Off  \n4. Acknowledged.",
+   "1. Mode: Bake  \n2. Door: Shut  \n3. Alarm: Off  \n4. Acknowledged.",
+   "1. Mode: Bake  \n2. Door: Open  \n3. Alarm: Off  \n4. Acknowledged.",
+   "{\"mode\": \"Bake\", \"door\": \"Open\"}"
+  ],
+  "final": "{\"mode\": \"Bake\", \"door\": \"Open\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-022",
+  "condition": "attn_med",
+  "prompt": "[turn 1] Track who holds what in a fictional hiking club. Mina holds the atlas and Oto holds the compass. Acknowledge each update in a few words.\n[turn 2] Mina hands the atlas to Pell.\n[turn 3] Pell and Oto swap everything they hold with each other.\n[turn 4] Who holds the atlas now? Reply with one line in exactly this form: ANSWER: <name>",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "exact_any",
+    "values": [
+     "oto"
+    ]
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "hand-off, then a swap between two holders"
+  },
+  "replies": [
+   "Mina: atlas  \nOto: compass  \n\nUpdate: Mina adds the guidebook.  \nUpdate: Oto adds the map.  \nUpdate: Mina adds the trail guide.",
+   "Mina gives the atlas to Pell.  \nPell now holds the atlas.",
+   "Pell now holds the atlas and compass.  \nOto now holds the compass and trail guide.",
+   "ANSWER: Pell"
+  ],
+  "final": "ANSWER: Pell",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact_any",
+    "pass": false,
+    "detail": "got 'pell'"
+   }
+  ]
+ },
+ {
+  "task": "long-031",
+  "condition": "attn_low",
+  "prompt": "[turn 1] Track who has which tool among three fictional neighbours: Wren, Soren and Tavi. Wren has the ladder and Soren has the wheelbarrow. Acknowledge each update in a few words.\n[turn 2] Wren lends the ladder to Tavi.\n[turn 3] Soren gives the wheelbarrow to Wren.\n[turn 4] Correction: the ladder did not go to Tavi. Wren lent it to Soren instead.\n[turn 5] Who has each tool now? Reply with only a JSON object with exactly the keys \"ladder\" and \"wheelbarrow\"; each value is a name.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "ladder",
+     "wheelbarrow"
+    ],
+    "equals": {
+     "ladder": "soren",
+     "wheelbarrow": "wren"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 4,
+   "note": "correction changes the recipient of an earlier hand-over; the two tools end up crossed (the corrected turn is overwritten by design)"
+  },
+  "replies": [
+   "Wren: Ladder  \nSoren: Wheelbarrow  \nTavi: Unknown (not mentioned)",
+   "Wren: No longer has the ladder  \nTavi: Now has the ladder  \nSoren: Still has the wheelbarrow",
+   "Wren: Now has the wheelbarrow  \nSoren: No longer has the wheelbarrow  \nTavi: Still has the ladder",
+   "Wren: No longer has the ladder  \nSoren: Now has the ladder  \nTavi: Still has the ladder",
+   "{\n  \"ladder\": \"Soren\",\n  \"wheelbarrow\": \"Wren\"\n}"
+  ],
+  "final": "{\n  \"ladder\": \"Soren\",\n  \"wheelbarrow\": \"Wren\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-095",
+  "condition": "ffn_med",
+  "prompt": "The kv store holds coin balances of three fictional guild accounts. The file named wire describes one transfer and its fee. Read it, then read both accounts involved, use the calc tool, and update both kv keys: the sender loses the full amount, and the receiver gains the amount minus the fee. Leave the third account alone. Final answer: the receiver's new balance, just the number.\n[tools] read_file, kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"amber\": 100, \"birch\": 55, \"cedar\": 70}, \"files\": {\"wire\": \"from: amber\\nto: birch\\namount: 40\\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\\n\"}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 93
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.amber",
+    "value": 60
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.birch",
+    "value": 93
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.cedar",
+    "value": 70
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "wire"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\n  \"tool\": \"read_file\",\n  \"args\": {\"path\": \"wire\"}\n}\n\n{\n  \"tool\": \"kv_get\",\n  \"args\": {\"key\": \"sender\"}\n}\n\n{\n  \"tool\": \"calc\",\n  \"args\": {\"expr\": \"(3+4)*2\"}\n}\n\n{\n  \"tool\": \"kv_set\",\n  \"args\": {\"key\": \"receiver\", \"value\": \"10\"}\n}\n\n{\n  \"final\": \"10\"",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"amber\"}}\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"birch\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(40 - 2)\"}}\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"amber\", \"value\": \"38\"}\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"birch\", \"value\": \"38\"}\n{\"final\": \"38\"}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"birch\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(40 - 2)\"}}",
+   "{\"final\": \"38\"}"
+  ],
+  "final": "38",
+  "trace": [
+   {
+    "tool": "read_file",
+    "args": {
+     "path": "wire"
+    },
+    "result": "from: amber\nto: birch\namount: 40\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\n",
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "amber"
+    },
+    "result": 100,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "birch"
+    },
+    "result": 55,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(40 - 2)"
+    },
+    "result": 38,
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "amber": 100,
+    "birch": 55,
+    "cedar": 70
+   },
+   "files": {
+    "wire": "from: amber\nto: birch\namount: 40\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\n"
+   },
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 38.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 100"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 55"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 70"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-074",
+  "condition": "attn_low",
+  "prompt": "The kv key points holds the loyalty points of a member of a fictional tea club. The member spends 35 coins and earns 2 points for every coin spent. Then the member redeems 50 points for a free pot of tea. Read the current value, use the calc tool to add the earned points and subtract the redeemed points, and write the result back to the key points with kv_set. Do not change any other key. Final answer: the new points value, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"points\": 120, \"points_guest\": 64}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 140
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.points",
+    "value": 140
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.points_guest",
+    "value": 64
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "points"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"points\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"points\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(120 + 2 * 35) - 50\"}}",
+   "{\"tool\": \"kv_set\", \"args\": {\"key\": \"points\", \"value\": 140}}",
+   "{\"final\": 140}"
+  ],
+  "final": "140",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "points"
+    },
+    "result": 120,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "points"
+    },
+    "result": 120,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(120 + 2 * 35) - 50"
+    },
+    "result": 140,
+    "error": false
+   },
+   {
+    "tool": "kv_set",
+    "args": {
+     "key": "points",
+     "value": 140
+    },
+    "result": "ok",
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "points": 140,
+    "points_guest": 64
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 140.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 140"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 64"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "2 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-045",
+  "condition": "rand_attn_med",
+  "prompt": "[turn 1] Track the running order of a fictional relay team. Acknowledge each update in a few words. The order is: Juno first, Kell second, Mara third, Nils fourth.\n[turn 2] Kell is injured. Oskar takes Kell's exact place in the order.\n[turn 3] A new runner, Pia, is added at the very start of the order, so everyone else runs one place later.\n[turn 4] Who runs third now? Reply with one line in exactly this form: ANSWER: <name>",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Oskar"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "pos"
+  },
+  "replies": [
+   "Juno starts the relay.  \nKell follows next.  \nMara takes over.  \nNils completes the run.",
+   "Juno starts the relay.  \nOskar takes Kell's place.  \nMara takes over.  \nNils completes the run.",
+   "Pia starts the relay.  \nJuno follows next.  \nOskar takes over.  \nMara takes over.  \nNils completes the run.",
+   "ANSWER: Oskar"
+  ],
+  "final": "ANSWER: Oskar",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": true,
+    "detail": "got 'oskar'"
+   }
+  ]
+ },
+ {
+  "task": "long-066",
+  "condition": "ffn_low",
+  "prompt": "A fictional stationery shop records full pencil boxes in the kv store: boxes_front for the front room and boxes_back for the back room. Every full box holds 5 pencils. Read both values, use the calc tool to add the two box counts and multiply by 5, and store the number of pencils under the new key pencils. Empty boxes do not count. Final answer: the number of pencils, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"boxes_front\": 4, \"boxes_back\": 6, \"boxes_empty\": 9}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.pencils",
+    "value": 50
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.boxes_front",
+    "value": 4
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.boxes_empty",
+    "value": 9
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "boxes_back"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"boxes_front\"}}\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"boxes_back\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(3+4)*2\"}}\n{\"final\": \"60\"}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"boxes_back\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(4+6)*5\"}}",
+   "{\"final\": \"50\"}"
+  ],
+  "final": "50",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "boxes_front"
+    },
+    "result": 4,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "boxes_back"
+    },
+    "result": 6,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(4+6)*5"
+    },
+    "result": 50,
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "boxes_front": 4,
+    "boxes_back": 6,
+    "boxes_empty": 9
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 50.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "path missing"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 4"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 9"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-008",
+  "condition": "attn_low",
+  "prompt": "[turn 1] Track the seed packets in a fictional garden shop. After each of my messages, reply with only one line in the form SEEDS: <number> giving the number of packets now in stock. The shop starts with 45 packets.\n[turn 2] A school buys 12 packets.\n[turn 3] Unrelated: the shop first opened 9 years ago.\n[turn 4] Correction: the school actually bought 15 packets, not 12.\n[turn 5] A delivery brings 20 packets, and 6 packets are handed out as free samples.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 44
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 47
+  },
+  "replies": [
+   "SEEDS: 45",
+   "SEEDS: 43",
+   "SEEDS: 43",
+   "SEEDS: 43",
+   "SEEDS: 43"
+  ],
+  "final": "SEEDS: 43",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 43.0"
+   }
+  ]
+ },
+ {
+  "task": "long-008",
+  "condition": "ffn_up_low",
+  "prompt": "[turn 1] Track the seed packets in a fictional garden shop. After each of my messages, reply with only one line in the form SEEDS: <number> giving the number of packets now in stock. The shop starts with 45 packets.\n[turn 2] A school buys 12 packets.\n[turn 3] Unrelated: the shop first opened 9 years ago.\n[turn 4] Correction: the school actually bought 15 packets, not 12.\n[turn 5] A delivery brings 20 packets, and 6 packets are handed out as free samples.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 44
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 47
+  },
+  "replies": [
+   "SEEDS: 45",
+   "SEEDS: 45-12=33",
+   "SEEDS: 33",
+   "SEEDS: 33\n\nSEEDS: 33\n\nSEEDS: 33",
+   "SEEDS: 33"
+  ],
+  "final": "SEEDS: 33",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 33.0"
+   }
+  ]
+ },
+ {
+  "task": "long-094",
+  "condition": "rand_attn_med",
+  "prompt": "The kv key score holds the points of a fictional darts team. The file named updates lists changes to apply in order, one per line; a line may correct the line above it, and then only the corrected amount counts. Read the file, read score with kv_get, use the calc tool to apply the changes, and store the new value under score with kv_set. Then delete the file named updates. Do not change any other key. Final answer: the new score, just the number.\n[tools] read_file, kv_get, kv_set, delete_file, calc\n[sandbox] {\"kv\": {\"score\": 40, \"bonus_pool\": 100}, \"files\": {\"updates\": \"add 15\\ncorrection: the line above should be add 12, not add 15\\nsubtract 7\\n\"}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.score",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.bonus_pool",
+    "value": 100
+   },
+   {
+    "type": "env_absent",
+    "path": "files.updates"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "updates"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"read_file\", \"args\": {\"path\": \"updates\"}}\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"score\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(3+4)*2\"}}\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"score\", \"value\": 10}}\n{\"tool\": \"delete_file\", \"args\": {\"path\": \"updates\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"score\"}}",
+   "{\"tool\": \"kv_set\", \"args\": {\"key\": \"score\", \"value\": 40}}",
+   "{\"tool\": \"delete_file\", \"args\": {\"path\": \"updates\"}}",
+   "{\"final\": 40}"
+  ],
+  "final": "40",
+  "trace": [
+   {
+    "tool": "read_file",
+    "args": {
+     "path": "updates"
+    },
+    "result": "add 15\ncorrection: the line above should be add 12, not add 15\nsubtract 7\n",
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "score"
+    },
+    "result": 40,
+    "error": false
+   },
+   {
+    "tool": "kv_set",
+    "args": {
+     "key": "score",
+     "value": 40
+    },
+    "result": "ok",
+    "error": false
+   },
+   {
+    "tool": "delete_file",
+    "args": {
+     "path": "updates"
+    },
+    "result": "ok",
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "score": 40,
+    "bonus_pool": 100
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 40.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 40"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 100"
+   },
+   {
+    "type": "env_absent",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-064",
+  "condition": "attn_low",
+  "prompt": "The kv store holds the accounts of a fictional village dance, in coins: ticket_income, hall_rent and band_fee. The ticket profit is the ticket income minus the hall rent minus the band fee. Read the three values, use the calc tool to work out the ticket profit, and store it under the new key ticket_profit. The raffle is counted separately, so ignore it. Final answer: the ticket profit, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"ticket_income\": 300, \"hall_rent\": 120, \"band_fee\": 80, \"raffle_income\": 55}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ticket_profit",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ticket_income",
+    "value": 300
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.raffle_income",
+    "value": 55
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "band_fee"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"ticket_income\"}}\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"hall_rent\"}}\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"band_fee\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(ticket_income - hall_rent - band_fee)\"}}\n{\"final\": \"123\"}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"hall_rent\"}}",
+   "</think>\n\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"band_fee\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(300 - 120 - 80)\"}}\n\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"ticket_profit\", \"value\": 100}}",
+   "{\"final\": 100}"
+  ],
+  "final": "100",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "ticket_income"
+    },
+    "result": 300,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "hall_rent"
+    },
+    "result": 120,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "band_fee"
+    },
+    "result": 80,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(300 - 120 - 80)"
+    },
+    "result": 100,
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "ticket_income": 300,
+    "hall_rent": 120,
+    "band_fee": 80,
+    "raffle_income": 55
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 100.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "path missing"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 300"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 55"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-057",
+  "condition": "baseline",
+  "prompt": "[turn 1] Track the order of floats in a fictional parade. Reply with only the word NOTED until I ask a question. From front to back the floats are: Lion, Moth, Newt, Orca, Puma.\n[turn 2] Quail joins at the back.\n[turn 3] Newt breaks down and leaves the parade.\n[turn 4] The whole parade turns around, so the order is reversed: the float that was last is now at the front.\n[turn 5] The float at the front finishes and leaves the parade.\n[turn 6] Counting from the front, which float is third now? Keep any working under 40 words, then end with a final line in exactly this form: ANSWER: <name>",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Moth"
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "pos"
+  },
+  "replies": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "The floats are now: Lion, Moth, Puma, Orca, Newt. Counting from the front, the third float is Puma. ANSWER: Puma"
+  ],
+  "final": "The floats are now: Lion, Moth, Puma, Orca, Newt. Counting from the front, the third float is Puma. ANSWER: Puma",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'the floats are now: lion, moth, puma, orca, newt. counting from the front, the t'"
+   }
+  ]
+ },
+ {
+  "task": "long-048",
+  "condition": "rand_attn_med",
+  "prompt": "[turn 1] Track the queue at a fictional noodle truck. After each of my messages, reply with only one line in the form QUEUE: followed by the names from front to back, separated by commas. From front to back the queue is: Zane, Mirit, Hollis, Petra.\n[turn 2] Hollis gives up and leaves the queue.\n[turn 3] Unrelated: at the juice stall next door the queue is Bo, Carys and Thad. The noodle queue has not changed.\n[turn 4] Ugo joins at the back. Then the person at the front is served and leaves.\n[turn 5] Mirit steps out of the queue and then rejoins at the back.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(queue\\W+)?petra\\W+ugo\\W+mirit\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "QUEUE: Zane, Mirit, Hollis, Petra",
+   "QUEUE: Zane, Mirit, Petra",
+   "QUEUE: Bo, Carys, Thad",
+   "QUEUE: Mirit, Petra, Bo, Carys, Thad",
+   "QUEUE: Petra, Bo, Carys, Thad"
+  ],
+  "final": "QUEUE: Petra, Bo, Carys, Thad",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-052",
+  "condition": "attn_med",
+  "prompt": "[turn 1] Track the order of jars on a fictional spice rack. Acknowledge each update in a few words. From left to right the rack holds: Cumin, Thyme, Saffron, Fennel.\n[turn 2] I place Nutmeg immediately to the right of Thyme.\n[turn 3] I remove Cumin from the rack.\n[turn 4] I place Clove immediately to the left of Fennel.\n[turn 5] Unrelated: the tea tin on the counter holds Mint, Assam and Rooibos. The rack has not changed.\n[turn 6] What is on the rack now? Reply with only one line in the form RACK: followed by the jar names from left to right, separated by commas.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(rack\\W+)?thyme\\W+nutmeg\\W+saffron\\W+clove\\W+fennel\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "Left to right:  \n1. Cumin  \n2. Thyme  \n3. Saffron  \n4. Fennel  \n\nUpdates:  \n- Cumin moved to the left.  \n- Thyme moved to the right.  \n- Saffron was added.  \n- Fennel was moved to the right.",
+   "Left to right:  \n1. Cumin  \n2. Thyme  \n3. **Nutmeg**  \n4. Saffron  \n5. Fennel  \n\nUpdates:  \n- Nutmeg placed to the right of Thyme.",
+   "Left to right:  \n1. Thyme  \n2. Saffron  \n3. Fennel  \n4. **Nutmeg**  \n\nUpdates:  \n- Cumin removed.",
+   "Left to right:  \n1. Thyme  \n2. Saffron  \n3. Fennel  \n4. **Clove**  \n5. **Nutmeg**  \n\nUpdates:  \n- Clove placed to the left of Fennel.",
+   "Left to right:  \n1. Thyme  \n2. Saffron  \n3. Fennel  \n4. **Clove**  \n5. **Nutmeg**  \n\nUpdates:  \n- Clove placed to the left of Fennel.",
+   "RACK: Thyme, Saffron, Fennel, Clove, Nutmeg"
+  ],
+  "final": "RACK: Thyme, Saffron, Fennel, Clove, Nutmeg",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-056",
+  "condition": "rand_ffn_med",
+  "prompt": "[turn 1] Track the set list of a fictional band. After each of my messages, reply with only one line in the form SETLIST: followed by the song titles from first to last, separated by commas. From first to last the set list is: Amber, Brook, Cedar, Dune, Ivory.\n[turn 2] Brook and Cedar swap places.\n[turn 3] Ivory is moved to position 2, where position 1 is the first song. The songs after it each move one place later.\n[turn 4] The first two songs swap places.\n[turn 5] Dune is dropped from the set list. Flint is added at the end.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(setlist\\W+)?ivory\\W+amber\\W+cedar\\W+brook\\W+flint\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "SETLIST: Amber, Brook, Cedar, Dune, Ivory",
+   "SETLIST: Brook, Cedar, Amber, Dune, Ivory",
+   "SETLIST: Amber, Dune, Brook, Cedar, Ivory",
+   "SETLIST: Brook, Amber, Dune, Cedar, Ivory",
+   "SETLIST: Brook, Amber, Cedar, Flint, Dune"
+  ],
+  "final": "SETLIST: Brook, Amber, Cedar, Flint, Dune",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-061",
+  "condition": "baseline",
+  "prompt": "The kv store of a fictional zine stall holds the number of zines printed under the key printed and the number sold under the key sold. Read both values, use the calc tool to subtract the sold count from the printed count, and store the result under the new key unsold. Do not change any other key. Final answer: the number of unsold zines, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"printed\": 80, \"sold\": 35, \"posters\": 12}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.unsold",
+    "value": 45
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.printed",
+    "value": 80
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.posters",
+    "value": 12
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "sold"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"printed\"}}\n{\"tool\": \"kv_get\", \"args\": {\"key\": \"sold\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(printed - sold)\"}}\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"unsold\", \"value\": \"calc_result\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"sold\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(80 - 35)\"}}\n</think>\n\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"unsold\", \"value\": \"45\"}}",
+   "{\"tool\": \"kv_set\", \"args\": {\"key\": \"unsold\", \"value\": 45}}",
+   "{\"final\": \"45\"}"
+  ],
+  "final": "45",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "printed"
+    },
+    "result": 80,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "sold"
+    },
+    "result": 35,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(80 - 35)"
+    },
+    "result": 45,
+    "error": false
+   },
+   {
+    "tool": "kv_set",
+    "args": {
+     "key": "unsold",
+     "value": 45
+    },
+    "result": "ok",
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "printed": 80,
+    "sold": 35,
+    "posters": 12,
+    "unsold": 45
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 45.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 45"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 80"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 12"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-025",
+  "condition": "ffn_low",
+  "prompt": "[turn 1] Track the settings of a fictional pottery kiln. The mode is dry, the door is shut and the alarm is off. Acknowledge each update in a few words.\n[turn 2] The mode is changed to bake.\n[turn 3] The door is opened, so the door is now open.\n[turn 4] What are the mode and the door state now? Reply with only a JSON object with exactly the keys \"mode\" and \"door\"; each value is a single word.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "mode",
+     "door"
+    ],
+    "equals": {
+     "mode": "bake",
+     "door": "open"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "two independent overwrites; alarm never changes"
+  },
+  "replies": [
+   "Mode: Dry  \nDoor: Shut  \nAlarm: Off  \nAcknowledged: Yes",
+   "Mode: Bake  \nDoor: Shut  \nAlarm: Off  \nAcknowledged: Yes",
+   "Mode: Bake  \nDoor: Open  \nAlarm: Off  \nAcknowledged: Yes",
+   "{\"mode\": \"Bake\", \"door\": \"Open\"}"
+  ],
+  "final": "{\"mode\": \"Bake\", \"door\": \"Open\"}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-067",
+  "condition": "attn_med",
+  "prompt": "The kv key opening holds this morning's cash in the till of a fictional kiosk, in coins. During the day the kiosk took in two sales, of 40 coins and of 25 coins, and paid out one refund of 10 coins. Read the opening value, use the calc tool to apply the three movements, and store the result under the new key closing. Leave the key opening unchanged. Final answer: the closing amount, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"opening\": 100, \"safe\": 500}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 155
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.closing",
+    "value": 155
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.opening",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.safe",
+    "value": 500
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "opening"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"opening\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(100 + 40 + 25 - 10)\"}}\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"closing\", \"value\": 115}}",
+   "{\"tool\": \"kv_set\", \"args\": {\"key\": \"closing\", \"value\": 155}}",
+   "{\"final\": 155}"
+  ],
+  "final": "155",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "opening"
+    },
+    "result": 100,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(100 + 40 + 25 - 10)"
+    },
+    "result": 155,
+    "error": false
+   },
+   {
+    "tool": "kv_set",
+    "args": {
+     "key": "closing",
+     "value": 155
+    },
+    "result": "ok",
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "opening": 100,
+    "safe": 500,
+    "closing": 155
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 155.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 155"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 100"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 500"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-025",
+  "condition": "ffn_med",
+  "prompt": "[turn 1] Track the settings of a fictional pottery kiln. The mode is dry, the door is shut and the alarm is off. Acknowledge each update in a few words.\n[turn 2] The mode is changed to bake.\n[turn 3] The door is opened, so the door is now open.\n[turn 4] What are the mode and the door state now? Reply with only a JSON object with exactly the keys \"mode\" and \"door\"; each value is a single word.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "mode",
+     "door"
+    ],
+    "equals": {
+     "mode": "bake",
+     "door": "open"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "two independent overwrites; alarm never changes"
+  },
+  "replies": [
+   "1. Mode: Dry  \n2. Door: Shut  \n3. Alarm: Off  \n4. Acknowledge: \"Yes\"",
+   "1. Mode: Bake  \n2. Door: Shut  \n3. Alarm: Off  \n4. Acknowledge: \"Yes\"",
+   "1. Mode: Bake  \n2. Door: Open  \n3. Alarm: Off  \n4. Acknowledge: \"Yes\"",
+   "{\n  \"mode\": \"Bake\",\n  \"door\": \"Open\"\n}"
+  ],
+  "final": "{\n  \"mode\": \"Bake\",\n  \"door\": \"Open\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-097",
+  "condition": "rand_ffn_med",
+  "prompt": "The kv store holds a fictional recipe for a number. Each step entry holds one operation and the key of the next step. Begin with the number 4 and the key step_a. Apply each step's operation to the running number in the order the chain gives, until a step's next is \"end\". Use the calc tool. Do not use steps that are not on the chain. Store the finished number under the kv key result. Final answer: the finished number, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"step_a\": {\"op\": \"add 6\", \"next\": \"step_d\"}, \"step_b\": {\"op\": \"subtract 8\", \"next\": \"end\"}, \"step_c\": {\"op\": \"add 50\", \"next\": \"end\"}, \"step_d\": {\"op\": \"multiply by 3\", \"next\": \"step_b\"}, \"result\": 0}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.result",
+    "value": 22
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.step_c.op",
+    "value": "add 50"
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "step_d"
+    },
+    "ok_only": true
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "step_b"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"step_a\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(3+4)*2\"}}\n{\"tool\": \"kv_set\", \"args\": {\"key\": \"result\", \"value\": \"8\"}}\n{\"final\": \"8\"}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"4 + 6\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"step_d\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"10 * 3\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"result\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"result\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"result\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"result\"}}"
+  ],
+  "final": "",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "step_a"
+    },
+    "result": {
+     "op": "add 6",
+     "next": "step_d"
+    },
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "4 + 6"
+    },
+    "result": 10,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "step_d"
+    },
+    "result": {
+     "op": "multiply by 3",
+     "next": "step_b"
+    },
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "10 * 3"
+    },
+    "result": 30,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "result"
+    },
+    "result": 0,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "result"
+    },
+    "result": 0,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "result"
+    },
+    "result": 0,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "result"
+    },
+    "result": 0,
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "step_a": {
+     "op": "add 6",
+     "next": "step_d"
+    },
+    "step_b": {
+     "op": "subtract 8",
+     "next": "end"
+    },
+    "step_c": {
+     "op": "add 50",
+     "next": "end"
+    },
+    "step_d": {
+     "op": "multiply by 3",
+     "next": "step_b"
+    },
+    "result": 0
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got None"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 0"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got add 50"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   },
+   {
+    "type": "tool_called",
+    "pass": false,
+    "detail": "0 calls"
+   },
+   {
+    "type": "produced_final",
+    "pass": false,
+    "detail": "no final answer within step limit"
+   }
+  ]
+ },
+ {
+  "task": "long-024",
+  "condition": "rand_attn_med",
+  "prompt": "[turn 1] Track where things are on a fictional picnic. There are three containers: the basket, the backpack and the cooler. The map is in the basket and the flask is in the cooler. Acknowledge each update in a few words.\n[turn 2] I move the flask into the backpack.\n[turn 3] I move the map into the cooler.\n[turn 4] Where is the map now, and where is the flask now? Reply with only a JSON object with exactly the keys \"map\" and \"flask\"; each value is one of basket, backpack or cooler.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "map",
+     "flask"
+    ],
+    "equals": {
+     "map": "cooler",
+     "flask": "backpack"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "two single moves; map goes to the place the flask left"
+  },
+  "replies": [
+   "The basket contains the map. The flask is in the cooler.",
+   "The backpack contains the flask. The map is still in the basket.",
+   "The cooler contains the map. The flask is in the backpack.",
+   "{\n  \"map\": \"cooler\",\n  \"flask\": \"backpack\"\n}"
+  ],
+  "final": "{\n  \"map\": \"cooler\",\n  \"flask\": \"backpack\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-098",
+  "condition": "attn_med",
+  "prompt": "The kv store holds the book stock of a fictional ironmonger. The file named counted holds today's physical count for some items, one per line. For each item in the file, read its kv value; where the two numbers differ, set the kv key to the counted number. Write a file named shortfall whose content is just the total number of units missing (book stock minus counted, use the calc tool), then delete the file named counted. Final answer: the total number of units missing, just the number.\n[tools] read_file, kv_get, kv_set, write_file, delete_file, calc\n[sandbox] {\"kv\": {\"nails\": 53, \"screws\": 61, \"tacks\": 12}, \"files\": {\"counted\": \"nails 44\\nscrews 61\\n\"}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 9
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.nails",
+    "value": 44
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.screws",
+    "value": 61
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.tacks",
+    "value": 12
+   },
+   {
+    "type": "env_equals",
+    "path": "files.shortfall",
+    "value": "9"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.counted"
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "counted"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"read_file\", \"args\": {\"path\": \"counted\"}}",
+   "{\"tool\": \"read_file\", \"args\": {\"path\": \"counted\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"nails\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"nails\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"screws\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"screws\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(5",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(53 - 44) + (61 - 61)\"}}\n\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(5"
+  ],
+  "final": "",
+  "trace": [
+   {
+    "tool": "read_file",
+    "args": {
+     "path": "counted"
+    },
+    "result": "nails 44\nscrews 61\n",
+    "error": false
+   },
+   {
+    "tool": "read_file",
+    "args": {
+     "path": "counted"
+    },
+    "result": "nails 44\nscrews 61\n",
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "nails"
+    },
+    "result": 53,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "nails"
+    },
+    "result": 53,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "screws"
+    },
+    "result": 61,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "screws"
+    },
+    "result": 61,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(53 - 44) + (61 - 61)"
+    },
+    "result": 9,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(53 - 44) + (61 - 61)"
+    },
+    "result": 9,
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "nails": 53,
+    "screws": 61,
+    "tacks": 12
+   },
+   "files": {
+    "counted": "nails 44\nscrews 61\n"
+   },
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got None"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 53"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 61"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 12"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "path missing"
+   },
+   {
+    "type": "env_absent",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "2 calls"
+   },
+   {
+    "type": "produced_final",
+    "pass": false,
+    "detail": "no final answer within step limit"
+   }
+  ]
+ },
+ {
+  "task": "long-011",
+  "condition": "ffn_low",
+  "prompt": "[turn 1] I am counting bottles of juice in a fictional cafe storeroom. A full crate always holds 6 bottles. Acknowledge each update in a few words. The storeroom starts with 4 full crates.\n[turn 2] A delivery brings 2 more full crates.\n[turn 3] The staff drink 5 single bottles.\n[turn 4] 1 full crate is given to the cafe next door.\n[turn 5] How many bottles are in the storeroom now? Reply with one line in exactly this form: ANSWER: <number>",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 25
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "single_mistake_answer": 31
+  },
+  "replies": [
+   "4 full crates. 1 bottle added. 5 full crates. 2 bottles added. 4 full crates. 3 bottles added. 3 full crates. 4 bottles added. 2 full crates. 5 bottles added.",
+   "2 full crates. 1 bottle added. 4 full crates. 2 bottles added. 3 full crates. 3 bottles added. 2 full crates. 4 bottles added. 1 full crate. 5 bottles added.",
+   "5 single bottles consumed. 1 full crate. 4 bottles added. 2 full crates. 3 bottles added. 1 full crate. 2 bottles added. 2 full crates. 1 bottle added.",
+   "1 full crate given to cafe next door. 1 bottle added. 2 full crates. 2 bottles added. 3 full crates. 3 bottles added. 2 full crates. 1 bottle added. 1 full crate. 4 bottles added.",
+   "ANSWER: 10"
+  ],
+  "final": "ANSWER: 10",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 10.0"
+   }
+  ]
+ },
+ {
+  "task": "long-041",
+  "condition": "rand_ffn_med",
+  "prompt": "[turn 1] Track the waiting queue at a fictional vet clinic. After each of my messages, reply with only one line in the form QUEUE: followed by the names from front to back, separated by commas. From front to back the queue is: Odile, Bern, Katya.\n[turn 2] Lorne joins at the back.\n[turn 3] The person at the front is called in and leaves the queue.\n[turn 4] Pim joins at the back.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(queue\\W+)?bern\\W+katya\\W+lorne\\W+pim\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "QUEUE: Odile, Bern, Katya",
+   "QUEUE: Odile, Bern, Katya, Lorne",
+   "QUEUE: Bern, Katya, Lorne, Odile",
+   "QUEUE: Bern, Katya, Lorne, Odile, Pim"
+  ],
+  "final": "QUEUE: Bern, Katya, Lorne, Odile, Pim",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-024",
+  "condition": "ffn_up_low",
+  "prompt": "[turn 1] Track where things are on a fictional picnic. There are three containers: the basket, the backpack and the cooler. The map is in the basket and the flask is in the cooler. Acknowledge each update in a few words.\n[turn 2] I move the flask into the backpack.\n[turn 3] I move the map into the cooler.\n[turn 4] Where is the map now, and where is the flask now? Reply with only a JSON object with exactly the keys \"map\" and \"flask\"; each value is one of basket, backpack or cooler.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "map",
+     "flask"
+    ],
+    "equals": {
+     "map": "cooler",
+     "flask": "backpack"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "two single moves; map goes to the place the flask left"
+  },
+  "replies": [
+   "The basket has the map.  \nThe backpack is empty.  \nThe cooler has the flask.",
+   "The backpack now has the flask.  \nThe cooler has the flask.",
+   "The cooler has the map.  \nThe backpack is empty.  \nThe cooler has the flask and the map.",
+   "{\n  \"map\": \"cooler\",\n  \"flask\": \"backpack\"\n}"
+  ],
+  "final": "{\n  \"map\": \"cooler\",\n  \"flask\": \"backpack\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-049",
+  "condition": "attn_med",
+  "prompt": "[turn 1] Track the boarding line for a fictional coach trip. After each of my messages, reply with only one line in the form LINE: followed by the names from front to back, separated by commas. From front to back the line is: Farid, Greta, Ilse.\n[turn 2] Joss joins at the back.\n[turn 3] Greta leaves the line.\n[turn 4] Correction: the person who joined at the back was Koa, not Joss. Joss was never in the line.\n[turn 5] Lena joins at the front.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?lena\\W+farid\\W+ilse\\W+koa\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "LINE: Farid, Greta, Ilse",
+   "LINE: Farid, Greta, Ilse, Joss",
+   "LINE: Farid, Ilse, Joss",
+   "LINE: Farid, Ilse, Koa",
+   "LINE: Lena, Farid, Ilse, Koa"
+  ],
+  "final": "LINE: Lena, Farid, Ilse, Koa",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-012",
+  "condition": "attn_low",
+  "prompt": "[turn 1] Track the coin purse of Tavi, a fictional merchant. After each of my messages, reply with only one line in the form PURSE: <number> giving the number of coins Tavi has now. Tavi starts with 80 coins.\n[turn 2] Tavi spends exactly half of his coins on a cart.\n[turn 3] He sells cloth and earns 26 coins.\n[turn 4] Unrelated: his cousin Bela owns 500 coins.\n[turn 5] Tavi pays a bridge toll of 11 coins.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 66
+  },
+  "replies": [
+   "PURSE: 80",
+   "PURSE: 40",
+   "PURSE: 66",
+   "PURSE: 66",
+   "PURSE: 55"
+  ],
+  "final": "PURSE: 55",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 55.0"
+   }
+  ]
+ },
+ {
+  "task": "long-001",
+  "condition": "ffn_up_low",
+  "prompt": "[turn 1] Let's track the fuel of a fictional riverboat. After each of my messages, reply with only one line in the form FUEL: <number> giving the litres of fuel now in the tank. The tank holds at most 80 litres when full and starts with 60 litres.\n[turn 2] The morning trip burns 20 litres.\n[turn 3] At the dock the crew fills the tank until it is completely full.\n[turn 4] The evening trip burns 15 litres.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 65
+   },
+   {
+    "type": "reply_check",
+    "index": 1,
+    "check": {
+     "type": "number",
+     "value": 40
+    }
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 70
+  },
+  "replies": [
+   "FUEL: 60",
+   "FUEL: 40",
+   "FUEL: 60",
+   "FUEL: 45"
+  ],
+  "final": "FUEL: 45",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 45.0"
+   },
+   {
+    "type": "reply_check",
+    "pass": true,
+    "detail": "got 40.0"
+   }
+  ]
+ },
+ {
+  "task": "long-035",
+  "condition": "ffn_med",
+  "prompt": "[turn 1] Track three lamps in a fictional lighthouse: red, white and green. The red lamp is on, the white lamp is off and the green lamp is off. Acknowledge each update in a few words.\n[turn 2] The white lamp is switched on.\n[turn 3] Every lamp is flipped: each lamp that is on goes off, and each lamp that is off goes on.\n[turn 4] The red lamp is switched on.\n[turn 5] What is the state of each lamp now? Reply with only a JSON object with exactly the keys \"red\", \"white\" and \"green\"; each value is on or off.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "red",
+     "white",
+     "green"
+    ],
+    "equals": {
+     "red": "on",
+     "white": "off",
+     "green": "on"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 3,
+   "note": "flip-all depends on the state built so far"
+  },
+  "replies": [
+   "1. Red lamp is on.  \n2. White lamp is off.  \n3. Green lamp is off.",
+   "1. White lamp is switched on.",
+   "1. All lamps are flipped.  \n2. Red lamp goes off.  \n3. White lamp goes on.  \n4. Green lamp goes on.",
+   "1. Red lamp is switched on.",
+   "{\n  \"red\": \"on\",\n  \"white\": \"off\",\n  \"green\": \"on\"\n}"
+  ],
+  "final": "{\n  \"red\": \"on\",\n  \"white\": \"off\",\n  \"green\": \"on\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-095",
+  "condition": "attn_low",
+  "prompt": "The kv store holds coin balances of three fictional guild accounts. The file named wire describes one transfer and its fee. Read it, then read both accounts involved, use the calc tool, and update both kv keys: the sender loses the full amount, and the receiver gains the amount minus the fee. Leave the third account alone. Final answer: the receiver's new balance, just the number.\n[tools] read_file, kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"amber\": 100, \"birch\": 55, \"cedar\": 70}, \"files\": {\"wire\": \"from: amber\\nto: birch\\namount: 40\\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\\n\"}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 93
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.amber",
+    "value": 60
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.birch",
+    "value": 93
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.cedar",
+    "value": 70
+   },
+   {
+    "type": "tool_called",
+    "tool": "read_file",
+    "args_contains": {
+     "path": "wire"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"read_file\", \"args\": {\"path\": \"wire\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"amber\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"birch\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(40 - 2)\"}}\n{\"tool\": \"calc\", \"args\": {\"expr\": \"(100 - 40)\"}}",
+   "{\"final\": \"38\"}"
+  ],
+  "final": "38",
+  "trace": [
+   {
+    "tool": "read_file",
+    "args": {
+     "path": "wire"
+    },
+    "result": "from: amber\nto: birch\namount: 40\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\n",
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "amber"
+    },
+    "result": 100,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "birch"
+    },
+    "result": 55,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(40 - 2)"
+    },
+    "result": 38,
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "amber": 100,
+    "birch": 55,
+    "cedar": 70
+   },
+   "files": {
+    "wire": "from: amber\nto: birch\namount: 40\nfee: 2 (kept by the guild out of the amount, so the receiver gets 2 less)\n"
+   },
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 38.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 100"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 55"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 70"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-058",
+  "condition": "rand_attn_med",
+  "prompt": "[turn 1] Track the line for a fictional museum tour. Reply with only the word NOTED until I ask a question. From front to back the line is: Ansel, Britt, Cosmo, Delph, Evie.\n[turn 2] Cosmo leaves the line.\n[turn 3] Fenna joins at the back. Then the person at the front goes in and leaves the line.\n[turn 4] Cosmo's departure was a misunderstanding. He comes back and is given the spot directly behind Delph.\n[turn 5] Evie leaves the line.\n[turn 6] What is the line now? Reply with only one line in the form LINE: followed by the names from front to back, separated by commas.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?britt\\W+delph\\W+cosmo\\W+fenna\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "silent",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "NOTED",
+   "LINE: Britt, Delph, Evie, Fenna, Ansel"
+  ],
+  "final": "LINE: Britt, Delph, Evie, Fenna, Ansel",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-003",
+  "condition": "rand_ffn_med",
+  "prompt": "[turn 1] Track the coins in a fictional piggy bank. After each of my messages, reply with only one line in the form COINS: <number> giving the number of coins now in the bank. The bank starts with 10 coins.\n[turn 2] Nilo drops in 5 more coins.\n[turn 3] His aunt matches everything in the bank, so the number of coins doubles.\n[turn 4] Nilo takes out 8 coins to buy a kite.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 22
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 7
+  },
+  "replies": [
+   "COINS: 10",
+   "COINS: 15",
+   "COINS: 30",
+   "COINS: 22"
+  ],
+  "final": "COINS: 22",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 22.0"
+   }
+  ]
+ },
+ {
+  "task": "long-012",
+  "condition": "ffn_up_low",
+  "prompt": "[turn 1] Track the coin purse of Tavi, a fictional merchant. After each of my messages, reply with only one line in the form PURSE: <number> giving the number of coins Tavi has now. Tavi starts with 80 coins.\n[turn 2] Tavi spends exactly half of his coins on a cart.\n[turn 3] He sells cloth and earns 26 coins.\n[turn 4] Unrelated: his cousin Bela owns 500 coins.\n[turn 5] Tavi pays a bridge toll of 11 coins.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "number",
+    "value": 55
+   }
+  ],
+  "tags": {
+   "reply_policy": "echo",
+   "single_mistake_answer": 66
+  },
+  "replies": [
+   "PURSE: 80",
+   "PURSE: 40",
+   "PURSE: 66",
+   "PURSE: 66",
+   "PURSE: 55"
+  ],
+  "final": "PURSE: 55",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 55.0"
+   }
+  ]
+ },
+ {
+  "task": "long-045",
+  "condition": "ffn_up_low",
+  "prompt": "[turn 1] Track the running order of a fictional relay team. Acknowledge each update in a few words. The order is: Juno first, Kell second, Mara third, Nils fourth.\n[turn 2] Kell is injured. Oskar takes Kell's exact place in the order.\n[turn 3] A new runner, Pia, is added at the very start of the order, so everyone else runs one place later.\n[turn 4] Who runs third now? Reply with one line in exactly this form: ANSWER: <name>",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "exact",
+    "value": "Oskar"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "pos"
+  },
+  "replies": [
+   "Juno  \nKell  \nMara  \nNils  \n\nUpdates applied:  \nJuno  \nKell  \nMara  \nNils  \n\nEach runner's position is tracked in the order they are acknowledged.",
+   "Juno  \nOskar  \nMara  \nNils  \n\nUpdates applied:  \nJuno  \nOskar  \nMara  \nNils  \n\nThe order has been updated to reflect Oskar taking Kell's place.",
+   "Juno  \nPia  \nOskar  \nMara  \nNils  \n\nUpdates applied:  \nJuno  \nPia  \nOskar  \nMara  \nNils  \n\nThe order has been updated to include Pia at the front, with everyone else running one place later.",
+   "ANSWER: Mara"
+  ],
+  "final": "ANSWER: Mara",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "exact",
+    "pass": false,
+    "detail": "got 'mara'"
+   }
+  ]
+ },
+ {
+  "task": "long-064",
+  "condition": "ffn_up_low",
+  "prompt": "The kv store holds the accounts of a fictional village dance, in coins: ticket_income, hall_rent and band_fee. The ticket profit is the ticket income minus the hall rent minus the band fee. Read the three values, use the calc tool to work out the ticket profit, and store it under the new key ticket_profit. The raffle is counted separately, so ignore it. Final answer: the ticket profit, just the number.\n[tools] kv_get, kv_set, calc\n[sandbox] {\"kv\": {\"ticket_income\": 300, \"hall_rent\": 120, \"band_fee\": 80, \"raffle_income\": 55}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ticket_profit",
+    "value": 100
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.ticket_income",
+    "value": 300
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.raffle_income",
+    "value": 55
+   },
+   {
+    "type": "tool_called",
+    "tool": "kv_get",
+    "args_contains": {
+     "key": "band_fee"
+    },
+    "ok_only": true
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"ticket_income\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"hall_rent\"}}",
+   "{\"tool\": \"kv_get\", \"args\": {\"key\": \"band_fee\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"300 - 120 - 80\"}}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"300 - 120 - 80\"}}",
+   "{\"tool\": \"kv_set\", \"args\": {\"key\": \"ticket_profit\", \"value\": 100}}",
+   "{\"final\": 100}"
+  ],
+  "final": "100",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "ticket_income"
+    },
+    "result": 300,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "hall_rent"
+    },
+    "result": 120,
+    "error": false
+   },
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "band_fee"
+    },
+    "result": 80,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "300 - 120 - 80"
+    },
+    "result": 100,
+    "error": false
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "300 - 120 - 80"
+    },
+    "result": 100,
+    "error": false
+   },
+   {
+    "tool": "kv_set",
+    "args": {
+     "key": "ticket_profit",
+     "value": 100
+    },
+    "result": "ok",
+    "error": false
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "ticket_income": 300,
+    "hall_rent": 120,
+    "band_fee": 80,
+    "raffle_income": 55,
+    "ticket_profit": 100
+   },
+   "files": {},
+   "outbox": []
+  },
+  "auto_score": 1,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": true,
+    "detail": "got 100.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 100"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 300"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 55"
+   },
+   {
+    "type": "tool_called",
+    "pass": true,
+    "detail": "1 calls"
+   }
+  ]
+ },
+ {
+  "task": "long-096",
+  "condition": "ffn_low",
+  "prompt": "A fictional job runner works from files. The file named inbox names exactly one job file. Read inbox, read the job file it names, and carry out that job's instruction on the kv store: read the key, use the calc tool, and write the new value back. Then write a file named log whose content is just the new value of that key, and delete the job file you processed. Do not touch any other file or key. Final answer: the new value, just the number.\n[tools] read_file, kv_get, kv_set, write_file, delete_file, calc\n[sandbox] {\"kv\": {\"counter\": 25, \"limit\": 90}, \"files\": {\"inbox\": \"process the file named job_k\", \"job_k\": \"add 17 to the kv key counter\", \"job_m\": \"add 30 to the kv key counter\"}}",
+  "system": null,
+  "mode": "tool",
+  "checks": [
+   {
+    "type": "number",
+    "value": 42
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.counter",
+    "value": 42
+   },
+   {
+    "type": "env_equals",
+    "path": "kv.limit",
+    "value": 90
+   },
+   {
+    "type": "env_equals",
+    "path": "files.log",
+    "value": "42"
+   },
+   {
+    "type": "env_absent",
+    "path": "files.job_k"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.job_m",
+    "value": "add 30"
+   },
+   {
+    "type": "env_contains",
+    "path": "files.inbox",
+    "value": "job_k"
+   }
+  ],
+  "tags": null,
+  "replies": [
+   "{\n  \"tool\": \"kv_get\",\n  \"args\": {\"key\": \"job_key\"}\n}\n\n{\n  \"tool\": \"calc\",\n  \"args\": {\"expr\": \"(3+4)*2\"}\n}\n\n{\n  \"tool\": \"write_file\",\n  \"args\": {\"path\": \"log\", \"content\": \"14\"}\n}\n\n{\n  \"tool\": \"delete_file\",\n  \"args\": {\"path\": \"inbox\"}\n}",
+   "{\"tool\": \"calc\", \"args\": {\"expr\": \"(3+4)*2\"}}",
+   "{\"tool\": \"kv_set\", \"args\": {\"key\": \"job_key\", \"value\": 14}}",
+   "{\"tool\": \"write_file\", \"args\": {\"path\": \"log\", \"content\": \"14\"}}",
+   "{\"tool\": \"delete_file\", \"args\": {\"path\": \"inbox\"}}",
+   "14",
+   "{\"final\": \"14\"}"
+  ],
+  "final": "14",
+  "trace": [
+   {
+    "tool": "kv_get",
+    "args": {
+     "key": "job_key"
+    },
+    "result": "error: key 'job_key' not found",
+    "error": true
+   },
+   {
+    "tool": "calc",
+    "args": {
+     "expr": "(3+4)*2"
+    },
+    "result": 14,
+    "error": false
+   },
+   {
+    "tool": "kv_set",
+    "args": {
+     "key": "job_key",
+     "value": 14
+    },
+    "result": "ok",
+    "error": false
+   },
+   {
+    "tool": "write_file",
+    "args": {
+     "path": "log",
+     "content": "14"
+    },
+    "result": "ok",
+    "error": false
+   },
+   {
+    "tool": "delete_file",
+    "args": {
+     "path": "inbox"
+    },
+    "result": "ok",
+    "error": false
+   },
+   {
+    "tool": null,
+    "args": null,
+    "result": "format_error",
+    "error": true
+   }
+  ],
+  "final_env": {
+   "kv": {
+    "counter": 25,
+    "limit": 90,
+    "job_key": 14
+   },
+   "files": {
+    "job_k": "add 17 to the kv key counter",
+    "job_m": "add 30 to the kv key counter",
+    "log": "14"
+   },
+   "outbox": []
+  },
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "number",
+    "pass": false,
+    "detail": "got 14.0"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 25"
+   },
+   {
+    "type": "env_equals",
+    "pass": true,
+    "detail": "got 90"
+   },
+   {
+    "type": "env_equals",
+    "pass": false,
+    "detail": "got 14"
+   },
+   {
+    "type": "env_absent",
+    "pass": false,
+    "detail": ""
+   },
+   {
+    "type": "env_contains",
+    "pass": true,
+    "detail": "got add 30 to the kv key counter"
+   },
+   {
+    "type": "env_contains",
+    "pass": false,
+    "detail": "path missing"
+   }
+  ]
+ },
+ {
+  "task": "long-054",
+  "condition": "ffn_med",
+  "prompt": "[turn 1] Track the line outside a fictional concert hall. Acknowledge each update in a few words. From front to back the line is: Abel, Brisa, Corin, Dessa, Eamon.\n[turn 2] The two people at the front are let in and leave the line.\n[turn 3] Farah, Galen, Hesper and Idris join at the back, in that order.\n[turn 4] Dessa gives up and leaves the line. Unrelated: the hall has 200 seats.\n[turn 5] The person at the front is let in and leaves the line.\n[turn 6] What is the line now? Reply with only one line in the form LINE: followed by the names from front to back, separated by commas.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "regex",
+    "pattern": "^\\W*(line\\W+)?eamon\\W+farah\\W+galen\\W+hesper\\W+idris\\W*$",
+    "flags": "i"
+   }
+  ],
+  "tags": {
+   "reply_policy": "ack",
+   "answer_kind": "line"
+  },
+  "replies": [
+   "The line outside the fictional concert hall is:  \nAbel, Brisa, Corin, Dessa, Eamon.  \n\nEach update is acknowledged in a few words:  \nAbel  \nBrisa  \nCorin  \nDessa  \nEamon",
+   "The two people at the front are let in and leave the line.",
+   "The line outside the fictional concert hall is:  \nAbel, Brisa, Corin, Dessa, Eamon  \n\nThe two people at the front are let in and leave the line.  \n\nFarah, Galen, Hesper, Idris join at the back, in that order.",
+   "The line outside the fictional concert hall is:  \nAbel, Brisa, Corin, Dessa, Eamon  \n\nThe two people at the front are let in and leave the line.  \n\nFarah, Galen, Hesper, Idris join at the back, in that order.  \n\nDessa gives up and leaves the line.  \n\nUnrelated: the hall has 2",
+   "The person at the front is let in and leaves the line.",
+   "LINE: Abel, Brisa, Corin, Dessa, Eamon"
+  ],
+  "final": "LINE: Abel, Brisa, Corin, Dessa, Eamon",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "regex",
+    "pass": false,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "task": "long-033",
+  "condition": "baseline",
+  "prompt": "[turn 1] Track who handles which ticket at a fictional help desk. Alba handles the invoice ticket and the printer ticket. Ravi handles the badge ticket. Acknowledge each update in a few words.\n[turn 2] The printer ticket is handed to Ravi.\n[turn 3] Alba goes on leave. Every ticket Alba still handles passes to Jun.\n[turn 4] Unrelated: the office kettle is broken, but there is no ticket for it.\n[turn 5] Ravi hands the badge ticket to Jun.\n[turn 6] Who handles each ticket now? Reply with only a JSON object with exactly the keys \"invoice\", \"printer\" and \"badge\"; each value is a name.",
+  "system": null,
+  "mode": "multi",
+  "checks": [
+   {
+    "type": "json",
+    "is": "object",
+    "keys": [
+     "invoice",
+     "printer",
+     "badge"
+    ],
+    "equals": {
+     "invoice": "jun",
+     "printer": "ravi",
+     "badge": "jun"
+    }
+   }
+  ],
+  "tags": {
+   "policy": "ack",
+   "negative_drops_turn": 2,
+   "note": "a ticket handed away before the bulk hand-over must not follow it"
+  },
+  "replies": [
+   "- Alba handles invoice and printer tickets.  \n- Ravi handles badge ticket.  \n- Updates acknowledged:  \n  - Invoice ticket updated.  \n  - Printer ticket updated.  \n  - Badge ticket updated.",
+   "- Alba handles invoice and printer tickets.  \n- Ravi handles badge ticket.  \n- Updates acknowledged:  \n  - Invoice ticket updated.  \n  - Printer ticket updated.  \n  - Badge ticket updated.",
+   "- Alba is on leave.  \n- All tickets Alba still handles are passed to Jun.  \n- Updates acknowledged:  \n  - Invoice ticket updated.  \n  - Printer ticket updated.  \n  - Badge ticket updated.",
+   "- Unrelated update: Office kettle is broken, no ticket assigned.",
+   "- Ravi hands the badge ticket to Jun.  \n- Updates acknowledged:  \n  - Invoice ticket updated.  \n  - Printer ticket updated.  \n  - Badge ticket updated.",
+   "{\n  \"invoice\": \"Alba\",\n  \"printer\": \"Jun\",\n  \"badge\": \"Jun\"\n}"
+  ],
+  "final": "{\n  \"invoice\": \"Alba\",\n  \"printer\": \"Jun\",\n  \"badge\": \"Jun\"\n}",
+  "trace": [],
+  "final_env": null,
+  "auto_score": 0,
+  "check_results": [
+   {
+    "type": "json",
+    "pass": false,
+    "detail": "invoice: got Alba"
+   }
+  ]
+ }
+]

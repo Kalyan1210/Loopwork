@@ -1,0 +1,32 @@
+{
+  "family": "coding",
+  "n": 48,
+  "agree": 45,
+  "false_pass": 0,
+  "false_fail": 0,
+  "unclear": 3,
+  "disagreements": [
+    {
+      "task": "code-006",
+      "condition": "ffn_med",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Code uses str.islower() and str.isdigit(), so is_valid_tag('ébc') returns True although the task limits characters to a-z and 0-9; the 0 non-ASCII test inputs do not exercise this."
+    },
+    {
+      "task": "code-005",
+      "condition": "ffn_up_low",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Code uses char.islower(), so a non-ASCII lower-case letter such as 'é' is altered although the task says every character other than a-z stays unchanged; the tests contain 0 non-ASCII inputs."
+    },
+    {
+      "task": "code-011",
+      "condition": "rand_attn_med",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Code uses str.isdigit(), so a string of non-ASCII digits such as '١٢:٣٠' returns 750 instead of -1; the tests contain 0 non-ASCII inputs."
+    }
+  ],
+  "notes": "All 24 sampled auto-fails were confirmed as wrong code by reading (0 failed on formatting alone), and 21 of 24 auto-passes are correct against the task text; the other 3 pass every test but deviate from the stated a-z / 0-9 rule on non-ASCII input, which the test sets never include. The code_tests checker scores behaviour only and does not enforce the reply-format instruction: 5 of 24 sampled passes (code-026 rand_ffn_med, code-043 attn_low, code-021 baseline, code-047 attn_med, code-049 attn_low) had no code fence and 1 (code-031 ffn_up_low) had the stray word 'median' before the fence; these were counted as agree because the code is correct. The checker also has no explicit test that a bug-fix reply differs from the buggy code, though the 1 sampled identical reply (code-039 attn_med) failed the tests anyway."
+}

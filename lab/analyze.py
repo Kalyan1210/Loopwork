@@ -55,6 +55,11 @@ def load(d):
         for l in open(p):
             if l.strip():
                 r = json.loads(l); out[c][r["task_id"]] = r
+    priv = os.path.join(os.path.dirname(os.path.abspath(d)), "private", "withheld_episodes.jsonl")   # full text of replies withheld from the public copy
+    if os.path.basename(os.path.abspath(d)) == "episodes" and os.path.exists(priv):
+        for l in open(priv):
+            r = json.loads(l)
+            if r["condition"] in out: out[r["condition"]][r["task_id"]] = r
     return out
 
 

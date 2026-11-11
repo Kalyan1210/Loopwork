@@ -1,0 +1,53 @@
+{
+  "family": "calibration",
+  "n": 48,
+  "agree": 42,
+  "false_pass": 0,
+  "false_fail": 0,
+  "unclear": 6,
+  "disagreements": [
+    {
+      "task": "cali-010",
+      "condition": "ffn_med",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Answer and confidence lines are right but the reply adds reasoning prose before them, which breaks the stated rule of exactly two lines and nothing else; the checker does not test that rule."
+    },
+    {
+      "task": "cali-052",
+      "condition": "ffn_med",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Answer and confidence lines are right but the reply adds reasoning prose before them, which breaks the stated rule of exactly two lines and nothing else; the checker does not test that rule. Confidence given is 10 on a correct answer, which the checker also does not test."
+    },
+    {
+      "task": "cali-024",
+      "condition": "ffn_low",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Answer and confidence lines are right but the reply adds reasoning prose before them, which breaks the stated rule of exactly two lines and nothing else; the checker does not test that rule."
+    },
+    {
+      "task": "cali-014",
+      "condition": "ffn_low",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Answer and confidence lines are right but the reply adds reasoning prose before them, which breaks the stated rule of exactly two lines and nothing else; the checker does not test that rule."
+    },
+    {
+      "task": "cali-050",
+      "condition": "rand_ffn_med",
+      "auto_score": 1,
+      "verdict": "unclear",
+      "reason": "Answer and confidence lines are right but the reply adds reasoning prose before them, which breaks the stated rule of exactly two lines and nothing else; the checker does not test that rule."
+    },
+    {
+      "task": "cali-040",
+      "condition": "ffn_low",
+      "auto_score": 0,
+      "verdict": "unclear",
+      "reason": "Reply gives INSUFFICIENT (the right answer) and a CONFIDENCE line but has no ANSWER: label and adds a prose line; a strict format reading fails it, a content-only reading passes it."
+    }
+  ],
+  "notes": "Of 48 episodes (24 passes, 24 fails), the checker's answer check matched my own working of the answer in 47; the exception is cali-040 under ffn_low, where INSUFFICIENT was given without the ANSWER: label and the answer check failed. The checker does not enforce the 'exactly two lines and nothing else' rule: 5 of 24 sampled passes carry extra reasoning prose and still score 1, while 7 sampled fails with a correct answer value score 0 only because the CONFIDENCE line is missing (6) or the ANSWER: label is missing (1), so the format is enforced for some elements and not others. The CONFIDENCE check only tests that digits are present; the value is never compared with correctness or with the 0 to 100 range (for example a correct answer with CONFIDENCE 10 passes), so the score measures answer or abstention correctness plus the presence of a confidence line, not calibration of the stated number."
+}

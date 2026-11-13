@@ -1,0 +1,48 @@
+{
+  "voice_id": "UgBBYS2sOqTuMpoF3BR0",
+  "model_id": "eleven_multilingual_v2",
+  "voice_settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.8,
+    "style": 0.2,
+    "speed": 1.0
+  },
+  "segments": [
+    {
+      "id": "s1",
+      "text": "I took a small language model on my laptop and asked one question. What if you turn one dial down?"
+    },
+    {
+      "id": "s2",
+      "text": "The dial is one set of weights, in the middle of the model. I turned it down to seventy percent, on a copy. The original stayed untouched."
+    },
+    {
+      "id": "s3",
+      "text": "Then, a thousand held-out tasks, under ten conditions. Ten thousand scored runs."
+    },
+    {
+      "id": "s4",
+      "text": "First, the control. An edit that changes nothing gave identical replies on every single task."
+    },
+    {
+      "id": "s5",
+      "text": "Untouched, the model passes four seventy-nine of a thousand. Lighter edits cost a little. The deepest cut drops it to two sixty-one, almost twenty-two points."
+    },
+    {
+      "id": "s6",
+      "text": "But was that the edit, or just any change that size? A random change of the same size did most of that damage too. So the effect is mostly generic."
+    },
+    {
+      "id": "s7",
+      "text": "One surprise came before any edit. Given thirty fictional requests it should refuse, the model refused just one."
+    },
+    {
+      "id": "s8",
+      "text": "Then more than a hundred agent tasks, six at a time, re-checked the scores and the statistics. Zero mismatches."
+    },
+    {
+      "id": "s9",
+      "text": "So, turn the dial, and tasks fail, mostly like any change that size. What it does not show is what any neuron means."
+    }
+  ]
+}

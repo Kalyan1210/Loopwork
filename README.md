@@ -12,7 +12,7 @@ The original Ollama model file was never written to. All edits were made on copy
 |---|---|
 | HTML report (filters, charts, traces, swarm replay) | `report/standalone.html` (single file), or `report/index.html` served over HTTP |
 | Technical report | `REPORT.md` |
-| Video walkthrough (motion design, 85 s, silent) | `report/walkthrough.mp4`, editable source in `video/` |
+| Video walkthrough (motion design, 86 s, with voiceover and music) | `report/walkthrough.mp4`, editable source in `video/` |
 | Earlier screenshot walkthrough of the report and swarm replay | `report/walkthrough_screens.mp4` |
 | Machine-readable results, one JSON line per episode | `results/episodes/<condition>.jsonl`, `results/dev_final/<condition>.jsonl` |
 | Statistics | `results/summary.json` |

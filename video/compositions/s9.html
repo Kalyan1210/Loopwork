@@ -21,11 +21,11 @@
     <div id="s9-day" class="clip s9-layer" data-start="0.3" data-duration="3.6">
       <div id="s9-claim"><div id="s9-c1"><span>Turn</span><span>the</span><span>dial,</span><span>tasks</span><span>fail</span></div><div id="s9-c2" class="dim"><span>mostly</span><span>like</span><span>any</span><span>change</span><span>that</span><span>size</span></div></div>
     </div>
-    <div id="s9-dark" class="clip" data-start="3.55" data-duration="7.45"><div id="s9-night"></div></div>
-    <div id="s9-limit" class="clip s9-layer" data-start="3.8" data-duration="3.4">
-      <div id="s9-caveat"><div><span>It</span><span>does</span><span>not</span><span>show</span><span>what</span></div><div><span>any</span><span>neuron</span><span>means</span></div></div>
+    <div id="s9-dark" class="clip" data-start="3.55" data-duration="8.95"><div id="s9-night"></div></div>
+    <div id="s9-limit" class="clip s9-layer" data-start="3.8" data-duration="5.1">
+      <div id="s9-caveat"><div><span>It</span><span>does</span><span>not</span><span>show</span><span>what</span></div><div><span>any</span><span>neuron</span><span>means</span></div><div id="s9-rule" style="height:6px;border-radius:3px;background:#2f6bdc;margin:26px auto 0;width:560px"></div></div>
     </div>
-    <div id="s9-card" class="clip s9-layer" data-start="7.0" data-duration="4.0">
+    <div id="s9-card" class="clip s9-layer" data-start="8.7" data-duration="3.8">
       <div id="s9-end"><div id="s9-name"><span id="s9-title">Qwen Behavior Lab</span><div id="s9-mark"><i></i><i></i><i></i><i></i></div></div>
         <div id="s9-fine">1,000 tasks per condition, not the 10,000 requested</div></div>
     </div>
@@ -40,10 +40,11 @@
       tl.fromTo("#s9-night", { scaleY: 0 }, { scaleY: 1, duration: 0.42, ease: "power3.inOut" }, 3.56);
       tl.to("#s9-claim", { y: 160, opacity: 0, filter: "blur(14px)", duration: 0.3, ease: "power3.in" }, 3.5);
       tl.fromTo("#s9-caveat span", { opacity: 0, filter: "blur(10px)", y: 26 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.22, ease: "power3.out", stagger: 0.07 }, 3.95);
-      tl.to("#s9-caveat", { opacity: 0, filter: "blur(12px)", scale: 0.92, duration: 0.24, ease: "power3.in" }, 6.9);
-      tl.fromTo("#s9-title", { opacity: 0, filter: "blur(12px)", y: 22 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "power3.out" }, 7.1);
-      tl.fromTo("#s9-mark", { scale: 0.3, opacity: 0, filter: "blur(10px)", x: -80 }, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, duration: 0.5, ease: "back.out(1.8)" }, 7.5);
-      tl.fromTo("#s9-fine", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35 }, 7.8);
+      tl.fromTo("#s9-rule", { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.7, ease: "power3.inOut" }, 6.1);
+      tl.to("#s9-caveat", { opacity: 0, filter: "blur(12px)", scale: 0.92, duration: 0.24, ease: "power3.in" }, 8.6);
+      tl.fromTo("#s9-title", { opacity: 0, filter: "blur(12px)", y: 22 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "power3.out" }, 8.8);
+      tl.fromTo("#s9-mark", { scale: 0.3, opacity: 0, filter: "blur(10px)", x: -80 }, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, duration: 0.5, ease: "back.out(1.8)" }, 9.2);
+      tl.fromTo("#s9-fine", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35 }, 9.5);
       window.__timelines = window.__timelines || {};
       window.__timelines["s9"] = tl;
     })();

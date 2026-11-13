@@ -1,3 +1,5 @@
 .hyperframes/
 renders/
 node_modules/
+assets/audio/music.mp3
+.thumbnails/

@@ -1,0 +1,51 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s9-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #s9-claim { text-align: center; font-size: 104px; letter-spacing: -0.035em; line-height: 1.16; }
+    #s9-claim div { white-space: nowrap; }
+    #s9-claim span { display: inline-block; margin: 0 0.12em; }
+    #s9-claim .dim { color: #858585; }
+    #s9-night { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: #000; transform-origin: 50% 0; }
+    #s9-caveat { text-align: center; font-size: 84px; letter-spacing: -0.03em; line-height: 1.18; color: #e7e7e4; }
+    #s9-caveat span { display: inline-block; margin: 0 0.12em; }
+    #s9-end { display: flex; flex-direction: column; align-items: center; gap: 34px; color: #e7e7e4; }
+    #s9-name { display: flex; align-items: center; gap: 34px; font-size: 118px; letter-spacing: -0.04em; white-space: nowrap; }
+    #s9-mark { width: 104px; height: 104px; border-radius: 52px; background: #f2f2ef; display: grid; grid-template-rows: repeat(4, 9px); align-content: center; justify-content: center; gap: 7px; }
+    #s9-mark i { display: block; width: 52px; background: #171917; border-radius: 3px; }
+    #s9-mark i:nth-child(2), #s9-mark i:nth-child(3) { background: #2f6bdc; }
+    #s9-fine { font-size: 36px; color: #9a9a96; letter-spacing: -0.005em; text-align: center; line-height: 1.4; }
+  </style>
+  <div id="root" data-composition-id="s9" data-width="1920" data-height="1080">
+    <div id="s9-in" class="clip s9-layer" data-start="0" data-duration="0.45"><div id="s9-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s9-day" class="clip s9-layer" data-start="0.3" data-duration="3.6">
+      <div id="s9-claim"><div id="s9-c1"><span>Turn</span><span>the</span><span>dial,</span><span>tasks</span><span>fail</span></div><div id="s9-c2" class="dim"><span>mostly</span><span>like</span><span>any</span><span>change</span><span>that</span><span>size</span></div></div>
+    </div>
+    <div id="s9-dark" class="clip" data-start="3.55" data-duration="7.45"><div id="s9-night"></div></div>
+    <div id="s9-limit" class="clip s9-layer" data-start="3.8" data-duration="3.4">
+      <div id="s9-caveat"><div><span>It</span><span>does</span><span>not</span><span>show</span><span>what</span></div><div><span>any</span><span>neuron</span><span>means</span></div></div>
+    </div>
+    <div id="s9-card" class="clip s9-layer" data-start="7.0" data-duration="4.0">
+      <div id="s9-end"><div id="s9-name"><span id="s9-title">Qwen Behavior Lab</span><div id="s9-mark"><i></i><i></i><i></i><i></i></div></div>
+        <div id="s9-fine">1,000 tasks per condition, not the 10,000 requested</div></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s9-seed", { scale: 1, opacity: 1 }, { y: -40, scaleX: 30, scaleY: 0.25, opacity: 0, duration: 0.32, ease: "power3.in" }, 0.02);
+      tl.fromTo("#s9-c1 span", { opacity: 0, filter: "blur(10px)", scale: 1.25 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.2, ease: "power3.out", stagger: 0.09 }, 0.4);
+      tl.fromTo("#s9-c2 span", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, stagger: 0.08 }, 1.35);
+      // night falls from the top, like the reference's closing wipe
+      tl.fromTo("#s9-night", { scaleY: 0 }, { scaleY: 1, duration: 0.42, ease: "power3.inOut" }, 3.56);
+      tl.to("#s9-claim", { y: 160, opacity: 0, filter: "blur(14px)", duration: 0.3, ease: "power3.in" }, 3.5);
+      tl.fromTo("#s9-caveat span", { opacity: 0, filter: "blur(10px)", y: 26 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.22, ease: "power3.out", stagger: 0.07 }, 3.95);
+      tl.to("#s9-caveat", { opacity: 0, filter: "blur(12px)", scale: 0.92, duration: 0.24, ease: "power3.in" }, 6.9);
+      tl.fromTo("#s9-title", { opacity: 0, filter: "blur(12px)", y: 22 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "power3.out" }, 7.1);
+      tl.fromTo("#s9-mark", { scale: 0.3, opacity: 0, filter: "blur(10px)", x: -80 }, { scale: 1, opacity: 1, filter: "blur(0px)", x: 0, duration: 0.5, ease: "back.out(1.8)" }, 7.5);
+      tl.fromTo("#s9-fine", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35 }, 7.8);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s9"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s1-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #s1-pill { width: 640px; height: 112px; border-radius: 56px; background: #f6f6f6; box-shadow: 0 6px 24px rgba(90, 90, 90, 0.14); display: flex; align-items: center; justify-content: center; gap: 22px; position: relative; }
+    #s1-glyph { width: 40px; height: 40px; display: grid; grid-template-rows: repeat(4, 1fr); gap: 4px; }
+    #s1-glyph i { display: block; background: #171917; border-radius: 2px; }
+    #s1-glyph i:nth-child(2), #s1-glyph i:nth-child(3) { background: #2f6bdc; }
+    #s1-name { font-size: 44px; color: #858585; letter-spacing: -0.01em; }
+    #s1-typed { position: absolute; left: 64px; top: 0; height: 112px; display: flex; align-items: center; font-size: 46px; letter-spacing: -0.01em; white-space: pre; }
+    #s1-caret { display: inline-block; width: 3px; height: 54px; background: #333; margin-left: 4px; }
+    #s1-under { position: absolute; left: 190px; bottom: -22px; width: 260px; height: 5px; border-radius: 3px; background: linear-gradient(90deg, #171917, #2f6bdc 45%, #e0702e); transform-origin: 0 50%; }
+    #s1-dot { width: 26px; height: 26px; border-radius: 50%; background: #171917; }
+    #s1-sentence { display: flex; align-items: center; gap: 30px; font-size: 92px; letter-spacing: -0.025em; white-space: nowrap; }
+    #s1-slot { position: relative; width: 640px; height: 124px; }
+    .s1-chip { position: absolute; left: 50%; top: 0; height: 124px; padding: 0 34px 0 18px; border-radius: 22px; background: #e2e7e8; display: flex; align-items: center; gap: 22px; font-size: 84px; letter-spacing: -0.02em; white-space: nowrap; }
+    .s1-chip b { width: 88px; height: 88px; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+    .s1-chip b svg { width: 52px; height: 52px; }
+    #s1-seed { width: 26px; height: 26px; border-radius: 50%; background: #171917; }
+  </style>
+  <div id="root" data-composition-id="s1" data-width="1920" data-height="1080">
+    <div id="s1-bar" class="clip s1-layer" data-start="0" data-duration="3.5">
+      <div id="s1-pill">
+        <div id="s1-glyph"><i></i><i></i><i></i><i></i></div>
+        <div id="s1-name">qwen3:1.7b</div>
+        <div id="s1-typed"><span id="s1-typed-text"></span><span id="s1-caret"></span></div>
+        <div id="s1-under"></div>
+      </div>
+    </div>
+    <div id="s1-bounce" class="clip s1-layer" data-start="0.8" data-duration="1.2"><div id="s1-dot"></div></div>
+    <div id="s1-ask" class="clip s1-layer" data-start="3.1" data-duration="4.3">
+      <div id="s1-sentence">
+        <span id="s1-left">what if we turn</span>
+        <div id="s1-slot">
+          <div class="s1-chip" id="s1-chip-a" data-layout-allow-occlusion data-layout-allow-overlap><b style="background:#171917"><svg viewBox="0 0 24 24" fill="none" stroke="#f0f0f0" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-5"/></svg></b>one dial</div>
+          <div class="s1-chip" id="s1-chip-b" data-layout-allow-occlusion data-layout-allow-overlap><b style="background:#2f6bdc"><svg viewBox="0 0 24 24" fill="none" stroke="#dfe9ff" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="#2f6bdc"/><circle cx="15" cy="12" r="2.4" fill="#2f6bdc"/><circle cx="8" cy="17" r="2.4" fill="#2f6bdc"/></svg></b>attention gain</div>
+          <div class="s1-chip" id="s1-chip-c" data-layout-allow-occlusion data-layout-allow-overlap><b style="background:#2f6bdc"><svg viewBox="0 0 24 24" fill="none" stroke="#dfe9ff" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="#2f6bdc"/><circle cx="15" cy="12" r="2.4" fill="#2f6bdc"/><circle cx="8" cy="17" r="2.4" fill="#2f6bdc"/></svg></b>MLP gain</div>
+        </div>
+        <span id="s1-right">down?</span>
+      </div>
+    </div>
+    <div id="s1-out" class="clip s1-layer" data-start="7.35" data-duration="0.65"><div id="s1-seed"></div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // pill arrives, already visible on frame 0
+      tl.fromTo("#s1-pill", { scale: 0.8, opacity: 0.9, filter: "blur(3px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0);
+      tl.fromTo("#s1-under", { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 0.12);
+      tl.to("#s1-under", { opacity: 0, duration: 0.4, ease: "power2.in" }, 0.75);
+      tl.fromTo("#s1-typed", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+      // the dot hops over the bar and lands in it
+      tl.fromTo("#s1-dot", { x: -250, y: -40, opacity: 0, scale: 0.6 }, { x: 0, y: -210, opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 0.8);
+      tl.to("#s1-dot", { x: -230, y: 0, scale: 0.4, duration: 0.45, ease: "power3.in" }, 1.32);
+      tl.to("#s1-dot", { opacity: 0, duration: 0.08 }, 1.76);
+      tl.to("#s1-pill", { scale: 1.06, duration: 0.14, ease: "power2.out" }, 1.76);
+      tl.to("#s1-pill", { scale: 1.22, width: 760, duration: 0.7, ease: "expo.out" }, 1.9);
+      tl.to(["#s1-glyph", "#s1-name"], { opacity: 0, filter: "blur(6px)", duration: 0.14 }, 1.78);
+      tl.to("#s1-typed", { opacity: 1, duration: 0.1 }, 1.9);
+      const str = "what if we turn"; const typed = { n: 0 };
+      tl.to(typed, { n: str.length, duration: 0.85, ease: "none", onUpdate: () => { document.getElementById("s1-typed-text").textContent = str.slice(0, Math.round(typed.n)); } }, 2.0);
+      // the bar lets go, the sentence takes the stage
+      tl.to("#s1-pill", { scale: 1.9, opacity: 0, filter: "blur(16px)", duration: 0.36, ease: "power3.in" }, 3.02);
+      tl.fromTo("#s1-left", { x: -360, opacity: 0, filter: "blur(14px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 3.2);
+      tl.fromTo("#s1-right", { x: 260, opacity: 0, filter: "blur(14px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 3.3);
+      // one word of the sentence rolls through the three things we changed
+      const chips = ["#s1-chip-a", "#s1-chip-b", "#s1-chip-c"];
+      tl.fromTo(chips[0], { xPercent: -50, y: 90, opacity: 0, scale: 1.5, filter: "blur(10px)" }, { xPercent: -50, y: 0, opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 3.25);
+      [[1, 4.55], [2, 5.4]].forEach(([i, t]) => {
+        tl.to(chips[i - 1], { y: -110, opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, t);
+        tl.fromTo(chips[i], { xPercent: -50, y: 110, opacity: 0, filter: "blur(8px)" }, { xPercent: -50, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "back.out(1.6)" }, t + 0.1);
+      });
+      tl.fromTo("#s1-chip-b", { xPercent: -50, opacity: 0 }, { xPercent: -50, opacity: 0, duration: 0.01 }, 0);
+      tl.fromTo("#s1-chip-c", { xPercent: -50, opacity: 0 }, { xPercent: -50, opacity: 0, duration: 0.01 }, 0);
+      // the words leave; the chosen chip is what the film is about
+      tl.to("#s1-left", { x: -420, opacity: 0, filter: "blur(16px)", duration: 0.34, ease: "power3.in" }, 6.5);
+      tl.to("#s1-right", { x: 420, opacity: 0, filter: "blur(16px)", duration: 0.34, ease: "power3.in" }, 6.5);
+      tl.to("#s1-chip-c", { scale: 1.25, duration: 0.5, ease: "expo.out" }, 6.6);
+      tl.to("#s1-chip-c", { scale: 0.12, opacity: 0, filter: "blur(12px)", duration: 0.3, ease: "power3.in" }, 7.1);
+      tl.fromTo("#s1-seed", { scale: 3, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.28, ease: "power3.out" }, 7.36);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s1"] = tl;
+    })();
+  </script>
+</template>

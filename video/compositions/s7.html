@@ -1,0 +1,66 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s7-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .s7-line { position: absolute; left: 0; right: 0; top: 108px; text-align: center; font-size: 62px; letter-spacing: -0.02em; }
+    .s7-line span { display: inline-block; margin: 0 0.13em; }
+    #s7-grid { position: absolute; left: 345px; top: 300px; width: 1230px; height: 354px; display: grid; grid-template-columns: repeat(10, 108px); grid-auto-rows: 108px; gap: 15px 16.6px; }
+    #s7-grid i { display: block; border-radius: 20px; background: #dcdfe0; }
+    #s7-legend { position: absolute; left: 345px; top: 700px; width: 1230px; height: 220px; }
+    .s7-key { position: absolute; top: 0; display: flex; align-items: baseline; gap: 18px; white-space: nowrap; }
+    .s7-key b { font-weight: 400; font-size: 150px; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .s7-key span { font-size: 46px; letter-spacing: -0.015em; }
+    .s7-key i { display: inline-block; width: 34px; height: 34px; border-radius: 8px; margin-right: 4px; }
+    #s7-src { position: absolute; left: 0; right: 0; top: 946px; text-align: center; font-size: 38px; color: #858585; }
+  </style>
+  <div id="root" data-composition-id="s7" data-width="1920" data-height="1080">
+    <div id="s7-in" class="clip s7-layer" data-start="0" data-duration="0.45"><div id="s7-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s7-title" class="clip" data-start="0.3" data-duration="8.3">
+      <div class="s7-line" id="s7-line-a"><span>30</span><span>fictional</span><span>requests</span><span>it</span><span>should</span><span>refuse</span></div>
+      <div class="s7-line" id="s7-line-b"><span>Before</span><span>any</span><span>edit,</span><span>it</span><span>rarely</span><span>refused</span></div>
+    </div>
+    <div id="s7-body" class="clip" data-start="0.3" data-duration="8.3">
+      <div id="s7-grid"></div>
+      <div id="s7-legend">
+        <div class="s7-key" id="s7-k1" style="left:0"><b id="s7-n1">0</b><span><i style="background:#171917"></i>refuse</span></div>
+        <div class="s7-key" id="s7-k2" style="left:370px"><b id="s7-n2">0</b><span><i style="background:#e9a273"></i>caution</span></div>
+        <div class="s7-key" id="s7-k3" style="left:880px"><b id="s7-n3">0</b><span><i style="background:#2f6bdc"></i>help</span></div>
+      </div>
+      <div id="s7-src">the unmodified model's first-line decision on 30 disallowed requests</div>
+    </div>
+    <div id="s7-out" class="clip s7-layer" data-start="8.6" data-duration="0.4"><div id="s7-seed2" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+  </div>
+  <script>
+    (function () {
+      const grid = document.getElementById("s7-grid");
+      for (let i = 0; i < 30; i++) grid.appendChild(document.createElement("i"));
+      const tiles = Array.from(grid.children);
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s7-seed", { scale: 1, opacity: 1 }, { scale: 9, borderRadius: "22%", opacity: 0, duration: 0.32, ease: "power3.in" }, 0.02);
+      tl.fromTo("#s7-line-a span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 0.4);
+      tl.fromTo("#s7-line-b span", { opacity: 0, filter: "blur(8px)" }, { opacity: 0, duration: 0.01 }, 0);
+      // thirty requests tumble out of the dot
+      tl.fromTo(tiles, { scale: 0, opacity: 0, rotation: -40, backgroundColor: "#dcdfe0" }, { scale: 1, opacity: 1, rotation: 0, backgroundColor: "#dcdfe0", duration: 0.5, ease: "back.out(1.7)", stagger: { each: 0.03, from: "center", grid: [3, 10] } }, 0.35);
+      // each one gets its verdict: 1 refuse, 22 caution, 7 help
+      const groups = [[0, 1, "#171917", "#s7-n1", "#s7-k1", 2.3], [1, 23, "#e9a273", "#s7-n2", "#s7-k2", 3.0], [23, 30, "#2f6bdc", "#s7-n3", "#s7-k3", 4.5]];
+      groups.forEach(([a, b, col, nSel, kSel, t]) => {
+        const g = tiles.slice(a, b), each = Math.min(0.055, 1.1 / g.length);
+        tl.to(g, { backgroundColor: col, duration: 0.2, stagger: each }, t);
+        tl.fromTo(g, { scale: 1 }, { scale: 1.16, duration: 0.1, yoyo: true, repeat: 1, stagger: each, ease: "power2.out" }, t);
+        tl.fromTo(kSel, { y: 50, opacity: 0, filter: "blur(10px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, t);
+        const c = { n: 0 }, el = document.querySelector(nSel);
+        tl.to(c, { n: b - a, duration: Math.max(0.3, each * g.length), ease: "none", onUpdate: () => { el.textContent = Math.round(c.n); } }, t);
+      });
+      tl.fromTo("#s7-src", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3 }, 5.2);
+      tl.to("#s7-line-a span", { opacity: 0, filter: "blur(8px)", duration: 0.14, stagger: 0.03 }, 5.6);
+      tl.to("#s7-line-b span", { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 5.85);
+      tl.to(tiles.slice(1), { opacity: 0.3, duration: 0.4 }, 6.0);
+      tl.to(tiles[0], { scale: 1.2, duration: 0.5, ease: "elastic.out(1, 0.5)" }, 6.0);
+      tl.to([".s7-line", "#s7-legend", "#s7-src"], { opacity: 0, filter: "blur(10px)", duration: 0.2 }, 8.25);
+      tl.to(tiles, { x: (i) => (4.5 - (i % 10)) * 124.6, y: (i) => (1 - Math.floor(i / 10)) * 123 + 60, scale: 0.1, opacity: 0, duration: 0.32, ease: "power3.in", stagger: { each: 0.004, from: "edges" } }, 8.26);
+      tl.fromTo("#s7-seed2", { scale: 4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out" }, 8.6);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s7"] = tl;
+    })();
+  </script>
+</template>

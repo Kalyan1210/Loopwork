@@ -1,0 +1,72 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s6-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .s6-line { position: absolute; left: 0; right: 0; top: 108px; text-align: center; font-size: 62px; letter-spacing: -0.02em; }
+    .s6-line span { display: inline-block; margin: 0 0.13em; }
+    #s6-rig { position: absolute; left: 190px; top: 330px; width: 1540px; height: 520px; }
+    .s6-row { position: absolute; left: 0; height: 120px; width: 1540px; }
+    .s6-labs { position: absolute; left: 0; top: 0; width: 470px; height: 120px; }
+    .s6-labs div { position: absolute; right: 0; top: 0; line-height: 120px; font-size: 46px; letter-spacing: -0.015em; white-space: nowrap; }
+    .s6-bar { position: absolute; left: 500px; top: 22px; height: 76px; width: 1000px; border-radius: 16px; transform-origin: 0 50%; }
+    .s6-val { position: absolute; left: 260px; top: 0; width: 240px; text-align: right; color: #fff; line-height: 120px; font-size: 62px; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    #s6-tick { position: absolute; left: 1266.4px; top: -30px; width: 0; height: 330px; border-left: 4px dashed #1f9d6b; transform-origin: 50% 0; }
+    #s6-ticklab { position: absolute; left: 1284px; top: -42px; font-size: 32px; color: #1f9d6b; white-space: nowrap; }
+    .s6-verdict { position: absolute; left: 0; right: 0; top: 330px; text-align: center; font-size: 84px; letter-spacing: -0.035em; white-space: nowrap; }
+    .s6-verdict small { display: block; font-size: 42px; letter-spacing: -0.01em; color: #858585; margin-top: 12px; }
+  </style>
+  <div id="root" data-composition-id="s6" data-width="1920" data-height="1080">
+    <div id="s6-in" class="clip s6-layer" data-start="0" data-duration="0.45"><div id="s6-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s6-q" class="clip" data-start="0.3" data-duration="10.3">
+      <div class="s6-line" id="s6-line-a"><span>The</span><span>edit,</span><span>or</span><span>just</span><span>any</span><span>change</span><span>that</span><span>size?</span></div>
+      <div class="s6-line" id="s6-line-b"><span>Most</span><span>of</span><span>the</span><span>damage</span><span>is</span><span>generic</span></div>
+    </div>
+    <div id="s6-pairs" class="clip" data-start="0.3" data-duration="10.3">
+      <div id="s6-rig">
+        <div id="s6-tick"></div><div id="s6-ticklab">baseline 479</div>
+        <div class="s6-row" style="top:0"><div class="s6-labs"><div id="s6-l1a">MLP gain ×0.70</div><div id="s6-l1b">attention gain ×0.70</div></div><div class="s6-bar" id="s6-bar1" style="background:#2f6bdc"></div><div class="s6-val" id="s6-v1">0</div></div>
+        <div class="s6-row" style="top:150px"><div class="s6-labs"><div id="s6-l2a">random, same size</div><div id="s6-l2b">random, same size</div></div><div class="s6-bar" id="s6-bar2" style="background:#e0702e"></div><div class="s6-val" id="s6-v2">0</div></div>
+        <div class="s6-verdict" id="s6-ver-a">5.5 points worse than random<small>against one random draw</small></div>
+        <div class="s6-verdict" id="s6-ver-b">no detectable difference<small>interval −0.4 to +6.4 points</small></div>
+      </div>
+    </div>
+    <div id="s6-out" class="clip s6-layer" data-start="10.6" data-duration="0.4"><div id="s6-seed2" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+  </div>
+  <script>
+    (function () {
+      const PX = 1.6, S = (v) => (v * PX) / 1000; // bar is 1000 px wide at scale 1
+      const tl = gsap.timeline({ paused: true });
+      const v1 = document.getElementById("s6-v1"), v2 = document.getElementById("s6-v2");
+      const st = { a: 0, b: 0 };
+      const place = () => { v1.textContent = Math.round(st.a); v2.textContent = Math.round(st.b); gsap.set("#s6-bar1", { scaleX: S(st.a) }); gsap.set("#s6-bar2", { scaleX: S(st.b) }); gsap.set(v1, { x: st.a * PX - 24 }); gsap.set(v2, { x: st.b * PX - 24 }); };
+      place();
+      tl.fromTo("#s6-seed", { scale: 1, opacity: 1 }, { x: 60, y: -150, scaleX: 16, scaleY: 1.6, opacity: 0, duration: 0.32, ease: "power3.in" }, 0.02);
+      tl.fromTo("#s6-line-a span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 0.4);
+      tl.fromTo("#s6-line-b span", { opacity: 0, filter: "blur(8px)" }, { opacity: 0, duration: 0.01 }, 0);
+      tl.fromTo(["#s6-l1b", "#s6-l2b", "#s6-ver-b"], { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+      tl.fromTo("#s6-tick", { scaleY: 0 }, { scaleY: 1, duration: 0.45, ease: "power3.out" }, 1.0);
+      tl.fromTo("#s6-ticklab", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25 }, 1.3);
+      tl.fromTo(["#s6-l1a", "#s6-l2a"], { x: -70, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out", stagger: 0.5 }, 1.2);
+      tl.fromTo([v1, v2], { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.5 }, 1.25);
+      tl.to(st, { a: 261, duration: 0.9, ease: "expo.out", onUpdate: place }, 1.25);
+      tl.to(st, { b: 316, duration: 0.9, ease: "expo.out", onUpdate: place }, 1.75);
+      tl.fromTo("#s6-ver-a", { y: 50, opacity: 0, filter: "blur(12px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 2.9);
+      // same test for the attention edit: the bars re-form
+      tl.to("#s6-ver-a", { y: -40, opacity: 0, filter: "blur(10px)", duration: 0.22, ease: "power3.in" }, 6.1);
+      tl.to("#s6-l1a", { y: -60, opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, 6.15);
+      tl.fromTo("#s6-l1b", { y: 60, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "back.out(1.6)" }, 6.25);
+      tl.to("#s6-l2a", { opacity: 0, duration: 0.05 }, 6.25);
+      tl.to("#s6-l2b", { opacity: 1, duration: 0.05 }, 6.25);
+      tl.to(st, { a: 417, b: 388, duration: 0.8, ease: "back.out(1.3)", onUpdate: place }, 6.25);
+      tl.fromTo("#s6-ver-b", { y: 50, opacity: 0, filter: "blur(12px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 7.1);
+      // the answer replaces the question
+      tl.to("#s6-line-a span", { opacity: 0, filter: "blur(8px)", duration: 0.14, stagger: 0.03 }, 7.9);
+      tl.to("#s6-line-b span", { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 8.15);
+      tl.to(".s6-line", { opacity: 0, filter: "blur(10px)", duration: 0.2 }, 10.25);
+      tl.to("#s6-rig", { scale: 0.03, opacity: 0, filter: "blur(14px)", duration: 0.32, ease: "power3.in", transformOrigin: "50% 40%" }, 10.28);
+      tl.fromTo("#s6-seed2", { scale: 4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out" }, 10.6);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s6"] = tl;
+    })();
+  </script>
+</template>

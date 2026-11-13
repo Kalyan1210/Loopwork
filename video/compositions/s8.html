@@ -1,0 +1,64 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s8-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #s8-line { position: absolute; left: 0; right: 0; top: 108px; text-align: center; font-size: 62px; letter-spacing: -0.02em; }
+    #s8-line span { display: inline-block; margin: 0 0.13em; }
+    #s8-rig { position: absolute; left: 200px; top: 290px; width: 1520px; height: 330px; }
+    #s8-num { position: absolute; left: 0; top: 20px; width: 470px; text-align: right; font-size: 230px; line-height: 1; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+    #s8-what { position: absolute; right: 1050px; top: 262px; white-space: nowrap; text-align: right; font-size: 40px; letter-spacing: -0.015em; line-height: 1.15; }
+    #s8-what small { display: block; font-size: 36px; color: #858585; }
+    #s8-dots { position: absolute; left: 540px; top: 22px; width: 980px; height: 300px; display: grid; grid-template-rows: repeat(6, 38px); grid-auto-flow: column; grid-auto-columns: 38px; gap: 14px 16px; }
+    #s8-dots i { display: block; border-radius: 50%; background: #171917; }
+    #s8-checks { position: absolute; left: 0; right: 0; top: 720px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+    .s8-pill { height: 96px; padding: 0 44px 0 20px; border-radius: 48px; background: #f6f6f6; box-shadow: 0 6px 24px rgba(90, 90, 90, 0.14); display: flex; align-items: center; gap: 22px; font-size: 44px; letter-spacing: -0.015em; white-space: nowrap; }
+    .s8-pill b { width: 60px; height: 60px; border-radius: 50%; background: #1f9d6b; display: flex; align-items: center; justify-content: center; }
+    .s8-pill svg { width: 36px; height: 36px; }
+    .s8-pill em { font-style: normal; color: #858585; }
+  </style>
+  <div id="root" data-composition-id="s8" data-width="1920" data-height="1080">
+    <div id="s8-in" class="clip s8-layer" data-start="0" data-duration="0.45"><div id="s8-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s8-title" class="clip" data-start="0.3" data-duration="7.4"><div id="s8-line"><span>Then</span><span>other</span><span>agents</span><span>checked</span><span>the</span><span>work</span></div></div>
+    <div id="s8-swarm" class="clip" data-start="0.3" data-duration="7.4">
+      <div id="s8-rig"><div id="s8-num">0</div><div id="s8-what">AI agent work items<small>six at a time, never 100 at once</small></div><div id="s8-dots"></div></div>
+    </div>
+    <div id="s8-proof" class="clip" data-start="3.9" data-duration="3.8">
+      <div id="s8-checks">
+        <div class="s8-pill" id="s8-p1"><b><svg viewBox="0 0 24 24" fill="none" stroke="#e6fff4" stroke-width="2.6" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b>2,074 statistics recomputed <em>0 mismatches</em></div>
+        <div class="s8-pill" id="s8-p2"><b><svg viewBox="0 0 24 24" fill="none" stroke="#e6fff4" stroke-width="2.6" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b>480 scores re-judged <em>453 agree</em></div>
+      </div>
+    </div>
+    <div id="s8-out" class="clip s8-layer" data-start="7.6" data-duration="0.4"><div id="s8-seed2" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+  </div>
+  <script>
+    (function () {
+      const box = document.getElementById("s8-dots");
+      for (let i = 0; i < 108; i++) box.appendChild(document.createElement("i"));
+      const dots = Array.from(box.children), cols = [];
+      for (let c = 0; c < 18; c++) cols.push(dots.slice(c * 6, c * 6 + 6));
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s8-seed", { scale: 1, opacity: 1 }, { x: 300, y: -120, scale: 1.6, opacity: 0, duration: 0.3, ease: "power3.in" }, 0.02);
+      tl.fromTo("#s8-line span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 0.4);
+      tl.fromTo("#s8-num", { opacity: 0, filter: "blur(12px)", scale: 0.8 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.3, ease: "power3.out" }, 0.45);
+      tl.fromTo("#s8-what", { opacity: 0, filter: "blur(8px)", y: 30 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "expo.out" }, 0.8);
+      // 108 work items arrive six at a time: one column per batch
+      const num = document.getElementById("s8-num");
+      cols.forEach((col, c) => {
+        const t = 0.6 + c * 0.15;
+        tl.fromTo(col, { x: 220, scale: 0, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 0.34, ease: "back.out(2)", stagger: 0.012 }, t);
+        tl.to({}, { duration: 0.01, onUpdate: () => {} }, t);
+      });
+      const cn = { n: 0 };
+      tl.to(cn, { n: 108, duration: 18 * 0.15, ease: "none", onUpdate: () => { num.textContent = Math.min(108, Math.floor(cn.n / 6) * 6 + (cn.n >= 108 ? 0 : 0)); } }, 0.75);
+      tl.to("#s8-num", { scale: 1.08, duration: 0.12, ease: "power2.out" }, 3.45);
+      tl.to("#s8-num", { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.5)" }, 3.57);
+      tl.fromTo("#s8-p1", { y: 70, scale: 0.7, opacity: 0, filter: "blur(10px)" }, { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "back.out(1.6)" }, 4.0);
+      tl.fromTo("#s8-p2", { y: 70, scale: 0.7, opacity: 0, filter: "blur(10px)" }, { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "back.out(1.6)" }, 5.0);
+      tl.to(["#s8-line", "#s8-checks"], { opacity: 0, filter: "blur(10px)", duration: 0.2 }, 7.25);
+      tl.to("#s8-rig", { scale: 0.03, y: 90, opacity: 0, filter: "blur(14px)", duration: 0.32, ease: "power3.in" }, 7.28);
+      tl.fromTo("#s8-seed2", { scale: 4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out" }, 7.6);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s8"] = tl;
+    })();
+  </script>
+</template>

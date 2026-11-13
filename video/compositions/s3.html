@@ -1,0 +1,65 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s3-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #s3-head { position: absolute; left: 0; right: 0; top: 96px; display: flex; align-items: baseline; justify-content: center; gap: 36px; }
+    #s3-num { width: 800px; text-align: right; font-size: 230px; line-height: 1; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+    #s3-labels { position: relative; width: 760px; height: 130px; }
+    #s3-labels div { position: absolute; left: 0; bottom: 8px; font-size: 54px; letter-spacing: -0.02em; white-space: nowrap; line-height: 1.12; }
+    #s3-labels small { display: block; font-size: 40px; color: #858585; }
+    #s3-board { position: absolute; left: 310px; top: 420px; width: 1500px; height: 480px; }
+    .s3-fam { position: absolute; left: 0; width: 240px; text-align: right; font-size: 32px; color: #858585; line-height: 46px; }
+    .s3-row { position: absolute; left: 270px; width: 1100px; height: 46px; background-image: radial-gradient(circle at 5.5px 23px, #171917 0 3.8px, transparent 4.4px); background-size: 11px 46px; }
+    #s3-pile { position: absolute; left: 480px; top: 470px; width: 960px; height: 420px; }
+    .s3-sheet { position: absolute; left: 0; top: 60px; width: 720px; height: 300px; border-radius: 18px; background-color: #f8f8f8; box-shadow: 0 6px 22px rgba(70, 70, 70, 0.16); background-size: 12px 30px; background-position: 6px 0; }
+  </style>
+  <div id="root" data-composition-id="s3" data-width="1920" data-height="1080">
+    <div id="s3-in" class="clip s3-layer" data-start="0" data-duration="0.45"><div id="s3-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s3-top" class="clip" data-start="0.3" data-duration="7.4">
+      <div id="s3-head"><div id="s3-num">0</div>
+        <div id="s3-labels"><div id="s3-lab-a">held-out tasks<small>10 families of 100</small></div><div id="s3-lab-b">scored episodes<small>every task, under 10 conditions</small></div></div>
+      </div>
+    </div>
+    <div id="s3-tasks" class="clip" data-start="0.3" data-duration="4.3"><div id="s3-board"></div></div>
+    <div id="s3-conds" class="clip" data-start="4.2" data-duration="3.5"><div id="s3-pile"></div></div>
+    <div id="s3-out" class="clip s3-layer" data-start="7.55" data-duration="0.45"><div id="s3-seed2" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+  </div>
+  <script>
+    (function () {
+      const fams = ["planning", "tools", "constraints", "synthesis", "math", "coding", "ambiguity", "calibration", "safety", "long-horizon"];
+      const board = document.getElementById("s3-board");
+      fams.forEach((f, i) => { const l = document.createElement("div"); l.className = "s3-fam"; l.style.top = i * 46 + "px"; l.textContent = f; board.appendChild(l); const r = document.createElement("div"); r.className = "s3-row"; r.style.top = i * 46 + "px"; board.appendChild(r); });
+      const pile = document.getElementById("s3-pile");
+      const cols = ["#1f9d6b", "#2f6bdc", "#2f6bdc", "#2f6bdc", "#2f6bdc", "#2f6bdc", "#e0702e", "#e0702e", "#e0702e", "#e0702e"];
+      cols.forEach((c, i) => { const s = document.createElement("div"); s.className = "s3-sheet"; s.style.backgroundImage = "radial-gradient(circle at 6px 15px, " + c + " 0 3.6px, transparent 4.2px)"; s.style.zIndex = 20 - i; pile.appendChild(s); });
+      const sheets = Array.from(pile.children);
+      const fmt = (n) => Math.round(n).toLocaleString("en-US");
+      const num = document.getElementById("s3-num");
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s3-seed", { scale: 1, opacity: 1 }, { x: -300, y: -330, scale: 3, opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 0.02);
+      // 1,000 tasks pour out of the dot, one family per row
+      tl.fromTo(".s3-row", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: "power3.out", stagger: 0.06 }, 0.35);
+      tl.fromTo(".s3-fam", { x: 40, opacity: 0, filter: "blur(6px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out", stagger: 0.06 }, 0.35);
+      const c = { n: 0 };
+      tl.fromTo("#s3-num", { opacity: 0, filter: "blur(12px)", scale: 0.8 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.3, ease: "power3.out" }, 0.35);
+      tl.to(c, { n: 1000, duration: 1.4, ease: "power2.out", onUpdate: () => { num.textContent = fmt(c.n); } }, 0.4);
+      tl.fromTo("#s3-lab-a", { x: -50, opacity: 0, filter: "blur(8px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 0.9);
+      // the board becomes one sheet, and the sheet is dealt ten times
+      tl.to("#s3-board", { scale: 0.62, x: -140, y: 20, opacity: 0, filter: "blur(12px)", duration: 0.4, ease: "power3.in" }, 3.95);
+      tl.fromTo(sheets, { x: 120, y: 0, opacity: 0, scale: 1.25, filter: "blur(12px)" }, { x: 120, y: 0, opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out" }, 4.25);
+      tl.to(sheets, { x: (i) => i * 27, y: (i) => 60 - i * 13, rotation: (i) => (i - 4.5) * 0.5, duration: 0.7, ease: "back.out(1.4)", stagger: 0.05 }, 4.65);
+      tl.to("#s3-lab-a", { y: -70, opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, 4.55);
+      tl.fromTo("#s3-lab-b", { y: 70, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "back.out(1.6)" }, 4.7);
+      tl.to(c, { n: 10000, duration: 1.4, ease: "power2.out", onUpdate: () => { num.textContent = fmt(c.n); } }, 4.7);
+      tl.to("#s3-num", { scale: 1.08, duration: 0.14, ease: "power2.out" }, 4.65);
+      tl.to("#s3-num", { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.6)" }, 6.1);
+      // fold away
+      tl.to("#s3-head", { opacity: 0, filter: "blur(12px)", y: 120, scale: 0.6, duration: 0.3, ease: "power3.in" }, 7.25);
+      tl.to(sheets, { x: 120, y: 0, rotation: 0, duration: 0.25, ease: "power3.in" }, 7.2);
+      tl.to("#s3-pile", { scale: 0.04, opacity: 0, filter: "blur(12px)", duration: 0.25, ease: "power3.in", transformOrigin: "50% 16%" }, 7.4);
+      tl.fromTo("#s3-seed2", { scale: 4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.22, ease: "power3.out" }, 7.58);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s3"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,66 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s4-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #s4-line { position: absolute; left: 0; right: 0; top: 108px; text-align: center; font-size: 62px; letter-spacing: -0.02em; }
+    #s4-line span { display: inline-block; margin: 0 0.13em; }
+    #s4-stage { position: absolute; left: 0; right: 0; top: 300px; height: 360px; }
+    .s4-sheet { position: absolute; left: 50%; top: 0; width: 620px; height: 320px; margin-left: -310px; border-radius: 20px; background-color: #f8f8f8; box-shadow: 0 6px 22px rgba(70, 70, 70, 0.16); background-size: 12px 16px; background-position: 10px 0; }
+    .s4-tag { position: absolute; left: 0; right: 0; top: -58px; text-align: center; font-size: 36px; color: #858585; }
+    #s4-result { position: absolute; left: 0; right: 0; top: 690px; display: flex; align-items: baseline; justify-content: center; gap: 30px; }
+    #s4-num { font-size: 150px; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+    #s4-num em { font-style: normal; color: #858585; } #s4-k { display: inline-block; width: 400px; text-align: right; }
+    #s4-what { font-size: 54px; letter-spacing: -0.02em; }
+    #s4-chips { position: absolute; left: 0; right: 0; top: 890px; display: flex; justify-content: center; gap: 26px; }
+    .s4-chip { height: 84px; padding: 0 30px 0 14px; border-radius: 16px; background: #e2e7e8; display: flex; align-items: center; gap: 16px; font-size: 44px; letter-spacing: -0.015em; }
+    .s4-chip b { width: 58px; height: 58px; border-radius: 11px; background: #e0702e; display: flex; align-items: center; justify-content: center; }
+    .s4-chip svg { width: 36px; height: 36px; }
+  </style>
+  <div id="root" data-composition-id="s4" data-width="1920" data-height="1080">
+    <div id="s4-in" class="clip s4-layer" data-start="0" data-duration="0.45"><div id="s4-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s4-title" class="clip" data-start="0.3" data-duration="6.4"><div id="s4-line"><span>First,</span><span>an</span><span>edit</span><span>that</span><span>changes</span><span>nothing</span></div></div>
+    <div id="s4-pair" class="clip" data-start="0.3" data-duration="6.5">
+      <div id="s4-stage">
+        <div class="s4-sheet" id="s4-a" style="background-image:radial-gradient(circle at 6px 8px,#1f9d6b 0 3.4px,transparent 4px)"><div class="s4-tag" id="s4-tag-a">baseline replies</div></div>
+        <div class="s4-sheet" id="s4-b" style="background-image:radial-gradient(circle at 6px 8px,#e0702e 0 3.4px,transparent 4px)"><div class="s4-tag" id="s4-tag-b">no-op edit replies</div></div>
+        <div class="s4-sheet" id="s4-c" style="opacity:0;background-image:radial-gradient(circle at 6px 8px,#171917 0 3.4px,transparent 4px)"></div>
+      </div>
+    </div>
+    <div id="s4-proof" class="clip" data-start="3.0" data-duration="3.8">
+      <div id="s4-result"><div id="s4-num"><span id="s4-k">0</span><em> / 1,000</em></div><div id="s4-what">identical replies</div></div>
+      <div id="s4-chips">
+        <div class="s4-chip" id="s4-chip-a"><b><svg viewBox="0 0 24 24" fill="none" stroke="#ffe9db" stroke-width="2.6" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b>no-op</div>
+        <div class="s4-chip" id="s4-chip-b"><b><svg viewBox="0 0 24 24" fill="none" stroke="#ffe9db" stroke-width="2.6" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></b>rollback</div>
+      </div>
+    </div>
+    <div id="s4-out" class="clip s4-layer" data-start="6.6" data-duration="0.4"><div id="s4-seed2" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s4-seed", { scale: 1, opacity: 1 }, { scaleX: 26, scaleY: 0.35, opacity: 0, duration: 0.32, ease: "power3.in" }, 0.02);
+      tl.fromTo("#s4-line span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 0.4);
+      // the dot splits into two sheets of replies
+      tl.fromTo("#s4-a", { x: 0, scale: 0.05, opacity: 0, filter: "blur(10px)" }, { x: -360, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.32);
+      tl.fromTo("#s4-b", { x: 0, scale: 0.05, opacity: 0, filter: "blur(10px)" }, { x: 360, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.38);
+      // lay one over the other: they match dot for dot
+      tl.to("#s4-a", { x: 0, duration: 0.6, ease: "power3.inOut" }, 2.2);
+      tl.to("#s4-b", { x: 0, duration: 0.6, ease: "power3.inOut" }, 2.2);
+      tl.to([".s4-tag"], { opacity: 0, filter: "blur(8px)", duration: 0.2 }, 2.2);
+      tl.to("#s4-c", { opacity: 1, duration: 0.12 }, 2.74);
+      tl.to(["#s4-a", "#s4-b"], { opacity: 0, duration: 0.05 }, 2.86);
+      tl.fromTo("#s4-c", { scale: 1.07 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.5)" }, 2.78);
+      const c = { n: 0 }; const k = document.getElementById("s4-k");
+      tl.fromTo("#s4-num", { opacity: 0, filter: "blur(12px)", y: 40 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power3.out" }, 3.05);
+      tl.to(c, { n: 1000, duration: 1.2, ease: "power2.out", onUpdate: () => { k.textContent = Math.round(c.n).toLocaleString("en-US"); } }, 3.1);
+      tl.fromTo("#s4-what", { x: -60, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 3.5);
+      tl.fromTo("#s4-chip-a", { y: 60, scale: 0.6, opacity: 0, filter: "blur(8px)" }, { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "back.out(1.8)" }, 4.4);
+      tl.fromTo("#s4-chip-b", { y: 60, scale: 0.6, opacity: 0, filter: "blur(8px)" }, { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "back.out(1.8)" }, 4.75);
+      tl.to(["#s4-line", "#s4-result", "#s4-chips"], { opacity: 0, filter: "blur(12px)", duration: 0.22, stagger: 0.04 }, 6.25);
+      tl.to("#s4-c", { scale: 0.04, y: 80, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, 6.32);
+      tl.fromTo("#s4-seed2", { scale: 4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out" }, 6.62);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s4"] = tl;
+    })();
+  </script>
+</template>

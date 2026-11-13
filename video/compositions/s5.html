@@ -1,0 +1,76 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: Inter, sans-serif; color: #171917; }
+    .s5-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #s5-title { position: absolute; left: 150px; top: 96px; font-size: 62px; letter-spacing: -0.02em; white-space: nowrap; }
+    #s5-title span { display: inline-block; margin-right: 0.26em; }
+    #s5-cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    .s5-row { position: absolute; left: 150px; height: 84px; width: 1650px; }
+    .s5-lab { position: absolute; left: 0; top: 0; width: 400px; line-height: 84px; text-align: right; font-size: 42px; letter-spacing: -0.015em; white-space: nowrap; }
+    .s5-bar { position: absolute; left: 430px; top: 14px; height: 56px; border-radius: 12px; transform-origin: 0 50%; }
+    .s5-val { position: absolute; top: 0; width: 160px; text-align: right; color: #fff; line-height: 84px; font-size: 46px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    #s5-ref { position: absolute; left: 1106.9px; top: 226px; width: 0; height: 690px; border-left: 4px dashed #1f9d6b; transform-origin: 50% 0; }
+    #s5-reflab { position: absolute; left: 1124px; top: 918px; font-size: 32px; color: #1f9d6b; white-space: nowrap; }
+    #s5-gap { position: absolute; left: 867.5px; top: 884px; width: 239.4px; height: 6px; border-radius: 3px; background: #171917; transform-origin: 100% 50%; }
+    #s5-note { position: absolute; left: 1134px; top: 776px; font-size: 76px; letter-spacing: -0.035em; white-space: nowrap; line-height: 1; }
+    #s5-note small { display: block; font-size: 34px; letter-spacing: -0.01em; color: #858585; margin-top: 10px; }
+    #s5-note2 { position: absolute; left: 1280px; top: 372px; font-size: 40px; letter-spacing: -0.015em; white-space: nowrap; color: #171917; }
+  </style>
+  <div id="root" data-composition-id="s5" data-width="1920" data-height="1080">
+    <div id="s5-in" class="clip s5-layer" data-start="0" data-duration="0.45"><div id="s5-seed" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+    <div id="s5-chart" class="clip" data-start="0.3" data-duration="13.3">
+      <div id="s5-cam" data-layout-allow-overflow>
+        <div id="s5-title"><span>Tasks</span><span>passed,</span><span>out</span><span>of</span><span>1,000</span></div>
+        <div id="s5-ref"></div><div id="s5-reflab">baseline</div>
+        <div class="s5-row" style="top:240px" data-v="479" data-c="#1f9d6b"><div class="s5-lab">unmodified model</div></div>
+        <div class="s5-row" style="top:350px" data-v="486" data-c="#2f6bdc"><div class="s5-lab">attention gain ×0.85</div></div>
+        <div class="s5-row" style="top:460px" data-v="434" data-c="#2f6bdc"><div class="s5-lab">MLP gain ×0.85</div></div>
+        <div class="s5-row" style="top:570px" data-v="417" data-c="#2f6bdc"><div class="s5-lab">attention gain ×0.70</div></div>
+        <div class="s5-row" style="top:680px" data-v="344" data-c="#2f6bdc"><div class="s5-lab">MLP gain ×1.15</div></div>
+        <div class="s5-row" style="top:790px" data-v="261" data-c="#2f6bdc"><div class="s5-lab">MLP gain ×0.70</div></div>
+        <div id="s5-gap"></div>
+        <div id="s5-note">−21.8 points<small>272 tasks regressed, 54 improved</small></div>
+        <div id="s5-note2">+0.7 points: no detectable change</div>
+      </div>
+    </div>
+    <div id="s5-out" class="clip s5-layer" data-start="13.6" data-duration="0.4"><div id="s5-seed2" style="width:26px;height:26px;border-radius:50%;background:#171917"></div></div>
+  </div>
+  <script>
+    (function () {
+      const PX = 1100 / 1000; // bar pixels per task
+      const rows = Array.from(document.querySelectorAll(".s5-row"));
+      rows.forEach((r) => { const v = +r.dataset.v; const b = document.createElement("div"); b.className = "s5-bar"; b.style.width = v * PX + "px"; b.style.background = r.dataset.c; r.appendChild(b); const n = document.createElement("div"); n.className = "s5-val"; n.style.left = 430 + v * PX - 178 + "px"; n.textContent = "0"; r.appendChild(n); });
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s5-seed", { scale: 1, opacity: 1 }, { x: -420, y: -290, scaleX: 9, scaleY: 0.6, opacity: 0, duration: 0.3, ease: "power3.in" }, 0.02);
+      tl.fromTo("#s5-title span", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.075 }, 0.4);
+      const starts = [0.75, 3.0, 3.9, 4.8, 5.7, 6.6];
+      rows.forEach((r, i) => {
+        const t = starts[i], v = +r.dataset.v, bar = r.querySelector(".s5-bar"), val = r.querySelector(".s5-val"), lab = r.querySelector(".s5-lab"), dur = i === 0 ? 1.3 : 0.75;
+        tl.fromTo(lab, { x: -70, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, t);
+        tl.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: dur, ease: "expo.out" }, t + 0.08);
+        const c = { n: 0 };
+        tl.fromTo(val, { opacity: 0, x: -v * PX }, { opacity: 1, x: 0, duration: dur, ease: "expo.out" }, t + 0.08);
+        tl.to(c, { n: v, duration: dur, ease: "expo.out", onUpdate: () => { val.textContent = Math.round(c.n); } }, t + 0.08);
+      });
+      // the baseline becomes the line every other bar is read against
+      tl.fromTo("#s5-ref", { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power3.inOut" }, 2.15);
+      tl.fromTo("#s5-reflab", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25 }, 2.6);
+      // push in on the one that fell furthest
+      const others = rows.slice(0, 5);
+      tl.to(others, { opacity: 0.22, duration: 0.4, ease: "power2.inOut" }, 7.8);
+      tl.to("#s5-title", { opacity: 0.22, duration: 0.4 }, 7.8);
+      tl.to("#s5-cam", { scale: 1.15, x: 105, y: -150, duration: 1.0, ease: "power2.inOut", transformOrigin: "50% 50%" }, 7.8);
+      tl.fromTo("#s5-gap", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 8.5);
+      tl.fromTo("#s5-note", { x: 80, opacity: 0, filter: "blur(12px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 8.7);
+      // pull back; one edit did nothing we could detect
+      tl.to("#s5-cam", { scale: 1, x: 0, y: 0, duration: 0.9, ease: "power2.inOut" }, 10.9);
+      tl.to([rows[5], "#s5-note", "#s5-gap"], { opacity: 0.22, duration: 0.4 }, 10.9);
+      tl.to(rows[1], { opacity: 1, duration: 0.4 }, 11.0);
+      tl.fromTo("#s5-note2", { x: 60, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 11.5);
+      tl.to("#s5-cam", { scale: 0.03, opacity: 0, filter: "blur(14px)", duration: 0.34, ease: "power3.in" }, 13.25);
+      tl.fromTo("#s5-seed2", { scale: 4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out" }, 13.6);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["s5"] = tl;
+    })();
+  </script>
+</template>

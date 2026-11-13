@@ -30,8 +30,8 @@ All from `results/summary.json`, `results/score_audit.json` and `swarm/engine_fa
 
 - Sound was measured, not heard: -17.4 LUFS integrated, true peak -3.8 dBTP, voice about 13 dB over the music.
 - Voiceover: ElevenLabs text to speech, script in `narration.json`, regenerate with `make_narration.py`
-  (needs `ELEVENLABS_API_KEY`). The voice id is the custom one from the Nova project settings; nobody confirmed by ear
-  that it is the intended voice.
+  (needs `ELEVENLABS_API_KEY`). The voice id is the custom one from the Nova project settings; the user confirmed
+  on 2026-11-13 that it is the right voice.
 - Music: an existing track from the PantriX video projects on this machine, trimmed to length. The source file
   `assets/audio/music.mp3` is not committed; supply any 88 s track at that path to re-render.
   The available ElevenLabs key has no music or sound-effect permission, so no new music was generated and there are no sound effects.
